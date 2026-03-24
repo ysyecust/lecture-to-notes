@@ -49,6 +49,50 @@ def compute_color_variance(img: Image.Image) -> float:
     return sum(stat.var) / len(stat.var)
 
 
+def detect_blackboard(img: Image.Image, threshold: float = 0.25) -> bool:
+    """
+    Detect if a significant portion of the image is a blackboard/chalkboard.
+
+    Blackboards are characterized by large areas of dark green or dark gray.
+    When a blackboard is detected, it likely contains hand-drawn diagrams
+    and should NOT be cropped out.
+    """
+    rgb = img.convert("RGB")
+    pixels = list(rgb.getdata())
+    total = len(pixels)
+    if total == 0:
+        return False
+
+    blackboard_pixels = 0
+    for r, g, b in pixels:
+        # Dark green (classic chalkboard): low R, moderate G, low B
+        is_dark_green = (r < 120 and g > r and g < 180 and b < 120
+                         and g - r > 10)
+        # Dark gray/black board
+        is_dark = (r < 80 and g < 80 and b < 80)
+        if is_dark_green or is_dark:
+            blackboard_pixels += 1
+
+    ratio = blackboard_pixels / total
+    return ratio > threshold
+
+
+def both_sides_have_content(left_density: float, right_density: float,
+                            min_ratio: float = 0.35) -> bool:
+    """
+    Check if both sides have significant content.
+
+    If the weaker side still has > min_ratio of the total density,
+    both sides likely contain important information (e.g., blackboard diagrams
+    on one side, slides on the other). In this case, keep the full frame.
+    """
+    total = left_density + right_density
+    if total == 0:
+        return False
+    weaker = min(left_density, right_density)
+    return (weaker / total) > min_ratio
+
+
 def detect_slide_region(img: Image.Image, threshold: float = 0.6) -> tuple:
     """
     Detect the slide region in a lecture frame.
@@ -79,10 +123,20 @@ def detect_slide_region(img: Image.Image, threshold: float = 0.6) -> tuple:
                     return (0, h // 2, w, h)
         return None  # No clear split, keep full frame
 
+    # === SAFEGUARD: Blackboard detection ===
+    # If a large portion of the frame is blackboard, the lecturer is likely
+    # drawing diagrams on it. Keep the full frame to preserve those diagrams.
+    if detect_blackboard(img, threshold=0.20):
+        # Blackboard detected — only crop if the slide side is VERY dominant
+        # (raise the effective threshold significantly)
+        threshold = max(threshold, 0.75)
+
     # Strategy 1: Ultra-wide frame — likely side-by-side layout
     # Try splitting at various vertical positions
     best_split = None
     best_score = 0
+    best_left_density = 0
+    best_right_density = 0
 
     for split_pct in [0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65]:
         split_x = int(w * split_pct)
@@ -107,11 +161,23 @@ def detect_slide_region(img: Image.Image, threshold: float = 0.6) -> tuple:
             if ratio > best_score:
                 best_score = ratio
                 best_split = (0, 0, split_x, h)
+                best_left_density = left_density
+                best_right_density = right_density
         else:
             ratio = right_score / total
             if ratio > best_score:
                 best_score = ratio
                 best_split = (split_x, 0, w, h)
+                best_left_density = left_density
+                best_right_density = right_density
+
+    # === SAFEGUARD: Both-sides-have-content check ===
+    # If the "weaker" side still has significant edge density,
+    # both sides likely contain important info (e.g., blackboard diagrams
+    # on one side, slides on the other). Keep full frame.
+    if best_split and both_sides_have_content(
+            best_left_density, best_right_density, min_ratio=0.42):
+        return None  # Both sides have content, keep full frame
 
     # Also check color variance as a secondary signal
     if best_split:
@@ -124,6 +190,12 @@ def detect_slide_region(img: Image.Image, threshold: float = 0.6) -> tuple:
         slide_var = compute_color_variance(slide_region)
         other_var = compute_color_variance(other_region)
 
+        # === SAFEGUARD: High variance on discarded side ===
+        # If the "discarded" side also has high color variance,
+        # it probably contains diagrams/writing, not just a lecturer.
+        if other_var > slide_var * 0.8:
+            return None  # Discarded side has too much content, keep full
+
         # If both strategies agree (edge density + color variance),
         # we're confident about the crop
         if slide_var > other_var * 0.5:  # Slide has reasonable variance
@@ -134,9 +206,13 @@ def detect_slide_region(img: Image.Image, threshold: float = 0.6) -> tuple:
     if aspect > 2.0:
         right_region = img.crop((w // 3, 0, w, h))
         left_region = img.crop((0, 0, w // 3, h))
-        if compute_edge_density(right_region) > compute_edge_density(left_region) * 1.5:
+        right_d = compute_edge_density(right_region)
+        left_d = compute_edge_density(left_region)
+
+        # Only crop if one side is MUCH denser (2x, not 1.5x)
+        if right_d > left_d * 2.0:
             return (w // 3, 0, w, h)
-        elif compute_edge_density(left_region) > compute_edge_density(right_region) * 1.5:
+        elif left_d > right_d * 2.0:
             return (0, 0, w * 2 // 3, h)
 
     return None  # No confident detection
