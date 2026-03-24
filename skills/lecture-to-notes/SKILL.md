@@ -5,7 +5,7 @@ description: Generate professional, information-dense, figure-rich LaTeX course 
 
 # Lecture to Notes
 
-Turn a lecture video (YouTube or Bilibili) into a complete, compilable `.tex` note set and a rendered PDF — with smart-cropped slide figures, not raw screenshots.
+Turn a lecture video (YouTube or Bilibili) into a complete, compilable `.tex` note set and a rendered PDF.
 
 ## Dependencies
 
@@ -20,7 +20,11 @@ Check before starting (use `which`). Prompt the user to install any missing tool
 | `python3` | Always | Smart crop script, Whisper |
 | `whisper` | Bilibili / no-CC | Speech-to-text fallback (openai-whisper) |
 
-The `scripts/smart_crop.py` script requires `Pillow` (`pip install Pillow`).
+Additional Python dependencies: `Pillow` (`pip install Pillow`).
+
+## YouTube Cookie Notice
+
+YouTube may require authentication to avoid bot detection. When `yt-dlp` fails with "Sign in to confirm you're not a bot", add `--cookies-from-browser chrome` (or `safari`/`firefox`/`edge`) to all `yt-dlp` commands.
 
 ## Goal
 
@@ -69,6 +73,13 @@ yt-dlp --write-subs --sub-langs "zh.*,en.*" --convert-subs srt --skip-download "
 yt-dlp --write-subs --sub-langs "zh-Hans,zh-CN,zh,ai-zh" --convert-subs srt --skip-download "<URL>"
 ```
 
+**Priority 1.5 — YouTube auto-generated subtitles** (when no manual CC):
+```bash
+yt-dlp --write-auto-subs --sub-langs "en" --convert-subs srt --skip-download "<URL>"
+# IMPORTANT: Clean duplicates — YouTube auto-subs repeat every line 2-3x
+python3 scripts/clean_subs.py subs.en.srt --stats
+```
+
 **Priority 2 — Whisper speech-to-text** (when no CC subtitles):
 ```bash
 yt-dlp -x --audio-format wav -o "audio.%(ext)s" "<URL>"
@@ -81,8 +92,10 @@ Skip subtitles. Use dense frame sampling (fps=1) and rely entirely on visual con
 #### 1c. Video and Cover Download
 
 ```bash
-# Cover image
+# Cover image (may be webp/png/jpg depending on platform)
 yt-dlp --write-thumbnail --skip-download -o "cover" "<URL>"
+# Convert to jpg for xelatex compatibility
+bash scripts/prepare_cover.sh .
 
 # Video (for frame extraction)
 yt-dlp -f "bestvideo+bestaudio/best" --merge-output-format mp4 -o "video.mp4" "<URL>"
@@ -112,24 +125,28 @@ mkdir -p frames
 ffmpeg -ss <start> -to <end> -i video.mp4 -vf "fps=1/15" frames/ch<N>_%03d.png
 ```
 
-#### Stage 2: Smart crop — remove lecturer, keep slides
+#### Stage 2: Frame selection (no automatic cropping)
 
-```bash
-python3 scripts/smart_crop.py --batch frames/ cropped/ --threshold 0.55
-```
+Use the original full frames directly. Do NOT apply automatic cropping — heuristic-based
+cropping is unreliable (misidentifies blackboard content as "low information" regions).
 
-The `smart_crop.py` script automatically:
-- Detects the slide/PPT region using edge density and color variance analysis
-- Removes the lecturer camera feed (typically one side of a split-screen layout)
-- Preserves only the high-information-density slide content
-- Handles ultra-wide (>2:1) side-by-side layouts and standard overlays
-- Falls back to the full frame when no clear split is detected
+**Future direction**: Use multimodal LLM (e.g., Claude Vision API) to classify frames
+and decide cropping per-frame. For now, use full frames and select the best ones manually
+via contact sheet review.
 
 #### Stage 3: Contact sheet review
 
 ```bash
-# Generate contact sheets from CROPPED frames for review
-magick montage cropped/ch<N>_*.png -tile 5x -geometry 384x216+2+2 contact_ch<N>.png
+# Generate contact sheets per chapter (keeps montage size manageable)
+# For chapters: montage per chapter directory
+magick montage frames/ch<N>_*.png -tile 5x -geometry 384x216+2+2 contact_ch<N>.png
+
+# For unchaptered videos with many frames (>100):
+# Split into batches of 50 to avoid montage failures
+for i in $(seq 1 50 $(ls frames/*.png | wc -l)); do
+  ls frames/*.png | tail -n +$i | head -50 | xargs magick montage \
+    -tile 5x -geometry 384x216+2+2 contact_batch_${i}.png
+done
 ```
 
 Review contact sheets to select the best frames. Criteria:
@@ -222,4 +239,6 @@ xelatex -interaction=nonstopmode notes.tex && xelatex -interaction=nonstopmode n
 ## Assets
 
 - `assets/notes-template.tex`: LaTeX template
-- `scripts/smart_crop.py`: Slide region detection and cropping (in project root)
+- `scripts/clean_subs.py`: YouTube auto-subtitle deduplication
+- `scripts/prepare_cover.sh`: Cover image format conversion (webp/png → jpg)
+- `scripts/smart_crop.py`: Slide region detection (experimental, not used by default)
