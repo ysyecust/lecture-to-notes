@@ -10,6 +10,7 @@
 - **字幕四级回退**：CC 字幕 → YouTube 自动字幕（自动去重）→ Whisper 语音转写 → 纯视觉模式
 - **字幕清洗**：YouTube auto-subs 自动去重（通常去除 50% 重复行）
 - **密集帧采样**：每 15 秒采样 + contact sheet 批量审查，不遗漏关键画面
+- **图文三方验证**：每个配图写入前必须通过「帧画面 + 字幕内容 + 描述文字」三方一致性检查，防止图文不匹配
 - **高信息密度写作**：结构化章节、教学信号盒（核心概念/背景知识/常见误区）、时间溯源脚注
 - **数学公式支持**：准确转写 PPT 中的数学公式为 LaTeX display math + 符号解释
 - **完整交付**：`.tex` 源文件 + 配图 + 编译好的 PDF
@@ -23,6 +24,7 @@
 ├── scripts/
 │   ├── clean_subs.py          # YouTube 自动字幕去重
 │   ├── prepare_cover.sh       # 封面格式转换（webp/png → jpg）
+│   ├── verify_figures.py      # 图文三方验证（时间戳 × 字幕 × 画面）
 │   └── smart_crop.py          # 课件区域检测（实验性，默认不启用）
 └── skills/
     └── lecture-to-notes/

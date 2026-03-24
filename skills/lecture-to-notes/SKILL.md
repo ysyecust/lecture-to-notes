@@ -168,6 +168,51 @@ Review contact sheets to select the best frames. Criteria:
 - Drop repetitive or low-information frames
 - Keep every frame that teaches something distinct
 
+#### Stage 4: Figure Verification (CRITICAL — prevents figure-text mismatch)
+
+**Problem**: ~40% of figures in early versions had mismatched timestamps, captions, or
+surrounding text. Root cause: timestamps were estimated from frame numbers, captions were
+written from "what should be here" rather than "what IS here", and content was inferred
+from section structure rather than verified against the actual frame.
+
+**Before writing ANY figure into LaTeX, perform this three-way verification:**
+
+For each candidate figure:
+
+1. **Compute exact timestamp**: `chapter_start_seconds + (frame_number - 1) × 15`
+
+2. **Cross-reference with subtitle**: Find the Whisper/CC subtitle entry at that timestamp.
+   Read 2-3 subtitle lines before and after. This tells you what the speaker is ACTUALLY
+   saying at the moment of that frame.
+
+   ```python
+   # Quick lookup: what was being said at timestamp T?
+   import re
+   target_sec = 285  # example: 4:45
+   for entry in srt_entries:
+       if abs(entry.start - target_sec) < 15:
+           print(f"{entry.start}s: {entry.text}")
+   ```
+
+3. **Read the frame at full resolution**: Use the Read tool to view the actual frame image.
+   Identify the ACTUAL text/diagram/code shown on screen — not what you think should be there.
+
+4. **Three-way match check**: Verify that ALL THREE align:
+   - ✅ Frame visual content (what the slide/screen actually shows)
+   - ✅ Subtitle content (what the speaker is saying at that moment)
+   - ✅ Your caption + surrounding text (what you plan to write)
+
+   If any mismatch: either pick a different frame, adjust the timestamp, or rewrite the caption.
+
+**Common failure modes to watch for:**
+
+| Failure | Example | Fix |
+|---------|---------|-----|
+| Frame shows slide A, caption describes slide B | Frame shows "Language" section but caption says "Transformer" | Read frame at full res before writing caption |
+| Timestamp off by 1-2 minutes | @07:00 claimed but actual content is at @09:00 | Cross-check with subtitle timestamps |
+| Caption describes the section topic, not the frame | "Scaling Law 幂律关系" but frame shows a chess board | Write caption from frame content, not section title |
+| Frame is transitional (between slides) | Half old slide, half new slide | Pick a frame 15s earlier or later |
+
 ### Phase 3: Writing
 
 #### Teaching Content Rules
@@ -188,7 +233,7 @@ Review contact sheets to select the best frames. Criteria:
 
 4. **Front page cover**: video's original cover image, visually distinct from in-body figures.
 
-5. **Figures: use smart-cropped frames.** Every figure should show slide content without the lecturer. Use as many figures as needed for teaching clarity — do not optimize for a low count.
+5. **Figures: use full frames.** Use as many figures as needed for teaching clarity — do not optimize for a low count. **Every figure MUST pass the Stage 4 three-way verification before being written into LaTeX.** Never write a caption from section context alone — always read the actual frame first.
 
 6. **No figures inside boxes.** `importantbox`, `knowledgebox`, `warningbox` must not contain `\includegraphics`.
 
