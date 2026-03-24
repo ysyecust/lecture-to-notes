@@ -1,0 +1,141 @@
+\documentclass[a4paper]{article}
+
+% Basic packages
+\usepackage[fontset=fandol]{ctex}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[most]{tcolorbox}
+\usepackage{etoolbox}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{tikz}
+\IfFileExists{pgfplots.sty}{
+    \usepackage{pgfplots}
+    \pgfplotsset{compat=1.18}
+}{}
+
+% ===== Highlight boxes =====
+\newtcolorbox{knowledgebox}[1]{
+    enhanced, colback=blue!5!white, colframe=blue!75!black, colbacktitle=blue!75!black,
+    coltitle=white, fonttitle=\bfseries, title=#1, attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxrule=1pt, sharp corners
+}
+
+\newtcolorbox{importantbox}[1]{
+    enhanced, colback=yellow!10!white, colframe=yellow!80!black, colbacktitle=yellow!80!black,
+    coltitle=black, fonttitle=\bfseries, title=#1, sharp corners
+}
+
+\newtcolorbox{warningbox}[1]{
+    enhanced, colback=red!5!white, colframe=red!75!black, colbacktitle=red!75!black,
+    coltitle=white, fonttitle=\bfseries, title=#1, sharp corners
+}
+
+% ===== Code listings =====
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{red!60!black},
+    commentstyle=\color{green!60!black},
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    captionpos=b,
+    extendedchars=false
+}
+
+% ===== Front-page metadata =====
+% Fill these in when generating notes.
+\newcommand{\notetitle}{课程笔记：[课程主题]}
+\newcommand{\notesubtitle}{}
+\newcommand{\noteauthors}{lecture-to-notes}
+\newcommand{\notedate}{\today}
+\newcommand{\videochannel}{[频道/作者]}
+\newcommand{\videopublishdate}{[发布日期]}
+\newcommand{\videoduration}{[视频时长]}
+\newcommand{\videourl}{}
+\newcommand{\videocoverpath}{}
+
+\begin{document}
+
+% ===== Title page =====
+\begin{titlepage}
+\centering
+{\Large 课程笔记\par}
+\vspace{1.2cm}
+{\huge\bfseries \notetitle\par}
+\ifdefempty{\notesubtitle}{}{
+\vspace{0.3cm}
+{\large \notesubtitle\par}
+}
+\vspace{0.5cm}
+{\large \noteauthors\par}
+\vspace{0.3cm}
+{\large \notedate\par}
+\vspace{1.0cm}
+
+\ifdefempty{\videocoverpath}{
+{\small 请在生成笔记时填入视频封面图的本地路径。\par}
+}{
+\includegraphics[width=0.82\textwidth,height=0.40\textheight,keepaspectratio]{\videocoverpath}\par
+}
+
+\vfill
+\begin{tcolorbox}[width=0.9\textwidth, colback=black!2!white, colframe=black!60, sharp corners]
+\textbf{视频作者/频道}：\videochannel\par
+\textbf{发布日期}：\videopublishdate\par
+\textbf{视频时长}：\videoduration\par
+\textbf{视频链接}：
+\ifdefempty{\videourl}{
+未填写
+}{
+\href{\videourl}{\nolinkurl{\videourl}}
+}
+\end{tcolorbox}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+%% --- 正文内容开始 --- %%
+
+% INSTRUCTIONS FOR THE GENERATING AGENT:
+%
+% 1. Fill the metadata commands above (\notetitle, \videocoverpath, etc.)
+% 2. Replace this block with the generated notes.
+%
+% FIGURE PATTERN (use smart-cropped frames):
+%   \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=\textwidth]{figures/fig_xxx.png}
+%   \caption{描述\protect\footnotemark}
+%   \end{figure}
+%   \footnotetext{视频画面时间区间：00:12:31--00:12:46。}
+%
+% BOX RULES:
+%   - importantbox: core concepts, definitions, key mechanisms
+%   - knowledgebox: background, history, design tradeoffs, analogies
+%   - warningbox:   common mistakes, hidden assumptions, pitfalls
+%   - NO figures inside boxes
+%   - No quota per section — use as many as the teaching signal demands
+%
+% SECTION STRUCTURE:
+%   - Every major \section ends with \subsection{本章小结}
+%   - Optionally add \subsection{拓展阅读} for external links
+%   - Final section: \section{总结与延伸} with speaker summary + your synthesis
+%
+% WRITING RULES:
+%   - Default language: Chinese
+%   - Reconstruct teaching flow, don't mirror subtitle order
+%   - Math: $$...$$ then symbol explanation list
+%   - Code: lstlisting with caption
+%   - No [cite] placeholders
+
+%% --- 正文内容结束 --- %%
+
+\end{document}
