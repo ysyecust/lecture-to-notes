@@ -52,6 +52,15 @@ Adapt the acquisition workflow accordingly (see below).
 
 ## Workflow
 
+### Working Directory Convention
+
+**CRITICAL**: Always use absolute paths for background commands (Whisper, video download).
+Claude Code's shell resets the working directory between commands. Background tasks that
+use relative paths will write output to the wrong location.
+
+Recommended naming: `<course_id>_<lecture_number>_<short_title>/`
+- Example: `nju_os_01_intro/`, `nju_os_02_app_view/`, `tamu_biegler_nlp/`
+
 ### Phase 1: Source Acquisition
 
 #### 1a. Metadata Inspection
@@ -83,7 +92,11 @@ python3 scripts/clean_subs.py subs.en.srt --stats
 **Priority 2 — Whisper speech-to-text** (when no CC subtitles):
 ```bash
 yt-dlp -x --audio-format wav -o "audio.%(ext)s" "<URL>"
-whisper audio.wav --model small --language zh --output_format srt --output_dir .
+# IMPORTANT: Use absolute paths for Whisper to avoid working directory issues
+# when running in background. The shell may reset cwd between commands.
+WORKDIR="$(pwd)"
+whisper "$WORKDIR/audio.wav" --model small --language zh \
+  --output_format srt --output_dir "$WORKDIR"
 ```
 
 **Priority 3 — Visual-only mode** (when audio quality is unusable):
