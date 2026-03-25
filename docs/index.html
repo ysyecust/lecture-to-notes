@@ -3,148 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lecture to Notes — AI 生成的视频讲义</title>
+    <title>Lecture to Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0f172a;
-            --surface: #1e293b;
-            --border: #334155;
-            --text: #e2e8f0;
-            --text-muted: #94a3b8;
-            --accent: #38bdf8;
-            --accent-hover: #7dd3fc;
-            --green: #4ade80;
-            --yellow: #facc15;
-            --red: #f87171;
+            --bg-primary: #09090b;
+            --bg-card: #18181b;
+            --bg-hover: #27272a;
+            --border: #27272a;
+            --border-hover: #3f3f46;
+            --text: #fafafa;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent: #6366f1;
+            --accent-glow: rgba(99,102,241,0.3);
+            --green: #22c55e;
+            --blue: #3b82f6;
+            --purple: #a855f7;
+            --orange: #f97316;
+            --pink: #ec4899;
+            --cyan: #06b6d4;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            background: var(--bg);
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
             color: var(--text);
-            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 960px;
+        /* Animated gradient background */
+        .bg-glow {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 20%, rgba(99,102,241,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(168,85,247,0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 50%, rgba(6,182,212,0.04) 0%, transparent 50%);
+            animation: glow-drift 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        @keyframes glow-drift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-3%, 3%); }
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 24px;
         }
 
+        /* Nav */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        .logo span { color: var(--accent); }
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: var(--text); }
+
         /* Hero */
         .hero {
+            padding: 80px 0 64px;
             text-align: center;
-            padding: 80px 0 48px;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(99,102,241,0.1);
+            border: 1px solid rgba(99,102,241,0.2);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #818cf8;
+            margin-bottom: 24px;
         }
         .hero h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), #a78bfa);
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
         }
         .hero p {
             font-size: 1.1rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 24px;
+            color: var(--text-secondary);
+            max-width: 560px;
+            margin: 0 auto 32px;
+            line-height: 1.7;
         }
-        .badge-row {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 9999px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        .badge-blue { background: rgba(56,189,248,0.15); color: var(--accent); }
-        .badge-green { background: rgba(74,222,128,0.15); color: var(--green); }
-        .badge-yellow { background: rgba(250,204,21,0.15); color: var(--yellow); }
 
-        /* Stats */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin-bottom: 48px;
+        /* Stats strip */
+        .stats-strip {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-bottom: 64px;
         }
-        .stat-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
+        .stat {
             text-align: center;
         }
-        .stat-card .num {
+        .stat .value {
             font-size: 2rem;
-            font-weight: 800;
-            color: var(--accent);
+            font-weight: 900;
+            font-family: 'JetBrains Mono', monospace;
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .stat-card .label {
-            font-size: 0.85rem;
+        .stat .label {
+            font-size: 0.8rem;
             color: var(--text-muted);
-            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 2px;
         }
 
-        /* Section */
-        .section-title {
-            font-size: 1.3rem;
+        /* Section header */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-top: 16px;
+        }
+        .section-header .icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        .section-header .icon.purple { background: rgba(168,85,247,0.15); }
+        .section-header .icon.red { background: rgba(239,68,68,0.15); }
+        .section-header h2 {
+            font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 20px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--border);
+            letter-spacing: -0.01em;
         }
-
-        /* Card Grid */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 16px;
-            margin-bottom: 48px;
-        }
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-            transition: border-color 0.2s, transform 0.2s;
-        }
-        .card:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-        .card .course-tag {
+        .section-header .count {
             font-size: 0.75rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 8px;
-        }
-        .card .course-tag.nju { color: #a78bfa; }
-        .card .course-tag.youtube { color: var(--red); }
-        .card h3 {
-            font-size: 1.05rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        .card .meta {
-            font-size: 0.85rem;
+            padding: 2px 8px;
+            border-radius: 100px;
+            background: var(--bg-hover);
             color: var(--text-muted);
-            margin-bottom: 12px;
         }
-        .card .meta span {
-            display: inline-block;
-            margin-right: 12px;
+
+        /* Lecture cards */
+        .lecture-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 48px;
         }
-        .card .links {
+        .lecture-card {
+            display: grid;
+            grid-template-columns: 48px 1fr auto;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .lecture-card:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-hover);
+            transform: translateX(4px);
+        }
+        .lecture-num {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+        .lecture-num.purple { background: rgba(168,85,247,0.12); color: #c084fc; }
+        .lecture-num.red { background: rgba(239,68,68,0.12); color: #fca5a5; }
+        .lecture-info h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            letter-spacing: -0.01em;
+        }
+        .lecture-info .meta {
+            display: flex;
+            gap: 16px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .lecture-actions {
             display: flex;
             gap: 8px;
         }
@@ -154,214 +243,287 @@
             gap: 6px;
             padding: 8px 16px;
             border-radius: 8px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             text-decoration: none;
-            transition: background 0.2s;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
         }
-        .btn-primary {
+        .btn-accent {
             background: var(--accent);
-            color: var(--bg);
+            color: white;
+            box-shadow: 0 0 20px var(--accent-glow);
         }
-        .btn-primary:hover { background: var(--accent-hover); }
+        .btn-accent:hover {
+            background: #4f46e5;
+            box-shadow: 0 0 30px var(--accent-glow);
+            transform: translateY(-1px);
+        }
         .btn-ghost {
             background: transparent;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             border: 1px solid var(--border);
         }
-        .btn-ghost:hover { border-color: var(--text); color: var(--text); }
+        .btn-ghost:hover {
+            border-color: var(--text-muted);
+            color: var(--text);
+        }
+
+        /* Modal overlay for PDF preview */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            width: 100%;
+            max-width: 900px;
+            height: 90vh;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .modal-header h3 { font-size: 0.95rem; font-weight: 600; }
+        .modal-close {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-close:hover { background: var(--bg-hover); color: var(--text); }
+        .modal-body {
+            flex: 1;
+            overflow: hidden;
+        }
+        .modal-body iframe, .modal-body embed, .modal-body object {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
 
         /* Footer */
         footer {
             text-align: center;
             padding: 48px 0;
-            color: var(--text-muted);
-            font-size: 0.85rem;
             border-top: 1px solid var(--border);
+            margin-top: 32px;
         }
-        footer a { color: var(--accent); text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
+        footer p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+        footer a { color: var(--text-secondary); text-decoration: none; }
+        footer a:hover { color: var(--text); }
 
         @media (max-width: 640px) {
-            .hero h1 { font-size: 1.8rem; }
-            .stats { grid-template-columns: repeat(2, 1fr); }
-            .card-grid { grid-template-columns: 1fr; }
+            .lecture-card { grid-template-columns: 40px 1fr; }
+            .lecture-actions { display: none; }
+            .lecture-card { cursor: pointer; }
+            .stats-strip { gap: 20px; }
+            .stat .value { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Hero -->
+    <div class="bg-glow"></div>
+
+    <div class="wrapper">
+        <nav>
+            <div class="logo">lecture<span>-to-</span>notes</div>
+            <a href="https://github.com/ysyecust/lecture-to-notes" target="_blank">GitHub ↗</a>
+        </nav>
+
         <section class="hero">
-            <h1>Lecture to Notes</h1>
-            <p>将 YouTube / Bilibili 讲座视频自动转换为专业的 LaTeX 课程笔记。由 AI 驱动，带图文三方验证。</p>
-            <div class="badge-row">
-                <span class="badge badge-blue">YouTube + Bilibili</span>
-                <span class="badge badge-green">Whisper 字幕回退</span>
-                <span class="badge badge-yellow">图文三方验证</span>
-            </div>
+            <div class="hero-badge">✦ AI-Powered Lecture Notes</div>
+            <h1>Video → <span class="gradient">LaTeX Notes</span></h1>
+            <p>将 YouTube / Bilibili 讲座视频自动转换为高信息密度的 LaTeX 课程讲义。点击任意卡片在线预览 PDF。</p>
         </section>
 
-        <!-- Stats -->
-        <div class="stats">
-            <div class="stat-card">
-                <div class="num">8</div>
-                <div class="label">视频讲义</div>
-            </div>
-            <div class="stat-card">
-                <div class="num">112</div>
-                <div class="label">总页数</div>
-            </div>
-            <div class="stat-card">
-                <div class="num">2</div>
-                <div class="label">平台覆盖</div>
-            </div>
-            <div class="stat-card">
-                <div class="num">3</div>
-                <div class="label">课程系列</div>
-            </div>
+        <div class="stats-strip">
+            <div class="stat"><div class="value">8</div><div class="label">Lectures</div></div>
+            <div class="stat"><div class="value">112</div><div class="label">Pages</div></div>
+            <div class="stat"><div class="value">2</div><div class="label">Platforms</div></div>
+            <div class="stat"><div class="value">~10h</div><div class="label">Video Hours</div></div>
         </div>
 
         <!-- NJU OS -->
-        <h2 class="section-title">🎓 南京大学 · 操作系统原理 2026</h2>
-        <div class="card-grid">
-            <div class="card">
-                <div class="course-tag nju">NJU OS · 第01讲</div>
-                <h3>Agentic AI 时代的操作系统课：绪论</h3>
-                <div class="meta">
-                    <span>📺 蒋炎岩 (jyy)</span>
-                    <span>⏱ 97 min</span>
-                    <span>📄 18 页</span>
+        <div class="section-header">
+            <div class="icon purple">🎓</div>
+            <h2>南京大学 · 操作系统原理 2026</h2>
+            <span class="count">6 lectures</span>
+        </div>
+        <div class="lecture-list">
+            <div class="lecture-card" onclick="openPreview('pdfs/nju_os_01_intro.pdf', '01 - 绪论')">
+                <div class="lecture-num purple">01</div>
+                <div class="lecture-info">
+                    <h3>Agentic AI 时代的操作系统课：绪论</h3>
+                    <div class="meta"><span>蒋炎岩 (jyy)</span><span>97 min</span><span>18 页</span></div>
                 </div>
-                <div class="links">
-                    <a href="pdfs/nju_os_01_intro.pdf" class="btn btn-primary">📥 下载 PDF</a>
-                    <a href="https://www.bilibili.com/video/BV1opAfzpEf9" class="btn btn-ghost" target="_blank">▶ B站</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="course-tag nju">NJU OS · 第02讲</div>
-                <h3>应用视角的操作系统</h3>
-                <div class="meta">
-                    <span>📺 蒋炎岩 (jyy)</span>
-                    <span>⏱ 88 min</span>
-                    <span>📄 17 页</span>
-                </div>
-                <div class="links">
-                    <a href="pdfs/nju_os_02_app_view.pdf" class="btn btn-primary">📥 下载 PDF</a>
-                    <a href="https://www.bilibili.com/video/BV1KNPHzPEra" class="btn btn-ghost" target="_blank">▶ B站</a>
+                <div class="lecture-actions">
+                    <a href="pdfs/nju_os_01_intro.pdf" class="btn btn-accent" onclick="event.stopPropagation()">📥 PDF</a>
+                    <a href="https://www.bilibili.com/video/BV1opAfzpEf9" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ B站</a>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="course-tag nju">NJU OS · 第03讲</div>
-                <h3>硬件视角的操作系统</h3>
-                <div class="meta">
-                    <span>📺 蒋炎岩 (jyy)</span>
-                    <span>⏱ 96 min</span>
-                    <span>📄 14 页</span>
+            <div class="lecture-card" onclick="openPreview('pdfs/nju_os_02_app_view.pdf', '02 - 应用视角的操作系统')">
+                <div class="lecture-num purple">02</div>
+                <div class="lecture-info">
+                    <h3>应用视角的操作系统</h3>
+                    <div class="meta"><span>蒋炎岩 (jyy)</span><span>88 min</span><span>17 页</span></div>
                 </div>
-                <div class="links">
-                    <a href="pdfs/nju_os_03_hardware.pdf" class="btn btn-primary">📥 下载 PDF</a>
-                    <a href="https://www.bilibili.com/video/BV18fcozAEsy" class="btn btn-ghost" target="_blank">▶ B站</a>
+                <div class="lecture-actions">
+                    <a href="pdfs/nju_os_02_app_view.pdf" class="btn btn-accent" onclick="event.stopPropagation()">📥 PDF</a>
+                    <a href="https://www.bilibili.com/video/BV1KNPHzPEra" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ B站</a>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="course-tag nju">NJU OS · 第04讲 (Aside)</div>
-                <h3>LLM, Agents 和 Scaling Law</h3>
-                <div class="meta">
-                    <span>📺 蒋炎岩 (jyy)</span>
-                    <span>⏱ 82 min</span>
-                    <span>📄 12 页</span>
+            <div class="lecture-card" onclick="openPreview('pdfs/nju_os_03_hardware.pdf', '03 - 硬件视角的操作系统')">
+                <div class="lecture-num purple">03</div>
+                <div class="lecture-info">
+                    <h3>硬件视角的操作系统</h3>
+                    <div class="meta"><span>蒋炎岩 (jyy)</span><span>96 min</span><span>14 页</span></div>
                 </div>
-                <div class="links">
-                    <a href="pdfs/nju_os_04_llm_agents.pdf" class="btn btn-primary">📥 下载 PDF</a>
-                    <a href="https://www.bilibili.com/video/BV1gEcmzzE4P" class="btn btn-ghost" target="_blank">▶ B站</a>
+                <div class="lecture-actions">
+                    <a href="pdfs/nju_os_03_hardware.pdf" class="btn btn-accent" onclick="event.stopPropagation()">📥 PDF</a>
+                    <a href="https://www.bilibili.com/video/BV18fcozAEsy" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ B站</a>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="course-tag nju">NJU OS · 第05讲</div>
-                <h3>程序和进程；fork, execve, exit</h3>
-                <div class="meta">
-                    <span>📺 蒋炎岩 (jyy)</span>
-                    <span>⏱ 85 min</span>
-                    <span>📄 13 页</span>
+            <div class="lecture-card" onclick="openPreview('pdfs/nju_os_04_llm_agents.pdf', '04 - LLM, Agents 和 Scaling Law')">
+                <div class="lecture-num purple">04</div>
+                <div class="lecture-info">
+                    <h3>LLM, Agents 和 Scaling Law <span style="color:var(--orange);font-size:0.75rem;">(Aside)</span></h3>
+                    <div class="meta"><span>蒋炎岩 (jyy)</span><span>82 min</span><span>12 页</span></div>
                 </div>
-                <div class="links">
-                    <a href="pdfs/nju_os_05_process_fork.pdf" class="btn btn-primary">📥 下载 PDF</a>
-                    <a href="https://www.bilibili.com/video/BV1N8w9zJENu" class="btn btn-ghost" target="_blank">▶ B站</a>
+                <div class="lecture-actions">
+                    <a href="pdfs/nju_os_04_llm_agents.pdf" class="btn btn-accent" onclick="event.stopPropagation()">📥 PDF</a>
+                    <a href="https://www.bilibili.com/video/BV1gEcmzzE4P" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ B站</a>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="course-tag nju">NJU OS · 第06讲</div>
-                <h3>进程的地址空间；mmap, munmap, mprotect</h3>
-                <div class="meta">
-                    <span>📺 蒋炎岩 (jyy)</span>
-                    <span>⏱ 79 min</span>
-                    <span>📄 10 页</span>
+            <div class="lecture-card" onclick="openPreview('pdfs/nju_os_05_process_fork.pdf', '05 - 程序和进程')">
+                <div class="lecture-num purple">05</div>
+                <div class="lecture-info">
+                    <h3>程序和进程；fork, execve, exit</h3>
+                    <div class="meta"><span>蒋炎岩 (jyy)</span><span>85 min</span><span>13 页</span></div>
                 </div>
-                <div class="links">
-                    <a href="pdfs/nju_os_06_mmap.pdf" class="btn btn-primary">📥 下载 PDF</a>
-                    <a href="https://www.bilibili.com/video/BV18nAjz9EcW" class="btn btn-ghost" target="_blank">▶ B站</a>
+                <div class="lecture-actions">
+                    <a href="pdfs/nju_os_05_process_fork.pdf" class="btn btn-accent" onclick="event.stopPropagation()">📥 PDF</a>
+                    <a href="https://www.bilibili.com/video/BV1N8w9zJENu" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ B站</a>
+                </div>
+            </div>
+
+            <div class="lecture-card" onclick="openPreview('pdfs/nju_os_06_mmap.pdf', '06 - 进程的地址空间')">
+                <div class="lecture-num purple">06</div>
+                <div class="lecture-info">
+                    <h3>进程的地址空间；mmap, munmap, mprotect</h3>
+                    <div class="meta"><span>蒋炎岩 (jyy)</span><span>79 min</span><span>10 页</span></div>
+                </div>
+                <div class="lecture-actions">
+                    <a href="pdfs/nju_os_06_mmap.pdf" class="btn btn-accent" onclick="event.stopPropagation()">📥 PDF</a>
+                    <a href="https://www.bilibili.com/video/BV18nAjz9EcW" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ B站</a>
                 </div>
             </div>
         </div>
 
-        <!-- YouTube Lectures -->
-        <h2 class="section-title">🌐 YouTube 讲座</h2>
-        <div class="card-grid">
-            <div class="card">
-                <div class="course-tag youtube">Texas A&M Energy Institute</div>
-                <h3>Multi-level Optimization for Large-Scale Nonlinear Energy Systems</h3>
-                <div class="meta">
-                    <span>📺 Dr. Larry Biegler (CMU)</span>
-                    <span>⏱ 45 min</span>
-                    <span>📄 16 页</span>
-                </div>
-                <div class="links">
-                    <a href="pdfs/tamu_biegler_nlp.pdf" class="btn btn-primary">📥 下载 PDF</a>
-                    <a href="https://www.youtube.com/watch?v=mst-tJ6ELTE" class="btn btn-ghost" target="_blank">▶ YouTube</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="course-tag youtube">AOCS</div>
-                <h3>Rheology Principles and Applications</h3>
-                <div class="meta">
-                    <span>📺 Mark Patrick Ph.D.</span>
-                    <span>⏱ 63 min</span>
-                    <span>📄 12 页</span>
-                </div>
-                <div class="links">
-                    <a href="pdfs/aocs_rheology.pdf" class="btn btn-primary">📥 下载 PDF</a>
-                    <a href="https://www.youtube.com/watch?v=etR4ttjY4f0" class="btn btn-ghost" target="_blank">▶ YouTube</a>
-                </div>
-            </div>
+        <!-- YouTube -->
+        <div class="section-header">
+            <div class="icon red">🌐</div>
+            <h2>YouTube Lectures</h2>
+            <span class="count">2 lectures</span>
         </div>
+        <div class="lecture-list">
+            <div class="lecture-card" onclick="openPreview('pdfs/tamu_biegler_nlp.pdf', 'Multi-level Optimization for Nonlinear Energy Systems')">
+                <div class="lecture-num red">EN</div>
+                <div class="lecture-info">
+                    <h3>Multi-level Optimization for Large-Scale Nonlinear Energy Systems</h3>
+                    <div class="meta"><span>Dr. Larry Biegler (CMU)</span><span>45 min</span><span>16 页</span></div>
+                </div>
+                <div class="lecture-actions">
+                    <a href="pdfs/tamu_biegler_nlp.pdf" class="btn btn-accent" onclick="event.stopPropagation()">📥 PDF</a>
+                    <a href="https://www.youtube.com/watch?v=mst-tJ6ELTE" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ YT</a>
+                </div>
+            </div>
 
-        <!-- About -->
-        <h2 class="section-title">📖 关于</h2>
-        <div class="card" style="margin-bottom: 48px;">
-            <h3>这些讲义是怎么生成的？</h3>
-            <p style="color: var(--text-muted); margin-top: 8px;">
-                使用 <a href="https://github.com/ysyecust/lecture-to-notes" style="color: var(--accent);">lecture-to-notes</a>
-                工具自动生成。工作流程：视频下载 → Whisper 字幕转写 → 密集帧采样 → 图文三方验证 → LaTeX 结构化写作 → PDF 编译。
-                每个配图都经过「帧画面 + 字幕内容 + 描述文字」三方一致性验证。
-            </p>
-            <div style="margin-top: 16px;">
-                <a href="https://github.com/ysyecust/lecture-to-notes" class="btn btn-ghost" target="_blank">⭐ GitHub 仓库</a>
+            <div class="lecture-card" onclick="openPreview('pdfs/aocs_rheology.pdf', 'Rheology Principles and Applications')">
+                <div class="lecture-num red">EN</div>
+                <div class="lecture-info">
+                    <h3>Rheology Principles and Applications</h3>
+                    <div class="meta"><span>Mark Patrick Ph.D.</span><span>63 min</span><span>12 页</span></div>
+                </div>
+                <div class="lecture-actions">
+                    <a href="pdfs/aocs_rheology.pdf" class="btn btn-accent" onclick="event.stopPropagation()">📥 PDF</a>
+                    <a href="https://www.youtube.com/watch?v=etR4ttjY4f0" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ YT</a>
+                </div>
             </div>
         </div>
     </div>
 
     <footer>
-        <div class="container">
+        <div class="wrapper">
             <p>Built with <a href="https://github.com/ysyecust/lecture-to-notes">lecture-to-notes</a> · Powered by Claude Code</p>
-            <p style="margin-top: 4px;">所有讲义内容版权归原视频作者所有。本项目仅用于学习目的。</p>
+            <p>所有讲义内容版权归原视频作者所有。本项目仅用于学习与研究目的。</p>
         </div>
     </footer>
+
+    <!-- PDF Preview Modal -->
+    <div class="modal-overlay" id="modal" onclick="closePreview(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 id="modal-title">Preview</h3>
+                <button class="modal-close" onclick="closePreview()">✕</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="pdf-viewer" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openPreview(pdfUrl, title) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('pdf-viewer').src = pdfUrl;
+            document.getElementById('modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePreview(e) {
+            if (e && e.target !== document.getElementById('modal')) return;
+            document.getElementById('modal').classList.remove('active');
+            document.getElementById('pdf-viewer').src = '';
+            document.body.style.overflow = '';
+        }
+
+        // ESC to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closePreview();
+        });
+    </script>
 </body>
 </html>
