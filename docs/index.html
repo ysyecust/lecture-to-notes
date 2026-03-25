@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture to Notes — AI 生成的视频讲义</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --border: #334155;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #7dd3fc;
+            --green: #4ade80;
+            --yellow: #facc15;
+            --red: #f87171;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 80px 0 48px;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+        .badge-row {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .badge-blue { background: rgba(56,189,248,0.15); color: var(--accent); }
+        .badge-green { background: rgba(74,222,128,0.15); color: var(--green); }
+        .badge-yellow { background: rgba(250,204,21,0.15); color: var(--yellow); }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-card .num {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        .stat-card .label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Section */
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .card .course-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .card .course-tag.nju { color: #a78bfa; }
+        .card .course-tag.youtube { color: var(--red); }
+        .card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .card .meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .card .meta span {
+            display: inline-block;
+            margin-right: 12px;
+        }
+        .card .links {
+            display: flex;
+            gap: 8px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg);
+        }
+        .btn-primary:hover { background: var(--accent-hover); }
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+        .btn-ghost:hover { border-color: var(--text); color: var(--text); }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 48px 0;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 1.8rem; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .card-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero -->
+        <section class="hero">
+            <h1>Lecture to Notes</h1>
+            <p>将 YouTube / Bilibili 讲座视频自动转换为专业的 LaTeX 课程笔记。由 AI 驱动，带图文三方验证。</p>
+            <div class="badge-row">
+                <span class="badge badge-blue">YouTube + Bilibili</span>
+                <span class="badge badge-green">Whisper 字幕回退</span>
+                <span class="badge badge-yellow">图文三方验证</span>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="num">8</div>
+                <div class="label">视频讲义</div>
+            </div>
+            <div class="stat-card">
+                <div class="num">112</div>
+                <div class="label">总页数</div>
+            </div>
+            <div class="stat-card">
+                <div class="num">2</div>
+                <div class="label">平台覆盖</div>
+            </div>
+            <div class="stat-card">
+                <div class="num">3</div>
+                <div class="label">课程系列</div>
+            </div>
+        </div>
+
+        <!-- NJU OS -->
+        <h2 class="section-title">🎓 南京大学 · 操作系统原理 2026</h2>
+        <div class="card-grid">
+            <div class="card">
+                <div class="course-tag nju">NJU OS · 第01讲</div>
+                <h3>Agentic AI 时代的操作系统课：绪论</h3>
+                <div class="meta">
+                    <span>📺 蒋炎岩 (jyy)</span>
+                    <span>⏱ 97 min</span>
+                    <span>📄 18 页</span>
+                </div>
+                <div class="links">
+                    <a href="pdfs/nju_os_01_intro.pdf" class="btn btn-primary">📥 下载 PDF</a>
+                    <a href="https://www.bilibili.com/video/BV1opAfzpEf9" class="btn btn-ghost" target="_blank">▶ B站</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="course-tag nju">NJU OS · 第02讲</div>
+                <h3>应用视角的操作系统</h3>
+                <div class="meta">
+                    <span>📺 蒋炎岩 (jyy)</span>
+                    <span>⏱ 88 min</span>
+                    <span>📄 17 页</span>
+                </div>
+                <div class="links">
+                    <a href="pdfs/nju_os_02_app_view.pdf" class="btn btn-primary">📥 下载 PDF</a>
+                    <a href="https://www.bilibili.com/video/BV1KNPHzPEra" class="btn btn-ghost" target="_blank">▶ B站</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="course-tag nju">NJU OS · 第03讲</div>
+                <h3>硬件视角的操作系统</h3>
+                <div class="meta">
+                    <span>📺 蒋炎岩 (jyy)</span>
+                    <span>⏱ 96 min</span>
+                    <span>📄 14 页</span>
+                </div>
+                <div class="links">
+                    <a href="pdfs/nju_os_03_hardware.pdf" class="btn btn-primary">📥 下载 PDF</a>
+                    <a href="https://www.bilibili.com/video/BV18fcozAEsy" class="btn btn-ghost" target="_blank">▶ B站</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="course-tag nju">NJU OS · 第04讲 (Aside)</div>
+                <h3>LLM, Agents 和 Scaling Law</h3>
+                <div class="meta">
+                    <span>📺 蒋炎岩 (jyy)</span>
+                    <span>⏱ 82 min</span>
+                    <span>📄 12 页</span>
+                </div>
+                <div class="links">
+                    <a href="pdfs/nju_os_04_llm_agents.pdf" class="btn btn-primary">📥 下载 PDF</a>
+                    <a href="https://www.bilibili.com/video/BV1gEcmzzE4P" class="btn btn-ghost" target="_blank">▶ B站</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="course-tag nju">NJU OS · 第05讲</div>
+                <h3>程序和进程；fork, execve, exit</h3>
+                <div class="meta">
+                    <span>📺 蒋炎岩 (jyy)</span>
+                    <span>⏱ 85 min</span>
+                    <span>📄 13 页</span>
+                </div>
+                <div class="links">
+                    <a href="pdfs/nju_os_05_process_fork.pdf" class="btn btn-primary">📥 下载 PDF</a>
+                    <a href="https://www.bilibili.com/video/BV1N8w9zJENu" class="btn btn-ghost" target="_blank">▶ B站</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="course-tag nju">NJU OS · 第06讲</div>
+                <h3>进程的地址空间；mmap, munmap, mprotect</h3>
+                <div class="meta">
+                    <span>📺 蒋炎岩 (jyy)</span>
+                    <span>⏱ 79 min</span>
+                    <span>📄 10 页</span>
+                </div>
+                <div class="links">
+                    <a href="pdfs/nju_os_06_mmap.pdf" class="btn btn-primary">📥 下载 PDF</a>
+                    <a href="https://www.bilibili.com/video/BV18nAjz9EcW" class="btn btn-ghost" target="_blank">▶ B站</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- YouTube Lectures -->
+        <h2 class="section-title">🌐 YouTube 讲座</h2>
+        <div class="card-grid">
+            <div class="card">
+                <div class="course-tag youtube">Texas A&M Energy Institute</div>
+                <h3>Multi-level Optimization for Large-Scale Nonlinear Energy Systems</h3>
+                <div class="meta">
+                    <span>📺 Dr. Larry Biegler (CMU)</span>
+                    <span>⏱ 45 min</span>
+                    <span>📄 16 页</span>
+                </div>
+                <div class="links">
+                    <a href="pdfs/tamu_biegler_nlp.pdf" class="btn btn-primary">📥 下载 PDF</a>
+                    <a href="https://www.youtube.com/watch?v=mst-tJ6ELTE" class="btn btn-ghost" target="_blank">▶ YouTube</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="course-tag youtube">AOCS</div>
+                <h3>Rheology Principles and Applications</h3>
+                <div class="meta">
+                    <span>📺 Mark Patrick Ph.D.</span>
+                    <span>⏱ 63 min</span>
+                    <span>📄 12 页</span>
+                </div>
+                <div class="links">
+                    <a href="pdfs/aocs_rheology.pdf" class="btn btn-primary">📥 下载 PDF</a>
+                    <a href="https://www.youtube.com/watch?v=etR4ttjY4f0" class="btn btn-ghost" target="_blank">▶ YouTube</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- About -->
+        <h2 class="section-title">📖 关于</h2>
+        <div class="card" style="margin-bottom: 48px;">
+            <h3>这些讲义是怎么生成的？</h3>
+            <p style="color: var(--text-muted); margin-top: 8px;">
+                使用 <a href="https://github.com/ysyecust/lecture-to-notes" style="color: var(--accent);">lecture-to-notes</a>
+                工具自动生成。工作流程：视频下载 → Whisper 字幕转写 → 密集帧采样 → 图文三方验证 → LaTeX 结构化写作 → PDF 编译。
+                每个配图都经过「帧画面 + 字幕内容 + 描述文字」三方一致性验证。
+            </p>
+            <div style="margin-top: 16px;">
+                <a href="https://github.com/ysyecust/lecture-to-notes" class="btn btn-ghost" target="_blank">⭐ GitHub 仓库</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Built with <a href="https://github.com/ysyecust/lecture-to-notes">lecture-to-notes</a> · Powered by Claude Code</p>
+            <p style="margin-top: 4px;">所有讲义内容版权归原视频作者所有。本项目仅用于学习目的。</p>
+        </div>
+    </footer>
+</body>
+</html>
