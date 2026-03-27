@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uno: A Unified Solver for Nonlinearly Constrained Optimization</title>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #78716c;
+    --accent: #7c3aed;
+    --accent-light: #ede9fe;
+    --border: #e7e5e4;
+    --code-bg: #f5f5f4;
+    --verdict-bg: #fef3c7;
+    --verdict-border: #f59e0b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Noto Sans SC", "PingFang SC", sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.8;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem;
+  }
+  header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  header h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+  .meta { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+  .meta span { display: inline-block; margin-right: 1.5rem; }
+  .tag { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 0.75rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 4px; margin-right: 0.3rem; }
+  h2 { font-size: 1.3rem; font-weight: 700; margin-top: 3rem; margin-bottom: 1rem; color: var(--accent); }
+  h3 { font-size: 1.05rem; font-weight: 600; margin-top: 2rem; margin-bottom: 0.6rem; }
+  p { margin-bottom: 1rem; }
+  strong { font-weight: 600; }
+  .architecture { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1.5rem; margin: 1.2rem 0; font-family: "SF Mono","Fira Code","Menlo",monospace; font-size: 0.8rem; line-height: 1.7; white-space: pre; overflow-x: auto; }
+  ol, ul { margin-bottom: 1rem; padding-left: 1.5rem; }
+  li { margin-bottom: 0.4rem; }
+  .concept { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1.5rem; margin: 1rem 0; }
+  .concept h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--accent); }
+  .concept .label { font-size: 0.8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.6rem; margin-bottom: 0.2rem; }
+  .insight { background: var(--accent-light); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 1.2rem 1.5rem; margin: 1.2rem 0; font-size: 1.05rem; font-weight: 500; }
+  .verdict { background: var(--verdict-bg); border: 1px solid var(--verdict-border); border-radius: 8px; padding: 0.8rem 1.2rem; margin: 1.2rem 0; font-weight: 600; }
+  .paper-figure { margin: 1.5rem 0; text-align: center; }
+  .paper-figure img { max-width: 100%; border-radius: 8px; border: 1px solid var(--border); }
+  .paper-figure figcaption { margin-top: 0.5rem; font-size: 0.85rem; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { text-align: left; padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--border); }
+  th { font-weight: 600; color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .section-icon { display: inline-block; width: 1.5rem; margin-right: 0.3rem; text-align: center; }
+  footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Uno: Implementing a Unified Solver for Nonlinearly Constrained Optimization</h1>
+  <div class="meta">
+    <div style="margin-bottom:0.5rem">
+      <span class="tag">paper</span>
+      <span class="tag">optimization</span>
+      <span class="tag">NLP-solver</span>
+      <span class="tag">open-source</span>
+    </div>
+    <div>
+      <span><strong>Authors:</strong> Charlie Vanaret, Sven Leyffer (Argonne / ZIB Berlin)</span>
+    </div>
+    <div>
+      <span><strong>Source:</strong> arXiv:2406.13454v2</span>
+      <span><strong>Venue:</strong> Mathematical Programming Computation (submitted)</span>
+    </div>
+  </div>
+</header>
+
+<h2><span class="section-icon">?</span> 问题</h2>
+
+<p><strong>非线性优化求解器那么多（IPOPT、SNOPT、filterSQP、CONOPT……），为什么每个都要从头写？</strong></p>
+
+<p>求解非线性约束优化问题（NLP）有两大流派：序列二次规划（SQP）和内点法（IPM）。表面上它们差别很大——SQP 每步解一个 QP 子问题，IPM 在目标函数里加一个 barrier 项。但仔细看它们的算法结构，大量组件是共享的：都要算搜索方向，都要做全局化（line search 或 trust region），都要处理不等式约束，都要修正 Hessian 的惯性。</p>
+
+<p>问题是：现有的求解器都是各自为政的整体实现。IPOPT 是 IPOPT，filterSQP 是 filterSQP，想试一个新的全局化策略？要么从头写一个求解器，要么在某个现有求解器里大改。想比较 filter 方法和 merit function？要比较两个完全不同的代码库，控制变量几乎不可能。</p>
+
+<p>这既浪费开发精力，也阻碍了算法研究——研究者有一个新想法（比如新的约束松弛策略），没有地方干净地插进去测试。</p>
+
+<h2><span class="section-icon">&#x1f4d6;</span> 翻译</h2>
+
+<h3>一个类比：乐高积木 vs 一体成型玩具</h3>
+
+<p>现有的求解器像一体成型的玩具——IPOPT 是一辆跑车，filterSQP 是一辆越野车。都能开，但你没法把跑车的引擎装到越野车上试试。</p>
+
+<p>Uno 的做法是把求解器拆成乐高积木。它定义了八个"零件"，每个零件有统一接口，可以自由组合。换一个零件不需要改其他七个。</p>
+
+<h3>八个积木</h3>
+
+<p>Uno 把所有 Lagrange-Newton 类方法拆成四层、八个组件：</p>
+
+<div class="architecture">层级 1: 重构层（reformulation）
+  - 约束松弛策略    把不可行的子问题变得可行（ℓ1 松弛 / 可行性恢复）
+  - 不等式处理方法   把不等式约束变成易处理的形式（active set / barrier / slack）
+
+层级 2: 子问题层（subproblem）
+  - Hessian 模型     拉格朗日函数的 Hessian 用什么近似（精确 / BFGS / 零矩阵）
+  - 惯性修正策略     确保搜索方向是下降方向（加正则项）
+
+层级 3: 子问题求解层（subproblem solver）
+  - 子问题求解器     用什么工具解子问题（QP 求解器 / LP 求解器 / 线性系统）
+
+层级 4: 全局化层（globalization）
+  - 全局化策略      接受还是拒绝一个试探步（merit function / filter）
+  - 全局化机制      步长怎么定（line search / trust region）</div>
+
+<figure class="paper-figure">
+  <img src="assets/20260326T131500/fig1_wheel.png" alt="Wheel of strategies" loading="lazy">
+  <figcaption>策略轮盘：外层是四个算法层级，中间层是八个组件（积木），内层是每个组件的具体策略选项。任意组合都可以自动生成。</figcaption>
+</figure>
+
+<p>关键设计：这八个积木之间的接口是固定的。每个积木只需要实现自己的接口，不需要知道其他积木是什么。所以你可以把 IPOPT 式的 barrier 方法和 filterSQP 式的 filter 策略组合在一起——这种组合以前从来没有作为软件存在过，因为没人写过这样的求解器。</p>
+
+<figure class="paper-figure">
+  <img src="assets/20260326T131500/fig2_algorithm.png" alt="Abstract algorithm" loading="lazy">
+  <figcaption>抽象算法：所有 Lagrange-Newton 方法的共同骨架。彩色标记对应不同的积木——绿色是约束松弛，蓝色是子问题，黄色是全局化策略，红色是全局化机制。</figcaption>
+</figure>
+
+<h3>效果</h3>
+
+<p>在 429 个 CUTE 测试问题上，Uno 提供了两个预设配置：<code>filtersqp</code>（模拟 filterSQP 求解器）和 <code>ipopt</code>（模拟 IPOPT）。</p>
+
+<figure class="paper-figure">
+  <img src="assets/20260326T131500/fig3_performance.png" alt="Performance profiles" loading="lazy">
+  <figcaption>性能对比图（performance profile）：越高越靠左越好。上排：Uno 的两个预设分别和 filterSQP、IPOPT 几乎重合。下排：Uno 和七个 SOTA 求解器的总体对比，Uno 的 filtersqp 预设表现最好。</figcaption>
+</figure>
+
+<p>几个关键数字：</p>
+
+<table>
+  <tr><th>求解器</th><th>目标函数评估次数（几何均值）</th></tr>
+  <tr><td><strong>Uno filtersqp</strong></td><td><strong>18.08</strong></td></tr>
+  <tr><td>filterSQP</td><td>18.73</td></tr>
+  <tr><td>IPOPT</td><td>34.63</td></tr>
+  <tr><td>Uno ipopt</td><td>48.45</td></tr>
+  <tr><td>SNOPT</td><td>61.02</td></tr>
+  <tr><td>CONOPT</td><td>43.15</td></tr>
+  <tr><td>MINOS</td><td>159.78</td></tr>
+  <tr><td>LANCELOT</td><td>92.27</td></tr>
+</table>
+
+<p>Uno 的 filtersqp 预设甚至比原版 filterSQP 略好（18.08 vs 18.73）。ipopt 预设比原版 IPOPT 差一些（48.45 vs 34.63），因为有些 IPOPT 特性（二阶修正步、scaling、迭代精化等）还没实现。</p>
+
+<p>代码量约 10,000 行 C++17，MIT 许可证开源，支持 C/Julia/Python/Fortran/AMPL 接口。</p>
+
+<h2><span class="section-icon">&#x1f511;</span> 核心概念</h2>
+
+<div class="concept">
+  <h4>Building Block Decomposition（积木分解）</h4>
+  <p>把非线性优化求解器拆成八个独立组件，每个组件定义为一个抽象接口，具体策略是它的实现（子类）。</p>
+  <div class="label">类比</div>
+  <p>USB 接口标准。不管你插的是键盘还是摄像头，只要符合 USB 协议就能用。Uno 的八个组件各自有"接口协议"——比如全局化机制只需要实现 <code>compute_acceptable_iterate()</code>，不管你内部是 line search 还是 trust region。</p>
+  <div class="label">为什么重要</div>
+  <p>这个分解让策略组合变成了笛卡尔积。八个组件各有几种实现，理论上能自动生成上百种不同的求解器配置。其中一些组合以前从来没有作为软件存在过——不是因为理论上不行，纯粹是因为没人把代码写成这种模块化结构。</p>
+</div>
+
+<div class="concept">
+  <h4>Globalization Strategy vs Mechanism（全局化策略 vs 全局化机制）</h4>
+  <p>策略决定"接不接受这一步"（filter 方法或 merit function），机制决定"步长怎么算"（line search 或 trust region）。这两个概念在大多数教科书和求解器里是耦合的。Uno 把它们拆开了。</p>
+  <div class="label">类比</div>
+  <p>策略是"录取标准"（GPA 还是综合评估），机制是"考试方式"（笔试还是面试）。你可以用 GPA 标准配笔试，也可以用综合评估配面试。原来的求解器把录取标准和考试方式绑死了；Uno 让你自由搭配。</p>
+  <div class="label">为什么重要</div>
+  <p>这是论文对优化算法理论的一个贡献——不只是软件工程上的模块化。它说清了：filter + trust-region、filter + line-search、merit + trust-region、merit + line-search 四种组合都有理论收敛保证，但之前只有两三种被实现过。</p>
+</div>
+
+<h2><span class="section-icon">&#x1f4a1;</span> 洞见</h2>
+
+<div class="insight">
+  看似不同的优化算法（SQP、IPM、SLP），本质上是同一个骨架的不同配置——差异不在算法结构，而在八个插槽里插了什么零件。
+</div>
+
+<p>这个发现的力量在于它改变了看问题的方式。以前我们说"SQP 和 IPM 是两类方法"，现在应该说"SQP 和 IPM 是同一个框架的两种参数化"。SQP 用 active-set 处理不等式 + QP 子问题求解器；IPM 用 barrier 处理不等式 + 线性系统求解器。其余组件（全局化、惯性修正、约束松弛）完全通用。</p>
+
+<p>这不只是学术观察。它直接导致了一个实用后果：你可以用 30 秒生成一个"filter + barrier + trust-region"的求解器——这种组合在此之前不存在于任何软件中——然后在你的具体问题上测试它是否比标准配置更好。</p>
+
+<h2><span class="section-icon">&#x1f9d1;&#x200d;&#x1f393;</span> 博导审稿</h2>
+
+<p><strong>选题</strong>非常好。优化求解器领域确实存在大量重复劳动，每个新求解器都从头实现相似的功能。用软件工程的思路把算法模块化，是一个应该很早就有人做的事情。Vanaret 和 Leyffer 都是优化领域的资深研究者，这个方向的判断力值得信赖。</p>
+
+<p><strong>方法</strong>清晰且有深度。八个组件的选择不是随意的，论文在 Section 3-4 里系统梳理了现有方法，展示了每种方法如何映射到这八个组件上。Table 6（统一视图表）把十几个 SOTA 求解器全部用八个组件来描述，一目了然。这个统一视图本身就是一个贡献。</p>
+
+<figure class="paper-figure">
+  <img src="assets/20260326T131500/fig4_subproblem.png" alt="Subproblem definition" loading="lazy">
+  <figcaption>子问题的构造流程：约束松弛策略和不等式处理方法依次改写原问题，Hessian 模型和惯性修正策略协同构建可求解的子问题。彩色编码对应不同组件。</figcaption>
+</figure>
+
+<p><strong>实验</strong>设计得当。Performance profile 是比较优化求解器的标准工具。filtersqp 预设和原版 filterSQP 的曲线几乎重合，证明模块化实现没有引入性能损失。和七个 SOTA 求解器的对比也很全面。诚实之处在于：ipopt 预设比原版 IPOPT 差，论文明确列出了哪些 IPOPT 特性没实现（二阶修正步、scaling、迭代精化等），不藏短板。</p>
+
+<p>不足之处。<strong>第一</strong>，只用了 429 个小规模测试问题（CUTE 集）。工业级问题（变量数千、上万）的表现没有测试。模块化设计会不会引入额外开销（虚函数调用、间接寻址），在大规模问题上放大？<strong>第二</strong>，论文声称策略可以自由组合，但也承认有些组合"不收敛甚至不合理"（比如内点法 + trust region 目前被禁止）。哪些组合有理论保证、哪些只是软件上能跑但没有收敛证明，没有系统讨论。<strong>第三</strong>，缺少墙钟时间的比较——只比了目标函数评估次数，没比实际运行时间。模块化带来的代码抽象可能有运行时开销。</p>
+
+<p><strong>写作</strong>水准高。Section 6 用两个完整的彩色伪代码展示了 trust-region filter SQP 和 line-search filter IPM 的完整算法，颜色编码对应八个组件，非常直观。策略轮盘图（Figure 1）也设计得好。</p>
+
+<div class="verdict">
+  判决：weak accept。统一框架的理论贡献扎实，软件设计优雅，在小规模问题上验证充分。缺大规模测试和运行时间对比，组合可行性的理论分析也不够系统。
+</div>
+
+<h2><span class="section-icon">&#x1f517;</span> 启发</h2>
+
+<p><strong>迁移</strong>："把看似不同的算法拆成共享组件 + 差异化插件"的思路适用于任何算法家族密集的领域。比如化工模拟中的热力学模型——PR、SRK、PC-SAFT 表面上公式完全不同，但计算流程（纯组分参数 &rarr; 混合规则 &rarr; 状态方程求解 &rarr; 性质组装）是共享的。这正是 GPUTherm 的算子分解在做的事——Uno 提供了一个更成熟的参考框架。</p>
+
+<p><strong>混搭</strong>：Uno 的"自动生成策略组合"能力和 AVO 的"AI agent 自主优化"能力结合起来很有想象力。让 agent 在 Uno 的组合空间里搜索——对给定的问题类别，哪种八组件配置最优？这比让 agent 从零写求解器代码效率高得多。</p>
+
+<footer>
+  Generated on 2026-03-26 &middot; ljg-paper skill v5.0.0
+</footer>
+
+</body>
+</html>

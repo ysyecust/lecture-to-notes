@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AVO: Agentic Variation Operators for Autonomous Evolutionary Search</title>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #78716c;
+    --accent: #7c3aed;
+    --accent-light: #ede9fe;
+    --border: #e7e5e4;
+    --code-bg: #f5f5f4;
+    --verdict-bg: #fef3c7;
+    --verdict-border: #f59e0b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Noto Sans SC", "PingFang SC", sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.8;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem;
+  }
+  header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+  .meta {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .meta span { display: inline-block; margin-right: 1.5rem; }
+  .tag {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    margin-right: 0.3rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+    letter-spacing: -0.01em;
+  }
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.6rem;
+  }
+  p { margin-bottom: 1rem; }
+  strong { font-weight: 600; }
+  .architecture {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    margin: 1.2rem 0;
+    font-family: "SF Mono", "Fira Code", "Menlo", monospace;
+    font-size: 0.8rem;
+    line-height: 1.7;
+    white-space: pre;
+    overflow-x: auto;
+  }
+  ol, ul {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+  li { margin-bottom: 0.4rem; }
+  .concept {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    margin: 1rem 0;
+  }
+  .concept h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--accent);
+  }
+  .concept .label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.6rem;
+    margin-bottom: 0.2rem;
+  }
+  .insight {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 1.2rem 1.5rem;
+    margin: 1.2rem 0;
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+  .verdict {
+    background: var(--verdict-bg);
+    border: 1px solid var(--verdict-border);
+    border-radius: 8px;
+    padding: 0.8rem 1.2rem;
+    margin: 1.2rem 0;
+    font-weight: 600;
+  }
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.2rem 0;
+  }
+  .comparison-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+  }
+  .comparison-card h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .comparison-card.after {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+  .comparison-card.after h4 { color: var(--accent); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    font-weight: 600;
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .section-icon {
+    display: inline-block;
+    width: 1.5rem;
+    margin-right: 0.3rem;
+    text-align: center;
+  }
+  .number-highlight {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-weight: 700;
+    padding: 0.1rem 0.5rem;
+    border-radius: 4px;
+  }
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>AVO: Agentic Variation Operators for Autonomous Evolutionary Search</h1>
+  <div class="meta">
+    <div style="margin-bottom:0.5rem">
+      <span class="tag">paper</span>
+      <span class="tag">LLM-agent</span>
+      <span class="tag">evolutionary-search</span>
+      <span class="tag">GPU-kernel</span>
+      <span class="tag">NVIDIA</span>
+    </div>
+    <div>
+      <span><strong>Authors:</strong> Terry Chen, Zhifan Ye, Bing Xu 等 23 人（NVIDIA）</span>
+    </div>
+    <div>
+      <span><strong>Source:</strong> arXiv:2603.24517v1</span>
+      <span><strong>Date:</strong> 2026-03-26</span>
+    </div>
+  </div>
+</header>
+
+<h2><span class="section-icon">?</span> 问题</h2>
+
+<p><strong>人类专家花几个月手调的 GPU attention kernel，AI 能不能自己调得更好？</strong></p>
+
+<p>Attention 是 Transformer 里最核心的操作。FlashAttention 系列和 NVIDIA 的 cuDNN 库已经把 attention 的 GPU 吞吐量推到了接近硬件极限的位置。在最新的 Blackwell B200 GPU 上，FlashAttention-4 和 cuDNN 都经过了好几个月的手工优化——warp 特化、流水线调度、寄存器分配，每一处改动都需要深入理解硬件架构。</p>
+
+<p>之前有人尝试用 LLM 来辅助这类优化。FunSearch 和 AlphaEvolve 的做法是：把 LLM 塞进一个固定流水线里，让它充当"代码生成器"——框架选父代、LLM 生成子代、框架评估打分。LLM 只管生成，不能看文档、不能跑 profiler、不能调试、不能反思失败原因。就像请了一个专家，但只让他写代码，不让他看性能报告，不让他思考。</p>
+
+<p>对于已经被极度优化过的 kernel，这种方式不够用。进一步提升需要的是：读硬件文档理解约束、跑 profiler 找瓶颈、试一种改法发现不行再换一种、基于积累的经验调整策略。这是一个完整的工程师工作流，不是单次代码生成能解决的。</p>
+
+<h2><span class="section-icon">&#x1f4d6;</span> 翻译</h2>
+
+<h3>从"代码生成器"到"工程师"</h3>
+
+<p>AVO 的核心转变用一句话说清：把 LLM 从进化搜索中的代码生成器升级为变异算子本身。</p>
+
+<div class="comparison">
+  <div class="comparison-card">
+    <h4>以前（FunSearch / AlphaEvolve）</h4>
+    <p>框架控制一切：选哪些父代、怎么采样、怎么评估。<br>LLM 只在 Generate 步骤里被调用一次，输出一段代码，交差。<br>不能看文档、不能跑测试、不能从失败中学习。</p>
+  </div>
+  <div class="comparison-card after">
+    <h4>现在（AVO）</h4>
+    <p>AI agent 替代整个变异过程：自己决定看哪些父代、查什么文档、改哪段代码。<br>改完自己编译、跑 profiler、看结果。<br>不行就调试、换策略、再试。整个循环自主完成。</p>
+  </div>
+</div>
+
+<p>打个比方：以前像让一个画家闭着眼睛画——你告诉他画布上有什么，他画一笔，然后你告诉他效果。现在把眼睛打开了，他自己看画布、自己选颜料、自己判断效果、自己决定下一笔。</p>
+
+<h3>怎么跑的</h3>
+
+<p>AVO 的一次变异步骤是一个完整的 agent session：</p>
+
+<div class="architecture">输入:
+  - 历史所有 kernel 版本及其性能分数 (lineage)
+  - 领域知识库 (CUDA 文档, PTX ISA, Blackwell 架构手册, FA4 源码)
+  - 评分函数 (正确性检查 + 吞吐量测量)
+
+Agent 循环:
+  1. Planning -- 查看历史版本的 profiling 数据，查阅硬件文档
+  2. Implementation -- 修改 CUDA kernel 代码
+  3. Evaluation -- 编译、正确性检查、吞吐量测量
+  4. Bug-Fixing -- 如果失败，诊断原因，修复，回到 2
+     (这个内循环可能重复多次)
+
+输出: 新的 kernel 版本 + 性能分数
+
+外层: 监督 agent 检测停滞，停滞时介入引导新方向</div>
+
+<p>外层有一个监督 agent。如果主 agent 在一个方向上卡住了——反复尝试同类改动但性能不涨——监督 agent 会介入，审视整个进化轨迹，提出几个新的优化方向，把搜索推向新区域。</p>
+
+<h3>跑了 7 天，发现了什么</h3>
+
+<p>在 NVIDIA B200 GPU 上，AVO 从一个种子 kernel 出发，连续自主进化 7 天。过程中探索了超过 500 个优化方向，最终提交了 40 个有效版本（性能持续提升的版本）。</p>
+
+<p>最终结果：</p>
+
+<table>
+  <tr><th>场景</th><th>vs cuDNN</th><th>vs FlashAttention-4</th></tr>
+  <tr><td>多头注意力 (MHA) causal</td><td>+0.4% ~ +3.5%</td><td>+5.0% ~ +10.5%</td></tr>
+  <tr><td>多头注意力 (MHA) non-causal</td><td>+1.8% ~ +2.4%</td><td>持平或小幅领先</td></tr>
+  <tr><td>分组查询注意力 (GQA) causal</td><td>+7.0%</td><td>+9.3%</td></tr>
+  <tr><td>分组查询注意力 (GQA) non-causal</td><td>+6.0%</td><td>+4.5%</td></tr>
+</table>
+
+<p>最高吞吐量 <span class="number-highlight">1668 TFLOPS</span>（BF16 精度）。GQA 的结果特别有意思——AVO 只在 MHA 上做了 7 天进化，然后花 30 分钟自主适配到 GQA，性能提升反而更大。说明 agent 发现的优化不是针对特定配置的微调，而是触及了更深层的硬件效率改进。</p>
+
+<h3>Agent 发现了什么样的优化</h3>
+
+<p>论文详细分析了三个代表性优化，每一个都不是简单的代码变换，而是需要同时理解多个硬件子系统：</p>
+
+<p><strong>无分支累加器重缩放</strong>（v19 &rarr; v20，non-causal +8.1%）：在线 softmax 算法中，当 row-maximum 更新时需要重新缩放输出累加器。原来的实现用条件分支跳过不需要重缩放的情况。Agent 把分支去掉了——始终计算重缩放，maximum 没变时乘以 1.0（无操作）。代价是多了一次乘法，但消除了 warp 同步开销和分支预测惩罚。同时还把阻塞式内存屏障换成了非阻塞式的，因为无分支路径保证了 warp 内所有线程走同一条路。</p>
+
+<p><strong>流水线重叠</strong>（v29 &rarr; v30，non-causal +1.1%）：原来的 correction warp 必须等两个 Q-tile 阶段的 PV GEMM 都算完才能开始归一化。Agent 重组了流水线，让 correction warp 在第一阶段的 PV GEMM 完成后就开始处理，与第二阶段的 GEMM 并行。把串行依赖变成了流水线执行。</p>
+
+<p><strong>寄存器重新分配</strong>（v32 &rarr; v33，non-causal +2.1%）：Blackwell 每个 SM 有 2048 个寄存器，分配给不同 warp 组。原来按 FA4 的分配方式（softmax 192 / correction 80 / 其余 48），correction warp 因为寄存器不够在往 local memory 溢出。Agent 发现 softmax warp 实际上用了打包运算，峰值寄存器用量很低，于是从 softmax 组借了 8 个寄存器给另外两组（184/88/56），消除了溢出。</p>
+
+<p>每一个优化都不是在调一个参数，而是在跨多个硬件子系统做联合推理。</p>
+
+<h2><span class="section-icon">&#x1f511;</span> 核心概念</h2>
+
+<div class="concept">
+  <h4>Agentic Variation Operator（代理式变异算子）</h4>
+  <p>在进化搜索中，用一个自主 AI agent 替代传统的变异操作（选择 + 生成）。Agent 自己决定看什么、改什么、怎么验证、失败了怎么调整。</p>
+  <div class="label">类比</div>
+  <p>传统进化搜索里的 LLM 像一个被蒙住眼睛的棋手——别人告诉他棋盘状态，他说一步棋，别人执行。AVO 里的 agent 像一个坐在棋盘前的完整棋手——自己看盘、自己思考、自己落子、自己复盘。</p>
+  <div class="label">为什么重要</div>
+  <p>这个升级让 agent 能做到单次生成做不到的事：跨多步迭代调试（改了编译不过就修）、策略自适应（早期做结构改动，后期做微调）、基于 profiling 数据做硬件级推理。这些能力在优化已经很好的 kernel 时是必需的。</p>
+</div>
+
+<div class="concept">
+  <h4>Continuous Evolution with Self-Supervision（带自监督的持续进化）</h4>
+  <p>Agent 不是跑一次就结束，而是持续运行（这次跑了 7 天），每个成功版本保存为 git commit。监督 agent 检测停滞并重新引导方向。</p>
+  <div class="label">类比</div>
+  <p>像一个博士生连续做了一周的实验。有时候一个方向走不通了，导师（监督 agent）来看一眼进展，建议换个角度试试。但具体怎么做还是学生自己决定。</p>
+  <div class="label">为什么重要</div>
+  <p>两个失败模式被系统性地处理了：停滞（一个方向做到头了）和无效循环（反复尝试同类改动但不见效）。没有自监督，长时间自主运行很容易陷入死胡同。</p>
+</div>
+
+<h2><span class="section-icon">&#x1f4a1;</span> 洞见</h2>
+
+<div class="insight">
+  在优化的后半程——当低垂的果实已经被摘完——AI 需要的不是更强的代码生成能力，而是完整的工程闭环：读文档、跑 profiler、试错、反思、换方向。
+</div>
+
+<p>FunSearch 和 AlphaEvolve 证明了 LLM + 进化搜索能在数学和算法领域找到好方案。但它们面对的问题有一个共同特点：解空间中存在大量"还不错"的解，随机变异就能撞上。GPU kernel 优化不一样——在 FlashAttention-4 和 cuDNN 的基础上再提升几个百分点，需要的不是更多随机变异，而是精准的硬件推理。AVO 证明了一件事：当你给 agent 完整的工具链（文档 + profiler + 编译器 + 调试能力），它能做出人类专家级别的硬件优化——而且是在人类专家已经优化过的基础上。</p>
+
+<p>更深一层：进化搜索的变异算子长期以来被当作一个无状态的函数——输入父代，输出子代。AVO 把它变成了一个有状态的、有记忆的、能自我调整的 agent。这个从"函数"到"agent"的升级可能适用于所有进化搜索的场景。</p>
+
+<h2><span class="section-icon">&#x1f9d1;&#x200d;&#x1f393;</span> 博导审稿</h2>
+
+<p><strong>选题</strong>眼光非常好。LLM 在进化搜索中的角色定位是一个真问题——FunSearch/AlphaEvolve 把 LLM 限制在 Generate 步骤里确实是一个瓶颈。把 agent 升级为完整的变异算子是一个自然且有说服力的推进。选 attention kernel 作为测试场景也很聪明——这是地球上被优化得最极致的代码之一，如果 agent 能在这里赢，说服力极强。</p>
+
+<p><strong>方法</strong>的定义清晰。公式 (3) vs (4) 的对比把 AVO 和先前工作的区别说得很精确。实际上 AVO 的方法论很简单——就是把一个有能力的 coding agent 放进进化搜索的变异步骤里。简单是优点，不是缺点。</p>
+
+<p><strong>实验结果</strong>令人印象深刻。在 cuDNN 和 FA4 这两个极其强的 baseline 上取得 3.5% 和 10.5% 的提升，在 GPU kernel 优化的语境下是很显著的数字。GQA 的迁移实验是亮点——30 分钟适配就拿到更大的提升，证明优化的泛化性。Section 5 对三个代表性优化的详细分析做得好，证明 agent 做的不是表面文章，而是真正的硬件级推理。</p>
+
+<p>但有几个让我不太舒服的地方。<strong>第一</strong>，论文回避了一个关键问题：用的是什么 agent/什么模型？只说"internally-developed general-purpose coding agent powered by frontier LLMs"。这让复现几乎不可能。我理解 NVIDIA 可能有商业考虑，但对学术论文来说，方法的关键组件不透明是硬伤。<strong>第二</strong>，只做了 attention kernel 一个任务。论文声称 AVO 是一个通用的变异算子家族，但证据只来自一个领域。至少应该在另一个不同性质的优化任务上验证。<strong>第三</strong>，7 天的 agent 运行成本是多少？用了多少 token？多少 GPU 小时？论文完全没提。如果 7 天消耗了几十万美元的 API 费用，那这个方法的实用性就需要重新评估。<strong>第四</strong>，没有和 AlphaEvolve 做直接对比。论文在 related work 里讨论了 AlphaEvolve，但没有在 attention kernel 任务上跑一次 AlphaEvolve 作为对比。这是最直接的 baseline，缺失让人遗憾。</p>
+
+<p><strong>写作</strong>质量高。Figure 1 的 EVO vs AVO 对比一目了然。Section 5 的优化分析写得扎实有深度。进化轨迹的可视化（Figure 5/6）也很有信息量——能看到阶梯式提升和收益递减的模式。</p>
+
+<div class="verdict">
+  判决：weak accept。核心想法（agent 作为变异算子）有真正的贡献，实验结果在一个极难的场景上令人信服。但 agent 实现细节不透明、只有一个任务、缺成本分析和直接对比，限制了论文的说服力和可复现性。
+</div>
+
+<h2><span class="section-icon">&#x1f517;</span> 启发</h2>
+
+<p><strong>迁移</strong>：AVO 的核心思路——"把 agent 从流水线中的一个步骤升级为整个流水线的控制者"——适用于所有 LLM-in-the-loop 的场景。很多当前的 AI 辅助工作流都有同样的问题：LLM 被限制在"生成"这一步，不能看反馈、不能迭代、不能换策略。任何需要多轮试错的优化任务（编译器优化、超参搜索、材料配方设计），都可以考虑类似的升级。</p>
+
+<p><strong>混搭</strong>：进化轨迹中观察到的"阶梯式提升"模式值得注意——大的性能跳跃来自架构级改动（无分支重缩放、流水线重组），小的持续改进来自微调（寄存器重分配、指令调度）。这提示一种两阶段策略：先用 agent 做探索性的大改动，找到一个好的架构骨架，再切换到更便宜的自动调优方法（grid search / Bayesian optimization）做细粒度微调。不需要全程用昂贵的 agent。</p>
+
+<p><strong>反转</strong>：直觉上，极度优化过的代码（cuDNN 级别）应该只有人类硬件专家才能继续改进。AVO 证明这个假设错了——agent 在寄存器分配、流水线调度这些需要联合推理的地方找到了人类专家遗漏的改进空间。这暗示：越是需要跨多个子系统联合推理的优化，AI 可能越有优势，因为人类在多维度同时推理时的认知负荷很高。</p>
+
+<footer>
+  Generated on 2026-03-26 &middot; ljg-paper skill v4.2.0
+</footer>
+
+</body>
+</html>

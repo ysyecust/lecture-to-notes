@@ -1,0 +1,102 @@
+---
+name: paper-to-html
+description: Generate a self-contained, beautifully styled HTML analysis of an academic paper. Use when the user provides an arXiv link, paper URL, PDF, or asks to analyze a research paper. Produces a standalone HTML file with structured sections (Problem, Translation/Analogy, Architecture, Key Results, Verdict), embedded figures, and responsive design. Trigger words include 读论文, 分析论文, paper analysis, paper review.
+---
+
+# Paper to HTML
+
+Generate a self-contained HTML analysis of an academic paper. The output is a single `.html` file with embedded CSS — no external dependencies, ready to deploy or share.
+
+## Output Structure
+
+The HTML analysis must follow this structure:
+
+### Header
+- Paper title (original)
+- Authors and affiliations
+- Source (arXiv ID, venue)
+- Tags (topic tags as colored badges)
+
+### Sections
+
+1. **问题** (Problem)
+   - What problem does this paper solve?
+   - Why is it hard? What existing approaches fall short?
+   - Use plain language, no jargon in the first paragraph
+
+2. **翻译** (Translation / Analogy)
+   - Explain the core idea using a real-world analogy
+   - Make it accessible to a non-specialist
+   - This is the most important section for readability
+
+3. **架构** (Architecture / Method)
+   - Technical details of the proposed approach
+   - Use `.architecture` code blocks for diagrams (ASCII art)
+   - Use `.concept` cards for key definitions
+   - Include paper figures when available
+
+4. **关键结果** (Key Results)
+   - Performance numbers, benchmarks, comparisons
+   - Use tables for quantitative results
+   - Highlight surprising or noteworthy findings
+
+5. **评价** (Verdict)
+   - Use `.verdict` box: one-sentence assessment
+   - Strengths and limitations
+   - Who should read this paper?
+
+6. **一句话总结** (One-line Summary)
+   - The elevator pitch version
+
+### Footer
+- Generation metadata
+- Link to original paper
+
+## HTML Template
+
+Use this CSS design system (warm stone palette, purple accent):
+
+```css
+:root {
+  --bg: #fafaf9;
+  --fg: #1c1917;
+  --muted: #78716c;
+  --accent: #7c3aed;
+  --accent-light: #ede9fe;
+  --border: #e7e5e4;
+  --code-bg: #f5f5f4;
+  --verdict-bg: #fef3c7;
+  --verdict-border: #f59e0b;
+}
+```
+
+Key CSS classes:
+- `.architecture` — monospace code/diagram blocks
+- `.concept` — definition cards with labeled fields
+- `.insight` — purple left-border highlight blocks
+- `.verdict` — amber warning-style assessment box
+- `.paper-figure` — centered image with caption
+- `.tag` — purple badge for topic tags
+
+## Figure Handling
+
+When paper figures are available (from PDF extraction or provided by user):
+1. Save figures to `assets/<paper_id>/` directory
+2. Reference with relative paths: `assets/<paper_id>/fig1.png`
+3. Add descriptive figcaptions
+
+## File Naming Convention
+
+```
+<timestamp>--paper-<short-name>__paper.html
+```
+
+Example: `20260326T133200--paper-nonlinearsolve-jl__paper.html`
+
+## Quality Requirements
+
+- **Self-contained**: Single HTML file with embedded CSS, no external dependencies
+- **Responsive**: Readable on mobile (max-width: 760px centered layout)
+- **Chinese by default**: All analysis text in Chinese, technical terms in original language
+- **Accessible**: Non-specialists should understand sections 1-2; specialists get value from 3-4
+- **Honest**: Don't oversell the paper. Use the verdict box for balanced assessment

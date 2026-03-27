@@ -1,10 +1,13 @@
 # lecture-to-notes
 
-**[在线预览所有讲义 →](http://blog.simona.plus/lecture-to-notes/)**
+**[在线预览所有讲义和论文解读 →](http://blog.simona.plus/lecture-to-notes/)**
 
-将 YouTube / Bilibili 讲座视频转换为专业的中文 LaTeX 课程笔记和 PDF。
+两个 AI 驱动的学习工具：
 
-> 全自动流水线：视频 URL → 字幕获取 → 密集帧采样 → 结构化 LaTeX → 编译 PDF。
+1. **lecture-to-notes**：将 YouTube / Bilibili 讲座视频转换为专业的中文 LaTeX 课程笔记和 PDF
+2. **paper-to-html**：将学术论文转换为结构化的中文 HTML 解读页面
+
+> 视频 URL → LaTeX PDF 讲义 | 论文 → 自包含 HTML 解读
 
 ## 特性
 

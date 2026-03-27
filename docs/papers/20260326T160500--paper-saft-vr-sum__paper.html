@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAFT-VR Sum: EoS from ab initio Sutherland Sum Potentials</title>
+<style>
+  :root { --bg:#fafaf9; --fg:#1c1917; --muted:#78716c; --accent:#7c3aed; --accent-light:#ede9fe; --border:#e7e5e4; --code-bg:#f5f5f4; --verdict-bg:#fef3c7; --verdict-border:#f59e0b; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,"Noto Sans SC","PingFang SC",sans-serif; background:var(--bg); color:var(--fg); line-height:1.8; max-width:760px; margin:0 auto; padding:3rem 1.5rem 6rem; }
+  header { margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid var(--border); }
+  header h1 { font-size:1.5rem; font-weight:700; margin-bottom:1rem; letter-spacing:-0.02em; }
+  .meta { font-size:0.85rem; color:var(--muted); line-height:1.6; }
+  .tag { display:inline-block; background:var(--accent-light); color:var(--accent); font-size:0.75rem; font-weight:600; padding:0.15rem 0.5rem; border-radius:4px; margin-right:0.3rem; }
+  h2 { font-size:1.3rem; font-weight:700; margin-top:3rem; margin-bottom:1rem; color:var(--accent); }
+  h3 { font-size:1.05rem; font-weight:600; margin-top:2rem; margin-bottom:0.6rem; }
+  p { margin-bottom:1rem; }
+  strong { font-weight:600; }
+  ol, ul { margin-bottom:1rem; padding-left:1.5rem; }
+  li { margin-bottom:0.4rem; }
+  .concept { background:#fff; border:1px solid var(--border); border-radius:8px; padding:1.2rem 1.5rem; margin:1rem 0; }
+  .concept h4 { font-size:0.95rem; font-weight:700; margin-bottom:0.5rem; color:var(--accent); }
+  .concept .label { font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; margin-top:0.6rem; margin-bottom:0.2rem; }
+  .insight { background:var(--accent-light); border-left:4px solid var(--accent); border-radius:0 8px 8px 0; padding:1.2rem 1.5rem; margin:1.2rem 0; font-size:1.05rem; font-weight:500; }
+  .verdict { background:var(--verdict-bg); border:1px solid var(--verdict-border); border-radius:8px; padding:0.8rem 1.2rem; margin:1.2rem 0; font-weight:600; }
+  .paper-figure { margin:1.5rem 0; text-align:center; }
+  .paper-figure img { max-width:100%; border-radius:8px; border:1px solid var(--border); }
+  .paper-figure figcaption { margin-top:0.5rem; font-size:0.85rem; color:var(--muted); }
+  .key-formula { background:#fff; border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:0 8px 8px 0; padding:1rem 1.2rem; margin:1rem 0; }
+  .formula-label { font-weight:600; font-size:0.9rem; color:var(--accent); margin-bottom:0.4rem; }
+  .formula-content { font-family:"SF Mono","Fira Code",monospace; font-size:0.85rem; padding:0.5rem; background:var(--code-bg); border-radius:4px; margin:0.4rem 0; overflow-x:auto; }
+  .formula-explain { font-size:0.85rem; color:var(--muted); margin-top:0.4rem; }
+  table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.9rem; }
+  th, td { text-align:left; padding:0.5rem 0.8rem; border-bottom:1px solid var(--border); }
+  th { font-weight:600; color:var(--muted); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.05em; }
+  footer { margin-top:4rem; padding-top:1.5rem; border-top:1px solid var(--border); font-size:0.8rem; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SAFT-VR Sum: Equation of State and Transport Properties from <em>ab initio</em>-Derived Sutherland Sum Potentials</h1>
+  <div class="meta">
+    <div style="margin-bottom:0.5rem">
+      <span class="tag">paper</span>
+      <span class="tag">SAFT</span>
+      <span class="tag">thermodynamics</span>
+      <span class="tag">ab-initio</span>
+      <span class="tag">perturbation-theory</span>
+    </div>
+    <div><strong>Authors:</strong> Vegard G. Jervell, Tage W. Maltby, Ailo Aasen, Morten Hammer, &Oslash;ivind Wilhelmsen (NTNU / ThermoPhys, Trondheim)</div>
+    <div><strong>Source:</strong> J. Chem. Phys. 164, 114101 (2026) &middot; doi:10.1063/5.0317322</div>
+  </div>
+</header>
+
+<h2>? 问题</h2>
+
+<p><strong>Mie 势能描述分子间相互作用已经很成功了，但它有个隐藏的天花板——能不能突破？</strong></p>
+
+<p>SAFT（统计缔合流体理论）是当下最成功的分子热力学框架之一。它的核心逻辑是：从分子间的相互作用势出发，通过微扰理论推导出状态方程，进而预测宏观热力学性质。PC-SAFT 和 SAFT-VR Mie 是两个最常用的版本。</p>
+
+<p>目前主流的 SAFT 变体用 Mie 势（广义 Lennard-Jones）来描述分子间作用力。Mie 势只有两个形状参数（排斥指数和吸引指数），调整方式有限。这在绝大多数场景下够用了。但有两个地方碰到了墙：</p>
+
+<ul>
+  <li><strong>从量子化学到状态方程</strong>：<em>ab initio</em> 计算能给出非常精确的分子间势能曲线，但这些曲线的形状往往不是 Mie 势能拟合得好的。偶极-偶极、四极-四极、三体效应、量子核效应——这些现象叠加起来的势能轮廓，一个 Mie 函数装不下。</li>
+  <li><strong>微扰理论的 &alpha;-假设</strong>：现有的 SAFT 微扰理论假设"具有相同无量纲 van der Waals 能的分子具有相似的相行为"（所谓 &alpha;-function 假设）。对于只有一个势阱最小值的 Mie 势这个假设大致成立，但如果势能有两个极小值（比如本文设计的 Funky 势），这个假设就失效了。</li>
+</ul>
+
+<p>这篇论文的动机就是：用一组 Sutherland 势的求和来替代单一的 Mie 势，获得足够的灵活性来精确表示 <em>ab initio</em> 势能曲线，同时测试微扰理论本身的极限在哪里。</p>
+
+<h2>&#x1f4d6; 翻译</h2>
+
+<h3>从 Mie 势到 Sutherland 求和</h3>
+
+<p>Mie 势长这样：u(r) = C &middot; &epsilon; [(&#x3c3;/r)<sup>n</sup> &minus; (&#x3c3;/r)<sup>m</sup>]，一个排斥项减一个吸引项。形状被 n 和 m 两个指数完全决定。</p>
+
+<p>Sutherland 势更简单——只有一项：u<sub>k</sub>(r) = C<sub>k</sub> &middot; &epsilon; &middot; (&#x3c3;/r)<sup>&lambda;<sub>k</sub></sup>。</p>
+
+<p>关键思路：把多个 Sutherland 势加在一起（一个求和），每项有不同的指数 &lambda;<sub>k</sub> 和系数 C<sub>k</sub>。系数可以随温度和密度变化。这就是 &Sigma; 势：</p>
+
+<div class="key-formula">
+  <div class="formula-label">&Sigma; 势 — 用多项 Sutherland 势的叠加来表示任意分子间作用力</div>
+  <div class="formula-content">u(r, &rho;, T) = &epsilon; &Sigma;<sub>k=1</sub><sup>n</sup> C<sub>k</sub>(&rho;, T) &middot; (&sigma;/r)<sup>&lambda;<sub>k</sub></sup></div>
+  <div class="formula-explain">每一项是一个幂函数（r 的负幂次），系数 C<sub>k</sub> 可以依赖温度和密度。加够多的项，就能逼近任意形状的势能曲线——包括 <em>ab initio</em> 计算给出的那些 Mie 势拟合不了的复杂轮廓。</div>
+</div>
+
+<figure class="paper-figure">
+  <img src="assets/20260326T160500/fig1_nexus.png" alt="SAFT nexus" loading="lazy">
+  <figcaption>SAFT 的核心逻辑：分子描述是连接实验和理论的枢纽。从分子间作用力出发，微扰理论给出状态方程，状态方程预测宏观性质。</figcaption>
+</figure>
+
+<p>为什么 Sutherland 求和行得通？因为 Mie 势本身就可以展开为两个 Sutherland 势的差。偶极-偶极相互作用是 (&#x3c3;/r)<sup>6</sup>，三体效应可以近似为密度依赖的 Sutherland 项，Feynman-Hibbs 量子修正也是 Sutherland 势形式。所以 &Sigma; 势不是生硬的数学凑合，它的每一项都对应一种真实的物理效应。</p>
+
+<h3>拟合 <em>ab initio</em> 势能</h3>
+
+<p>对于氩和氖，作者用 6 项 Sutherland 势（&Sigma;<sub>6</sub>）拟合了 <em>ab initio</em> 计算的势能曲线。拟合方法是 Nelder-Mead 最小化加权残差。</p>
+
+<figure class="paper-figure">
+  <img src="assets/20260326T160500/fig2_potential_viscosity.png" alt="Potential comparison and viscosity" loading="lazy">
+  <figcaption>上：&Sigma;<sub>6</sub> 势（红线）几乎完美吻合 <em>ab initio</em> 数据，而 Mie 势（蓝线、绿线）有明显偏差。灰色区域是 <em>ab initio</em> 的不确定性范围。下：用不同势计算的粘度偏差——&Sigma;<sub>6</sub> 势的偏差仅 0.2%，Mie 势偏差更大且温度依赖性更强。</figcaption>
+</figure>
+
+<h3>效果</h3>
+
+<p>纯用分子信息（没有任何宏观实验数据的拟合），SAFT-VR Sum 预测氩和氖的热力学性质：</p>
+
+<table>
+  <tr><th>性质</th><th>&Sigma;<sub>6</sub> 势偏差</th><th>Mie 势偏差</th><th>说明</th></tr>
+  <tr><td>无穷稀释粘度</td><td>0.2%</td><td>1&ndash;4%</td><td>温度依赖性也更准</td></tr>
+  <tr><td>第二维里系数</td><td>~1% (15K 以上)</td><td>2&ndash;3.3%</td><td>&Sigma; 势直接积分 vs 微扰理论</td></tr>
+  <tr><td>共存密度</td><td>~0.2%</td><td>可比</td><td>需加三体+量子修正</td></tr>
+  <tr><td>饱和压力</td><td>&lt;1%</td><td>可比</td><td>氩的 FH 修正影响小</td></tr>
+  <tr><td>等容/等压热容</td><td>&gt;10%</td><td>&gt;10%</td><td>微扰理论本身的限制，与势无关</td></tr>
+</table>
+
+<p>关键发现：等容热容和等压热容的预测偏差很大（超过 10%），但这个误差不是 &Sigma; 势的问题——换成 Mie 势也一样差。这说明瓶颈出在微扰理论本身（特别是二阶微扰项的 &alpha;-假设），不在分子势的表示精度。</p>
+
+<h3>探测微扰理论的极限：Funky 势</h3>
+
+<p>论文还做了一个思想实验。设计了一个叫 "Funky" 的势能——有两个极小值（普通 Mie 势只有一个）。Mie 势无法表示这种形状，但 &Sigma; 势可以。</p>
+
+<figure class="paper-figure">
+  <img src="assets/20260326T160500/fig5_funky.png" alt="Phase envelope Mie vs Funky" loading="lazy">
+  <figcaption>Mie 流体（左）和 Funky 流体（右）的相包络线：虽然两者有相同的 &alpha; 参数，但相包络线形状明显不同。GEMC 模拟（点）证实了差异，微扰理论（线）高估了 Funky 流体的临界温度。这直接证伪了 &alpha;-假设。</figcaption>
+</figure>
+
+<p>结果：Mie 和 Funky 流体有相同的 &alpha; 参数，但相包络线形状不同。微扰理论的 &alpha;-假设预测它们行为相似，GEMC 模拟证明不是。这直接证伪了 &alpha;-假设在双极小值势上的适用性。</p>
+
+<h2>&#x1f511; 核心概念</h2>
+
+<div class="concept">
+  <h4>&Sigma; 势（Sutherland Sum Potential）</h4>
+  <p>用多个幂函数的加权求和来表示分子间作用力，每项对应一种物理效应（排斥、色散、偶极、三体、量子修正）。</p>
+  <div class="label">类比</div>
+  <p>Mie 势像用一个正弦波拟合声音信号——只有频率和振幅可调。&Sigma; 势像傅里叶级数——多个"泛音"叠加，项数越多越能逼近任意信号。而且每个"泛音"有物理意义，不是纯数学凑合。</p>
+  <div class="label">为什么重要</div>
+  <p>SAFT 的预测精度上限取决于分子势的表示精度。Mie 势能表示的形状有限，&Sigma; 势打破了这个天花板。论文证明用 6 项 &Sigma; 势就能把 <em>ab initio</em> 势能曲线拟合到量化计算的不确定性以内。</p>
+</div>
+
+<div class="concept">
+  <h4>&alpha;-假设（&alpha;-function hypothesis）</h4>
+  <p>一个在 SAFT 微扰理论发展中广泛使用的假设：具有相同无量纲 van der Waals 能（即相同的 &alpha; 参数）的分子，二阶和三阶微扰项也相似，因此有相似的相行为。</p>
+  <div class="label">类比</div>
+  <p>假设"体重相同的人体型也相似"。对大多数人大致成立，但健美运动员和普通人可以体重一样、体型完全不同。Mie 势只有一种"体型"（一个极小值），所以 &alpha;-假设通常成立。但 Funky 势有两种"体型"（两个极小值），&alpha;-假设就失效了。</p>
+  <div class="label">为什么重要</div>
+  <p>这是微扰理论的核心简化假设。论文通过 Funky 势的反例证明它在更广泛的势能空间中不成立——二阶微扰项 a<sub>2</sub> 的误差比 Mie 势大一个数量级。这意味着改进 SAFT 的下一步不是换更好的势（&Sigma; 势已经足够好），而是改进微扰理论本身。</p>
+</div>
+
+<h2>&#x1f4a1; 洞见</h2>
+
+<div class="insight">
+  从 <em>ab initio</em> 到准确的状态方程，瓶颈已经不在分子势的表示精度——6 项 Sutherland 求和足以逼近量化计算的精度。真正的瓶颈在微扰理论的二阶项，特别是 &alpha;-假设对势能形状多样性的过度简化。
+</div>
+
+<p>这个发现对 SAFT 的未来发展方向有指导意义。过去十几年，很多工作集中在"找更好的分子势"——从 square-well 到 Mie，从两参数到多参数。这篇论文说：势的表示精度已经够了（&Sigma; 势），但微扰理论本身的近似才是精度天花板。特别是 a<sub>2</sub>（能量涨落项），论文证明它对势能的具体形状敏感，不能靠 &alpha; 参数简单归类。</p>
+
+<p>对实际应用的影响：如果只是预测 VLE 和密度，现有的 SAFT-VR Mie 已经很好。但如果想预测粘度和第二维里系数到 <em>ab initio</em> 精度，就需要 &Sigma; 势。如果想预测等容热容和等压热容，换势没用——需要改微扰理论。</p>
+
+<h2>&#x1f9d1;&#x200d;&#x1f393; 博导审稿</h2>
+
+<p><strong>选题</strong>非常扎实。从 <em>ab initio</em> 到状态方程的 pipeline 是 SAFT 领域最有前景的方向之一。这个团队（NTNU 的 Wilhelmsen 组）在这条路上已经做了好几篇系统性的工作（Jervell &amp; Wilhelmsen 2023, 2024），这篇是自然的延伸。</p>
+
+<p><strong>方法</strong>干净。&Sigma; 势的定义简洁，和现有 SAFT 框架的对接也顺畅——因为微扰理论的积分对 Sutherland 势有解析结果，多项求和就是线性叠加。不需要推倒重来，只需要把现有 SAFT-VR Mie 的代码里把势能部分换掉。Funky 势的设计很聪明——刻意构造一个 Mie 势无法表示的形状，用来探测理论的极限。</p>
+
+<figure class="paper-figure">
+  <img src="assets/20260326T160500/fig3_virial.png" alt="Second virial coefficient" loading="lazy">
+  <figcaption>第二维里系数的偏差对比：上排是半经典 FH 修正势与完全量子力学计算的偏差，下排是微扰理论预测与势能直接积分的偏差。&Sigma; 势（红线）始终优于 Mie 势（蓝线），但微扰理论本身在低温引入了更大误差。</figcaption>
+</figure>
+
+<p><strong>实验</strong>设计有层次。四个层面的验证：势能拟合质量（Fig 3）→ 无穷稀释性质（粘度 Fig 4、第二维里系数 Fig 5）→ 相平衡（VLE Fig 6）→ 超临界性质（Fig 9）。每一层都拆解了误差来源：势的表示误差 vs 微扰理论的误差 vs 量子修正的误差。Monte Carlo 模拟作为"真值"参考也做了（GEMC for VLE, NPT for supercritical）。</p>
+
+<p>短板。<strong>第一</strong>，只做了氩和氖两种单原子分子。这是最简单的情况——球对称、无极性、无内部自由度。推广到多原子分子（链节模型、极性项）需要额外的工作，论文没有讨论这条路多难。<strong>第二</strong>，等容热容和等压热容的预测偏差超过 10%，论文归因于微扰理论但没有提出改进方案——只是说"改进微扰理论是未来方向"。<strong>第三</strong>，Funky 势的分析虽然有趣，但 Funky 势不对应任何真实分子。它更多是一个理论工具（用来证伪 &alpha;-假设），不是实用贡献。<strong>第四</strong>，论文没有和 PC-SAFT 做对比——只在 SAFT-VR 框架内讨论，不清楚 &Sigma; 势在 PC-SAFT 框架下的表现。</p>
+
+<p><strong>写作</strong>清晰严谨。Theory section 的推导完整但不冗余，公式编号合理，符号一致。图表质量好，Fig 3-5 的误差分解特别有信息量。唯一的抱怨是 Methods section 里 Monte Carlo 模拟的参数设置很长，可以放 supplementary。</p>
+
+<div class="verdict">
+  判决：weak accept。&Sigma; 势扩展了 SAFT 可描述的分子间作用力范围，Funky 势的反例漂亮地证伪了 &alpha;-假设。但仅验证了两种单原子气体，等容热容的瓶颈只诊断没治疗，实用价值有待推广到多原子分子验证。
+</div>
+
+<h2>&#x1f517; 启发</h2>
+
+<p><strong>迁移</strong>：&Sigma; 势的思路——"用多项简单函数的叠加替代单一复杂函数"——和 GPUTherm 的算子分解是同一个哲学。在 GPU 上实现 &Sigma; 势可能比 Mie 势更友好：Sutherland 势的每一项都是简单的幂函数运算，k 项求和可以用 loop unrolling 或 SIMD 并行。如果 GPUTherm 未来要支持 SAFT-VR Sum，算子层面只需要新增一个"Sutherland sum evaluator"，不需要改融合策略。</p>
+
+<p><strong>混搭</strong>：论文揭示的"微扰理论二阶项是精度瓶颈"和 GPUTherm 的 GPU 加速方向可以产生有趣的互补。如果能在 GPU 上快速做 Monte Carlo 采样（利用 SimpleNonlinearSolve.jl 那篇提到的小系统 GPU kernel 技术），就可以直接用模拟替代微扰理论的二阶项——用计算量换精度。这在 CPU 上不划算，但在 GPU 上每秒能做几千万次 NPT 评估时，可能变得可行。</p>
+
+<footer>
+  Generated on 2026-03-26 &middot; ljg-paper skill v5.1.0
+</footer>
+
+</body>
+</html>

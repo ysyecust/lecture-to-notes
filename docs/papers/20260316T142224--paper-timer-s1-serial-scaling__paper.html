@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timer-S1: Serial Scaling</title>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #78716c;
+    --accent: #7c3aed;
+    --accent-light: #ede9fe;
+    --border: #e7e5e4;
+    --code-bg: #f5f5f4;
+    --verdict-bg: #fef3c7;
+    --verdict-border: #f59e0b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Noto Sans SC", "PingFang SC", sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.8;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem;
+  }
+  header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  header h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+  .meta {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .meta span { display: inline-block; margin-right: 1.5rem; }
+  .tag {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    margin-right: 0.3rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+    letter-spacing: -0.01em;
+  }
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.6rem;
+  }
+  p { margin-bottom: 1rem; }
+  strong { font-weight: 600; }
+  .architecture {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    margin: 1.2rem 0;
+    font-family: "SF Mono", "Fira Code", "Menlo", monospace;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    white-space: pre;
+    overflow-x: auto;
+  }
+  ol, ul {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+  li { margin-bottom: 0.4rem; }
+  .concept {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    margin: 1rem 0;
+  }
+  .concept h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--accent);
+  }
+  .concept .label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.6rem;
+    margin-bottom: 0.2rem;
+  }
+  .insight {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 1.2rem 1.5rem;
+    margin: 1.2rem 0;
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+  .verdict {
+    background: var(--verdict-bg);
+    border: 1px solid var(--verdict-border);
+    border-radius: 8px;
+    padding: 0.8rem 1.2rem;
+    margin: 1.2rem 0;
+    font-weight: 600;
+  }
+  .section-icon {
+    display: inline-block;
+    width: 1.5rem;
+    margin-right: 0.3rem;
+    text-align: center;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Timer-S1: A Billion-Scale Time Series Foundation Model with Serial Scaling</h1>
+  <div class="meta">
+    <div style="margin-bottom:0.5rem">
+      <span class="tag">paper</span>
+      <span class="tag">time-series</span>
+      <span class="tag">foundation-model</span>
+    </div>
+    <div>
+      <span><strong>Authors:</strong> Yong Liu, Xingjian Su, Shiyu Wang, Haoran Zhang 等 (清华 &amp; 字节)</span>
+    </div>
+    <div>
+      <span><strong>Source:</strong> arXiv:2603.04791v2</span>
+      <span><strong>Date:</strong> 2026-03-16</span>
+    </div>
+  </div>
+</header>
+
+<h2><span class="section-icon">?</span> 问题</h2>
+
+<p><strong>为什么时间序列模型越做越大，预测却没好多少？</strong></p>
+
+<p>过去两年涌出了一批时间序列基础模型——Chronos、TimesFM、Moirai，参数量从几千万到几亿。但一个尴尬的现象是：模型变大了，长期预测的准确度并没有跟上。问题出在预测方式本身。</p>
+
+<p>目前有两条路。第一条叫并行预测：模型一口气把未来所有时间步全吐出来。快是快，但每一步的预测互相不知道对方说了什么，越往后越飘。第二条叫自回归滚动：先预测下一步，拿预测结果当输入再预测下下步，像接力。准是准一些，但滚一次就要跑一遍模型，长期预测的计算成本扛不住，误差也在滚动中不断累积。</p>
+
+<p>两条路都卡住了。Timer-S1 的做法是：承认预测天生就是个串行问题——越远的未来需要越多的计算量——然后设计一种架构，让模型在一次前向传播里就完成这种逐步递进的串行推理。</p>
+
+<h2><span class="section-icon">&#x1f4d6;</span> 翻译</h2>
+
+<h3>一个类比：写续集</h3>
+
+<p>想象你读了一本小说的前十章，要续写后面的内容。</p>
+
+<p><strong>并行预测</strong>的做法是：同时写第十一到二十章，每一章独立完成。第十五章不知道第十二章写了什么，很容易前后矛盾。</p>
+
+<p><strong>自回归滚动</strong>的做法是：写完第十一章，重读一遍整本书加上第十一章，再写第十二章。精细，但写一章就要重读一次，太慢。</p>
+
+<p><strong>Timer-S1</strong> 的做法更像流水线编辑：先让一组编辑读完前十章，形成整体理解。然后第一个编辑写第十一章，把他的理解传给第二个编辑，第二个编辑在此基础上写第十二章，以此类推。每个编辑都能看到原文和前一位的工作成果，但整个流程只走一遍。</p>
+
+<h3>怎么实现的</h3>
+
+<p>Timer-S1 的架构分三层：</p>
+
+<div class="architecture">输入时间序列
+    |
+[ 归一化 + 切片嵌入 ]  把原始数值标准化，切成固定长度的小段（patch）
+    |
+[ 24 层 TimeMoE 块 ]   主干网络，提取时间模式
+    |                    每层有 32 个专家，只激活 2 个 --&gt; 省算力
+    |
+[ 16 层 TimeSTP 块 ]   串行预测模块，逐步生成未来的 patch
+    |                    第 1 块预测下一个 patch
+    |                    第 2 块在第 1 块基础上预测再下一个
+    |                    ...以此类推
+    |
+[ 分位数预测头 ]        输出 9 个分位数，给出不确定性范围</div>
+
+<p>关键设计在 TimeSTP 块。每个 TimeSTP 块做两件事：把上一层的输出和最初的输入嵌入拼在一起，过一个 Transformer 层。这样越远的预测经过越多层计算，但始终能回看原始输入，不会在传递中丢失信息。</p>
+
+<p>总参数 83 亿，但因为用了稀疏专家混合（MoE），每个 token 只激活 7.5 亿参数。模型很大，推理成本可控。</p>
+
+<h3>数据和训练</h3>
+
+<p>训练数据叫 TimeBench，包含一万亿个时间点，来源覆盖金融、物联网、气象、医疗，还有合成信号。数据经过严格筛选：用 ADF 检验判断平稳性，用频谱熵评估可预测性。</p>
+
+<p>训练分三阶段：</p>
+<ol>
+  <li><strong>预训练</strong>：在 TimeBench 上用串行 token 预测（STP）目标训练，所有预测步权重相等</li>
+  <li><strong>继续预训练</strong>：用加权 STP，近期预测权重更高（按 1/&radic;j 衰减），专门强化短期准确度</li>
+  <li><strong>长上下文扩展</strong>：通过 RoPE 把上下文窗口从 2880 拉到 11520</li>
+</ol>
+
+<p>两个数据增强技巧值得注意。<strong>重采样</strong>：对原始序列做不同频率的降采样和插值，让模型见过各种时间分辨率。<strong>值翻转</strong>：把整条序列乘以 &minus;1，打破模型总是预测"往上走"的偏见。</p>
+
+<h3>效果</h3>
+
+<p>在 GIFT-Eval 排行榜上（24 个数据集，14.4 万条时间序列），Timer-S1 拿到最好的 MASE（0.693）和 CRPS（0.485）。</p>
+
+<p>分时间跨度看，短期预测 Timer-S1 和其他模型差距不大，但中长期预测拉开了明显差距。这正好印证了串行预测的价值——越远的预测，额外的串行计算带来的收益越大。</p>
+
+<p>和同等计算预算的对比：24 层 TimeMoE + 16 层 TimeSTP 的组合，比 40 层纯 TimeMoE 加 next-token 预测或 multi-token 预测都要好。TimeSTP 不是锦上添花，是实打实的架构改进。</p>
+
+<h2><span class="section-icon">&#x1f511;</span> 核心概念</h2>
+
+<div class="concept">
+  <h4>Serial-Token Prediction（串行 token 预测）</h4>
+  <p>在一次前向传播里，让越远的预测经过越多层 Transformer 计算。</p>
+  <div class="label">类比</div>
+  <p>考试答题。简单题（近期预测）过一遍脑子就行，难题（远期预测）要反复验算。Timer-S1 的做法就是给难题自动分配更多"验算层"——第 1 步未来经过 1 层 TimeSTP，第 16 步未来经过 16 层 TimeSTP。</p>
+  <div class="label">为什么重要</div>
+  <p>这是论文能 scale up 的根本原因。以前的并行预测给所有时间步一样多的计算，等于让简单题和难题用同样的时间。STP 让计算量和预测难度对齐了。</p>
+</div>
+
+<div class="concept">
+  <h4>TimeMoE（时间序列稀疏专家混合）</h4>
+  <p>每层放 32 个小型前馈网络（专家），每个 token 只挑 2 个用。</p>
+  <div class="label">类比</div>
+  <p>一家医院有 32 个科室，每个病人只挂两个号。模型总参数很大（覆盖面广），但每次推理的计算量很小（只用对口的专家）。</p>
+  <div class="label">为什么重要</div>
+  <p>没有 MoE，83 亿参数的模型推理成本不可接受。MoE 让模型在参数量和推理速度之间找到了平衡点，实际激活量只有 7.5 亿。</p>
+</div>
+
+<h2><span class="section-icon">&#x1f4a1;</span> 洞见</h2>
+
+<div class="insight">
+  预测的本质是串行的，但解决方案不一定是串行推理——可以用架构深度来模拟串行性。
+</div>
+
+<p>这个想法比论文本身更大。它说的是：如果一个任务的难度沿着某个维度递增（比如预测越远越难），那么合理的架构应该让计算量沿着同一个维度递增。不是给所有子任务一样的算力，也不是用滚动来逐个解决，而是在一次计算中通过深度来分配难度。</p>
+
+<p>这和大语言模型里"思考时间越长回答越好"的直觉是一回事，但 Timer-S1 把它硬编码进了架构里，而不是靠提示或采样策略。</p>
+
+<h2><span class="section-icon">&#x1f9d1;&#x200d;&#x1f393;</span> 博导审稿</h2>
+
+<p><strong>选题</strong>没问题。时间序列基础模型的 scaling 确实是个真缺口，之前几个大模型参数量上去了效果没跟上，大家都看到了。这帮人从 Timer 到 Timer-XL 到 Sundial 一路做过来，对这个问题的理解是真实的，不是硬造需求。</p>
+
+<p><strong>方法</strong>有巧劲。STP 的设计思路清晰——承认串行性、用深度模拟串行、保留初始输入的跳接。比起简单堆 multi-token prediction 头，这个设计更尊重时间序列的特性。TimeSTP 和 LLM 里的 multi-token prediction 的两个区别（不用未来信息做训练、推理时保留 STP 块）也说得明白。</p>
+
+<p><strong>实验</strong>有几个让人放心的点：和同等计算预算的 NTP、MTP 做了对比，不是拿大模型欺负小模型。消融做了 TimeSTP 的移除实验和 shift-token 变体，证明了设计选择有道理。scaling 曲线也画了，TimeMoE 和 TimeSTP 块数的影响都探索过。</p>
+
+<p>但有几个地方让我皱眉。第一，只在 GIFT-Eval 一个排行榜上评测。这个 benchmark 虽然大（24 个数据集），但所有结果都集中在一个评估协议上，换个评估方式未必还是第一。第二，模型只做单变量预测，多变量靠后续微调解决。这在实际应用中是个硬限制——真实世界的时间序列很少只有一个变量。第三，值翻转这个数据增强的解释有点草率，说"打破方向性偏见"，但没有深入分析为什么模型会有这个偏见、翻转是不是最好的解法。</p>
+
+<p><strong>写作</strong>中规中矩。架构部分图文配合清楚，训练部分条理分明。但 Background 那一节有点长，花了不少篇幅回顾自家的工作线（Timer &rarr; Timer-XL &rarr; Sundial），读起来像在做广告。</p>
+
+<div class="verdict">
+  判决：weak accept。核心想法（STP）是对时间序列预测架构的一个真正贡献，实验充分，但单一 benchmark 和单变量限制让说服力打了折扣。
+</div>
+
+<h2><span class="section-icon">&#x1f517;</span> 启发</h2>
+
+<p><strong>迁移</strong>：STP 的思路——"越难的子任务分配越多计算"——不局限于时间序列。任何输出序列中难度不均匀的任务，都可以考虑类似的架构设计。比如代码生成中，函数签名容易预测，函数体难预测，是否可以用类似的分层深度策略？</p>
+
+<p><strong>反转</strong>：主流做法是把 LLM 的技术（multi-token prediction、KV-Cache）直接搬到时间序列上。Timer-S1 反过来说：时间序列和语言不一样，滚动推理的误差累积在时间序列里更严重，所以不能照搬。这提醒我们，跨领域迁移技术时，要先问"目标领域的独特约束是什么"，而不是默认源领域的方案是最优的。</p>
+
+<footer>
+  Generated on 2026-03-16 &middot; ljg-paper skill v4.2.0
+</footer>
+
+</body>
+</html>
