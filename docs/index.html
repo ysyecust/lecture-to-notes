@@ -5,573 +5,223 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lecture to Notes</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-card: #ffffff;
-            --bg-hover: #f1f5f9;
-            --border: #e2e8f0;
-            --border-hover: #cbd5e1;
-            --text: #0f172a;
-            --text-secondary: #475569;
-            --text-muted: #94a3b8;
-            --accent: #4f46e5;
-            --accent-light: #e0e7ff;
-            --accent-text: #3730a3;
-            --green: #16a34a;
-            --purple: #7c3aed;
-            --orange: #ea580c;
-            --red: #dc2626;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--bg-secondary);
-            color: var(--text);
-            min-height: 100vh;
-        }
-
-        .wrapper {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
+        :root{--bg:#fff;--bg2:#f8fafc;--card:#fff;--border:#e5e7eb;--text:#111827;--text2:#6b7280;--text3:#9ca3af;--accent:#4f46e5;--accent-bg:#eef2ff;--accent-t:#3730a3;--green:#059669;--green-bg:#ecfdf5;--red:#dc2626;--red-bg:#fef2f2;--orange:#d97706;--orange-bg:#fffbeb;--purple:#7c3aed;--purple-bg:#f5f3ff}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg2);color:var(--text);line-height:1.6}
+        .w{max-width:980px;margin:0 auto;padding:0 20px}
 
         /* Nav */
-        nav {
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        nav .inner {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 14px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .logo {
-            font-size: 1rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            color: var(--text);
-        }
-        .logo span { color: var(--accent); }
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            padding: 6px 12px;
-            border-radius: 6px;
-            transition: all 0.15s;
-        }
-        nav a:hover { background: var(--bg-hover); color: var(--text); }
+        nav{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);background:rgba(255,255,255,0.9)}
+        nav .w{display:flex;align-items:center;justify-content:space-between;height:52px}
+        .logo{font-weight:800;font-size:.95rem;color:var(--text)}.logo span{color:var(--accent)}
+        .nav-links{display:flex;gap:4px}
+        .nav-links a{font-size:.8rem;font-weight:500;color:var(--text2);text-decoration:none;padding:6px 10px;border-radius:6px;transition:.15s}
+        .nav-links a:hover,.nav-links a.active{background:var(--accent-bg);color:var(--accent-t)}
 
         /* Hero */
-        .hero {
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border);
-            padding: 56px 24px 48px;
-            text-align: center;
-        }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 5px 12px;
-            background: var(--accent-light);
-            border-radius: 100px;
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: var(--accent-text);
-            margin-bottom: 20px;
-        }
-        .hero h1 {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            font-weight: 900;
-            letter-spacing: -0.03em;
-            line-height: 1.15;
-            margin-bottom: 12px;
-            color: var(--text);
-        }
-        .hero h1 .accent { color: var(--accent); }
-        .hero p {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            max-width: 520px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
+        .hero{background:var(--bg);border-bottom:1px solid var(--border);padding:40px 0 32px;text-align:center}
+        .hero h1{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:800;letter-spacing:-.03em;margin-bottom:8px}
+        .hero h1 .a{color:var(--accent)}
+        .hero p{font-size:.9rem;color:var(--text2);max-width:480px;margin:0 auto}
+
+        /* Tabs */
+        .tabs{display:flex;gap:4px;background:var(--bg);border-bottom:1px solid var(--border);padding:0 20px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+        .tabs .w{display:flex;gap:4px;padding:0}
+        .tab{padding:10px 16px;font-size:.82rem;font-weight:600;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:.15s;user-select:none}
+        .tab:hover{color:var(--text)}
+        .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+        .tab .badge{display:inline-block;background:var(--accent-bg);color:var(--accent-t);font-size:.7rem;padding:1px 6px;border-radius:100px;margin-left:4px;font-weight:700}
 
         /* Stats */
-        .stats-bar {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            padding: 24px 0;
-            flex-wrap: wrap;
-        }
-        .stat { text-align: center; }
-        .stat .value {
-            font-size: 1.6rem;
-            font-weight: 800;
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--accent);
-        }
-        .stat .label {
-            font-size: 0.72rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-top: 2px;
-        }
+        .stats{display:flex;gap:24px;padding:16px 0;flex-wrap:wrap}
+        .stat{text-align:center;flex:1;min-width:60px}
+        .stat .v{font-family:'JetBrains Mono';font-size:1.4rem;font-weight:700;color:var(--accent)}
+        .stat .l{font-size:.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:.04em}
 
-        /* Section */
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 32px 0 16px;
-        }
-        .section-header h2 {
-            font-size: 1.05rem;
-            font-weight: 700;
-        }
-        .section-header .count {
-            font-size: 0.72rem;
-            font-weight: 600;
-            padding: 2px 8px;
-            border-radius: 100px;
-            background: var(--accent-light);
-            color: var(--accent-text);
-        }
+        /* Content panels */
+        .panel{display:none}.panel.active{display:block}
 
-        /* Lecture cards */
-        .lecture-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-bottom: 32px;
-        }
-        .lecture-card {
-            display: grid;
-            grid-template-columns: 44px 1fr auto;
-            align-items: center;
-            gap: 14px;
-            padding: 14px 18px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-        .lecture-card:hover {
-            border-color: var(--border-hover);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            transform: translateY(-1px);
-        }
-        .lecture-num {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
-            font-size: 0.95rem;
-        }
-        .lecture-num.purple { background: #f3e8ff; color: #7c3aed; }
-        .lecture-num.red { background: #fee2e2; color: #dc2626; }
-        .lecture-info h3 {
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 3px;
-            color: var(--text);
-        }
-        .lecture-info .meta {
-            display: flex;
-            gap: 14px;
-            font-size: 0.78rem;
-            color: var(--text-muted);
-        }
-        .lecture-actions {
-            display: flex;
-            gap: 6px;
-        }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 7px 14px;
-            border-radius: 7px;
-            font-size: 0.78rem;
-            font-weight: 600;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: all 0.15s;
-            white-space: nowrap;
-        }
-        .btn-accent {
-            background: var(--accent);
-            color: white;
-        }
-        .btn-accent:hover { background: #4338ca; }
-        .btn-ghost {
-            background: transparent;
-            color: var(--text-secondary);
-            border: 1px solid var(--border);
-        }
-        .btn-ghost:hover { border-color: var(--text-muted); color: var(--text); }
+        /* Cards */
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;padding:16px 0}
+        .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;cursor:pointer;transition:.15s;display:flex;flex-direction:column;gap:8px}
+        .card:hover{border-color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.04);transform:translateY(-1px)}
+        .card-top{display:flex;align-items:center;gap:10px}
+        .card-num{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono';font-weight:700;font-size:.85rem;flex-shrink:0}
+        .card-num.nju{background:var(--purple-bg);color:var(--purple)}
+        .card-num.yt{background:var(--red-bg);color:var(--red)}
+        .card-num.paper-s{background:#dbeafe;color:#2563eb}
+        .card-num.paper-ai{background:var(--purple-bg);color:var(--purple)}
+        .card-num.paper-sci{background:var(--green-bg);color:var(--green)}
+        .card-num.talk{background:var(--orange-bg);color:var(--orange)}
+        .card h3{font-size:.88rem;font-weight:600;line-height:1.3;flex:1}
+        .card .meta{font-size:.75rem;color:var(--text3);display:flex;gap:12px;flex-wrap:wrap}
+        .card .actions{display:flex;gap:6px;margin-top:auto;padding-top:4px}
+        .btn{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:6px;font-size:.75rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:.15s}
+        .btn-p{background:var(--accent);color:#fff}.btn-p:hover{background:#4338ca}
+        .btn-g{background:transparent;color:var(--text2);border:1px solid var(--border)}.btn-g:hover{border-color:var(--text3);color:var(--text)}
 
         /* Modal */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(15,23,42,0.5);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .modal-overlay.active { display: flex; }
-        .modal-content {
-            width: 100%;
-            max-width: 920px;
-            height: 90vh;
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 24px 48px rgba(0,0,0,0.12);
-        }
-        .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 18px;
-            border-bottom: 1px solid var(--border);
-            background: var(--bg-secondary);
-        }
-        .modal-header h3 { font-size: 0.9rem; font-weight: 600; }
-        .modal-close {
-            width: 30px; height: 30px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            background: var(--bg-primary);
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-close:hover { background: var(--bg-hover); color: var(--text); }
-        .modal-body { flex: 1; overflow: hidden; }
-        .modal-body iframe { width: 100%; height: 100%; border: none; }
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);backdrop-filter:blur(4px);z-index:200;justify-content:center;align-items:center;padding:16px}
+        .modal.on{display:flex}
+        .modal-box{width:100%;max-width:920px;height:90vh;background:var(--bg);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 48px rgba(0,0,0,.15)}
+        .modal-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg2)}
+        .modal-head h3{font-size:.85rem;font-weight:600}
+        .modal-x{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+        .modal-x:hover{background:var(--bg2);color:var(--text)}
+        .modal-body{flex:1}.modal-body iframe{width:100%;height:100%;border:none}
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            border-top: 1px solid var(--border);
-        }
-        footer p {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            line-height: 1.8;
-        }
-        footer a { color: var(--accent); text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
+        footer{text-align:center;padding:32px 0;border-top:1px solid var(--border);margin-top:24px}
+        footer p{font-size:.75rem;color:var(--text3)}
+        footer a{color:var(--accent);text-decoration:none}
 
-        @media (max-width: 640px) {
-            .lecture-card { grid-template-columns: 36px 1fr; }
-            .lecture-actions { display: none; }
-            .stats-bar { gap: 24px; }
-        }
+        @media(max-width:640px){.grid{grid-template-columns:1fr}.stats{gap:16px}.card .actions .btn-g{display:none}}
     </style>
 </head>
 <body>
-    <nav><div class="inner">
-        <div class="logo">lecture<span>-to-</span>notes</div>
+<nav><div class="w">
+    <div class="logo">lecture<span>-to-</span>notes</div>
+    <div class="nav-links">
+        <a href="#" class="active" onclick="showTab('all');return false">全部</a>
+        <a href="#" onclick="showTab('lectures');return false">讲义</a>
+        <a href="#" onclick="showTab('papers');return false">论文</a>
         <a href="https://github.com/ysyecust/lecture-to-notes" target="_blank">GitHub ↗</a>
-    </div></nav>
+    </div>
+</div></nav>
 
-    <section class="hero">
-        <div class="hero-badge">✦ AI-Powered Lecture Notes</div>
-        <h1>Video → <span class="accent">PDF 讲义</span></h1>
-        <p>将 YouTube / Bilibili 讲座视频自动转换为高信息密度的 LaTeX 课程讲义。点击卡片即可在线预览。</p>
-    </section>
+<section class="hero"><div class="w">
+    <h1>Video & Paper → <span class="a">结构化笔记</span></h1>
+    <p>AI 驱动的学习工具：视频讲座 → PDF 讲义，学术论文 → HTML 解读</p>
+</div></section>
 
-    <div class="wrapper">
-        <div class="stats-bar">
-            <div class="stat"><div class="value">11</div><div class="label">Lectures</div></div>
-            <div class="stat"><div class="value">144</div><div class="label">Pages</div></div>
-            <div class="stat"><div class="value">2</div><div class="label">Platforms</div></div>
-            <div class="stat"><div class="value">~10h</div><div class="label">Video</div></div>
-        </div>
-
-        <div class="section-header">
-            <h2>🎓 南京大学 · 操作系统原理 2026</h2>
-            <span class="count">7</span>
-        </div>
-        <div class="lecture-list">
-            <div class="lecture-card" onclick="openPreview('pdfs/nju_os_01_intro.pdf','01 - 绪论')">
-                <div class="lecture-num purple">01</div>
-                <div class="lecture-info">
-                    <h3>Agentic AI 时代的操作系统课：绪论</h3>
-                    <div class="meta"><span>蒋炎岩 (jyy)</span><span>97 min</span><span>18 页</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <button class="btn btn-accent" onclick="event.stopPropagation();openPreview('pdfs/nju_os_01_intro.pdf','01 - 绪论')">查看</button>
-                    <a href="https://www.bilibili.com/video/BV1opAfzpEf9" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ B站</a>
-                </div>
-            </div>
-            <div class="lecture-card" onclick="openPreview('pdfs/nju_os_02_app_view.pdf','02 - 应用视角的操作系统')">
-                <div class="lecture-num purple">02</div>
-                <div class="lecture-info">
-                    <h3>应用视角的操作系统</h3>
-                    <div class="meta"><span>蒋炎岩 (jyy)</span><span>88 min</span><span>17 页</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <button class="btn btn-accent" onclick="event.stopPropagation();openPreview('pdfs/nju_os_02_app_view.pdf','02 - 应用视角的操作系统')">查看</button>
-                    <a href="https://www.bilibili.com/video/BV1KNPHzPEra" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ B站</a>
-                </div>
-            </div>
-            <div class="lecture-card" onclick="openPreview('pdfs/nju_os_03_hardware.pdf','03 - 硬件视角的操作系统')">
-                <div class="lecture-num purple">03</div>
-                <div class="lecture-info">
-                    <h3>硬件视角的操作系统</h3>
-                    <div class="meta"><span>蒋炎岩 (jyy)</span><span>96 min</span><span>14 页</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <button class="btn btn-accent" onclick="event.stopPropagation();openPreview('pdfs/nju_os_03_hardware.pdf','03 - 硬件视角的操作系统')">查看</button>
-                    <a href="https://www.bilibili.com/video/BV18fcozAEsy" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ B站</a>
-                </div>
-            </div>
-            <div class="lecture-card" onclick="openPreview('pdfs/nju_os_04_llm_agents.pdf','04 - LLM, Agents 和 Scaling Law')">
-                <div class="lecture-num purple">04</div>
-                <div class="lecture-info">
-                    <h3>LLM, Agents 和 Scaling Law <span style="color:var(--orange);font-size:0.72rem;font-weight:500;">(Aside)</span></h3>
-                    <div class="meta"><span>蒋炎岩 (jyy)</span><span>82 min</span><span>12 页</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <button class="btn btn-accent" onclick="event.stopPropagation();openPreview('pdfs/nju_os_04_llm_agents.pdf','04 - LLM, Agents 和 Scaling Law')">查看</button>
-                    <a href="https://www.bilibili.com/video/BV1gEcmzzE4P" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ B站</a>
-                </div>
-            </div>
-            <div class="lecture-card" onclick="openPreview('pdfs/nju_os_05_process_fork.pdf','05 - 程序和进程')">
-                <div class="lecture-num purple">05</div>
-                <div class="lecture-info">
-                    <h3>程序和进程；fork, execve, exit</h3>
-                    <div class="meta"><span>蒋炎岩 (jyy)</span><span>85 min</span><span>13 页</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <button class="btn btn-accent" onclick="event.stopPropagation();openPreview('pdfs/nju_os_05_process_fork.pdf','05 - 程序和进程')">查看</button>
-                    <a href="https://www.bilibili.com/video/BV1N8w9zJENu" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ B站</a>
-                </div>
-            </div>
-            <div class="lecture-card" onclick="openPreview('pdfs/nju_os_06_mmap.pdf','06 - 进程的地址空间')">
-                <div class="lecture-num purple">06</div>
-                <div class="lecture-info">
-                    <h3>进程的地址空间；mmap, munmap, mprotect</h3>
-                    <div class="meta"><span>蒋炎岩 (jyy)</span><span>79 min</span><span>10 页</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <button class="btn btn-accent" onclick="event.stopPropagation();openPreview('pdfs/nju_os_06_mmap.pdf','06 - 进程的地址空间')">查看</button>
-                    <a href="https://www.bilibili.com/video/BV18nAjz9EcW" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ B站</a>
-                </div>
-            </div>
-        </div>
-
-            <div class="lecture-card" onclick="openPreview('pdfs/nju_os_07_fd_pipe.pdf','07 - 文件描述符与管道')">
-                <div class="lecture-num purple">07</div>
-                <div class="lecture-info">
-                    <h3>访问操作系统对象；文件描述符</h3>
-                    <div class="meta"><span>蒋炎岩 (jyy)</span><span>89 min</span><span>11 页</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <button class="btn btn-accent" onclick="event.stopPropagation();openPreview('pdfs/nju_os_07_fd_pipe.pdf','07 - 文件描述符与管道')">查看</button>
-                    <a href="https://www.bilibili.com/video/BV1QFQmB7EQD" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ B站</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-header">
-            <h2>💡 特别分享</h2>
-            <span class="count">1</span>
-        </div>
-        <div class="lecture-list">
-            <div class="lecture-card" onclick="openPreview('pdfs/jyy_phd_reflection.pdf','读博那些事儿（八年后回看版）')">
-                <div class="lecture-num purple">🎤</div>
-                <div class="lecture-info">
-                    <h3>[戒读] 读博那些事儿（八年后回看版）</h3>
-                    <div class="meta"><span>蒋炎岩 (jyy)</span><span>26 min</span><span>10 页</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <button class="btn btn-accent" onclick="event.stopPropagation();openPreview('pdfs/jyy_phd_reflection.pdf','读博那些事儿')">查看</button>
-                    <a href="https://www.bilibili.com/video/BV1oTwkzvEFu" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ B站</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-header">
-            <h2>🌐 YouTube Lectures</h2>
-            <span class="count">3</span>
-        </div>
-        <div class="lecture-list">
-            <div class="lecture-card" onclick="openPreview('pdfs/mit_6172_01_matmul.pdf','MIT 6.172 Lecture 1: Matrix Multiplication')">
-                <div class="lecture-num red">01</div>
-                <div class="lecture-info">
-                    <h3>Introduction and Matrix Multiplication (53,000x speedup)</h3>
-                    <div class="meta"><span>Charles Leiserson (MIT)</span><span>60 min</span><span>11 页</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <button class="btn btn-accent" onclick="event.stopPropagation();openPreview('pdfs/mit_6172_01_matmul.pdf','MIT 6.172 L1')">查看</button>
-                    <a href="https://www.youtube.com/watch?v=o7h_sYMk_oc" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ YT</a>
-                </div>
-            </div>
-            <div class="lecture-card" onclick="openPreview('pdfs/tamu_biegler_nlp.pdf','Multi-level Optimization for Nonlinear Energy Systems')">
-                <div class="lecture-num red">EN</div>
-                <div class="lecture-info">
-                    <h3>Multi-level Optimization for Large-Scale Nonlinear Energy Systems</h3>
-                    <div class="meta"><span>Dr. Larry Biegler (CMU)</span><span>45 min</span><span>16 页</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <button class="btn btn-accent" onclick="event.stopPropagation();openPreview('pdfs/tamu_biegler_nlp.pdf','NLP Optimization')">查看</button>
-                    <a href="https://www.youtube.com/watch?v=mst-tJ6ELTE" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ YT</a>
-                </div>
-            </div>
-            <div class="lecture-card" onclick="openPreview('pdfs/aocs_rheology.pdf','Rheology Principles and Applications')">
-                <div class="lecture-num red">EN</div>
-                <div class="lecture-info">
-                    <h3>Rheology Principles and Applications</h3>
-                    <div class="meta"><span>Mark Patrick Ph.D.</span><span>63 min</span><span>12 页</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <button class="btn btn-accent" onclick="event.stopPropagation();openPreview('pdfs/aocs_rheology.pdf','Rheology')">查看</button>
-                    <a href="https://www.youtube.com/watch?v=etR4ttjY4f0" class="btn btn-ghost" target="_blank" onclick="event.stopPropagation()">▶ YT</a>
-                </div>
-            </div>
-        </div>
+<div class="w">
+    <div class="stats">
+        <div class="stat"><div class="v">11</div><div class="l">讲义</div></div>
+        <div class="stat"><div class="v">144</div><div class="l">页</div></div>
+        <div class="stat"><div class="v">6</div><div class="l">论文</div></div>
+        <div class="stat"><div class="v">3</div><div class="l">平台</div></div>
     </div>
 
-        <!-- Paper Notes -->
-        <div class="section-header">
-            <h2>📄 论文解读</h2>
-            <span class="count">6</span>
+    <!-- ALL -->
+    <div class="panel active" id="panel-all">
+        <div class="tabs-inner" style="display:flex;gap:4px;padding:8px 0;overflow-x:auto">
+            <div class="tab active" onclick="filterSub(this,'all')">全部 <span class="badge">17</span></div>
+            <div class="tab" onclick="filterSub(this,'nju')">NJU OS <span class="badge">7</span></div>
+            <div class="tab" onclick="filterSub(this,'yt')">YouTube <span class="badge">3</span></div>
+            <div class="tab" onclick="filterSub(this,'talk')">分享 <span class="badge">1</span></div>
+            <div class="tab" onclick="filterSub(this,'paper')">论文 <span class="badge">6</span></div>
         </div>
-        <div class="lecture-list">
-            <div class="lecture-card" onclick="window.open('papers/20260326T133200--paper-nonlinearsolve-jl__paper.html','_blank')">
-                <div class="lecture-num" style="background:#dbeafe;color:#2563eb;">📐</div>
-                <div class="lecture-info">
-                    <h3>NonlinearSolve.jl: High-Performance Nonlinear Equation Solvers</h3>
-                    <div class="meta"><span>Julia</span><span>Nonlinear Equations</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <a href="papers/20260326T133200--paper-nonlinearsolve-jl__paper.html" class="btn btn-accent" target="_blank" onclick="event.stopPropagation()">查看</a>
-                </div>
-            </div>
-            <div class="lecture-card" onclick="window.open('papers/20260326T131500--paper-uno-unified-nlp-solver__paper.html','_blank')">
-                <div class="lecture-num" style="background:#dbeafe;color:#2563eb;">📐</div>
-                <div class="lecture-info">
-                    <h3>Uno: A Unified Solver for Nonlinearly Constrained Optimization</h3>
-                    <div class="meta"><span>NLP Solver</span><span>Optimization</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <a href="papers/20260326T131500--paper-uno-unified-nlp-solver__paper.html" class="btn btn-accent" target="_blank" onclick="event.stopPropagation()">查看</a>
-                </div>
-            </div>
-            <div class="lecture-card" onclick="window.open('papers/20260326T125955--paper-avo-agentic-variation-operators__paper.html','_blank')">
-                <div class="lecture-num" style="background:#ede9fe;color:#7c3aed;">🤖</div>
-                <div class="lecture-info">
-                    <h3>AVO: Agentic Variation Operators for Autonomous Evolutionary Search</h3>
-                    <div class="meta"><span>LLM Agent</span><span>Evolutionary Algorithm</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <a href="papers/20260326T125955--paper-avo-agentic-variation-operators__paper.html" class="btn btn-accent" target="_blank" onclick="event.stopPropagation()">查看</a>
-                </div>
-            </div>
-            <div class="lecture-card" onclick="window.open('papers/20260316T142224--paper-timer-s1-serial-scaling__paper.html','_blank')">
-                <div class="lecture-num" style="background:#ede9fe;color:#7c3aed;">🤖</div>
-                <div class="lecture-info">
-                    <h3>Timer-S1: Serial Scaling for Time Series Forecasting</h3>
-                    <div class="meta"><span>Time Series</span><span>Scaling Law</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <a href="papers/20260316T142224--paper-timer-s1-serial-scaling__paper.html" class="btn btn-accent" target="_blank" onclick="event.stopPropagation()">查看</a>
-                </div>
-            </div>
-            <div class="lecture-card" onclick="window.open('papers/20260326T140100--paper-ai-scientist-e2e__paper.html','_blank')">
-                <div class="lecture-num" style="background:#ede9fe;color:#7c3aed;">🤖</div>
-                <div class="lecture-info">
-                    <h3>AI Scientist: End-to-End Autonomous Research</h3>
-                    <div class="meta"><span>AI Research</span><span>Automation</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <a href="papers/20260326T140100--paper-ai-scientist-e2e__paper.html" class="btn btn-accent" target="_blank" onclick="event.stopPropagation()">查看</a>
-                </div>
-            </div>
-            <div class="lecture-card" onclick="window.open('papers/20260326T160500--paper-saft-vr-sum__paper.html','_blank')">
-                <div class="lecture-num" style="background:#dcfce7;color:#16a34a;">🔬</div>
-                <div class="lecture-info">
-                    <h3>SAFT-VR: Statistical Associating Fluid Theory</h3>
-                    <div class="meta"><span>Thermodynamics</span><span>Equation of State</span></div>
-                </div>
-                <div class="lecture-actions">
-                    <a href="papers/20260326T160500--paper-saft-vr-sum__paper.html" class="btn btn-accent" target="_blank" onclick="event.stopPropagation()">查看</a>
-                </div>
-            </div>
-        </div>
+        <div class="grid" id="grid-all"></div>
     </div>
 
-    <footer>
-        <div class="wrapper">
-            <p>Built with <a href="https://github.com/ysyecust/lecture-to-notes">lecture-to-notes</a> · Powered by Claude Code</p>
-            <p>所有讲义内容版权归原视频作者所有，本项目仅用于学习与研究。</p>
-        </div>
-    </footer>
-
-    <!-- PDF Preview Modal -->
-    <div class="modal-overlay" id="modal" onclick="closePreview(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <div class="modal-header">
-                <h3 id="modal-title">预览</h3>
-                <button class="modal-close" onclick="closePreview()">✕</button>
-            </div>
-            <div class="modal-body">
-                <iframe id="pdf-viewer" src=""></iframe>
-            </div>
-        </div>
+    <!-- LECTURES ONLY -->
+    <div class="panel" id="panel-lectures">
+        <div class="grid" id="grid-lectures"></div>
     </div>
 
-    <script>
-        function openPreview(url, title) {
-            document.getElementById('modal-title').textContent = title;
-            document.getElementById('pdf-viewer').src = url;
-            document.getElementById('modal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closePreview(e) {
-            if (e && e.target !== document.getElementById('modal')) return;
-            document.getElementById('modal').classList.remove('active');
-            document.getElementById('pdf-viewer').src = '';
-            document.body.style.overflow = '';
-        }
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closePreview(); });
-    </script>
+    <!-- PAPERS ONLY -->
+    <div class="panel" id="panel-papers">
+        <div class="grid" id="grid-papers"></div>
+    </div>
+</div>
+
+<footer><div class="w">
+    <p>Built with <a href="https://github.com/ysyecust/lecture-to-notes">lecture-to-notes</a> · Powered by Claude Code</p>
+    <p>讲义版权归原视频作者，论文解读仅用于学习。</p>
+</div></footer>
+
+<!-- Modal -->
+<div class="modal" id="modal" onclick="closeM(event)">
+<div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-head"><h3 id="m-title">预览</h3><button class="modal-x" onclick="closeM()">✕</button></div>
+    <div class="modal-body"><iframe id="m-frame" src=""></iframe></div>
+</div></div>
+
+<script>
+const DATA = [
+    // NJU OS
+    {id:'nju01',cat:'nju',type:'lecture',num:'01',title:'Agentic AI 时代的操作系统课：绪论',meta:'蒋炎岩 · 97min · 18页',pdf:'pdfs/nju_os_01_intro.pdf',link:'https://www.bilibili.com/video/BV1opAfzpEf9',linkLabel:'B站'},
+    {id:'nju02',cat:'nju',type:'lecture',num:'02',title:'应用视角的操作系统',meta:'蒋炎岩 · 88min · 17页',pdf:'pdfs/nju_os_02_app_view.pdf',link:'https://www.bilibili.com/video/BV1KNPHzPEra',linkLabel:'B站'},
+    {id:'nju03',cat:'nju',type:'lecture',num:'03',title:'硬件视角的操作系统',meta:'蒋炎岩 · 96min · 14页',pdf:'pdfs/nju_os_03_hardware.pdf',link:'https://www.bilibili.com/video/BV18fcozAEsy',linkLabel:'B站'},
+    {id:'nju04',cat:'nju',type:'lecture',num:'04',title:'LLM, Agents 和 Scaling Law',meta:'蒋炎岩 · 82min · 12页',pdf:'pdfs/nju_os_04_llm_agents.pdf',link:'https://www.bilibili.com/video/BV1gEcmzzE4P',linkLabel:'B站'},
+    {id:'nju05',cat:'nju',type:'lecture',num:'05',title:'程序和进程；fork, execve, exit',meta:'蒋炎岩 · 85min · 13页',pdf:'pdfs/nju_os_05_process_fork.pdf',link:'https://www.bilibili.com/video/BV1N8w9zJENu',linkLabel:'B站'},
+    {id:'nju06',cat:'nju',type:'lecture',num:'06',title:'进程的地址空间；mmap, munmap, mprotect',meta:'蒋炎岩 · 79min · 10页',pdf:'pdfs/nju_os_06_mmap.pdf',link:'https://www.bilibili.com/video/BV18nAjz9EcW',linkLabel:'B站'},
+    {id:'nju07',cat:'nju',type:'lecture',num:'07',title:'访问操作系统对象；文件描述符',meta:'蒋炎岩 · 89min · 11页',pdf:'pdfs/nju_os_07_fd_pipe.pdf',link:'https://www.bilibili.com/video/BV1QFQmB7EQD',linkLabel:'B站'},
+    // YouTube
+    {id:'mit01',cat:'yt',type:'lecture',num:'01',title:'Introduction and Matrix Multiplication (53,000× speedup)',meta:'Leiserson (MIT) · 60min · 11页',pdf:'pdfs/mit_6172_01_matmul.pdf',link:'https://www.youtube.com/watch?v=o7h_sYMk_oc',linkLabel:'YT'},
+    {id:'biegler',cat:'yt',type:'lecture',num:'EN',title:'Multi-level Optimization for Nonlinear Energy Systems',meta:'Biegler (CMU) · 45min · 16页',pdf:'pdfs/tamu_biegler_nlp.pdf',link:'https://www.youtube.com/watch?v=mst-tJ6ELTE',linkLabel:'YT'},
+    {id:'rheo',cat:'yt',type:'lecture',num:'EN',title:'Rheology Principles and Applications',meta:'Mark Patrick · 63min · 12页',pdf:'pdfs/aocs_rheology.pdf',link:'https://www.youtube.com/watch?v=etR4ttjY4f0',linkLabel:'YT'},
+    // Talk
+    {id:'phd',cat:'talk',type:'lecture',num:'🎤',title:'[戒读] 读博那些事儿（八年后回看版）',meta:'蒋炎岩 · 26min · 10页',pdf:'pdfs/jyy_phd_reflection.pdf',link:'https://www.bilibili.com/video/BV1oTwkzvEFu',linkLabel:'B站'},
+    // Papers
+    {id:'p1',cat:'paper',type:'paper',icon:'📐',title:'NonlinearSolve.jl: High-Performance Nonlinear Solvers in Julia',meta:'Solver · Julia · Nonlinear',url:'papers/20260326T133200--paper-nonlinearsolve-jl__paper.html',cls:'paper-s'},
+    {id:'p2',cat:'paper',type:'paper',icon:'📐',title:'Uno: A Unified Solver for Nonlinearly Constrained Optimization',meta:'Solver · NLP · Optimization',url:'papers/20260326T131500--paper-uno-unified-nlp-solver__paper.html',cls:'paper-s'},
+    {id:'p3',cat:'paper',type:'paper',icon:'🤖',title:'AVO: Agentic Variation Operators for Autonomous Evolutionary Search',meta:'LLM Agent · Evolutionary',url:'papers/20260326T125955--paper-avo-agentic-variation-operators__paper.html',cls:'paper-ai'},
+    {id:'p4',cat:'paper',type:'paper',icon:'🤖',title:'Timer-S1: Serial Scaling for Time Series Forecasting',meta:'Time Series · Scaling Law',url:'papers/20260316T142224--paper-timer-s1-serial-scaling__paper.html',cls:'paper-ai'},
+    {id:'p5',cat:'paper',type:'paper',icon:'🤖',title:'AI Scientist: End-to-End Autonomous Research',meta:'AI Research · Automation',url:'papers/20260326T140100--paper-ai-scientist-e2e__paper.html',cls:'paper-ai'},
+    {id:'p6',cat:'paper',type:'paper',icon:'🔬',title:'SAFT-VR: Statistical Associating Fluid Theory',meta:'Thermodynamics · EoS',url:'papers/20260326T160500--paper-saft-vr-sum__paper.html',cls:'paper-sci'},
+];
+
+function renderCard(d) {
+    const isLecture = d.type === 'lecture';
+    const numCls = d.cat === 'nju' ? 'nju' : d.cat === 'yt' ? 'yt' : d.cat === 'talk' ? 'talk' : (d.cls || 'paper-ai');
+    const numText = isLecture ? d.num : d.icon;
+    const onclick = isLecture
+        ? `openM('${d.pdf}','${d.title.replace(/'/g,"\\&#39;")}')`
+        : `window.open('${d.url}','_blank')`;
+    const btnMain = isLecture
+        ? `<button class="btn btn-p" onclick="event.stopPropagation();${onclick}">查看</button>`
+        : `<a href="${d.url}" class="btn btn-p" target="_blank" onclick="event.stopPropagation()">查看</a>`;
+    const btnSec = d.link
+        ? `<a href="${d.link}" class="btn btn-g" target="_blank" onclick="event.stopPropagation()">▶ ${d.linkLabel}</a>`
+        : '';
+    return `<div class="card" onclick="${onclick}">
+        <div class="card-top"><div class="card-num ${numCls}">${numText}</div><h3>${d.title}</h3></div>
+        <div class="meta">${d.meta}</div>
+        <div class="actions">${btnMain}${btnSec}</div>
+    </div>`;
+}
+
+function populate() {
+    const all = document.getElementById('grid-all');
+    const lec = document.getElementById('grid-lectures');
+    const pap = document.getElementById('grid-papers');
+    all.innerHTML = DATA.map(renderCard).join('');
+    lec.innerHTML = DATA.filter(d=>d.type==='lecture').map(renderCard).join('');
+    pap.innerHTML = DATA.filter(d=>d.type==='paper').map(renderCard).join('');
+}
+
+function showTab(t) {
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-'+t).classList.add('active');
+}
+
+function filterSub(el, cat) {
+    el.parentElement.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    const grid = document.getElementById('grid-all');
+    const filtered = cat === 'all' ? DATA : DATA.filter(d => d.cat === cat);
+    grid.innerHTML = filtered.map(renderCard).join('');
+}
+
+function openM(url, title) {
+    document.getElementById('m-title').textContent = title;
+    document.getElementById('m-frame').src = url;
+    document.getElementById('modal').classList.add('on');
+    document.body.style.overflow = 'hidden';
+}
+function closeM(e) {
+    if (e && e.target !== document.getElementById('modal')) return;
+    document.getElementById('modal').classList.remove('on');
+    document.getElementById('m-frame').src = '';
+    document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeM(); });
+
+populate();
+</script>
 </body>
 </html>
