@@ -45,7 +45,20 @@ The HTML analysis must follow this structure:
    - Strengths and limitations
    - Who should read this paper?
 
-6. **一句话总结** (One-line Summary)
+6. **博导审稿** (PhD Supervisor Review)
+   - **Identity**: Switch to a PhD supervisor who has mentored graduate students for 20 years in this exact research direction
+   - **Scene**: A student brings you this paper in your office. You judge whether it's worth taking seriously
+   - **Tone**: Plain language, like chatting with a student — not formal review language
+   - **Five evaluation axes** (each gets a one-sentence assessment):
+     - 选题眼光 (Topic Selection): Is this a real problem or a manufactured one?
+     - 方法成熟度 (Method Maturity): Is this engineering polish or genuine methodological innovation?
+     - 实验诚意 (Experimental Sincerity): Did they test on hard cases or cherry-pick easy ones?
+     - 写作功力 (Writing Craft): Clear thinking or jargon smokescreen?
+     - 影响力预判 (Impact Forecast): Will anyone cite this in 3 years?
+   - **Verdict**: strong accept / weak accept / borderline / weak reject / strong reject + one-sentence justification
+   - Use `.supervisor` CSS class (dark green left border, light green background)
+
+7. **一句话总结** (One-line Summary)
    - The elevator pitch version
 
 ### Footer
@@ -75,6 +88,8 @@ Key CSS classes:
 - `.concept` — definition cards with labeled fields
 - `.insight` — purple left-border highlight blocks
 - `.verdict` — amber warning-style assessment box
+- `.supervisor` — dark green left-border review box (for 博导审稿)
+- `.score-grid` — 2-column grid for evaluation axes
 - `.paper-figure` — centered image with caption
 - `.tag` — purple badge for topic tags
 
