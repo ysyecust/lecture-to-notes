@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-Agent LLMs for Process Systems Engineering</title>
+<style>
+  :root { --bg:#fafaf9; --fg:#1c1917; --muted:#78716c; --accent:#7c3aed; --accent-light:#ede9fe; --border:#e7e5e4; --code-bg:#f5f5f4; --verdict-bg:#fef3c7; --verdict-border:#f59e0b; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,"Noto Sans SC","PingFang SC",sans-serif; background:var(--bg); color:var(--fg); line-height:1.8; max-width:760px; margin:0 auto; padding:3rem 1.5rem 6rem; }
+  header { margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid var(--border); }
+  header h1 { font-size:1.5rem; font-weight:700; margin-bottom:1rem; letter-spacing:-0.02em; }
+  .meta { font-size:0.85rem; color:var(--muted); line-height:1.6; }
+  .tag { display:inline-block; background:var(--accent-light); color:var(--accent); font-size:0.75rem; font-weight:600; padding:0.15rem 0.5rem; border-radius:4px; margin-right:0.3rem; }
+  h2 { font-size:1.3rem; font-weight:700; margin-top:3rem; margin-bottom:1rem; color:var(--accent); }
+  h3 { font-size:1.05rem; font-weight:600; margin-top:2rem; margin-bottom:0.6rem; }
+  p { margin-bottom:1rem; }
+  strong { font-weight:600; }
+  .architecture { background:var(--code-bg); border:1px solid var(--border); border-radius:8px; padding:1.2rem 1.5rem; margin:1.2rem 0; font-family:"SF Mono","Fira Code","Menlo",monospace; font-size:0.8rem; line-height:1.7; white-space:pre; overflow-x:auto; }
+  ol, ul { margin-bottom:1rem; padding-left:1.5rem; }
+  li { margin-bottom:0.4rem; }
+  .concept { background:#fff; border:1px solid var(--border); border-radius:8px; padding:1.2rem 1.5rem; margin:1rem 0; }
+  .concept h4 { font-size:0.95rem; font-weight:700; margin-bottom:0.5rem; color:var(--accent); }
+  .concept .label { font-size:0.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; margin-top:0.6rem; margin-bottom:0.2rem; }
+  .insight { background:var(--accent-light); border-left:4px solid var(--accent); border-radius:0 8px 8px 0; padding:1.2rem 1.5rem; margin:1.2rem 0; font-size:1.05rem; font-weight:500; }
+  .verdict { background:var(--verdict-bg); border:1px solid var(--verdict-border); border-radius:8px; padding:0.8rem 1.2rem; margin:1.2rem 0; font-weight:600; }
+  table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.9rem; }
+  th, td { text-align:left; padding:0.5rem 0.8rem; border-bottom:1px solid var(--border); }
+  th { font-weight:600; color:var(--muted); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.05em; }
+  code { background:var(--code-bg); padding:0.1rem 0.3rem; border-radius:3px; font-size:0.85em; }
+  footer { margin-top:4rem; padding-top:1.5rem; border-top:1px solid var(--border); font-size:0.8rem; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Improving Process Systems Engineering with Specialized Multi-Agent Large Language Models</h1>
+  <div class="meta">
+    <div style="margin-bottom:0.5rem">
+      <span class="tag">paper</span>
+      <span class="tag">LLM</span>
+      <span class="tag">multi-agent</span>
+      <span class="tag">PSE</span>
+      <span class="tag">crystallization</span>
+      <span class="tag">NMPC</span>
+    </div>
+    <div><strong>Authors:</strong> Fernando Arrais R.D. Lima, Anas Abdelrehim, Ashutosh Bharambe, Marius Micluța-Câmpeanu, Dhairya Gandhi, Anshul Singhvi, Venkateshprasad Bhat, Morten Piibeleht, Argimiro R. Secchi, Maurício B. de Souza Jr., M. Enis Leblebici, Christopher Rackauckas, Idelfonso B.R. Nogueira</div>
+    <div><strong>Source:</strong> Chemical Engineering Journal Advances 26 (2026) 101141 &middot; <strong>DOI:</strong> 10.1016/j.ceja.2026.101141</div>
+    <div><strong>Affiliations:</strong> NTNU (Norway), UFRJ (Brazil), Julia Computing (USA), KU Leuven (Belgium), MIT (USA)</div>
+  </div>
+</header>
+
+<h2>问题</h2>
+
+<p>LLM 已经能写代码、做数学推理、处理自然语言。但在<strong>过程系统工程</strong>（PSE）这种硬核工程领域——涉及物理约束、微分方程、参数估计、实时控制——通用 LLM 到底能不能用？多 Agent 协作比单 Agent 好多少？</p>
+
+<p>这篇论文做了一件很直接的事：拿<strong>结晶过程</strong>（crystallization）作为试金石，让四个 LLM 系统（两个多 Agent、两个单 Agent）在三个真实 PSE 任务上对比：</p>
+
+<ol>
+  <li><strong>软传感器标定</strong>：从红外光谱预测药物浓度</li>
+  <li><strong>机理建模</strong>：建立结晶过程的 population balance model（PBM），拟合实验数据</li>
+  <li><strong>非线性模型预测控制</strong>（NMPC）：设计控制器调温度，控制晶体大小和质量</li>
+</ol>
+
+<p>选结晶是因为它<strong>特别难</strong>——强非线性、紧约束、群体平衡动力学耦合，是 LLM 容易翻车的场景。</p>
+
+<h2>翻译</h2>
+
+<h3>一个类比：四个实习生做化工设计</h3>
+
+<p>想象你是一个化工厂的总工程师，需要完成一个结晶工艺的全套设计（传感器标定 → 动态模型 → 控制器）。你有四个「实习生」可以选：</p>
+
+<div class="concept">
+  <h4>Dyad 2.1（多 Agent + 专用建模语言）</h4>
+  <p class="label">类比</p>
+  <p>这位实习生自带了一套专业工具箱（Julia 建模语言、编译器、调试器）。他的工作方式是：先查手册确认语法，写代码，编译测试，发现问题就用「因果追踪」一步步定位 bug 的根源——不是猜，而是沿着方程图逆向排查。</p>
+</div>
+
+<div class="concept">
+  <h4>Claude Opus 4.6（多 Agent + 通用工具）</h4>
+  <p class="label">类比</p>
+  <p>这位实习生很聪明，没有专用工具但能用 Python/Julia 写代码。他会尝试多种模型结构（Arrhenius-only、secondary-nucleation-only、组合），选最好的。但有时候会过拟合——在训练集上很好看，泛化到新工况就飘了。</p>
+</div>
+
+<div class="concept">
+  <h4>ChatGPT 5.2 / Gemini Pro 3（单 Agent）</h4>
+  <p class="label">类比</p>
+  <p>这两位实习生一个人干所有事——建模、拟合、调参都在一轮对话里完成。他们经常在最开始就把模型结构定死了，不会回头检查物理合理性。结果有时候参数数值离谱（比如生长速率 k<sub>g</sub> 差了 5 个数量级），或者模型预测在近饱和区域发散。</p>
+</div>
+
+<div class="insight">核心发现：多 Agent 系统（Dyad 和 Claude Opus）把任务分解成子任务（建模 → 验证 → 参数估计），每步都有物理约束检查。单 Agent 系统在一个 prompt 里做所有事，容易「丢掉」物理直觉。</div>
+
+<h2>架构</h2>
+
+<h3>三个案例的技术细节</h3>
+
+<h3>Case 1: ATR-FTIR 光谱标定</h3>
+
+<p><strong>任务</strong>：从 247 条红外光谱 + 温度 + 溶剂组成 → 预测扑热息痛摩尔分数</p>
+
+<p>所有 LLM 都不约而同地选择了<strong>潜变量线性回归</strong>（PCR 或 PLSR）——这是光谱标定的标准方法。有趣的是差异出在预处理上：</p>
+
+<table>
+  <tr><th>系统</th><th>方法</th><th>预处理</th><th>测试集 R²</th></tr>
+  <tr><td>Dyad 2.1</td><td>PCR (10 components)</td><td>标准化</td><td>~0.99</td></tr>
+  <tr><td>Claude Opus 4.6</td><td>PLSR (6 components)</td><td>Savitzky-Golay + SNV</td><td>~0.98</td></tr>
+  <tr><td>ChatGPT 5.2</td><td>PLSR (7 components)</td><td>Savitzky-Golay + 标准化</td><td>~0.99</td></tr>
+  <tr><td>Gemini Pro 3</td><td>PLSR (15 components)</td><td>10-fold CV 选组分数</td><td><strong>~0.99 (最佳)</strong></td></tr>
+</table>
+
+<p><strong>结论</strong>：对于这种"教科书级"的标定任务，四个 LLM 都能搞定。差异主要在预处理策略上。</p>
+
+<h3>Case 2: 结晶动力学建模（PBM）</h3>
+
+<p><strong>任务</strong>：建立硫酸钾结晶的群体平衡模型（Population Balance Model），拟合溶解和结晶实验数据</p>
+
+<p>所有 LLM 都恢复了相同的 PBM 结构——矩量法（Method of Moments）：</p>
+
+<div class="architecture">dμ₀/dt = B                    (成核速率)
+dμ₁/dt = G·μ₀                (一阶矩 = 总长度)
+dμ₂/dt = 2G·μ₁               (二阶矩 = 总面积)
+dμ₃/dt = 3G·μ₂               (三阶矩 = 总体积)
+dC/dt  = -3ρ·kᵥ·G·μ₂        (溶质质量守恒)
+
+B = 成核速率 (nucleation rate)
+G = 生长速率 (growth rate)
+C = 溶质浓度, Cₛ = 饱和浓度
+S = C/Cₛ (过饱和度)</div>
+
+<p>但<strong>成核和生长速率的表达式</strong>差异巨大——这是区分好坏的关键：</p>
+
+<table>
+  <tr><th>系统</th><th>成核假设</th><th>验证 R²</th><th>物理一致性</th></tr>
+  <tr><td><strong>Dyad 2.1</strong></td><td>Arrhenius 修正 + 二次成核 + 衰减项</td><td>高</td><td><strong>最佳</strong>（长时间达平衡）</td></tr>
+  <tr><td>Claude Opus 4.6</td><td>Arrhenius 修正 + μ₃ 依赖成核</td><td>高</td><td>近饱和区域有残余漂移</td></tr>
+  <tr><td>ChatGPT 5.2</td><td>仿射尺寸依赖 + 两项模型</td><td>低（μ₀ 严重偏差）</td><td>差</td></tr>
+  <tr><td>Gemini Pro 3</td><td>Arrhenius 修正 + 晶体群依赖</td><td>低（μ₁ 负 R²）</td><td>差</td></tr>
+</table>
+
+<div class="insight">多 Agent 系统（Dyad, Claude Opus）将建模分解为子任务（模型结构 → 参数估计 → 验证 → 迭代），每步有物理约束检查。单 Agent 系统在一个 pass 里做所有决策，导致参数数值偏差巨大（ChatGPT 的 k<sub>g</sub> = 2993 vs. Dyad 的 k<sub>g</sub> = 86.9）。</div>
+
+<h3>Case 3: NMPC 控制器设计</h3>
+
+<p><strong>任务</strong>：设计 NMPC 控制器，通过调节温度来控制晶体平均尺寸 L̄₁₀ = μ₁/μ₀ 和质量 m</p>
+
+<p>三个 LLM（Dyad, Claude Opus, Gemini Pro）各自提出了 NMPC 调参方案，ChatGPT 的模型预测不准所以被排除：</p>
+
+<table>
+  <tr><th>参数</th><th>Dyad 2.1</th><th>Claude Opus 4.6</th><th>Gemini Pro 3</th></tr>
+  <tr><td>预测时域 P</td><td>20</td><td>20</td><td>10</td></tr>
+  <tr><td>终端惩罚 θ₁, θ₂</td><td>200, 500</td><td>5, 5</td><td>0, 0</td></tr>
+  <tr><td>移动抑制 λ₁</td><td>50</td><td>0.01</td><td>10</td></tr>
+  <tr><td>温度变化限制 ΔT</td><td>±0.3~0.5 K</td><td>±1 K</td><td>±1 K</td></tr>
+</table>
+
+<p><strong>结果</strong>：Dyad 在 5 个工况中总体表现最好——L̄₁₀ 和 m 的偏差最小且最一致，控制量也最保守。所有 NMPC 的求解时间都在 1 分钟采样周期内，说明<strong>实时可行</strong>。</p>
+
+<h2>关键结果</h2>
+
+<table>
+  <tr><th>任务</th><th>最佳表现</th><th>核心发现</th></tr>
+  <tr><td>光谱标定</td><td>Gemini Pro 3</td><td>教科书问题，所有 LLM 都能搞定</td></tr>
+  <tr><td>溶解建模</td><td>Dyad 2.1</td><td>多 Agent 保持高 R²，单 Agent 的 μ₀ 严重偏差</td></tr>
+  <tr><td>结晶建模</td><td>Claude Opus 4.6</td><td>多 Agent 预测所有矩量，单 Agent 只对部分有效</td></tr>
+  <tr><td>模型更新</td><td>Dyad 2.1 + Claude Opus 4.6</td><td>多 Agent 成功迁移到新工况，单 Agent 无法使用</td></tr>
+  <tr><td>NMPC 控制</td><td><strong>Dyad 2.1</strong></td><td>最一致的闭环性能，最低控制量</td></tr>
+</table>
+
+<h2>评价</h2>
+
+<div class="verdict">⚖️ 这是目前最全面的「LLM 做化工」基准测试——从标定到建模到控制的完整 PSE 闭环。多 Agent 系统（特别是带专用建模语言的 Dyad）在需要物理一致性和迭代验证的任务上显著优于单 Agent。</div>
+
+<h3>亮点</h3>
+<ul>
+  <li><strong>真实工业场景</strong>：不是玩具问题，是真实的结晶实验数据和设备</li>
+  <li><strong>完整 PSE 闭环</strong>：标定 → 建模 → 验证 → 模型更新 → 控制器设计，五步全覆盖</li>
+  <li><strong>公平对比</strong>：4 个 LLM 系统、相同初始 prompt、代码全部开源</li>
+  <li><strong>NMPC 实时可行</strong>：1 分钟采样周期内求解，工业可部署</li>
+  <li><strong>Dyad 作为开源工具</strong>：带有专用建模语言 + 因果调试 + 编译验证的完整系统</li>
+</ul>
+
+<h3>局限</h3>
+<ul>
+  <li>只测试了结晶过程——其他化工单元（精馏、反应器）的泛化性未验证</li>
+  <li>Dyad 依赖 Julia 生态（ModelingToolkit.jl），Python 用户的迁移成本高</li>
+  <li>多 Agent 系统的交互时间长（Dyad 需要 ~2 小时收敛，单 Agent ~20 分钟）</li>
+  <li>NMPC 只测试了 5 个工况，未涉及扰动鲁棒性和约束违反分析</li>
+</ul>
+
+<h3>谁应该读这篇论文</h3>
+<ul>
+  <li>做<strong>过程建模/控制</strong>的工程师——了解 LLM 能在 PSE 流程中做到什么</li>
+  <li>做<strong>多 Agent 系统</strong>的研究者——看一个领域特化 Agent 如何设计</li>
+  <li>做<strong>AI for Science</strong>的人——一个 LLM 遇到硬核物理约束时如何失败的案例集</li>
+</ul>
+
+<h2>一句话总结</h2>
+
+<div class="insight">多 Agent LLM 系统（特别是带专用建模语言和物理约束验证的 Dyad）在过程系统工程的三个核心任务（标定、建模、NMPC 控制）上系统性地优于单 Agent 通用 LLM，关键优势在于任务分解和物理一致性检查。</div>
+
+<footer>
+  <p>生成于 2026-03-30 · 使用 paper-to-html (lecture-to-notes)</p>
+  <p>原文: Chemical Engineering Journal Advances 26 (2026) 101141 · DOI: 10.1016/j.ceja.2026.101141</p>
+  <p>代码: <a href="https://github.com/fearrais96/Applications-of-LLMs-in-PSE.git">github.com/fearrais96/Applications-of-LLMs-in-PSE</a> · Dyad: <a href="https://juliahub.com/products/dyad">juliahub.com/products/dyad</a></p>
+</footer>
+
+</body>
+</html>
