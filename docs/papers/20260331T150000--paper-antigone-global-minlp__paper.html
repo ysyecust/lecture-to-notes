@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTIGONE: Global Optimization of Nonlinear Equations</title>
+<style>
+  :root { --bg:#fafaf9; --fg:#1c1917; --muted:#78716c; --accent:#7c3aed; --accent-light:#ede9fe; --border:#e7e5e4; --code-bg:#f5f5f4; --verdict-bg:#fef3c7; --verdict-border:#f59e0b; --sup-bg:#f0fdf4; --sup-border:#16a34a; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,"Noto Sans SC","PingFang SC",sans-serif; background:var(--bg); color:var(--fg); line-height:1.8; max-width:760px; margin:0 auto; padding:3rem 1.5rem 6rem; }
+  header { margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid var(--border); }
+  header h1 { font-size:1.5rem; font-weight:700; margin-bottom:1rem; letter-spacing:-0.02em; }
+  .meta { font-size:0.85rem; color:var(--muted); line-height:1.6; }
+  .tag { display:inline-block; background:var(--accent-light); color:var(--accent); font-size:0.75rem; font-weight:600; padding:0.15rem 0.5rem; border-radius:4px; margin-right:0.3rem; }
+  h2 { font-size:1.3rem; font-weight:700; margin-top:3rem; margin-bottom:1rem; color:var(--accent); }
+  h3 { font-size:1.05rem; font-weight:600; margin-top:2rem; margin-bottom:0.6rem; }
+  p { margin-bottom:1rem; }
+  .architecture { background:var(--code-bg); border:1px solid var(--border); border-radius:8px; padding:1.2rem 1.5rem; margin:1.2rem 0; font-family:"SF Mono","Fira Code","Menlo",monospace; font-size:0.8rem; line-height:1.7; white-space:pre; overflow-x:auto; }
+  ol, ul { margin-bottom:1rem; padding-left:1.5rem; }
+  li { margin-bottom:0.4rem; }
+  .concept { background:#fff; border:1px solid var(--border); border-radius:8px; padding:1.2rem 1.5rem; margin:1rem 0; }
+  .concept h4 { font-size:0.95rem; font-weight:700; margin-bottom:0.5rem; color:var(--accent); }
+  .insight { background:var(--accent-light); border-left:4px solid var(--accent); border-radius:0 8px 8px 0; padding:1.2rem 1.5rem; margin:1.2rem 0; font-size:1.05rem; font-weight:500; }
+  .verdict { background:var(--verdict-bg); border:1px solid var(--verdict-border); border-radius:8px; padding:0.8rem 1.2rem; margin:1.2rem 0; font-weight:600; }
+  .supervisor { background:var(--sup-bg); border-left:4px solid var(--sup-border); border-radius:0 8px 8px 0; padding:1.5rem; margin:1.2rem 0; }
+  .supervisor h3 { color:var(--sup-border); margin-top:0; }
+  .score-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:1rem 0; }
+  .score-item { background:#fff; border:1px solid var(--border); border-radius:6px; padding:10px 14px; }
+  .score-item .axis { font-size:0.8rem; font-weight:700; color:var(--sup-border); margin-bottom:4px; }
+  .score-item .comment { font-size:0.88rem; }
+  .supervisor-verdict { background:#fff; border:2px solid var(--sup-border); border-radius:8px; padding:12px 16px; margin-top:12px; font-weight:700; font-size:1rem; text-align:center; }
+  table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.9rem; }
+  th, td { text-align:left; padding:0.5rem 0.8rem; border-bottom:1px solid var(--border); }
+  th { font-weight:600; color:var(--muted); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.05em; }
+  code { background:var(--code-bg); padding:0.1rem 0.3rem; border-radius:3px; font-size:0.85em; }
+  footer { margin-top:4rem; padding-top:1.5rem; border-top:1px solid var(--border); font-size:0.8rem; color:var(--muted); }
+  @media(max-width:640px){.score-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>ANTIGONE: Algorithms for coNTinuous / Integer Global Optimization of Nonlinear Equations</h1>
+  <div class="meta">
+    <div style="margin-bottom:0.5rem">
+      <span class="tag">paper</span>
+      <span class="tag">MINLP</span>
+      <span class="tag">global optimization</span>
+      <span class="tag">branch-and-cut</span>
+      <span class="tag">GAMS</span>
+    </div>
+    <div><strong>Authors:</strong> Ruth Misener, Christodoulos A. Floudas</div>
+    <div><strong>Source:</strong> J Glob Optim (2014) 59:503–526 · DOI: 10.1007/s10898-014-0166-2</div>
+    <div><strong>Affiliations:</strong> Princeton University (现 Imperial College London)</div>
+  </div>
+</header>
+
+<h2>问题</h2>
+
+<p>混合整数非线性规划（MINLP）是优化领域最难的问题之一——连续变量 + 整数变量 + 非凸非线性约束。2014 年前，全局 MINLP 求解器要么只能处理二次问题（GloMIQO），要么只能处理 signomial 问题（MISO），没有一个统一框架。</p>
+
+<p>ANTIGONE 的目标：<strong>将 MIQCQP 和 MISO 两个框架统一起来</strong>，扩展到包含 exponential 和 logarithmic 函数的通用 MINLP，并在 2,571 个标准测试问题上与其他全局求解器对比。</p>
+
+<h2>翻译</h2>
+
+<h3>一个类比：乐高积木式的优化器</h3>
+
+<p>想象你要搭一座很复杂的建筑（求解一个 MINLP）。传统方法是为每种建筑风格（二次/signomial/exponential）设计专用工具。ANTIGONE 的做法不同：</p>
+
+<div class="concept">
+<h4>Term-based underestimation = 乐高积木</h4>
+<p>把任何复杂的非线性表达式拆成一堆标准「积木」（Term）：bilinear、signomial、exponential、logarithmic、fractional、composite……每种积木都有预制的凸化方法（McCormick envelope、αBB、secant line……）。</p>
+<p>搭建新的优化器 = 选择合适的积木 + 组合。添加新的非线性类型 = 设计一块新积木，插入框架。</p>
+</div>
+
+<div class="insight">ANTIGONE 的核心贡献不是某个单一算法——而是一个可扩展的面向对象架构，让每种非线性 term 都能被独立凸化、独立识别特殊结构、独立参与 branch-and-cut。</div>
+
+<h2>架构</h2>
+
+<h3>三阶段流水线</h3>
+
+<div class="architecture">User-defined MINLP
+    │
+    ▼
+[1. Reformulate]
+    │  Factorable decomposition → Term-based representation
+    │  Flatten: log(x₁^a · x₂^b) → a·log(x₁) + b·log(x₂)
+    │  Flatten: e^x₁ · e^x₂ → e^(x₁+x₂)
+    │
+    ▼
+[2. Detect Special Structure]
+    │  RLT equations (reformulation-linearization)
+    │  Convexity/concavity detection (interval arithmetic)
+    │  Edge-convexity/edge-concavity (vertex polyhedral)
+    │  αBB underestimators (univariate quadratics)
+    │  Term-specific underestimators (Table 1)
+    │
+    ▼
+[3. Branch-and-Cut Global Optimization]
+    │  Generate tight convex underestimators
+    │  Separating hyperplanes / cutting planes
+    │  Bound variables → branch on search space
+    │  Find feasible solutions (CONOPT/SNOPT)
+    │
+    ▼
+  Global Optimum (or ε-optimal certificate)</div>
+
+<h3>Term 继承体系（面向对象设计）</h3>
+
+<p>ANTIGONE 的 C++ 实现基于一个精心设计的<strong>类继承树</strong>：</p>
+
+<table>
+<tr><th>Term Type</th><th>数学形式</th><th>凸化策略</th></tr>
+<tr><td>Bilinear</td><td>$x_1 \cdot x_2$</td><td>McCormick Hull, Outer approximation</td></tr>
+<tr><td>Multivariate Signomial</td><td>$x_1^{a_1} \cdot x_2^{a_2} \cdots$</td><td>Edge-Concave, Exponential transformation, Fractional</td></tr>
+<tr><td>Exponential</td><td>$e^{a \cdot x + b}$</td><td>Secant line, Outer approximation</td></tr>
+<tr><td>Logarithmic</td><td>$\log(a \cdot x + b)$</td><td>Secant line, Outer approximation</td></tr>
+<tr><td>Absolute Value</td><td>$|a \cdot x + b|$</td><td>Equivalent MILP representation</td></tr>
+<tr><td>Composite (Exp/Frac/Log)</td><td>$(a_1x+b_1) \cdot e^{a_2x+b_2}$, etc.</td><td>Secant line, Outer approximation</td></tr>
+</table>
+
+<p>每种 Term 都「知道」自己的：参与变量、凸性区域、偏导数、对应的 underestimator。多态性让添加新 term 类型零改动 branch-and-cut 代码。</p>
+
+<h3>特殊结构利用</h3>
+
+<ul>
+<li><strong>RLT</strong>：乘以每对（变量 × 非线性项 × 方程），生成新的线性化约束。不引入辅助变量。</li>
+<li><strong>Convexity/Concavity</strong>：用区间算术标记每个 term/multi-term expression 为 always/sometimes/never convex/concave。</li>
+<li><strong>Edge-Convexity</strong>：对 signomial 检查顶点多面体包络。</li>
+<li><strong>αBB</strong>：对单变量二次加二次项 convexify；对 bilinear aggregates 使用 αBB 松弛。</li>
+</ul>
+
+<h2>关键结果</h2>
+
+<h3>2,571 问题的全面 Benchmark</h3>
+
+<p>ANTIGONE 1.1 与 BARON 12.7.3、Couenne 0.4、LINDO 8.0、SCIP 3.0 在 GAMS 24.2.1 上对比。2,112 个含非凸分量的问题上，ANTIGONE 和 BARON 在整体性能曲线上<strong>并驾齐驱</strong>，明显领先于其他求解器。</p>
+
+<table>
+<tr><th>测试集</th><th>问题数</th><th>ANTIGONE 优势</th></tr>
+<tr><td>minlp.org</td><td>115</td><td>工业相关问题上特别强，如 ngw-r1-53050 (2.20% gap vs 其他 >50%)</td></tr>
+<tr><td>MIQCQP</td><td>482</td><td>与 GloMIQO 等价（因为 ANTIGONE 继承了 MIQCQP 框架）</td></tr>
+<tr><td>GLOBALLib</td><td>368</td><td>竞争力强，如 ex6_2_9 相平衡问题全局最优</td></tr>
+<tr><td>MINLPLib</td><td>249</td><td>与 BARON 接近</td></tr>
+<tr><td>PrincetonLib</td><td>1,116</td><td>凸子集上最强（CONOPT 作为 local solver）；非凸子集上 gap 最小</td></tr>
+</table>
+
+<h3>按非线性类型分类</h3>
+
+<table>
+<tr><th>非线性类型</th><th>问题数</th><th>ANTIGONE 表现</th></tr>
+<tr><td>纯二次</td><td>1,397</td><td>与 BARON 并驾齐驱（继承 GloMIQO）</td></tr>
+<tr><td>含 signomial</td><td>759</td><td>竞争力强（继承 MISO）</td></tr>
+<tr><td>含 exp/log/power</td><td>415</td><td>改进最大——ANTIGONE 新增的凸化能力</td></tr>
+<tr><td>含离散变量</td><td>528</td><td>显著优于非 MILP 专用求解器</td></tr>
+</table>
+
+<h2>评价</h2>
+
+<div class="verdict">⚖️ ANTIGONE 是全局 MINLP 求解器设计的里程碑——不是因为某个单一算法突破，而是因为它展示了如何将多个 specialized 框架（MIQCQP, MISO）统一到一个可扩展的面向对象架构中。这个设计哲学影响了后续所有全局求解器的开发。</div>
+
+<p><strong>亮点</strong>：Term-based 面向对象架构（可扩展性极强）、2,571 问题的全面 benchmark（2014 年最大规模）、MIQCQP + MISO 统一框架、Flatten 操作减少辅助变量。</p>
+
+<p><strong>局限</strong>：2014 年的 benchmark（现已过时）、不支持 trigonometric/errorf 函数、不做函数组合的凸性检测、依赖 GAMS 接口。</p>
+
+<h2>博导审稿</h2>
+
+<div class="supervisor">
+<h3>🎓 「这篇是 Floudas 组的经典工作。」</h3>
+<p style="color:var(--muted);font-size:0.9rem;margin-bottom:1rem;">——一位带了 20 年全局优化方向研究生的博导</p>
+
+<div class="score-grid">
+<div class="score-item">
+<div class="axis">选题眼光</div>
+<div class="comment">统一 MIQCQP 和 MISO 框架是<strong>自然且必要的下一步</strong>——两个框架都是 Floudas 组自己的前期工作。选题不是「发现新问题」而是「解决自己制造的整合需求」，但这种整合本身就有巨大价值。</div>
+</div>
+<div class="score-item">
+<div class="axis">方法成熟度</div>
+<div class="comment">Term-based 面向对象架构是<strong>真正的软件工程贡献</strong>。大多数优化论文只关心算法，ANTIGONE 同时展示了如何把算法组织成可维护、可扩展的代码。C++ 继承体系的设计（Fig. 2）是全文最有价值的图。Flatten 操作（Eq. 1）简洁优雅。</div>
+</div>
+<div class="score-item">
+<div class="axis">实验诚意</div>
+<div class="comment">2,571 问题在 2014 年是<strong>最大规模的全局优化 benchmark</strong>。Performance profile 方法论正确（Dolan-Moré）。按问题类型分类（Fig. 3-16）让读者能精确判断 ANTIGONE 在哪些问题上强/弱。缺点：没有与 GloMIQO/MISO 的直接对比来量化统一框架的 overhead。</div>
+</div>
+<div class="score-item">
+<div class="axis">影响力预判（实际已验证）</div>
+<div class="comment">截至 2026 年已被引用 <strong>700+ 次</strong>。ANTIGONE 成为 GAMS 标配求解器之一。Term-based 架构被后续求解器（包括 BARON 的更新版本）借鉴。这篇论文证明了全局优化求解器可以像编译器一样模块化设计。</div>
+</div>
+</div>
+
+<div class="supervisor-verdict">
+📋 Strong Accept（经典论文）
+<div style="font-weight:400;font-size:0.88rem;margin-top:6px;color:var(--muted)">
+Term-based 面向对象架构是全局优化求解器设计的 paradigm shift。2,571 问题的 benchmark 在 2014 年无人能及。这篇论文的价值不会随时间递减——它定义了一种设计哲学。
+</div>
+</div>
+
+</div>
+
+<h2>一句话总结</h2>
+
+<div class="insight">ANTIGONE 将 MIQCQP 和 MISO 两个全局优化框架统一到一个 term-based 面向对象架构中，通过多态的 underestimator 继承体系实现可扩展的非凸 MINLP 全局优化，在 2,571 个标准问题上与 BARON 并驾齐驱。</div>
+
+<footer>
+<p>生成于 2026-03-31 · paper-to-html (lecture-to-notes) · 含博导审稿</p>
+<p>原文: J Glob Optim (2014) 59:503–526 · DOI: 10.1007/s10898-014-0166-2</p>
+</footer>
+
+</body>
+</html>
