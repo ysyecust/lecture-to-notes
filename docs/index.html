@@ -105,12 +105,7 @@
 
     <!-- ALL -->
     <div class="panel active" id="panel-all">
-        <div class="tabs-inner" style="display:flex;gap:4px;padding:8px 0;overflow-x:auto">
-            <div class="tab active" onclick="filterSub(this,'all')">全部 <span class="badge">17</span></div>
-            <div class="tab" onclick="filterSub(this,'nju')">NJU OS <span class="badge">7</span></div>
-            <div class="tab" onclick="filterSub(this,'yt')">YouTube <span class="badge">3</span></div>
-            <div class="tab" onclick="filterSub(this,'talk')">分享 <span class="badge">1</span></div>
-            <div class="tab" onclick="filterSub(this,'paper')">论文 <span class="badge">6</span></div>
+        <div class="tabs-inner" id="tabs-inner" style="display:flex;gap:4px;padding:8px 0;overflow-x:auto">
         </div>
         <div class="grid" id="grid-all"></div>
     </div>
@@ -194,6 +189,25 @@ function populate() {
     all.innerHTML = DATA.map(renderCard).join('');
     lec.innerHTML = DATA.filter(d=>d.type==='lecture').map(renderCard).join('');
     pap.innerHTML = DATA.filter(d=>d.type==='paper').map(renderCard).join('');
+
+    // Auto-generate tab badges from DATA
+    const counts = {all: DATA.length, nju: 0, yt: 0, talk: 0, paper: 0};
+    DATA.forEach(d => { if (counts[d.cat] !== undefined) counts[d.cat]++; });
+    const tabs = [
+        {label:'全部', cat:'all'}, {label:'NJU OS', cat:'nju'}, {label:'YouTube', cat:'yt'},
+        {label:'分享', cat:'talk'}, {label:'论文', cat:'paper'}
+    ];
+    const tabsEl = document.getElementById('tabs-inner');
+    tabsEl.innerHTML = tabs.map((t, i) =>
+        `<div class="tab${i===0?' active':''}" onclick="filterSub(this,'${t.cat}')">${t.label} <span class="badge">${counts[t.cat]}</span></div>`
+    ).join('');
+
+    // Auto-update header stats
+    const lectures = DATA.filter(d=>d.type==='lecture').length;
+    const papers = DATA.filter(d=>d.type==='paper').length;
+    const statEls = document.querySelectorAll('.stat .v');
+    if (statEls[0]) statEls[0].textContent = lectures;
+    if (statEls[2]) statEls[2].textContent = papers;
 }
 
 function showTab(t) {
