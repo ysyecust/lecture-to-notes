@@ -65,6 +65,23 @@ The HTML analysis must follow this structure:
 - Generation metadata
 - Link to original paper
 
+## Math Rendering
+
+All HTML output MUST include KaTeX for LaTeX math rendering. Add these lines in `<head>`:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+```
+
+Use standard LaTeX delimiters in text:
+- `$$...$$` for display math (centered, own line)
+- `$...$` for inline math
+
+Example: `The complexity is $O(N_c^2)$` renders as proper math.
+
 ## HTML Template
 
 Use this CSS design system (warm stone palette, purple accent):
