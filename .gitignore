@@ -1,3 +1,7 @@
 .DS_Store
 __pycache__/
 *.pyc
+
+# Claude Code per-project settings and lecture-to-notes working dirs
+.claude/
+workspace/
