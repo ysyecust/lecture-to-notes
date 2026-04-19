@@ -94,10 +94,32 @@ python3 scripts/clean_subs.py subs.en.srt --stats
 yt-dlp -x --audio-format wav -o "audio.%(ext)s" "<URL>"
 # IMPORTANT: Use absolute paths for Whisper to avoid working directory issues
 # when running in background. The shell may reset cwd between commands.
+# IMPORTANT: ffmpeg must be on PATH — Whisper uses it internally to read audio.
 WORKDIR="$(pwd)"
 whisper "$WORKDIR/audio.wav" --model small --language zh \
-  --output_format srt --output_dir "$WORKDIR"
+  --output_format srt --output_dir "$WORKDIR" --fp16 False \
+  --initial_prompt "$(cat scripts/whisper_prompts/nju_os.txt)"  # Optional: domain glossary
 ```
+
+**Whisper initial_prompt (strongly recommended for technical lectures):**
+Point `--initial_prompt` at a plain-text file enumerating domain terms (syscalls, APIs,
+speaker names, course-specific jargon). See `scripts/whisper_prompts/nju_os.txt` for a
+working example. This dramatically reduces same-sound errors like
+"PASSNAME" instead of "pathname" or "SAM" instead of "sum".
+
+**Priority 2.5 — SRT correction passes (after Whisper):**
+```bash
+# Stage A — fast dictionary-level fix (wrong → right pairs)
+python3 scripts/correct_srt.py audio.srt \
+    -g scripts/whisper_prompts/glossary_nju_os.json --stats
+
+# Stage B — slow LLM + multimodal fix (uses Claude Code CLI, no API key needed)
+python3 scripts/llm_correct_srt.py \
+    --srt audio.srt --frames frames/ --out corrected.srt \
+    --context "南京大学操作系统原理，讲师 jyy"
+```
+Stage A is essentially free and catches 80% of wrong characters. Stage B is expensive
+(one Claude call per ~90s of audio) and only worth running for notes you plan to publish.
 
 **Priority 3 — Visual-only mode** (when audio quality is unusable):
 Skip subtitles. Use dense frame sampling (fps=1) and rely entirely on visual content.
@@ -298,5 +320,10 @@ xelatex -interaction=nonstopmode notes.tex && xelatex -interaction=nonstopmode n
 
 - `assets/notes-template.tex`: LaTeX template
 - `scripts/clean_subs.py`: YouTube auto-subtitle deduplication
+- `scripts/correct_srt.py`: Whisper SRT dictionary-level fix (fast, data-driven)
+- `scripts/llm_correct_srt.py`: Whisper SRT LLM + multimodal segment-level fix (slow, uses Claude Code CLI — no API key needed)
+- `scripts/verify_figures.py`: Three-way figure verification (timestamp × subtitle × frame)
 - `scripts/prepare_cover.sh`: Cover image format conversion (webp/png → jpg)
-- `scripts/smart_crop.py`: Slide region detection (experimental, not used by default)
+- `scripts/smart_crop.py`: Slide region detection (experimental — production flow uses full frames instead)
+- `scripts/whisper_prompts/nju_os.txt`: Whisper `--initial_prompt` glossary example
+- `scripts/whisper_prompts/glossary_nju_os.json`: Dictionary of `wrong → right` pairs for `correct_srt.py`
