@@ -161,6 +161,8 @@ const DATA = [
     {id:'biegler',cat:'yt',type:'lecture',num:'EN',title:'Multi-level Optimization for Nonlinear Energy Systems',meta:'Biegler (CMU) · 45min · 16页',pdf:'pdfs/tamu_biegler_nlp.pdf',link:'https://www.youtube.com/watch?v=mst-tJ6ELTE',linkLabel:'YT'},
     {id:'rheo',cat:'yt',type:'lecture',num:'EN',title:'Rheology Principles and Applications',meta:'Mark Patrick · 63min · 12页',pdf:'pdfs/aocs_rheology.pdf',link:'https://www.youtube.com/watch?v=etR4ttjY4f0',linkLabel:'YT'},
     {id:'baron',cat:'yt',type:'lecture',num:'EN',title:'Solving Continuous & Discrete NLPs with BARON',meta:'Zhang & Sahinidis (Georgia Tech) · 25min · 13页',pdf:'pdfs/baron_nlp_tutorial.pdf',link:'https://www.youtube.com/watch?v=oCL9npynb6M',linkLabel:'YT'},
+    // 科普
+    {id:'hbm',cat:'sci',type:'lecture',num:'💾',title:'HBM 高带宽内存的原理与制造',meta:'万物研究所 · 16min · 19页',pdf:'pdfs/hbm_high_bandwidth_memory.pdf',link:'https://www.bilibili.com/video/BV1ahjA6qEwc',linkLabel:'B站'},
     // Talk
     {id:'phd',cat:'talk',type:'lecture',num:'🎤',title:'[戒读] 读博那些事儿（八年后回看版）',meta:'蒋炎岩 · 26min · 10页',pdf:'pdfs/jyy_phd_reflection.pdf',link:'https://www.bilibili.com/video/BV1oTwkzvEFu',linkLabel:'B站'},
     // Papers
@@ -208,7 +210,7 @@ function populate() {
     DATA.forEach(d => { if (counts[d.cat] !== undefined) counts[d.cat]++; });
     const tabs = [
         {label:'全部', cat:'all'}, {label:'NJU OS', cat:'nju'}, {label:'YouTube', cat:'yt'},
-        {label:'分享', cat:'talk'}, {label:'论文', cat:'paper'}
+        {label:'科普', cat:'sci'}, {label:'分享', cat:'talk'}, {label:'论文', cat:'paper'}
     ];
     const tabsEl = document.getElementById('tabs-inner');
     tabsEl.innerHTML = tabs.map((t, i) =>
