@@ -76,7 +76,18 @@ class ProbeTests(unittest.TestCase):
         self.assertEqual(result["id"], "2075594420163092606")
         self.assertEqual(result["subtitle_languages"], ["en", "zh"])
         self.assertTrue(result["has_thumbnail"])
-        self.assertIn("--no-playlist", run.call_args.args[0])
+        run.assert_called_once_with(
+            [
+                "yt-dlp",
+                "--dump-single-json",
+                "--no-playlist",
+                "--skip-download",
+                self.URL,
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
 
     @mock.patch("video_source.subprocess.run")
     def test_probe_rejects_extractor_failure(self, run):
@@ -88,8 +99,13 @@ class ProbeTests(unittest.TestCase):
             video_source.probe_source(self.URL)
 
     @mock.patch("video_source.subprocess.run")
-    def test_probe_rejects_missing_or_zero_duration(self, run):
-        payloads = ({"duration": 1}, {"id": "123", "duration": 0})
+    def test_probe_rejects_missing_id_or_invalid_duration(self, run):
+        payloads = (
+            {"duration": 1},
+            {"id": "123", "duration": 0},
+            {"id": "123", "duration": -1},
+            {"id": "123", "duration": True},
+        )
 
         for payload in payloads:
             with self.subTest(payload=payload):
@@ -101,6 +117,63 @@ class ProbeTests(unittest.TestCase):
                 )
                 with self.assertRaises(video_source.ProbeError):
                     video_source.probe_source(self.URL)
+
+    @mock.patch("video_source.subprocess.run")
+    def test_probe_rejects_non_object_metadata(self, run):
+        run.return_value = subprocess.CompletedProcess(
+            args=[], returncode=0, stdout=json.dumps([]), stderr=""
+        )
+
+        with self.assertRaisesRegex(video_source.ProbeError, "JSON object"):
+            video_source.probe_source(self.URL)
+
+    @mock.patch("video_source.subprocess.run")
+    def test_probe_rejects_non_mapping_subtitles(self, run):
+        run.return_value = subprocess.CompletedProcess(
+            args=[],
+            returncode=0,
+            stdout=json.dumps({"id": "123", "duration": 1, "subtitles": []}),
+            stderr="",
+        )
+
+        with self.assertRaisesRegex(video_source.ProbeError, "subtitles"):
+            video_source.probe_source(self.URL)
+
+    @mock.patch("video_source.subprocess.run")
+    def test_probe_rejects_non_mapping_automatic_captions(self, run):
+        run.return_value = subprocess.CompletedProcess(
+            args=[],
+            returncode=0,
+            stdout=json.dumps(
+                {"id": "123", "duration": 1, "automatic_captions": "zh"}
+            ),
+            stderr="",
+        )
+
+        with self.assertRaisesRegex(video_source.ProbeError, "automatic_captions"):
+            video_source.probe_source(self.URL)
+
+    @mock.patch("video_source.subprocess.run")
+    def test_probe_rejects_non_finite_duration(self, run):
+        for duration in (float("nan"), float("inf")):
+            with self.subTest(duration=duration):
+                run.return_value = subprocess.CompletedProcess(
+                    args=[],
+                    returncode=0,
+                    stdout=json.dumps({"id": "123", "duration": duration}),
+                    stderr="",
+                )
+                with self.assertRaises(video_source.ProbeError):
+                    video_source.probe_source(self.URL)
+
+    @mock.patch("video_source.subprocess.run")
+    def test_probe_rejects_invalid_json(self, run):
+        run.return_value = subprocess.CompletedProcess(
+            args=[], returncode=0, stdout="not JSON", stderr=""
+        )
+
+        with self.assertRaisesRegex(video_source.ProbeError, "invalid JSON metadata"):
+            video_source.probe_source(self.URL)
 
     @mock.patch("video_source.subprocess.run", side_effect=FileNotFoundError)
     def test_probe_reports_missing_ytdlp(self, run):

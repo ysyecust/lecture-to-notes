@@ -3,9 +3,11 @@
 
 import argparse
 import json
+import math
 import re
 import subprocess
 import sys
+from collections.abc import Mapping
 from urllib.parse import urlsplit
 
 
@@ -61,17 +63,31 @@ def detect_platform(url: str) -> str:
 def _subtitle_languages(payload: dict) -> list[str]:
     languages = set()
     for field in ("subtitles", "automatic_captions"):
-        languages.update((payload.get(field) or {}).keys())
+        tracks = payload.get(field)
+        if tracks is None:
+            continue
+        if not isinstance(tracks, Mapping):
+            raise ProbeError(
+                f"yt-dlp returned invalid {field} metadata; expected an object"
+            )
+        languages.update(tracks.keys())
     return sorted(languages)
 
 
 def _compact_metadata(platform: str, payload: dict) -> dict:
+    if not isinstance(payload, Mapping):
+        raise ProbeError("yt-dlp metadata must be a JSON object")
+
     source_id = str(payload.get("id") or "").strip()
     if not source_id:
         raise ProbeError("yt-dlp returned no playable video ID")
 
     duration = payload.get("duration")
-    if type(duration) not in (int, float) or duration <= 0:
+    if (
+        type(duration) not in (int, float)
+        or not math.isfinite(duration)
+        or duration <= 0
+    ):
         raise ProbeError("yt-dlp returned no positive video duration")
 
     return {
