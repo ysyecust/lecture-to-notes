@@ -1,11 +1,11 @@
 ---
 name: lecture-to-notes
-description: Generate professional, information-dense, figure-rich LaTeX course notes and compiled PDF from a YouTube or Bilibili lecture video. Use when the user provides a video URL and wants structured Chinese teaching notes. Key features include smart slide-region cropping (removes lecturer, keeps only slide content), three-level subtitle fallback (CC → Whisper → visual-only), dense frame sampling with contact-sheet review, and high information density writing. Trigger words include lecture notes, 课程笔记, 视频转PDF, 讲义, YouTube笔记, B站笔记, BV号.
+description: Use when users provide YouTube, Bilibili, or X(Twitter) lecture URLs and want structured Chinese LaTeX/PDF course notes, especially requests phrased as X/Twitter lecture notes, 视频转PDF, 课程笔记, 讲义, or BV号.
 ---
 
 # Lecture to Notes
 
-Turn a lecture video (YouTube or Bilibili) into a complete, compilable `.tex` note set and a rendered PDF.
+Turn a YouTube, Bilibili, or X/Twitter lecture video into a complete, compilable `.tex` note set and a rendered PDF.
 
 ## Dependencies
 
@@ -13,14 +13,15 @@ Check before starting (use `which`). Prompt the user to install any missing tool
 
 | Tool | Required | Purpose |
 |------|----------|---------|
-| `yt-dlp` | Always | Video/subtitle/metadata download (supports YouTube + Bilibili) |
+| `yt-dlp` | Always | Video/subtitle/metadata download (supports YouTube + Bilibili + X/Twitter) |
 | `ffmpeg` | Always | Frame extraction, audio extraction |
 | `xelatex` | Always | LaTeX compilation (TeX Live + CTeX for Chinese) |
-| `magick` | Always | Frame montage, contact sheets, cropping |
-| `python3` | Always | Smart crop script, Whisper |
-| `whisper` | Bilibili / no-CC | Speech-to-text fallback (openai-whisper) |
+| `magick` | Always | Frame montage and contact sheets |
+| `python3` | Always | Installed helper scripts and Whisper support |
+| `whisper` | Bilibili / X fallback / no-CC | Speech-to-text fallback (openai-whisper) |
 
-Additional Python dependencies: `Pillow` (`pip install Pillow`).
+Additional Python dependencies: `Pillow` (`pip install Pillow`) only for the optional
+`/ABSOLUTE/PATH/TO/lecture-to-notes/assets/smart_crop.py` experiment.
 
 ## YouTube Cookie Notice
 
@@ -28,11 +29,11 @@ YouTube may require authentication to avoid bot detection. When `yt-dlp` fails w
 
 ## Goal
 
-Produce a professional Chinese lecture note from a video URL. The output must:
+Produce a professional Chinese lecture note from a YouTube, Bilibili, or X/Twitter video URL. The output must:
 
 - use the video's actual teaching content, not just subtitle transcription
 - place the video's original cover image on the front page
-- include **smart-cropped** slide figures (lecturer removed, only slide/PPT content)
+- include selected full-frame slide figures chosen by contact-sheet review
 - achieve high information density — every figure, box, and paragraph earns its space
 - be structurally organized with `\section{}` / `\subsection{}`
 - end with a synthesis section combining speaker's conclusions and your own distillation
@@ -47,12 +48,38 @@ Detect the platform from the URL:
 |---------|----------|
 | `youtube.com`, `youtu.be` | YouTube |
 | `bilibili.com/video/BV`, `b23.tv` | Bilibili |
+| `x.com/<user>/status/<id>[/video/<n>]` | X/Twitter |
+| `twitter.com/<user>/status/<id>[/video/<n>]` | X/Twitter |
 
 Adapt the acquisition workflow accordingly (see below).
+
+For X/Twitter, preserve the exact input URL throughout acquisition. Do not shorten,
+canonicalize, or remove an optional `/video/<n>` suffix.
 
 ## Workflow
 
 ### Working Directory Convention
+
+Resolve the absolute assets directory from the loaded SKILL.md before running helpers.
+Then substitute that literal directory for `/ABSOLUTE/PATH/TO/lecture-to-notes/assets`
+everywhere below before executing a command. Each fenced command may run in a fresh shell,
+so never rely on a path variable defined by an earlier command.
+
+```bash
+for helper in \
+  "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/video_source.py" \
+  "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/check_srt_health.py" \
+  "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/clean_subs.py" \
+  "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/correct_srt.py" \
+  "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/llm_correct_srt.py" \
+  "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/verify_figures.py" \
+  "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/prepare_cover.sh" \
+  "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/notes-template.tex" \
+  "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/whisper_prompts/nju_os.txt" \
+  "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/whisper_prompts/glossary_nju_os.json"; do
+  test -e "$helper" || { echo "Missing installed helper: $helper" >&2; exit 1; }
+done
+```
 
 **CRITICAL**: Always use absolute paths for background commands (Whisper, video download).
 Claude Code's shell resets the working directory between commands. Background tasks that
@@ -63,94 +90,167 @@ Recommended naming: `<course_id>_<lecture_number>_<short_title>/`
 
 ### Phase 1: Source Acquisition
 
-#### 1a. Metadata Inspection
+#### 1a. Offline Platform Detection and Bilibili Part Selection
 
 ```bash
-yt-dlp --dump-json --no-download "<URL>" > metadata.json
+python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/video_source.py" detect "<URL>"
 ```
 
-Extract: title, uploader, duration, chapters, thumbnail URL, subtitle availability. For Bilibili, also check for multi-part (分P) videos.
+This detection is offline. If it prints `bilibili`, enumerate the parts before any
+metadata, subtitle, audio, thumbnail, or video acquisition. This discovery command must
+not use `--no-playlist`, because the playlist is the information being inspected:
 
-#### 1b. Subtitle Acquisition (Three-Level Fallback)
+```bash
+yt-dlp --flat-playlist --print "%(playlist_index)s\t%(title)s" "<URL>"
+```
 
-**Priority 1 — CC subtitles:**
+STOP and ask the user which part(s) to process. Do not continue until the selection is
+known. For each selected part, use a part-specific Bilibili URL such as
+`https://www.bilibili.com/video/<BV_ID>?p=<n>`, create a separate working directory and run
+the entire workflow there, and replace `<URL>` below with that part-specific URL before
+the metadata probe. Process multiple selected parts as separate runs.
+
+#### 1b. Metadata Inspection
+
+```bash
+python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/video_source.py" probe "<URL>" > metadata.json
+```
+
+Extract: platform, title, uploader, duration, thumbnail availability, and subtitle
+languages. For X/Twitter, pass the full original `<URL>` including optional
+`/video/<n>`; `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/video_source.py` retains that URL and probes it with
+`--no-playlist`.
+
+#### 1c. Subtitle Acquisition (Four-Stage Fallback: Manual CC → Automatic Captions → Whisper → Visual-Only)
+
+**Stage 1 — Manual CC subtitles:**
 ```bash
 # YouTube
-yt-dlp --write-subs --sub-langs "zh.*,en.*" --convert-subs srt --skip-download "<URL>"
+yt-dlp --no-playlist --write-subs --sub-langs "zh.*,en.*" --convert-subs srt --skip-download "<URL>"
 
 # Bilibili
-yt-dlp --write-subs --sub-langs "zh-Hans,zh-CN,zh,ai-zh" --convert-subs srt --skip-download "<URL>"
+yt-dlp --no-playlist --write-subs --sub-langs "zh-Hans,zh-CN,zh,ai-zh" --convert-subs srt --skip-download "<URL>"
+
+# X/Twitter manual caption tracks (keep the full input URL)
+yt-dlp --no-playlist --write-subs --sub-langs "all,-live_chat" --convert-subs srt --skip-download -o "x_caption.%(id)s.%(ext)s" "<URL>"
 ```
 
-**Priority 1.5 — YouTube auto-generated subtitles** (when no manual CC):
+**Stage 2 — Automatic captions** (when no manual CC):
 ```bash
-yt-dlp --write-auto-subs --sub-langs "en" --convert-subs srt --skip-download "<URL>"
+# YouTube
+yt-dlp --no-playlist --write-auto-subs --sub-langs "en" --convert-subs srt --skip-download "<URL>"
 # IMPORTANT: Clean duplicates — YouTube auto-subs repeat every line 2-3x
-python3 scripts/clean_subs.py subs.en.srt --stats
+python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/clean_subs.py" subs.en.srt --stats
+
+# X/Twitter automatic caption tracks (keep the full input URL)
+yt-dlp --no-playlist --write-auto-subs --sub-langs "all,-live_chat" --convert-subs srt --skip-download -o "x_caption.%(id)s.%(ext)s" "<URL>"
 ```
 
-**Priority 2 — Whisper speech-to-text** (when no CC subtitles):
+**X/Twitter caption acceptance gate (mandatory):**
+
+After conversion, the deterministic template produces language-tagged candidates such
+as `x_caption.<id>.<lang>.srt`. Enumerate every candidate and run the structural health
+check with the duration extracted from `metadata.json`:
+
 ```bash
-yt-dlp -x --audio-format wav -o "audio.%(ext)s" "<URL>"
+# X_CAPTION_HEALTH_BLOCK
+DURATION="$(python3 -c 'import json,sys; print(json.load(sys.stdin)["duration"])' < metadata.json)"
+find . -maxdepth 1 -type f -name 'x_caption.*.srt' -print > x_caption_candidates.txt
+if [ ! -s x_caption_candidates.txt ]; then
+  echo "No X caption candidates; continue with Whisper fallback."
+else
+  while IFS= read -r srt; do
+    if python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/check_srt_health.py" "$srt" --duration "$DURATION"; then
+      echo "Structurally healthy candidate: $srt"
+    else
+      echo "Rejected structurally unhealthy candidate: $srt"
+    fi
+  done < x_caption_candidates.txt
+fi
+```
+
+For every candidate reported as structurally healthy, sample that specific track against
+both the audio and visible teaching content at 10%, 50%, and 90% of the runtime. Record
+the three results per candidate. Select exactly one track only after all three checks
+align, and persist the explicit choice:
+
+```bash
+printf '%s\n' "<one explicitly accepted x_caption path>" > selected_x_caption.txt
+```
+
+Do not select a merely structurally healthy track. If there are no candidates, or no
+candidate passes all three semantic samples, use X audio → Whisper → the existing
+dictionary and LLM SRT correction passes below.
+
+External official captions may be used only when all of the following are documented:
+
+- identity proof that the caption source and X post contain the same lecture and video variant
+- constant-offset alignment using one fixed time shift, never independent per-segment shifts
+- three-point audio/visual validation at 10%, 50%, and 90% after applying that offset
+- provenance disclosure naming the external caption URL/provider and the applied offset
+
+Put an external official track under the deterministic `x_caption.<id>.<lang>.srt`
+naming scheme and apply the same structural and semantic gates; provenance never bypasses
+validation.
+
+**Stage 3 — Whisper speech-to-text** (when captions are absent or rejected):
+```bash
+yt-dlp --no-playlist -x --audio-format wav -o "audio.%(ext)s" "<URL>"
 # IMPORTANT: Use absolute paths for Whisper to avoid working directory issues
 # when running in background. The shell may reset cwd between commands.
 # IMPORTANT: ffmpeg must be on PATH — Whisper uses it internally to read audio.
 WORKDIR="$(pwd)"
 whisper "$WORKDIR/audio.wav" --model small --language zh \
   --output_format srt --output_dir "$WORKDIR" --fp16 False \
-  --initial_prompt "$(cat scripts/whisper_prompts/nju_os.txt)"  # Optional: domain glossary
+  --initial_prompt "$(cat "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/whisper_prompts/nju_os.txt")"  # Optional: domain glossary
 ```
 
 **Whisper initial_prompt (strongly recommended for technical lectures):**
 Point `--initial_prompt` at a plain-text file enumerating domain terms (syscalls, APIs,
-speaker names, course-specific jargon). See `scripts/whisper_prompts/nju_os.txt` for a
+speaker names, course-specific jargon). See
+`/ABSOLUTE/PATH/TO/lecture-to-notes/assets/whisper_prompts/nju_os.txt` for a
 working example. This dramatically reduces same-sound errors like
 "PASSNAME" instead of "pathname" or "SAM" instead of "sum".
 
-**Priority 2.5 — SRT correction passes (after Whisper):**
+**Post-Whisper SRT correction passes:**
 ```bash
 # Stage A — fast dictionary-level fix (wrong → right pairs)
-python3 scripts/correct_srt.py audio.srt \
-    -g scripts/whisper_prompts/glossary_nju_os.json --stats
+python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/correct_srt.py" audio.srt \
+    -g "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/whisper_prompts/glossary_nju_os.json" --stats
 
 # Stage B — slow LLM + multimodal fix (uses Claude Code CLI, no API key needed)
-python3 scripts/llm_correct_srt.py \
+python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/llm_correct_srt.py" \
     --srt audio.srt --frames frames/ --out corrected.srt \
     --context "南京大学操作系统原理，讲师 jyy"
 ```
 Stage A is essentially free and catches 80% of wrong characters. Stage B is expensive
 (one Claude call per ~90s of audio) and only worth running for notes you plan to publish.
 
-**Priority 3 — Visual-only mode** (when audio quality is unusable):
+**Stage 4 — Visual-only mode** (when audio quality is unusable):
 Skip subtitles. Use dense frame sampling (fps=1) and rely entirely on visual content.
 
-#### 1c. Video and Cover Download
+#### 1d. Video and Cover Download
 
 ```bash
 # Cover image (may be webp/png/jpg depending on platform)
-yt-dlp --write-thumbnail --skip-download -o "cover" "<URL>"
+yt-dlp --no-playlist --write-thumbnail --skip-download -o "cover" "<URL>"
 # Convert to jpg for xelatex compatibility
-bash scripts/prepare_cover.sh .
+bash "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/prepare_cover.sh" .
 
 # Video (for frame extraction)
-yt-dlp -f "bestvideo+bestaudio/best" --merge-output-format mp4 -o "video.mp4" "<URL>"
+yt-dlp --no-playlist -f "bestvideo+bestaudio/best" --merge-output-format mp4 -o "video.mp4" "<URL>"
 
 # Bilibili 1080P+ (if user has logged in):
-# yt-dlp --cookies-from-browser chrome -f "bestvideo+bestaudio/best" -o "video.mp4" "<URL>"
+# yt-dlp --no-playlist --cookies-from-browser chrome -f "bestvideo+bestaudio/best" -o "video.mp4" "<URL>"
 ```
 
-#### 1d. Bilibili Multi-Part (分P) Handling
+For every X/Twitter thumbnail, audio, and video command above, `<URL>` must be the
+unchanged input URL, including an optional `/video/<n>`, and `--no-playlist` must remain
+present. The same rule applies to X metadata probing as described in Phase 1b.
 
-```bash
-yt-dlp --flat-playlist --dump-json "<URL>"  # List all parts
-yt-dlp --playlist-items 1-3 -o "P%(playlist_index)s.%(ext)s" "<URL>"  # Download specific parts
-```
+### Phase 2: Frame Extraction and Full-Frame Selection
 
-Always ask the user which parts to process before downloading.
-
-### Phase 2: Frame Extraction and Smart Cropping
-
-This is where we differ most from other tools. Two-stage process:
+Use dense extraction, contact-sheet review, and full-frame verification:
 
 #### Stage 1: Dense frame extraction by chapter
 
@@ -251,7 +351,7 @@ For each candidate figure:
 
 2. Organize with `\section{}` / `\subsection{}`. Reconstruct the teaching flow — don't mirror subtitle order.
 
-3. Start from `assets/notes-template.tex`. Fill metadata and replace the body block.
+3. Start from `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/notes-template.tex`. Fill metadata and replace the body block.
 
 4. **Front page cover**: video's original cover image, visually distinct from in-body figures.
 
@@ -312,18 +412,21 @@ xelatex -interaction=nonstopmode notes.tex && xelatex -interaction=nonstopmode n
 
 - [ ] Final `.tex` file
 - [ ] Cover image (local file)
-- [ ] All smart-cropped figure assets in `figures/`
+- [ ] Selected full-frame figure assets in `figures/`
 - [ ] Compiled PDF (two-pass xelatex for TOC)
 - [ ] Whisper-generated SRT file (if speech-to-text was used)
+- [ ] X/Twitter SRT health result and 10% / 50% / 90% semantic samples (if X captions were used)
 
 ## Assets
 
-- `assets/notes-template.tex`: LaTeX template
-- `scripts/clean_subs.py`: YouTube auto-subtitle deduplication
-- `scripts/correct_srt.py`: Whisper SRT dictionary-level fix (fast, data-driven)
-- `scripts/llm_correct_srt.py`: Whisper SRT LLM + multimodal segment-level fix (slow, uses Claude Code CLI — no API key needed)
-- `scripts/verify_figures.py`: Three-way figure verification (timestamp × subtitle × frame)
-- `scripts/prepare_cover.sh`: Cover image format conversion (webp/png → jpg)
-- `scripts/smart_crop.py`: Slide region detection (experimental — production flow uses full frames instead)
-- `scripts/whisper_prompts/nju_os.txt`: Whisper `--initial_prompt` glossary example
-- `scripts/whisper_prompts/glossary_nju_os.json`: Dictionary of `wrong → right` pairs for `correct_srt.py`
+- `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/notes-template.tex`: LaTeX template
+- `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/video_source.py`: YouTube / Bilibili / X/Twitter URL detection and metadata probe
+- `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/check_srt_health.py`: Structural health gate for downloaded X/Twitter SRT tracks
+- `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/clean_subs.py`: YouTube auto-subtitle deduplication
+- `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/correct_srt.py`: Whisper SRT dictionary-level fix (fast, data-driven)
+- `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/llm_correct_srt.py`: Whisper SRT LLM + multimodal segment-level fix (slow, uses Claude Code CLI — no API key needed)
+- `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/verify_figures.py`: Three-way figure verification (timestamp × subtitle × frame)
+- `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/prepare_cover.sh`: Cover image format conversion (webp/png → jpg)
+- `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/smart_crop.py`: Slide-region detector; optional and experimental, while production uses full frames
+- `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/whisper_prompts/nju_os.txt`: Whisper `--initial_prompt` glossary example
+- `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/whisper_prompts/glossary_nju_os.json`: Dictionary of `wrong → right` pairs for `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/correct_srt.py`
