@@ -35,6 +35,10 @@ class DetectPlatformTests(unittest.TestCase):
             "https://t.co/abc",
             "not-a-url",
             "ftp://x.com/person/status/123",
+            "http://[::1",
+            "https://x.com:bad/person/status/123",
+            "https://x.com/person/status/１２３",
+            "https://x.com/person/status/123/video/١",
         )
 
         for url in cases:

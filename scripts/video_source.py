@@ -22,11 +22,17 @@ def _normalized_host(host: str) -> str:
 
 
 def detect_platform(url: str) -> str:
-    parsed = urlsplit(url)
-    if parsed.scheme not in ("http", "https") or not parsed.hostname:
+    try:
+        parsed = urlsplit(url)
+        hostname = parsed.hostname
+        _ = parsed.port
+    except ValueError as error:
+        raise UnsupportedSourceError(f"Unsupported video URL: {url}") from error
+
+    if parsed.scheme not in ("http", "https") or not hostname:
         raise UnsupportedSourceError(f"Unsupported video URL: {url}")
 
-    host = _normalized_host(parsed.hostname)
+    host = _normalized_host(hostname)
     path = parsed.path.rstrip("/")
 
     if host == "youtu.be" or host == "youtube.com" or host.endswith(".youtube.com"):
@@ -41,7 +47,7 @@ def detect_platform(url: str) -> str:
         return "bilibili"
 
     if host in ("x.com", "twitter.com") and re.fullmatch(
-        r"/[^/]+/status/\d+(?:/video/\d+)?", path
+        r"/[^/]+/status/[0-9]+(?:/video/[0-9]+)?", path
     ):
         return "x"
 
