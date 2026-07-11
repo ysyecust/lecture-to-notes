@@ -13,6 +13,10 @@ class UnsupportedSourceError(ValueError):
     """Raised when a URL is not a supported lecture video source."""
 
 
+class ProbeError(RuntimeError):
+    """Raised when yt-dlp cannot validate a playable source."""
+
+
 def _normalized_host(host: str) -> str:
     normalized = host.lower().rstrip(".")
     for prefix in ("www.", "mobile.", "m."):
@@ -52,3 +56,91 @@ def detect_platform(url: str) -> str:
         return "x"
 
     raise UnsupportedSourceError(f"Unsupported video URL: {url}")
+
+
+def _subtitle_languages(payload: dict) -> list[str]:
+    languages = set()
+    for field in ("subtitles", "automatic_captions"):
+        languages.update((payload.get(field) or {}).keys())
+    return sorted(languages)
+
+
+def _compact_metadata(platform: str, payload: dict) -> dict:
+    source_id = str(payload.get("id") or "").strip()
+    if not source_id:
+        raise ProbeError("yt-dlp returned no playable video ID")
+
+    duration = payload.get("duration")
+    if type(duration) not in (int, float) or duration <= 0:
+        raise ProbeError("yt-dlp returned no positive video duration")
+
+    return {
+        "platform": platform,
+        "id": source_id,
+        "title": payload.get("title") or "",
+        "uploader": payload.get("uploader") or "",
+        "duration": float(duration),
+        "webpage_url": payload.get("webpage_url") or "",
+        "has_thumbnail": bool(payload.get("thumbnail")),
+        "subtitle_languages": _subtitle_languages(payload),
+    }
+
+
+def probe_source(url: str) -> dict:
+    platform = detect_platform(url)
+    command = [
+        "yt-dlp",
+        "--dump-single-json",
+        "--no-playlist",
+        "--skip-download",
+        url,
+    ]
+
+    try:
+        completed = subprocess.run(
+            command, capture_output=True, text=True, check=False
+        )
+    except FileNotFoundError as error:
+        raise ProbeError("yt-dlp executable was not found") from error
+
+    if completed.returncode != 0:
+        detail = completed.stderr.strip() or "unknown extractor failure"
+        raise ProbeError(f"yt-dlp probe failed: {detail}")
+
+    try:
+        payload = json.loads(completed.stdout)
+    except json.JSONDecodeError as error:
+        raise ProbeError("yt-dlp returned invalid JSON metadata") from error
+
+    return _compact_metadata(platform, payload)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    detect_parser = subparsers.add_parser("detect")
+    detect_parser.add_argument("url")
+
+    probe_parser = subparsers.add_parser("probe")
+    probe_parser.add_argument("url")
+
+    args = parser.parse_args()
+
+    try:
+        if args.command == "detect":
+            print(detect_platform(args.url))
+        else:
+            print(json.dumps(probe_source(args.url), ensure_ascii=False, indent=2))
+    except UnsupportedSourceError as error:
+        print(error, file=sys.stderr)
+        return 2
+    except ProbeError as error:
+        print(error, file=sys.stderr)
+        return 1
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

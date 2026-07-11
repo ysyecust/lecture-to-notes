@@ -45,3 +45,64 @@ class DetectPlatformTests(unittest.TestCase):
             with self.subTest(url=url):
                 with self.assertRaises(video_source.UnsupportedSourceError):
                     video_source.detect_platform(url)
+
+
+class ProbeTests(unittest.TestCase):
+    URL = "https://x.com/person/status/2075594420163092606/video/1"
+
+    @mock.patch("video_source.subprocess.run")
+    def test_probe_returns_compact_metadata(self, run):
+        run.return_value = subprocess.CompletedProcess(
+            args=[],
+            returncode=0,
+            stdout=json.dumps(
+                {
+                    "id": "2075594420163092606",
+                    "title": "Lecture",
+                    "uploader": "Teacher",
+                    "duration": 120.5,
+                    "webpage_url": self.URL,
+                    "thumbnail": "https://example.test/thumb.jpg",
+                    "subtitles": {"en": [{}]},
+                    "automatic_captions": {"zh": [{}]},
+                }
+            ),
+            stderr="",
+        )
+
+        result = video_source.probe_source(self.URL)
+
+        self.assertEqual(result["platform"], "x")
+        self.assertEqual(result["id"], "2075594420163092606")
+        self.assertEqual(result["subtitle_languages"], ["en", "zh"])
+        self.assertTrue(result["has_thumbnail"])
+        self.assertIn("--no-playlist", run.call_args.args[0])
+
+    @mock.patch("video_source.subprocess.run")
+    def test_probe_rejects_extractor_failure(self, run):
+        run.return_value = subprocess.CompletedProcess(
+            args=[], returncode=1, stdout="", stderr="private post"
+        )
+
+        with self.assertRaisesRegex(video_source.ProbeError, "private post"):
+            video_source.probe_source(self.URL)
+
+    @mock.patch("video_source.subprocess.run")
+    def test_probe_rejects_missing_or_zero_duration(self, run):
+        payloads = ({"duration": 1}, {"id": "123", "duration": 0})
+
+        for payload in payloads:
+            with self.subTest(payload=payload):
+                run.return_value = subprocess.CompletedProcess(
+                    args=[],
+                    returncode=0,
+                    stdout=json.dumps(payload),
+                    stderr="",
+                )
+                with self.assertRaises(video_source.ProbeError):
+                    video_source.probe_source(self.URL)
+
+    @mock.patch("video_source.subprocess.run", side_effect=FileNotFoundError)
+    def test_probe_reports_missing_ytdlp(self, run):
+        with self.assertRaisesRegex(video_source.ProbeError, "yt-dlp"):
+            video_source.probe_source(self.URL)
