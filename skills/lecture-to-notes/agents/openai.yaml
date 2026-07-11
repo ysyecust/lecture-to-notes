@@ -1,4 +1,4 @@
 interface:
   display_name: "Lecture to Notes"
-  short_description: "Turn a YouTube or Bilibili lecture into smart-cropped LaTeX/PDF notes."
-  default_prompt: "Use this skill to turn a lecture video into high-quality LaTeX course notes. Automatically detects the platform (YouTube/Bilibili), extracts smart-cropped slide figures (removing the lecturer), falls back to Whisper when subtitles are unavailable, and produces a compiled PDF with high information density."
+  short_description: "Turn YouTube/Bilibili/X(Twitter) lectures into Chinese LaTeX/PDF notes."
+  default_prompt: "Use this skill when a user provides a YouTube, Bilibili, or X/Twitter lecture URL. Select full-frame teaching figures through contact-sheet review, fall back to Whisper when captions are unavailable or rejected, and produce high-information-density Chinese LaTeX notes with a compiled PDF."
