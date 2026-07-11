@@ -178,7 +178,6 @@ pip install openai-whisper
 | 全自动（无需手动粘贴 prompt） | ✗ | ✓ | ✓ |
 | Bilibili 支持 | ✗ | ✗ | ✓ |
 | X/Twitter 支持 | ✗ | ✗ | ✓ |
-| 智能课件裁剪 | ✗ | ✗ | ✓ |
 | 字幕回退（Whisper） | ✗ | ✗ | ✓ |
 | 分P视频处理 | ✗ | ✗ | ✓ |
 | Contact sheet 帧审查 | ✗ | ✓ | ✓ |
