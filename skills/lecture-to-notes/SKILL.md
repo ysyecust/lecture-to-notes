@@ -1,11 +1,11 @@
 ---
 name: lecture-to-notes
-description: Generate professional, information-dense, figure-rich LaTeX course notes and compiled PDF from a YouTube or Bilibili lecture video. Use when the user provides a video URL and wants structured Chinese teaching notes. Key features include smart slide-region cropping (removes lecturer, keeps only slide content), three-level subtitle fallback (CC → Whisper → visual-only), dense frame sampling with contact-sheet review, and high information density writing. Trigger words include lecture notes, 课程笔记, 视频转PDF, 讲义, YouTube笔记, B站笔记, BV号.
+description: Generate professional, information-dense, figure-rich LaTeX course notes and compiled PDF from a YouTube, Bilibili, or X/Twitter lecture video. Use when the user provides a video URL and wants structured Chinese teaching notes. Key features include smart slide-region cropping (removes lecturer, keeps only slide content), three-level subtitle fallback (CC → Whisper → visual-only), dense frame sampling with contact-sheet review, and high information density writing. Trigger words include lecture notes, 课程笔记, 视频转PDF, 讲义, YouTube笔记, B站笔记, X/Twitter, BV号.
 ---
 
 # Lecture to Notes
 
-Turn a lecture video (YouTube or Bilibili) into a complete, compilable `.tex` note set and a rendered PDF.
+Turn a YouTube, Bilibili, or X/Twitter lecture video into a complete, compilable `.tex` note set and a rendered PDF.
 
 ## Dependencies
 
@@ -13,12 +13,12 @@ Check before starting (use `which`). Prompt the user to install any missing tool
 
 | Tool | Required | Purpose |
 |------|----------|---------|
-| `yt-dlp` | Always | Video/subtitle/metadata download (supports YouTube + Bilibili) |
+| `yt-dlp` | Always | Video/subtitle/metadata download (supports YouTube + Bilibili + X/Twitter) |
 | `ffmpeg` | Always | Frame extraction, audio extraction |
 | `xelatex` | Always | LaTeX compilation (TeX Live + CTeX for Chinese) |
 | `magick` | Always | Frame montage, contact sheets, cropping |
 | `python3` | Always | Smart crop script, Whisper |
-| `whisper` | Bilibili / no-CC | Speech-to-text fallback (openai-whisper) |
+| `whisper` | Bilibili / X fallback / no-CC | Speech-to-text fallback (openai-whisper) |
 
 Additional Python dependencies: `Pillow` (`pip install Pillow`).
 
@@ -28,7 +28,7 @@ YouTube may require authentication to avoid bot detection. When `yt-dlp` fails w
 
 ## Goal
 
-Produce a professional Chinese lecture note from a video URL. The output must:
+Produce a professional Chinese lecture note from a YouTube, Bilibili, or X/Twitter video URL. The output must:
 
 - use the video's actual teaching content, not just subtitle transcription
 - place the video's original cover image on the front page
@@ -47,8 +47,13 @@ Detect the platform from the URL:
 |---------|----------|
 | `youtube.com`, `youtu.be` | YouTube |
 | `bilibili.com/video/BV`, `b23.tv` | Bilibili |
+| `x.com/<user>/status/<id>[/video/<n>]` | X/Twitter |
+| `twitter.com/<user>/status/<id>[/video/<n>]` | X/Twitter |
 
 Adapt the acquisition workflow accordingly (see below).
+
+For X/Twitter, preserve the exact input URL throughout acquisition. Do not shorten,
+canonicalize, or remove an optional `/video/<n>` suffix.
 
 ## Workflow
 
@@ -66,32 +71,65 @@ Recommended naming: `<course_id>_<lecture_number>_<short_title>/`
 #### 1a. Metadata Inspection
 
 ```bash
-yt-dlp --dump-json --no-download "<URL>" > metadata.json
+python3 scripts/video_source.py probe "<URL>" > metadata.json
 ```
 
-Extract: title, uploader, duration, chapters, thumbnail URL, subtitle availability. For Bilibili, also check for multi-part (分P) videos.
+Extract: platform, title, uploader, duration, thumbnail availability, and subtitle
+languages. For X/Twitter, pass the full original `<URL>` including optional
+`/video/<n>`; `scripts/video_source.py` retains that URL and probes it with
+`--no-playlist`. For Bilibili, also check for multi-part (分P) videos.
 
 #### 1b. Subtitle Acquisition (Three-Level Fallback)
 
 **Priority 1 — CC subtitles:**
 ```bash
 # YouTube
-yt-dlp --write-subs --sub-langs "zh.*,en.*" --convert-subs srt --skip-download "<URL>"
+yt-dlp --no-playlist --write-subs --sub-langs "zh.*,en.*" --convert-subs srt --skip-download "<URL>"
 
 # Bilibili
-yt-dlp --write-subs --sub-langs "zh-Hans,zh-CN,zh,ai-zh" --convert-subs srt --skip-download "<URL>"
+yt-dlp --no-playlist --write-subs --sub-langs "zh-Hans,zh-CN,zh,ai-zh" --convert-subs srt --skip-download "<URL>"
+
+# X/Twitter manual caption tracks (keep the full input URL)
+yt-dlp --no-playlist --write-subs --sub-langs "all,-live_chat" --convert-subs srt --skip-download "<URL>"
 ```
 
-**Priority 1.5 — YouTube auto-generated subtitles** (when no manual CC):
+**Priority 1.5 — Auto-generated subtitles** (when no manual CC):
 ```bash
-yt-dlp --write-auto-subs --sub-langs "en" --convert-subs srt --skip-download "<URL>"
+# YouTube
+yt-dlp --no-playlist --write-auto-subs --sub-langs "en" --convert-subs srt --skip-download "<URL>"
 # IMPORTANT: Clean duplicates — YouTube auto-subs repeat every line 2-3x
 python3 scripts/clean_subs.py subs.en.srt --stats
+
+# X/Twitter automatic caption tracks (keep the full input URL)
+yt-dlp --no-playlist --write-auto-subs --sub-langs "all,-live_chat" --convert-subs srt --skip-download "<URL>"
 ```
+
+**X/Twitter caption acceptance gate (mandatory):**
+
+Run every downloaded X/Twitter SRT through the structural health check, using the
+duration reported by the metadata probe:
+
+```bash
+python3 scripts/check_srt_health.py subs.srt --duration <seconds>
+```
+
+A healthy result is necessary but not sufficient. Before accepting the caption track,
+sample it against both the audio and the visible teaching content at 10%, 50%, and 90%
+of the runtime. All three semantic samples must describe the same lecture and align with
+the corresponding moment. If structural health or any semantic sample fails, discard
+the X caption and continue with X audio → Whisper → the existing dictionary and LLM SRT
+correction passes below.
+
+External official captions may be used only when all of the following are documented:
+
+- identity proof that the caption source and X post contain the same lecture and video variant
+- constant-offset alignment using one fixed time shift, never independent per-segment shifts
+- three-point audio/visual validation at 10%, 50%, and 90% after applying that offset
+- provenance disclosure naming the external caption URL/provider and the applied offset
 
 **Priority 2 — Whisper speech-to-text** (when no CC subtitles):
 ```bash
-yt-dlp -x --audio-format wav -o "audio.%(ext)s" "<URL>"
+yt-dlp --no-playlist -x --audio-format wav -o "audio.%(ext)s" "<URL>"
 # IMPORTANT: Use absolute paths for Whisper to avoid working directory issues
 # when running in background. The shell may reset cwd between commands.
 # IMPORTANT: ffmpeg must be on PATH — Whisper uses it internally to read audio.
@@ -128,16 +166,20 @@ Skip subtitles. Use dense frame sampling (fps=1) and rely entirely on visual con
 
 ```bash
 # Cover image (may be webp/png/jpg depending on platform)
-yt-dlp --write-thumbnail --skip-download -o "cover" "<URL>"
+yt-dlp --no-playlist --write-thumbnail --skip-download -o "cover" "<URL>"
 # Convert to jpg for xelatex compatibility
 bash scripts/prepare_cover.sh .
 
 # Video (for frame extraction)
-yt-dlp -f "bestvideo+bestaudio/best" --merge-output-format mp4 -o "video.mp4" "<URL>"
+yt-dlp --no-playlist -f "bestvideo+bestaudio/best" --merge-output-format mp4 -o "video.mp4" "<URL>"
 
 # Bilibili 1080P+ (if user has logged in):
-# yt-dlp --cookies-from-browser chrome -f "bestvideo+bestaudio/best" -o "video.mp4" "<URL>"
+# yt-dlp --no-playlist --cookies-from-browser chrome -f "bestvideo+bestaudio/best" -o "video.mp4" "<URL>"
 ```
+
+For every X/Twitter thumbnail, audio, and video command above, `<URL>` must be the
+unchanged input URL, including an optional `/video/<n>`, and `--no-playlist` must remain
+present. The same rule applies to X metadata probing as described in Phase 1a.
 
 #### 1d. Bilibili Multi-Part (分P) Handling
 
@@ -315,10 +357,13 @@ xelatex -interaction=nonstopmode notes.tex && xelatex -interaction=nonstopmode n
 - [ ] All smart-cropped figure assets in `figures/`
 - [ ] Compiled PDF (two-pass xelatex for TOC)
 - [ ] Whisper-generated SRT file (if speech-to-text was used)
+- [ ] X/Twitter SRT health result and 10% / 50% / 90% semantic samples (if X captions were used)
 
 ## Assets
 
 - `assets/notes-template.tex`: LaTeX template
+- `scripts/video_source.py`: YouTube / Bilibili / X/Twitter URL detection and metadata probe
+- `scripts/check_srt_health.py`: Structural health gate for downloaded X/Twitter SRT tracks
 - `scripts/clean_subs.py`: YouTube auto-subtitle deduplication
 - `scripts/correct_srt.py`: Whisper SRT dictionary-level fix (fast, data-driven)
 - `scripts/llm_correct_srt.py`: Whisper SRT LLM + multimodal segment-level fix (slow, uses Claude Code CLI — no API key needed)

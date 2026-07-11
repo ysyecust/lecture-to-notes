@@ -4,15 +4,15 @@
 
 两个 AI 驱动的学习工具：
 
-1. **lecture-to-notes**：将 YouTube / Bilibili 讲座视频转换为专业的中文 LaTeX 课程笔记和 PDF
+1. **lecture-to-notes**：将 YouTube / Bilibili / X(Twitter) 讲座视频转换为专业的中文 LaTeX 课程笔记和 PDF
 2. **paper-to-html**：将学术论文转换为结构化的中文 HTML 解读页面
 
 > 视频 URL → LaTeX PDF 讲义 | 论文 → 自包含 HTML 解读
 
 ## 特性
 
-- **多平台支持**：YouTube 和 Bilibili（自动识别 URL）
-- **字幕四级回退**：CC 字幕 → YouTube 自动字幕（自动去重）→ Whisper 语音转写 → 纯视觉模式
+- **多平台支持**：YouTube、Bilibili 和 X/Twitter（自动识别 URL）
+- **字幕四级回退**：CC 字幕 → 平台自动字幕（YouTube 自动去重）→ Whisper 语音转写 → 纯视觉模式
 - **字幕清洗**：YouTube auto-subs 自动去重（通常去除 50% 重复行）
 - **密集帧采样**：每 15 秒采样 + contact sheet 批量审查，不遗漏关键画面
 - **图文三方验证**：每个配图写入前必须通过「帧画面 + 字幕内容 + 描述文字」三方一致性检查，防止图文不匹配
@@ -27,6 +27,8 @@
 ├── README.md
 ├── LICENSE
 ├── scripts/
+│   ├── video_source.py        # YouTube / Bilibili / X(Twitter) URL 识别与元数据探测
+│   ├── check_srt_health.py    # X/Twitter 字幕结构健康检查
 │   ├── clean_subs.py          # YouTube 自动字幕去重
 │   ├── correct_srt.py         # Whisper SRT 词典级修正（数据驱动，快）
 │   ├── llm_correct_srt.py     # Whisper SRT 段级修正（LLM + 多模态，慢但更准）
@@ -71,7 +73,21 @@ cp scripts/*.py scripts/prepare_cover.sh ~/.claude/skills/lecture-to-notes/asset
 cp -R scripts/whisper_prompts ~/.claude/skills/lecture-to-notes/assets/
 ```
 
-然后在 Claude Code 中使用 `/lecture-to-notes <URL>` 触发（或直接贴一个 B 站 / YouTube 链接，skill 会被自动匹配）。
+然后在 Claude Code 中使用 `/lecture-to-notes <URL>` 触发（或直接贴一个 B 站 / YouTube / X(Twitter) 链接，skill 会被自动匹配）。
+
+### 视频源检测与探测
+
+支持 YouTube、Bilibili，以及 `https://x.com/<user>/status/<id>[/video/<n>]` 和对应的
+Twitter URL。对 X/Twitter 必须保留用户输入的完整 URL，包括可选的 `/video/<n>`。
+
+```bash
+python3 scripts/video_source.py detect "<URL>"
+python3 scripts/video_source.py probe "<URL>"
+```
+
+下载到的 X/Twitter 字幕必须先通过 `scripts/check_srt_health.py` 的结构健康检查，
+再在视频时长 10%、50%、90% 三处对照音频和画面做语义抽样；任一检查失败时，改用
+X 音频 → Whisper → 现有 SRT 修正流程。
 
 ## 依赖
 
@@ -113,17 +129,21 @@ pip install openai-whisper
 | `magick` | ✓ | Contact sheet、帧处理 |
 | `whisper` | ✓ | 语音转写（Bilibili 基本无 CC，必用） |
 | `python3` | ✓ | 运行 `scripts/` 下所有脚本 |
+| `scripts/video_source.py` | ✓ | YouTube / Bilibili / X/Twitter URL 识别与元数据探测 |
+| `scripts/check_srt_health.py` | X/Twitter 字幕 | 检查 SRT 覆盖率、重复率和运行时窗口 |
 | `Pillow` | △ | 仅 `smart_crop.py` 需要 |
 | Claude Code CLI | △ | 仅 `llm_correct_srt.py` 需要（复用本地登录态，无需 API key） |
 
 ## 工作流程
 
 ```
-视频 URL
+视频 URL（YouTube / Bilibili / X/Twitter）
   │
-  ├─ yt-dlp ──→ 元数据 + 封面 + 字幕(CC) + 视频
+  ├─ video_source.py ──→ 平台识别 + 元数据探测
+  │
+  ├─ yt-dlp ──→ 封面 + 字幕(CC/自动轨) + 视频
   │                                │
-  │              字幕不可用？──→ Whisper 转写
+  │  字幕不可用或 X 字幕检查失败？──→ Whisper 转写
   │                                │（可选配 --initial_prompt 喂领域术语表）
   │                                ▼
   │                          correct_srt.py      （词典级快速修正）
@@ -157,6 +177,7 @@ pip install openai-whisper
 |------|:---:|:---:|:---:|
 | 全自动（无需手动粘贴 prompt） | ✗ | ✓ | ✓ |
 | Bilibili 支持 | ✗ | ✗ | ✓ |
+| X/Twitter 支持 | ✗ | ✗ | ✓ |
 | 智能课件裁剪 | ✗ | ✗ | ✓ |
 | 字幕回退（Whisper） | ✗ | ✗ | ✓ |
 | 分P视频处理 | ✗ | ✗ | ✓ |
@@ -168,7 +189,7 @@ pip install openai-whisper
 
 - 大学公开课笔记整理（南京大学、MIT OCW、Stanford CS 等）
 - 技术讲座/会议 talk 转结构化文档
-- YouTube / Bilibili 教学视频的知识提取与归档
+- YouTube / Bilibili / X/Twitter 教学视频的知识提取与归档
 
 ## 致谢
 
