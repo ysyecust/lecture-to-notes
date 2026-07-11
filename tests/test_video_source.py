@@ -17,6 +17,9 @@ class DetectPlatformTests(unittest.TestCase):
         cases = {
             "https://www.youtube.com/watch?v=abc": "youtube",
             "https://youtu.be/abc": "youtube",
+            "https://youtube.com/live/abc": "youtube",
+            "https://youtube.com/shorts/abc": "youtube",
+            "https://youtube.com/embed/abc": "youtube",
             "https://www.bilibili.com/video/BV1xx411c7mD": "bilibili",
             "https://b23.tv/abcdef": "bilibili",
             "https://x.com/person/status/2075594420163092606": "x",
@@ -30,6 +33,12 @@ class DetectPlatformTests(unittest.TestCase):
 
     def test_unsupported_urls(self):
         cases = (
+            "https://youtube.com/",
+            "https://youtube.com/channel/teacher",
+            "https://youtube.com/watch",
+            "https://youtube.com/watch?v=",
+            "https://youtube.com/arbitrary/path",
+            "https://youtu.be/",
             "https://x.com/",
             "https://x.com/person",
             "https://t.co/abc",
@@ -39,6 +48,22 @@ class DetectPlatformTests(unittest.TestCase):
             "https://x.com:bad/person/status/123",
             "https://x.com/person/status/１２３",
             "https://x.com/person/status/123/video/١",
+        )
+
+        for url in cases:
+            with self.subTest(url=url):
+                with self.assertRaises(video_source.UnsupportedSourceError):
+                    video_source.detect_platform(url)
+
+    def test_youtube_video_ids_are_ascii_and_have_no_extra_segments(self):
+        cases = (
+            "https://youtu.be/abc/extra",
+            "https://youtu.be/视频",
+            "https://youtube.com/live/abc/extra",
+            "https://youtube.com/shorts/视频",
+            "https://youtube.com/embed/abc/extra",
+            "https://youtube.com/watch?v=视频",
+            "https://youtube.com/watch?v=abc%2Fextra",
         )
 
         for url in cases:

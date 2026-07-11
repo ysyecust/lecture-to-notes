@@ -33,6 +33,69 @@ class SrtHealthTests(unittest.TestCase):
         self.assertEqual(result["entry_count"], 3)
         self.assertGreaterEqual(result["coverage"], 0.9)
 
+    def test_rejects_timeline_far_beyond_duration_and_bounds_coverage(self):
+        text = "\n".join(
+            [
+                block(1, "00:00:05,000", "00:00:12,000", "opening"),
+                block(2, "00:00:47,000", "00:00:53,000", "middle"),
+                block(3, "00:01:32,000", "99:00:00,000", "ending"),
+            ]
+        )
+
+        result = check_srt_health.assess_srt(text, duration=100)
+
+        self.assertFalse(result["healthy"])
+        self.assertIn("timestamp_exceeds_duration", result["reasons"])
+        self.assertEqual(result["coverage"], 1.0)
+
+    def test_accepts_timeline_overrun_within_tolerance(self):
+        text = "\n".join(
+            [
+                block(1, "00:00:05,000", "00:00:12,000", "opening"),
+                block(2, "00:00:47,000", "00:00:53,000", "middle"),
+                block(3, "00:01:32,000", "00:01:40,999", "ending"),
+            ]
+        )
+
+        result = check_srt_health.assess_srt(text, duration=100)
+
+        self.assertTrue(result["healthy"])
+        self.assertEqual(result["coverage"], 1.0)
+
+    def test_rejects_timeline_overrun_beyond_tolerance(self):
+        text = "\n".join(
+            [
+                block(1, "00:00:05,000", "00:00:12,000", "opening"),
+                block(2, "00:00:47,000", "00:00:53,000", "middle"),
+                block(3, "00:01:32,000", "00:01:41,001", "ending"),
+            ]
+        )
+
+        result = check_srt_health.assess_srt(text, duration=100)
+
+        self.assertFalse(result["healthy"])
+        self.assertIn("timestamp_exceeds_duration", result["reasons"])
+
+    def test_timeline_overrun_tolerance_scales_for_long_media(self):
+        within_tolerance = "\n".join(
+            [
+                block(1, "00:01:40,000", "00:03:20,000", "opening"),
+                block(2, "00:15:00,000", "00:16:40,000", "middle"),
+                block(3, "00:28:20,000", "00:33:21,999", "ending"),
+            ]
+        )
+        beyond_tolerance = within_tolerance.replace(
+            "00:33:21,999", "00:33:22,001"
+        )
+
+        accepted = check_srt_health.assess_srt(within_tolerance, duration=2000)
+        rejected = check_srt_health.assess_srt(beyond_tolerance, duration=2000)
+
+        self.assertTrue(accepted["healthy"])
+        self.assertEqual(accepted["coverage"], 1.0)
+        self.assertFalse(rejected["healthy"])
+        self.assertIn("timestamp_exceeds_duration", rejected["reasons"])
+
     def test_truncated_track(self):
         text = block(1, "00:00:01,000", "00:00:10,000", "opening")
 

@@ -121,7 +121,13 @@ def assess_srt(
         for entry_index, entry in enumerate(entries)
         if entry["text"].strip()
     ]
-    coverage = entries[-1]["end"] / duration
+    # Permit small subtitle/container rounding disagreements: at least one second,
+    # or 0.1% of the media duration for long recordings.
+    overrun_tolerance = max(1.0, duration * 0.001)
+    timeline_out_of_bounds = any(
+        entry["end"] > duration + overrun_tolerance for entry in entries
+    )
+    coverage = min(entries[-1]["end"] / duration, 1.0)
     repetition_ratio = (
         1 - len({entry["text"] for _, entry in nonempty}) / len(nonempty)
         if nonempty
@@ -157,6 +163,8 @@ def assess_srt(
         reasons.append("repetition_above_threshold")
     if not all(windows.values()):
         reasons.append("empty_runtime_window")
+    if timeline_out_of_bounds:
+        reasons.append("timestamp_exceeds_duration")
     if not distinct_runtime_evidence:
         reasons.append("insufficient_distinct_runtime_evidence")
 

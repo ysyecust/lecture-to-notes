@@ -8,7 +8,7 @@ import re
 import subprocess
 import sys
 from collections.abc import Mapping
-from urllib.parse import urlsplit
+from urllib.parse import parse_qs, urlsplit
 
 
 class UnsupportedSourceError(ValueError):
@@ -41,8 +41,17 @@ def detect_platform(url: str) -> str:
     host = _normalized_host(hostname)
     path = parsed.path.rstrip("/")
 
-    if host == "youtu.be" or host == "youtube.com" or host.endswith(".youtube.com"):
+    if host == "youtu.be" and re.fullmatch(r"/[A-Za-z0-9_-]+", path):
         return "youtube"
+
+    if host == "youtube.com" or host.endswith(".youtube.com"):
+        video_ids = parse_qs(parsed.query, keep_blank_values=True).get("v", [])
+        if path == "/watch" and len(video_ids) == 1 and re.fullmatch(
+            r"[A-Za-z0-9_-]+", video_ids[0]
+        ):
+            return "youtube"
+        if re.fullmatch(r"/(?:live|shorts|embed)/[A-Za-z0-9_-]+", path):
+            return "youtube"
 
     if host == "b23.tv" and path:
         return "bilibili"
