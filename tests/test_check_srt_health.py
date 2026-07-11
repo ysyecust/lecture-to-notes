@@ -227,10 +227,23 @@ class SrtHealthTests(unittest.TestCase):
             check_srt_health.parse_srt(text)
 
     def test_seconds_normalizes_numeric_conversion_errors(self):
-        for parts in (("bad", "00", "00", "000"), ("00", None, "00", "000")):
+        for parts in (
+            ("bad", "00", "00", "000"),
+            ("00", None, "00", "000"),
+            ("9" * 400, "00", "00", "000"),
+        ):
             with self.subTest(parts=parts):
                 with self.assertRaises(check_srt_health.SrtParseError):
                     check_srt_health._seconds(parts)
+
+    def test_direct_parsing_and_assessment_accept_one_leading_bom(self):
+        text = "\ufeff" + healthy_track()
+
+        entries = check_srt_health.parse_srt(text)
+        result = check_srt_health.assess_srt(text, duration=100)
+
+        self.assertEqual(len(entries), 3)
+        self.assertTrue(result["healthy"])
 
     def test_reasons_keep_deterministic_order(self):
         text = "\n".join(

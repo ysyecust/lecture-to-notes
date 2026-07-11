@@ -28,12 +28,18 @@ def _seconds(parts) -> float:
 
     if not 0 <= minutes <= 59 or not 0 <= seconds <= 59:
         raise SrtParseError("timestamp minutes and seconds must be between 0 and 59")
-    return (
-        hours * 3600
-        + minutes * 60
-        + seconds
-        + milliseconds / 1000
-    )
+    try:
+        total_seconds = (
+            hours * 3600
+            + minutes * 60
+            + seconds
+            + milliseconds / 1000
+        )
+    except (TypeError, ValueError, OverflowError) as exc:
+        raise SrtParseError("timestamp cannot be represented as seconds") from exc
+    if not math.isfinite(total_seconds):
+        raise SrtParseError("timestamp seconds must be finite")
+    return total_seconds
 
 
 def _is_finite_number(value):
@@ -47,7 +53,7 @@ def _is_finite_number(value):
 
 def parse_srt(text: str) -> list[dict]:
     """Parse SRT entries and reject structurally unsafe timelines."""
-    stripped = text.strip()
+    stripped = text.removeprefix("\ufeff").strip()
     if not stripped:
         raise SrtParseError("SRT contains no entries")
 
