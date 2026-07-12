@@ -40,6 +40,111 @@ Produce a professional Chinese lecture note from a YouTube, Bilibili, or X/Twitt
 - be a complete `.tex` from `\documentclass` to `\end{document}`
 - compile successfully to PDF
 
+## Non-negotiable quality bar (Codex / production mode)
+
+**STOP and do not claim completion** unless every item below is true. Skeleton outlines,
+image-heavy PDFs with thin prose, or missing intermediate artifacts are automatic failures.
+
+### Mandatory workdir artifacts (must exist on disk before saying "done")
+
+| File | Required content |
+|------|------------------|
+| `metadata.json` | From `video_source.py probe` (or equivalent full dump) |
+| `audio.srt` | Final subtitle track used for writing (manual CC, cleaned auto, or Whisper) |
+| `audio_corrected.srt` | Copy of final track, or LLM/dictionary-corrected track when Whisper was used |
+| `cover.jpg` | Front-page cover |
+| `video.mp4` | Source for frames (may omit only if user forbids download and provides frames) |
+| `frames/` | Dense sample, default 1 frame / 15s |
+| `figures/` | Selected full-frame figures with **semantic names** (`fig_01_topic.jpg`, …) |
+| `figure_manifest.tsv` | Header `figure\tframe\tstart\tend\ttopic` — one row per figure |
+| `figure_verification.txt` | Full stdout of `verify_figures.py` over **all** manifest timestamps |
+| `notes.tex` | Complete Chinese lecture notes |
+| `notes.pdf` | Two-pass `xelatex` output |
+
+### Density and structure gates (hard)
+
+For a lecture of duration $T$ minutes (from metadata):
+
+**Gate vs target (do not confuse):** the numbers below are **hard gates** (fail = no delivery).
+A high-quality Codex-class note often lands ~25–40% above the CJK gate; that is a **target**,
+not a second hard floor. Raising the hard floor to the measured gold value encourages
+padding, not more teaching atoms. (Validated on CS336 L3: $T\approx 89$ → gate CJK 6246 /
+figs 25; gold ~8035 CJK / 27 figs / 31 pages.)
+
+1. **Chinese character count** in `notes.tex` body (CJK unified ideographs only) must be
+   **at least $\max(5000,\ \mathrm{round}(70\times T))$**.  
+   Example: 86 min → ≥ 6020 CJK chars. Do **not** count English jargon, LaTeX commands, or captions alone.
+2. **Figures**: at least $\max(20,\ \mathrm{round}(T/3.5))$ distinct teaching figures
+   (86 min → ≥ 25). Prefer one figure per teaching atom, not one per half-hour.
+3. **Sections**: major `\section` count ≥ 8 for $T\ge 60$; every major section ends with
+   `\subsection{本章小结}` that restates mechanisms (not a single vague sentence).
+4. **Judgment boxes**: for $T\ge 60$, at least **12** of
+   `importantbox` / `knowledgebox` / `warningbox` / `practicebox` combined. Thin notes often
+   pass CJK by repeating captions; boxes force explicit claims, pitfalls, and checklists.
+5. **Teaching atom template** (required for each non-trivial concept):
+   - judgment / why it matters (2–5 Chinese sentences);
+   - mechanism with display math when needed;
+   - **symbol list** (`itemize` explaining every symbol) immediately after each display formula;
+   - verified figure + same-page time footnote;
+   - `importantbox` / `knowledgebox` / `warningbox` / optional practice checklist as needed.
+6. **No outline-only sections.** If a 5-minute span of the lecture introduces a distinct
+   mechanism, number, or design choice, it must appear as its own subsection or a clearly
+   labeled paragraph with evidence — not a bullet in a summary list.
+7. **Coverage audit before compile (timeline):** walk the timeline in 3–5 minute steps using the SRT;
+   list any gap without corresponding prose or figure; fill gaps before `xelatex`.
+8. **Teaching-atom checklist (topic coverage, hard for technical lectures):**
+   Before delivery, extract a **lecture-specific atom list** from SRT + slides (15–40 atoms).
+   Each atom must map to a subsection, a labeled paragraph, or a figure+caption in `notes.tex`.
+   Missing atoms → expand prose; do **not** “pass” on CJK alone.
+   Example atoms for an LLM-architecture lecture: Pre/Post-Norm, LN vs RMSNorm,
+   FLOPs≠runtime, SwiGLU, serial vs parallel block, RoPE, FFN ratio, head dim, width/depth,
+   vocab size, dropout vs weight decay, z-loss, QK-Norm, Prefill vs Decode, MQA/GQA,
+   sliding window / interleaved / hybrid attention.
+   Persist the checklist as `teaching_atoms.tsv` (`atom\tstatus\tevidence`) when practical.
+
+9. **Mechanism density (hard — L2 gold comparison 2026-07-12):** CJK/fig/box gates alone are
+   **not enough**. CS336 L2 first Grok pass: 5463 CJK / 8 formulas / 0 code (gate PASS, gold incomplete);
+   after claim-driven补全: ~6450 CJK / 31 formulas / 3 code / 33 pages (matches Codex). Also require:
+   - **Display math**: at least $\max(10,\ \mathrm{round}(T/4))$ blocks (`\[ ... \]` or `equation`),
+     each with an immediate symbol `itemize` when ≥2 symbols appear.
+   - **Numerical claims file** `numerical_claims.tsv` (header `claim\tvalue\tsource_time\tin_notes`):
+     before writing, extract every concrete number/formula from SRT+selected frames
+     (e.g. `6PT`, `12 bytes/param`, `I_*=295`, `144 days`, `53.3B`, peak TFLOP/s, bandwidth).
+     After writing, every row must be `in_notes=yes`. Topic-only atoms without numbers still FAIL
+     if the lecture stated a number.
+   - **Code**: if slides/SRT show ≥1 non-trivial code fragment (einops, timing, AMP, …), notes must
+     include ≥1 `lstlisting` (or equivalent verbatim) with the **same mechanism**, not a prose paraphrase only.
+   - **Comparison tables**: if the lecture contrasts ≥3 formats/ops/modes (e.g. FP32/FP16/BF16/FP8),
+     include a compact `tabular` — do not leave it only as prose.
+   - **Per-section floor** (for $T\ge 60$): each major `\section` except title/appendix must have
+     ≥ $\max(300,\ \mathrm{round}(0.7\times \mathrm{CJK}/N_{\mathrm{sec}}))$ Chinese chars **and**
+     at least one of: display formula, table, code block, or ≥2 judgment boxes.
+     A section that is only “术语澄清 + 小结” is FAIL.
+   - **Fine-grained subsections**: for each 5–8 min teaching span that introduces a distinct mechanism,
+     prefer a dedicated `\subsection` (Codex L2: 42 subs vs thin notes ~35). Merging is OK only if
+     the merged subsection still contains **all numbers and derivations** from both spans.
+
+10. **Write-from-claims, not write-from-outline (workflow):**
+    Order of work after frames/manifest:
+    (a) build `numerical_claims.tsv` + topic `teaching_atoms.tsv`;
+    (b) draft section outline keyed to claims;
+    (c) write prose that **discharges every claim**;
+    (d) run density + formula + claims gates;
+    (e) only then compile. Skipping (a) is the main root cause of “gate PASS, gold incomplete”.
+
+### Forbidden shortcuts
+
+- Stopping after a “skeleton PDF” that only titles topics and pastes slides.
+- Writing captions from section titles without reading the full-resolution frame.
+- Claiming high density without measuring CJK character count against the gate above.
+- Omitting `figure_manifest.tsv` / `figure_verification.txt` “because figures look fine”.
+- Merging unrelated teaching points to reduce page count.
+- Padding CJK with repeated slogans or synonym paraphrases that add no mechanism, formula, or decision rule.
+- Treating the **target** (~Codex measured density) as a second **hard gate** and stuffing filler to hit it.
+- **Summary-only mechanism sections**: describing Roofline / MFU / $6BP$ / checkpointing in words while
+  omitting the lecture’s actual formulas, critical constants, and worked numerical examples.
+- Marking a teaching atom `ok` because a **topic word** appears, when the lecture’s **number or derivation** is absent.
+
 ## Platform Detection
 
 Detect the platform from the URL:
@@ -326,6 +431,12 @@ For each candidate figure:
 
    If any mismatch: either pick a different frame, adjust the timestamp, or rewrite the caption.
 
+5. **Persist audit artifacts (mandatory):**
+   - Append every accepted figure to `figure_manifest.tsv` with columns
+     `figure`, `frame`, `start`, `end`, `topic` (topic in Chinese, concrete).
+   - Run `verify_figures.py` on **all** `start` times and save full stdout to
+     `figure_verification.txt`. Do not delete these files after compile.
+
 **Common failure modes to watch for:**
 
 | Failure | Example | Fix |
@@ -334,6 +445,7 @@ For each candidate figure:
 | Timestamp off by 1-2 minutes | @07:00 claimed but actual content is at @09:00 | Cross-check with subtitle timestamps |
 | Caption describes the section topic, not the frame | "Scaling Law 幂律关系" but frame shows a chess board | Write caption from frame content, not section title |
 | Frame is transitional (between slides) | Half old slide, half new slide | Pick a frame 15s earlier or later |
+| Too few figures / outline-only notes | 15 figures + 3k CJK chars for an 86-min lecture | Enforce density gates in "Non-negotiable quality bar" |
 
 ### Phase 3: Writing
 
@@ -402,20 +514,79 @@ For concepts that screenshots and prose can't explain clearly, add visualization
 
 Use for: process flows, architecture layouts, scaling-law plots, comparison charts. No decorative graphics.
 
-### Phase 4: Compilation and Delivery
+### Phase 4: Compilation, Density Gate, and Delivery
 
 ```bash
 xelatex -interaction=nonstopmode notes.tex && xelatex -interaction=nonstopmode notes.tex
 ```
 
+#### Pre-delivery density check (run and report numbers)
+
+```bash
+python3 - <<'PY'
+from pathlib import Path
+import re, json
+tex = Path("notes.tex").read_text(encoding="utf-8")
+cn = sum(1 for c in tex if "\u4e00" <= c <= "\u9fff")
+figs = len(list(Path("figures").glob("*")))
+secs = len(re.findall(r"\\section\{", tex))
+boxes = len(re.findall(r"\\begin\{(important|knowledge|warning|practice)box\}", tex))
+maths = len(re.findall(r"\\\[|\\begin\{equation", tex))
+codes = len(re.findall(r"\\begin\{lstlisting\}", tex))
+tables = len(re.findall(r"\\begin\{tabular", tex))
+print(f"CJK_chars={cn} figures={figs} sections={secs} boxes={boxes} display_math={maths} code={codes} tables={tables}")
+meta = json.loads(Path("metadata.json").read_text()) if Path("metadata.json").exists() else {}
+T = float(meta.get("duration") or 0) / 60.0
+need_cn = max(5000, round(70 * T)) if T else 5000
+need_fig = max(20, round(T / 3.5)) if T else 20
+need_box = 12 if T >= 60 else 6
+need_math = max(10, round(T / 4)) if T else 10
+print(f"duration_min={T:.1f} need_CJK>={need_cn} need_figures>={need_fig} need_boxes>={need_box} need_math>={need_math}")
+ok = cn >= need_cn and figs >= need_fig and boxes >= need_box and maths >= need_math
+print("PASS" if ok else "FAIL — expand mechanisms / formulas / figures / boxes before delivery")
+atoms = Path("teaching_atoms.tsv")
+if atoms.exists():
+    rows = [r for r in atoms.read_text().splitlines()[1:] if r.strip()]
+    missing = [r for r in rows if len(r.split("\t")) < 2 or r.split("\t")[1] != "ok"]
+    print(f"teaching_atoms total={len(rows)} missing={len(missing)}")
+    if missing:
+        print("FAIL — teaching atom gaps remain"); ok = False
+claims = Path("numerical_claims.tsv")
+if claims.exists():
+    rows = [r for r in claims.read_text().splitlines()[1:] if r.strip()]
+    miss = [r for r in rows if "yes" not in r.split("\t")[-1].lower()]
+    print(f"numerical_claims total={len(rows)} missing_in_notes={len(miss)}")
+    if miss:
+        print("FAIL — numerical claims not discharged:"); ok = False
+        for r in miss[:12]:
+            print(" ", r)
+elif T >= 45:
+    print("FAIL — numerical_claims.tsv missing (required for T>=45)"); ok = False
+print("OVERALL", "PASS" if ok else "FAIL")
+PY
+test -s figure_manifest.tsv && test -s figure_verification.txt && test -s audio.srt
+```
+
+If the script prints `FAIL`, **keep writing** (add teaching atoms, formulas, numerical claims, and verified figures). Do not hand
+the user a PDF that fails this gate.
+
 #### Delivery Checklist
 
-- [ ] Final `.tex` file
-- [ ] Cover image (local file)
-- [ ] Selected full-frame figure assets in `figures/`
-- [ ] Compiled PDF (two-pass xelatex for TOC)
-- [ ] Whisper-generated SRT file (if speech-to-text was used)
+- [ ] `notes.tex` + two-pass `notes.pdf`
+- [ ] `cover.jpg`
+- [ ] `figures/` with semantic names; count passes density gate
+- [ ] `figure_manifest.tsv` and `figure_verification.txt` present and non-empty
+- [ ] `audio.srt` (and `audio_corrected.srt` when correction was applied or as a copy of the final track)
+- [ ] CJK character count reported and ≥ gate for lecture duration
+- [ ] Judgment-box count ≥ 12 when $T\ge 60$
+- [ ] Display-math count ≥ $\max(10,\mathrm{round}(T/4))$ with symbol lists
+- [ ] `numerical_claims.tsv` complete (`in_notes=yes` for every row) when $T\ge 45$
+- [ ] Code/table present when lecture showed code or multi-way format comparisons
+- [ ] Timeline coverage audit done (no multi-minute teaching gaps without prose)
+- [ ] Teaching-atom checklist reviewed (`teaching_atoms.tsv`; atoms require numbers when lecture had numbers)
+- [ ] Whisper-generated SRT retained if speech-to-text was used
 - [ ] X/Twitter SRT health result and 10% / 50% / 90% semantic samples (if X captions were used)
+- [ ] Absolute paths of PDF and workdir listed for the user
 
 ## Assets
 
