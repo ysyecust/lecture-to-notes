@@ -23,6 +23,37 @@ Check before starting (use `which`). Prompt the user to install any missing tool
 Additional Python dependencies: `Pillow` (`pip install Pillow`) only for the optional
 `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/smart_crop.py` experiment.
 
+### LaTeX package check (do NOT skip — `which xelatex` alone is insufficient)
+
+`which xelatex` passing does **not** mean the required LaTeX packages are installed.
+On minimal TeX installs (e.g. MacTeX Basic, TeX Live `scheme-basic`), the binary exists
+but `ctex`, `tcolorbox`, and other packages are missing. This causes silent failures:
+long Chinese lines overflow `\textwidth` (no CJK line breaking) or compilation aborts
+with `File '...' not found`.
+
+Check required packages before starting:
+
+```bash
+MISSING=0
+for pkg in ctex tcolorbox environ trimspaces listings hyperref booktabs float subcaption etoolbox; do
+  if ! kpsewhich "$pkg.sty" >/dev/null 2>&1; then
+    echo "❌ Missing LaTeX package: $pkg"
+    MISSING=1
+  fi
+done
+if [ "$MISSING" -ne 0 ]; then
+  echo "Install missing packages:"
+  echo "  tlmgr install ctex tcolorbox environ trimspaces etoolbox"
+  echo "Or install full TeX distribution:"
+  echo "  macOS:  https://www.tug.org/mactex/  (~4 GB, includes everything)"
+  echo "  Linux:  sudo apt install texlive-full"
+fi
+```
+
+If `ctex` cannot be installed (e.g. due to `l3kernel` version conflicts on minimal installs),
+the `notes-template.tex` includes a fallback that uses XeTeX's built-in CJK line breaking
+(`\XeTeXlinebreaklocale "zh"`) with system fonts — no `ctex` or `xeCJK` needed.
+
 ## YouTube Cookie Notice
 
 YouTube may require authentication to avoid bot detection. When `yt-dlp` fails with "Sign in to confirm you're not a bot", add `--cookies-from-browser chrome` (or `safari`/`firefox`/`edge`) to all `yt-dlp` commands.
