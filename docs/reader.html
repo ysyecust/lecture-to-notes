@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="description" content="Lecture to Notes 专用 PDF 阅读页。">
+  <title>阅读讲义 · Lecture to Notes</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body class="reader-page">
+  <a class="skip-link" href="#reader-main">跳到阅读器</a>
+  <header class="site-header reader-header">
+    <nav class="nav-shell" aria-label="主导航">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">L/N</span><span>lecture to notes</span></a>
+      <div class="nav-links"><a href="index.html">课程图书馆</a><a href="contribute.html">贡献 PDF</a></div>
+    </nav>
+  </header>
+  <main id="reader-main" class="reader-layout">
+    <aside class="reader-rail" aria-labelledby="course-nav-title">
+      <a class="back-link" href="index.html">← 返回课程库</a>
+      <p class="eyebrow">COURSE ROUTE</p>
+      <h2 id="course-nav-title">本课程讲义</h2>
+      <nav id="course-nav" aria-label="课程讲义导航"></nav>
+    </aside>
+    <section class="reader-workspace" aria-labelledby="reader-title">
+      <div class="reader-toolbar">
+        <div>
+          <p id="reader-course" class="eyebrow">正在载入课程</p>
+          <h1 id="reader-title">正在载入讲义…</h1>
+          <p id="reader-meta" class="reader-meta" role="status" aria-live="polite"></p>
+        </div>
+        <div class="reader-actions">
+          <a id="open-pdf" class="button button-primary" href="#">直接打开 PDF</a>
+          <a id="download-pdf" class="button button-secondary" href="#" download>下载 PDF</a>
+          <a id="source-link" class="button button-quiet" href="#" hidden>查看来源 ↗</a>
+        </div>
+      </div>
+      <label class="mobile-selector" for="mobile-item-select">切换讲义
+        <select id="mobile-item-select"></select>
+      </label>
+      <div id="pdf-stage" class="pdf-stage">
+        <iframe id="pdf-frame" title="PDF 阅读器"></iframe>
+      </div>
+      <div id="reader-error" class="empty-state reader-error" hidden>
+        <p class="empty-code">NOTE NOT FOUND</p>
+        <h2>这份讲义不存在</h2>
+        <p>链接可能已经失效。返回课程库选择一份现有讲义。</p>
+        <a class="button button-primary" href="index.html">返回课程库</a>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="assets/reader.js"></script>
+</body>
+</html>
