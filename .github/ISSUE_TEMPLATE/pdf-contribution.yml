@@ -1,0 +1,30 @@
+name: PDF contribution help
+description: Ask for help before submitting course or lecture PDFs
+title: "[PDF contribution] "
+labels:
+  - contribution
+body:
+  - type: markdown
+    attributes:
+      value: |
+        PDFs are submitted through a pull request, not attached to this issue. Start at the contribution page for the browser and command-line workflows.
+  - type: input
+    id: course
+    attributes:
+      label: Course or event
+      placeholder: Stanford CS336 Spring 2026
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Original source URL
+      placeholder: https://example.edu/course/materials
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: What do you need help with?
+    validations:
+      required: true
