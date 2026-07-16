@@ -6,7 +6,16 @@ from scripts.build_site import build_site
 from tests.test_site_catalog import SiteCatalogTests, fake_inspector
 
 
+ROOT = Path(__file__).resolve().parents[1]
+
+
 class BuildSiteTests(unittest.TestCase):
+    def test_container_build_makes_only_staging_output_writable(self):
+        script = (ROOT / "scripts/build_site_container.sh").read_text()
+        self.assertIn('mkdir -p "$STAGING"', script)
+        self.assertIn('chmod 0777 "$STAGING"', script)
+        self.assertNotIn('chmod 0777 "$ROOT"', script)
+
     def test_builds_shell_catalog_papers_and_legacy_pdf_path(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
