@@ -27,6 +27,9 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b
 
+      - name: Install shell smoke-test dependency
+        run: sudo apt-get update && sudo apt-get install --yes zsh
+
       - name: Run Python tests
         run: PYTHONPATH=. python3 -m unittest discover -s tests -v
 
