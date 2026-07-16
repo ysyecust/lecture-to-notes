@@ -40,6 +40,7 @@ class WorkflowSecurityTests(unittest.TestCase):
         workflow = PAGES.read_text()
         for required in (
             "branches:\n      - main",
+            "sudo apt-get install --yes zsh",
             "PYTHONPATH=. python3 -m unittest discover",
             "./scripts/build_site_container.sh",
             "qpdf --warning-exit-0 --check",
