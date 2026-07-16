@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import re
+import shutil
 import subprocess
 import tempfile
 import unicodedata
@@ -231,6 +232,9 @@ def inspect_pdf(path: Path, thumbnail_dir: Path) -> PdfInspection:
     )
     png = prefix.with_suffix(".png")
     webp = prefix.with_suffix(".webp")
-    run_checked(["magick", str(png), "-strip", "-quality", "82", str(webp)])
+    image_tool = shutil.which("magick") or shutil.which("convert")
+    if not image_tool:
+        raise PdfInspectionError("PDF tool failed: magick")
+    run_checked([image_tool, str(png), "-strip", "-quality", "82", str(webp)])
     png.unlink(missing_ok=True)
     return PdfInspection(path, choice.title, choice.source, pages, digest, webp)
