@@ -4,6 +4,6 @@ RUN apt-get update \
       imagemagick poppler-utils qpdf \
  && rm -rf /var/lib/apt/lists/*
 WORKDIR /trusted
-COPY scripts/pdf_inspector.py scripts/validate_contribution.py scripts/
+COPY scripts/pdf_inspector.py scripts/validate_contribution.py scripts/site_catalog.py scripts/build_site.py scripts/
 ENV PYTHONPATH=/trusted
 ENTRYPOINT ["python3", "-m", "scripts.validate_contribution"]

@@ -10,6 +10,7 @@ from scripts.pdf_inspector import (
     inspect_pdf,
     parse_bbox,
     parse_pdfinfo,
+    pdf_structure_bytes,
     stable_item_id,
 )
 from tests.pdf_factory import write_pdf
@@ -55,6 +56,24 @@ class TitleSelectionTests(unittest.TestCase):
         self.assertEqual(792.0, height)
         self.assertEqual("Heading", lines[0].text)
         self.assertEqual(22.0, lines[0].height)
+
+    def test_structure_scan_ignores_streams_comments_and_uri_strings(self):
+        data = (
+            b"% /JavaScript in a comment\n"
+            b"1 0 obj << /S /URI /URI (https://example.com/JavaScript) >> endobj\n"
+            b"2 0 obj << /Length 12 >>\nstream\n/JS /Launch\nendstream\nendobj\n"
+        )
+        structure = pdf_structure_bytes(data)
+        self.assertNotIn(b"/JavaScript", structure)
+        self.assertNotIn(b"/JS", structure)
+        self.assertNotIn(b"/Launch", structure)
+
+    def test_structure_scan_retains_action_tokens(self):
+        structure = pdf_structure_bytes(
+            b"1 0 obj << /S /JavaScript /JS (app.alert('x')) >> endobj"
+        )
+        self.assertIn(b"/JavaScript", structure)
+        self.assertIn(b"/JS", structure)
 
 
 TOOLS = ("qpdf", "pdfinfo", "pdftotext", "pdftoppm", "magick")

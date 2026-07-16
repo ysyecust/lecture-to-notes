@@ -5,3 +5,11 @@ __pycache__/
 # Claude Code per-project settings and lecture-to-notes working dirs
 .claude/
 workspace/
+
+# Generated site and browser-test artifacts
+_site/
+.tmp/
+node_modules/
+artifacts/
+test-results/
+playwright-report/

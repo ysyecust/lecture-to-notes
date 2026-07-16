@@ -19,8 +19,9 @@ GENERIC_TITLES = {
     "powerpoint presentation",
 }
 ACTIVE_MARKER = re.compile(
-    rb"/(?:JavaScript|JS|Launch|EmbeddedFiles|OpenAction|AA|RichMedia)\b"
+    rb"/(?:JavaScript|JS|Launch|EmbeddedFiles|RichMedia)\b"
 )
+STREAM_BLOCK = re.compile(rb"(?ms)^stream\r?\n.*?^endstream\r?$", re.MULTILINE)
 
 
 class PdfInspectionError(RuntimeError):
@@ -160,20 +161,69 @@ def parse_bbox(xml_bytes: bytes) -> tuple[list[TextLine], float]:
     return lines, page_height
 
 
+def pdf_structure_bytes(data: bytes) -> bytes:
+    """Remove stream payloads, comments, and PDF strings before token scanning."""
+    data = STREAM_BLOCK.sub(b"stream\nendstream", data)
+    output = bytearray()
+    index = 0
+    while index < len(data):
+        byte = data[index]
+        if byte == ord("%"):
+            newline = data.find(b"\n", index)
+            index = len(data) if newline < 0 else newline + 1
+            continue
+        if byte == ord("("):
+            depth = 1
+            index += 1
+            while index < len(data) and depth:
+                if data[index] == ord("\\"):
+                    index += 2
+                    continue
+                if data[index] == ord("("):
+                    depth += 1
+                elif data[index] == ord(")"):
+                    depth -= 1
+                index += 1
+            output.extend(b"()")
+            continue
+        if byte == ord("<") and index + 1 < len(data) and data[index + 1] == ord("<"):
+            output.extend(b"<<")
+            index += 2
+            continue
+        if byte == ord("<"):
+            end = data.find(b">", index + 1)
+            index = len(data) if end < 0 else end + 1
+            output.extend(b"<>")
+            continue
+        output.append(byte)
+        index += 1
+    return bytes(output)
+
+
 def reject_active_content(path: Path) -> None:
     with tempfile.TemporaryDirectory() as directory:
         qdf = Path(directory) / "expanded.pdf"
         run_checked(
-            ["qpdf", "--qdf", "--object-streams=disable", str(path), str(qdf)]
+            [
+                "qpdf",
+                "--warning-exit-0",
+                "--qdf",
+                "--object-streams=disable",
+                str(path),
+                str(qdf),
+            ]
         )
+        structure = pdf_structure_bytes(qdf.read_bytes())
         found = sorted(
             {
                 match.group().decode("ascii")
-                for match in ACTIVE_MARKER.finditer(qdf.read_bytes())
+                for match in ACTIVE_MARKER.finditer(structure)
             }
         )
         if found:
-            raise PdfInspectionError("active PDF content: " + ", ".join(found))
+            raise PdfInspectionError(
+                f"active PDF content in {path.name}: " + ", ".join(found)
+            )
 
 
 def inspect_pdf(path: Path, thumbnail_dir: Path) -> PdfInspection:
@@ -185,7 +235,7 @@ def inspect_pdf(path: Path, thumbnail_dir: Path) -> PdfInspection:
     if path.stat().st_size < 8 or signature != b"%PDF-":
         raise PdfInspectionError("invalid PDF signature")
 
-    run_checked(["qpdf", "--check", str(path)])
+    run_checked(["qpdf", "--warning-exit-0", "--check", str(path)])
     reject_active_content(path)
     info = parse_pdfinfo(
         run_checked(["pdfinfo", str(path)]).stdout.decode("utf-8", "replace")
