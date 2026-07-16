@@ -12,6 +12,7 @@ docker build -f "$ROOT/ci/pdf-sandbox.Dockerfile" \
   -t lecture-to-notes-pdf-sandbox "$ROOT"
 docker run --rm --network none --read-only --cap-drop ALL \
   --security-opt no-new-privileges --memory 1g --cpus 2 --pids-limit 256 \
+  --user "$(id -u):$(id -g)" \
   --tmpfs /tmp:rw,size=256m \
   -v "$ROOT:/input:ro" -v "$STAGING:/output:rw" \
   --entrypoint python3 lecture-to-notes-pdf-sandbox -m scripts.build_site \
