@@ -1,11 +1,12 @@
 # lecture-to-notes
 
-**[在线预览所有讲义和论文解读 →](http://blog.simona.plus/lecture-to-notes/)**
+**[在线浏览课程讲义和论文解读 →](https://blog.simona.plus/lecture-to-notes/)**
 
-两个 AI 驱动的学习工具：
+两个 AI 驱动的学习工具，以及一个由仓库内容自动生成的课程资料库：
 
 1. **lecture-to-notes**：将 YouTube / Bilibili / X(Twitter) 讲座视频转换为专业的中文 LaTeX 课程笔记和 PDF
 2. **paper-to-html**：将学术论文转换为结构化的中文 HTML 解读页面
+3. **course library**：按课程浏览 PDF，在专用阅读器中切换讲次，并通过 PDF-only PR 贡献资料
 
 > 视频 URL → LaTeX PDF 讲义 | 论文 → 自包含 HTML 解读
 
@@ -19,13 +20,22 @@
 - **高信息密度写作**：结构化章节、教学信号盒（核心概念/背景知识/常见误区）、时间溯源脚注
 - **数学公式支持**：准确转写 PPT 中的数学公式为 LaTeX display math + 符号解释
 - **完整交付**：`.tex` 源文件 + 配图 + 编译好的 PDF
+- **课程化归档**：课程书脊、讲次刻度、全文检索、独立 PDF 阅读页和移动端讲次切换
+- **安全贡献**：外部 PR 只允许向 `content/inbox/` 添加 PDF；自动检查结构、页数、标题和首图，合并后才发布
 
 ## 仓库结构
 
 ```text
 .
 ├── README.md
+├── CONTRIBUTING.md             # PDF-only PR 投稿说明
 ├── LICENSE
+├── content/
+│   ├── courses/                # 课程 manifest 与已发布 PDF
+│   ├── inbox/                  # 社区 PDF 投稿入口
+│   └── papers.json             # 论文解读目录
+├── ci/
+│   └── pdf-sandbox.Dockerfile  # PDF 检查与站点构建沙箱
 ├── scripts/
 │   ├── video_source.py        # YouTube / Bilibili / X(Twitter) URL 识别与元数据探测
 │   ├── check_srt_health.py    # X/Twitter 字幕结构健康检查
@@ -35,13 +45,16 @@
 │   ├── verify_figures.py      # 图文三方验证（时间戳 × 字幕 × 画面）
 │   ├── prepare_cover.sh       # 封面格式转换（webp/png → jpg）
 │   ├── smart_crop.py          # 课件区域检测（实验性，实际流程中通常直接用全帧）
-│   └── whisper_prompts/       # Whisper --initial_prompt 术语表
-│       ├── glossary_nju_os.json   # 词典修正的 wrong→right 对
-│       └── nju_os.txt             # 引导 Whisper 正确转写专业术语
+│   ├── pdf_inspector.py        # PDF 安全检查、元数据与首图解析
+│   ├── site_catalog.py         # 生成可信课程目录
+│   ├── build_site.py           # 构建静态站点
+│   └── whisper_prompts/        # Whisper --initial_prompt 术语表
 ├── docs/
-│   ├── index.html             # GitHub Pages 首页（讲义 + 论文卡片网格）
-│   ├── pdfs/                  # 已发布的讲义 PDF
-│   └── papers/                # 已发布的论文解读 HTML
+│   ├── index.html              # 课程图书馆
+│   ├── reader.html             # 目录白名单驱动的 PDF 阅读器
+│   ├── contribute.html         # PDF 贡献入口
+│   ├── assets/                 # 无框架前端模块与样式
+│   └── papers/                 # 已发布的论文解读 HTML
 └── skills/
     └── lecture-to-notes/
         ├── SKILL.md            # Skill 主定义（适用于 Codex / Claude Code）
@@ -74,6 +87,23 @@ cp -R scripts/whisper_prompts ~/.claude/skills/lecture-to-notes/assets/
 ```
 
 然后在 Claude Code 中使用 `/lecture-to-notes <URL>` 触发（或直接贴一个 B 站 / YouTube / X(Twitter) 链接，skill 会被自动匹配）。
+
+### 浏览课程资料
+
+课程站点目前收录 6 门课程、34 份 PDF 和 9 篇论文解读，包括 Stanford
+CS336: Language Modeling from Scratch（Spring 2026）前三讲的分讲笔记与合集。
+课程卡片进入讲次列表后，PDF 会在独立阅读页中打开；若浏览器内嵌预览不可用，仍可
+直接打开或下载原始 PDF。
+
+### 贡献 PDF
+
+最简单的方式是打开站点的 **贡献 PDF** 页面，在 GitHub 中把文件添加到
+`content/inbox/`，然后使用 PDF contribution 模板提交 PR。自动化会从可信基础分支
+启动隔离容器，验证完整提交差异并解析 PDF；未合并的内容不会进入部署。
+
+外部投稿的安全容量边界是：单个 PDF 不超过 25 MiB、每个 PR 不超过 10 个 PDF、
+合计不超过 100 MiB。这只是 PR 扫描范围，不是课程库或维护者发布的开发上限。完整
+浏览器与命令行步骤见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ### 视频源检测与探测
 

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="description" content="通过 GitHub Pull Request 向 Lecture to Notes 贡献 PDF。">
+  <title>贡献 PDF · Lecture to Notes</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body class="contribute-page">
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="主导航">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">L/N</span><span>lecture to notes</span></a>
+      <div class="nav-links"><a href="index.html">课程图书馆</a><a aria-current="page" href="contribute.html">贡献 PDF</a><a href="https://github.com/ysyecust/lecture-to-notes">GitHub ↗</a></div>
+    </nav>
+  </header>
+  <main id="main" class="contribute-main">
+    <section class="contribute-hero" aria-labelledby="contribute-title">
+      <p class="eyebrow">COMMUNITY INBOX / PDF 贡献</p>
+      <h1 id="contribute-title">上传 PDF，<br><span>让自动检查先替我们看一遍。</span></h1>
+      <p>文件通过 GitHub Pull Request 进入审核队列。系统自动解析标题、页数和首图；只有维护者合并后，内容才会发布到网站。</p>
+      <a class="button button-primary button-large" href="https://github.com/ysyecust/lecture-to-notes/upload/main/content/inbox">在 GitHub 上传 PDF</a>
+    </section>
+
+    <section class="contribution-flow" aria-labelledby="flow-title">
+      <div class="section-heading"><div><p class="eyebrow">THREE CHECKPOINTS</p><h2 id="flow-title">三步完成贡献</h2></div></div>
+      <ol class="flow-list">
+        <li><span>01</span><div><h3>Fork 并上传</h3><p>把 PDF 直接放到 <code>content/inbox/</code>，不要修改代码或其他资料。</p></div></li>
+        <li><span>02</span><div><h3>自动解析与安全检查</h3><p>检查文件结构、活动内容、数量和大小，并生成标题、页数与首图报告。</p></div></li>
+        <li><span>03</span><div><h3>维护者审核后发布</h3><p>未合并的 PR 永远不会部署。合并进入 <code>main</code> 后，可信构建才更新网站。</p></div></li>
+      </ol>
+    </section>
+
+    <section class="contribution-rules" aria-labelledby="rules-title">
+      <div>
+        <p class="eyebrow">UPLOAD ENVELOPE</p>
+        <h2 id="rules-title">上传范围</h2>
+        <p>GitHub 网页上传和本项目采用同一个清晰边界，便于审核，也避免一次 PR 把仓库拖得太重。</p>
+      </div>
+      <dl>
+        <div><dt>单个 PDF</dt><dd>≤ 25 MiB</dd></div>
+        <div><dt>每个 PR</dt><dd>≤ 10 个 PDF</dd></div>
+        <div><dt>合计大小</dt><dd>≤ 100 MiB</dd></div>
+      </dl>
+      <div class="rights-note">
+        <p class="annotation">必须勾选</p>
+        <code>- [x] I have the right to share these PDFs for educational use.</code>
+        <p>请只分享你有权用于教育用途传播的资料。维护者可以调整标题或把资料归入合适课程。</p>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><p>需要命令行方式？查看仓库中的 CONTRIBUTING.md。</p></footer>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{
+  "id": "stanford-cs336-2026",
+  "title": "Stanford CS336: Language Modeling from Scratch",
+  "institution": "Stanford University",
+  "term": "Spring 2026",
+  "description": "从分词、PyTorch 资源核算到语言模型架构的前三讲中文学习笔记。",
+  "tags": [
+    "language modeling",
+    "PyTorch",
+    "transformers"
+  ],
+  "source_url": "https://cs336.stanford.edu/",
+  "featured": true,
+  "items": [
+    {
+      "file": "stanford_cs336_2026_01_overview_tokenization_zh.pdf",
+      "title": "Lecture 1: Overview & Tokenization",
+      "order": 1,
+      "expected_pages": 30,
+      "instructor": "Percy Liang"
+    },
+    {
+      "file": "stanford_cs336_2026_02_pytorch_resource_accounting_zh.pdf",
+      "title": "Lecture 2: PyTorch & Resource Accounting",
+      "order": 2,
+      "expected_pages": 33,
+      "instructor": "Percy Liang"
+    },
+    {
+      "file": "stanford_cs336_2026_03_architectures_zh.pdf",
+      "title": "Lecture 3: Architectures",
+      "order": 3,
+      "expected_pages": 31,
+      "instructor": "Tatsunori Hashimoto"
+    },
+    {
+      "file": "stanford_cs336_2026_01_03_bundle_zh.pdf",
+      "title": "Lectures 1–3 Complete Notes",
+      "order": 4,
+      "expected_pages": 94,
+      "instructor": "Percy Liang & Tatsunori Hashimoto",
+      "bundle": true
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+name: PDF contribution check
+
+on:
+  pull_request:
+    paths:
+      - content/inbox/*.pdf
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out trusted base
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
+        with:
+          repository: ${{ github.event.pull_request.base.repo.full_name }}
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: trusted
+          persist-credentials: false
+
+      - name: Check out submitted tree without executing it
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: submission
+          persist-credentials: false
+
+      - name: Build scanner from trusted base
+        run: docker build --file trusted/ci/pdf-sandbox.Dockerfile --tag pdf-contribution-scanner trusted
+
+      - name: Validate PDF-only delta in an isolated container
+        run: |
+          mkdir -p output/thumbnails
+          chmod 0777 output output/thumbnails
+          docker run --rm \
+            --network none \
+            --read-only \
+            --user 65532:65532 \
+            --cap-drop ALL \
+            --security-opt no-new-privileges \
+            --memory 1g \
+            --cpus 2 \
+            --pids-limit 256 \
+            --tmpfs /tmp:rw,size=256m \
+            --volume "$PWD/trusted:/base:ro" \
+            --volume "$PWD/submission:/submission:ro" \
+            --volume "$GITHUB_EVENT_PATH:/event.json:ro" \
+            --volume "$PWD/output:/output:rw" \
+            pdf-contribution-scanner \
+            --base /base \
+            --submission /submission \
+            --event /event.json \
+            --report /output/report.json \
+            --thumbnails /output/thumbnails
+
+      - name: Upload inspection report
+        if: ${{ always() && hashFiles('output/report.json') != '' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: pdf-inspection-report
+          path: |
+            output/report.json
+            output/thumbnails/*.webp
+          if-no-files-found: error
+          retention-days: 7

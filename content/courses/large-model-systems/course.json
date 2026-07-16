@@ -1,0 +1,63 @@
+{
+  "id": "large-model-systems",
+  "title": "大模型系统与注意力优化",
+  "institution": "Multiple",
+  "term": "精选",
+  "description": "自注意力、KV Cache、FlashAttention 与 PagedAttention 的系统笔记。",
+  "tags": [
+    "LLM",
+    "GPU",
+    "注意力"
+  ],
+  "featured": false,
+  "items": [
+    {
+      "legacy_id": "attn1",
+      "file": "gpu_self_attention.pdf",
+      "title": "GPU 如何一步步计算自注意力机制",
+      "order": 1,
+      "expected_pages": 13,
+      "duration_minutes": 20,
+      "instructor": "向量隐修会",
+      "source_url": "https://www.bilibili.com/video/BV1zFFTziEdL",
+      "source_label": "B站",
+      "meta": "向量隐修会 · 20min · 13页"
+    },
+    {
+      "legacy_id": "attn2",
+      "file": "kv_cache.pdf",
+      "title": "KV Cache：为什么能加快大模型推理",
+      "order": 2,
+      "expected_pages": 7,
+      "duration_minutes": 13,
+      "instructor": "向量隐修会",
+      "source_url": "https://www.bilibili.com/video/BV1SmrSBfEg6",
+      "source_label": "B站",
+      "meta": "向量隐修会 · 13min · 7页"
+    },
+    {
+      "legacy_id": "attn3",
+      "file": "flash_attention.pdf",
+      "title": "FlashAttention：省显存、还更快",
+      "order": 3,
+      "expected_pages": 8,
+      "duration_minutes": 34,
+      "instructor": "向量隐修会",
+      "source_url": "https://www.bilibili.com/video/BV1irPTzGEhG",
+      "source_label": "B站",
+      "meta": "向量隐修会 · 34min · 8页"
+    },
+    {
+      "legacy_id": "attn4",
+      "file": "paged_attention.pdf",
+      "title": "PagedAttention：提升 GPU 显存利用率",
+      "order": 4,
+      "expected_pages": 7,
+      "duration_minutes": 13,
+      "instructor": "向量隐修会",
+      "source_url": "https://www.bilibili.com/video/BV1vKzuBmEWk",
+      "source_label": "B站",
+      "meta": "向量隐修会 · 13min · 7页"
+    }
+  ]
+}

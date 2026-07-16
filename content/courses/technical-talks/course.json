@@ -1,0 +1,26 @@
+{
+  "id": "technical-talks",
+  "title": "技术与研究分享",
+  "institution": "Multiple",
+  "term": "精选",
+  "description": "研究者与工程师关于学习、科研与职业选择的主题分享。",
+  "tags": [
+    "研究",
+    "分享"
+  ],
+  "featured": false,
+  "items": [
+    {
+      "legacy_id": "phd",
+      "file": "jyy_phd_reflection.pdf",
+      "title": "[戒读] 读博那些事儿（八年后回看版）",
+      "order": 1,
+      "expected_pages": 10,
+      "duration_minutes": 26,
+      "instructor": "蒋炎岩",
+      "source_url": "https://www.bilibili.com/video/BV1oTwkzvEFu",
+      "source_label": "B站",
+      "meta": "蒋炎岩 · 26min · 10页"
+    }
+  ]
+}

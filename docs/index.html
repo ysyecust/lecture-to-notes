@@ -1,270 +1,98 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lecture to Notes</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-    <style>
-        :root{--bg:#fff;--bg2:#f8fafc;--card:#fff;--border:#e5e7eb;--text:#111827;--text2:#6b7280;--text3:#9ca3af;--accent:#4f46e5;--accent-bg:#eef2ff;--accent-t:#3730a3;--green:#059669;--green-bg:#ecfdf5;--red:#dc2626;--red-bg:#fef2f2;--orange:#d97706;--orange-bg:#fffbeb;--purple:#7c3aed;--purple-bg:#f5f3ff}
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg2);color:var(--text);line-height:1.6}
-        .w{max-width:980px;margin:0 auto;padding:0 20px}
-
-        /* Nav */
-        nav{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);background:rgba(255,255,255,0.9)}
-        nav .w{display:flex;align-items:center;justify-content:space-between;height:52px}
-        .logo{font-weight:800;font-size:.95rem;color:var(--text)}.logo span{color:var(--accent)}
-        .nav-links{display:flex;gap:4px}
-        .nav-links a{font-size:.8rem;font-weight:500;color:var(--text2);text-decoration:none;padding:6px 10px;border-radius:6px;transition:.15s}
-        .nav-links a:hover,.nav-links a.active{background:var(--accent-bg);color:var(--accent-t)}
-
-        /* Hero */
-        .hero{background:var(--bg);border-bottom:1px solid var(--border);padding:40px 0 32px;text-align:center}
-        .hero h1{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:800;letter-spacing:-.03em;margin-bottom:8px}
-        .hero h1 .a{color:var(--accent)}
-        .hero p{font-size:.9rem;color:var(--text2);max-width:480px;margin:0 auto}
-
-        /* Tabs */
-        .tabs{display:flex;gap:4px;background:var(--bg);border-bottom:1px solid var(--border);padding:0 20px;overflow-x:auto;-webkit-overflow-scrolling:touch}
-        .tabs .w{display:flex;gap:4px;padding:0}
-        .tab{padding:10px 16px;font-size:.82rem;font-weight:600;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:.15s;user-select:none}
-        .tab:hover{color:var(--text)}
-        .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-        .tab .badge{display:inline-block;background:var(--accent-bg);color:var(--accent-t);font-size:.7rem;padding:1px 6px;border-radius:100px;margin-left:4px;font-weight:700}
-
-        /* Stats */
-        .stats{display:flex;gap:24px;padding:16px 0;flex-wrap:wrap}
-        .stat{text-align:center;flex:1;min-width:60px}
-        .stat .v{font-family:'JetBrains Mono';font-size:1.4rem;font-weight:700;color:var(--accent)}
-        .stat .l{font-size:.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:.04em}
-
-        /* Content panels */
-        .panel{display:none}.panel.active{display:block}
-
-        /* Cards */
-        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;padding:16px 0}
-        .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;cursor:pointer;transition:.15s;display:flex;flex-direction:column;gap:8px}
-        .card:hover{border-color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.04);transform:translateY(-1px)}
-        .card-top{display:flex;align-items:center;gap:10px}
-        .card-num{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono';font-weight:700;font-size:.85rem;flex-shrink:0}
-        .card-num.nju{background:var(--purple-bg);color:var(--purple)}
-        .card-num.yt{background:var(--red-bg);color:var(--red)}
-        .card-num.paper-s{background:#dbeafe;color:#2563eb}
-        .card-num.paper-ai{background:var(--purple-bg);color:var(--purple)}
-        .card-num.paper-sci{background:var(--green-bg);color:var(--green)}
-        .card-num.talk{background:var(--orange-bg);color:var(--orange)}
-        .card h3{font-size:.88rem;font-weight:600;line-height:1.3;flex:1}
-        .card .meta{font-size:.75rem;color:var(--text3);display:flex;gap:12px;flex-wrap:wrap}
-        .card .actions{display:flex;gap:6px;margin-top:auto;padding-top:4px}
-        .btn{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:6px;font-size:.75rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:.15s}
-        .btn-p{background:var(--accent);color:#fff}.btn-p:hover{background:#4338ca}
-        .btn-g{background:transparent;color:var(--text2);border:1px solid var(--border)}.btn-g:hover{border-color:var(--text3);color:var(--text)}
-
-        /* Modal */
-        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);backdrop-filter:blur(4px);z-index:200;justify-content:center;align-items:center;padding:16px}
-        .modal.on{display:flex}
-        .modal-box{width:100%;max-width:920px;height:90vh;background:var(--bg);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 48px rgba(0,0,0,.15)}
-        .modal-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg2)}
-        .modal-head h3{font-size:.85rem;font-weight:600}
-        .modal-x{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem}
-        .modal-x:hover{background:var(--bg2);color:var(--text)}
-        .modal-body{flex:1}.modal-body iframe{width:100%;height:100%;border:none}
-
-        footer{text-align:center;padding:32px 0;border-top:1px solid var(--border);margin-top:24px}
-        footer p{font-size:.75rem;color:var(--text3)}
-        footer a{color:var(--accent);text-decoration:none}
-
-        @media(max-width:640px){.grid{grid-template-columns:1fr}.stats{gap:16px}.card .actions .btn-g{display:none}}
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="description" content="按课程浏览 Lecture to Notes 生成的结构化讲义与论文解读。">
+  <title>Lecture to Notes · 课程图书馆</title>
+  <link rel="stylesheet" href="assets/styles.css">
 </head>
-<body>
-<nav><div class="w">
-    <div class="logo">lecture<span>-to-</span>notes</div>
-    <div class="nav-links">
-        <a href="#" class="active" onclick="showTab('all');return false">全部</a>
-        <a href="#" onclick="showTab('lectures');return false">讲义</a>
-        <a href="#" onclick="showTab('papers');return false">论文</a>
-        <a href="https://github.com/ysyecust/lecture-to-notes" target="_blank">GitHub ↗</a>
-    </div>
-</div></nav>
+<body class="home-page">
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="主导航">
+      <a class="brand" href="index.html" aria-label="Lecture to Notes 首页">
+        <span class="brand-mark" aria-hidden="true">L/N</span>
+        <span>lecture to notes</span>
+      </a>
+      <div class="nav-links">
+        <a aria-current="page" href="index.html">课程图书馆</a>
+        <a href="contribute.html">贡献 PDF</a>
+        <a href="https://github.com/ysyecust/lecture-to-notes">GitHub ↗</a>
+      </div>
+    </nav>
+  </header>
 
-<section class="hero"><div class="w">
-    <h1>Video & Paper → <span class="a">结构化笔记</span></h1>
-    <p>AI 驱动的学习工具：视频讲座 → PDF 讲义，学术论文 → HTML 解读</p>
-</div></section>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">LECTURE ARCHIVE / 学习资料库</p>
+        <h1 id="hero-title">把一门课，<br><span>读成一张可探索的学习桌。</span></h1>
+        <p class="hero-lede">按课程找讲义，在专用阅读页里沿着讲次继续读。所有 PDF 都保留来源、页数和可直接打开的备用入口。</p>
+        <a class="text-link" href="#library-title">开始浏览 <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero-ledger" aria-label="资料统计">
+        <p class="ledger-label">CATALOG STATUS</p>
+        <dl>
+          <div><dt>课程</dt><dd id="stat-courses">—</dd></div>
+          <div><dt>PDF</dt><dd id="stat-lectures">—</dd></div>
+          <div><dt>总页数</dt><dd id="stat-pages">—</dd></div>
+          <div><dt>论文解读</dt><dd id="stat-papers">—</dd></div>
+        </dl>
+        <p class="ledger-note"><span aria-hidden="true">●</span> 合并后自动发布</p>
+      </div>
+    </section>
 
-<div class="w">
-    <div class="stats">
-        <div class="stat"><div class="v">12</div><div class="l">讲义</div></div>
-        <div class="stat"><div class="v">177</div><div class="l">页</div></div>
-        <div class="stat"><div class="v">9</div><div class="l">论文</div></div>
-        <div class="stat"><div class="v">3</div><div class="l">平台</div></div>
-    </div>
-
-    <!-- ALL -->
-    <div class="panel active" id="panel-all">
-        <div class="tabs-inner" id="tabs-inner" style="display:flex;gap:4px;padding:8px 0;overflow-x:auto">
+    <section class="library" aria-labelledby="library-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">COURSE SHELF</p>
+          <h2 id="library-title">课程图书馆</h2>
         </div>
-        <div class="grid" id="grid-all"></div>
-    </div>
+        <p>书脊旁的每一格刻度，对应一份可阅读的讲义。</p>
+      </div>
+      <div class="search-panel">
+        <label for="course-search">搜索课程、讲次或主题</label>
+        <div class="search-field">
+          <span aria-hidden="true">⌕</span>
+          <input id="course-search" type="search" autocomplete="off" placeholder="例如 Tokenization、并发、FlashAttention">
+          <kbd>/</kbd>
+        </div>
+        <p id="library-status" role="status" aria-live="polite"></p>
+      </div>
+      <div id="course-grid" class="course-grid" aria-label="课程列表"></div>
+      <section id="course-detail" class="course-detail" aria-labelledby="course-detail-title" hidden></section>
+      <div id="empty-state" class="empty-state" hidden>
+        <p class="empty-code">NO MATCH / 404</p>
+        <h3>没有匹配内容</h3>
+        <p>试试课程名、讲次、讲师或主题关键词。</p>
+      </div>
+      <div id="catalog-error" class="empty-state error-state" hidden>
+        <p class="empty-code">CATALOG OFFLINE</p>
+        <h3>课程目录没有加载成功</h3>
+        <p id="catalog-error-message">请检查网络后重试。</p>
+        <button id="catalog-retry" class="button button-primary" type="button">重新加载</button>
+      </div>
+    </section>
 
-    <!-- LECTURES ONLY -->
-    <div class="panel" id="panel-lectures">
-        <div class="grid" id="grid-lectures"></div>
-    </div>
+    <section class="papers-section" aria-labelledby="papers-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">PAPER NOTES</p>
+          <h2 id="papers-title">论文解读</h2>
+        </div>
+        <p>从课程之外继续延伸到求解器、AI 科研和过程系统工程。</p>
+      </div>
+      <div id="paper-grid" class="paper-grid"></div>
+    </section>
+  </main>
 
-    <!-- PAPERS ONLY -->
-    <div class="panel" id="panel-papers">
-        <div class="grid" id="grid-papers"></div>
-    </div>
-</div>
-
-<footer><div class="w">
-    <p>Built with <a href="https://github.com/ysyecust/lecture-to-notes">lecture-to-notes</a> · Powered by Claude Code</p>
-    <p>讲义版权归原视频作者，论文解读仅用于学习。</p>
-</div></footer>
-
-<!-- Modal -->
-<div class="modal" id="modal" onclick="closeM(event)">
-<div class="modal-box" onclick="event.stopPropagation()">
-    <div class="modal-head"><h3 id="m-title">预览</h3><button class="modal-x" onclick="closeM()">✕</button></div>
-    <div class="modal-body"><iframe id="m-frame" src=""></iframe></div>
-</div></div>
-
-<script>
-const DATA = [
-    // NJU OS
-    {id:'nju01',cat:'nju',type:'lecture',num:'01',title:'Agentic AI 时代的操作系统课：绪论',meta:'蒋炎岩 · 97min · 18页',pdf:'pdfs/nju_os_01_intro.pdf',link:'https://www.bilibili.com/video/BV1opAfzpEf9',linkLabel:'B站'},
-    {id:'nju02',cat:'nju',type:'lecture',num:'02',title:'应用视角的操作系统',meta:'蒋炎岩 · 88min · 17页',pdf:'pdfs/nju_os_02_app_view.pdf',link:'https://www.bilibili.com/video/BV1KNPHzPEra',linkLabel:'B站'},
-    {id:'nju03',cat:'nju',type:'lecture',num:'03',title:'硬件视角的操作系统',meta:'蒋炎岩 · 96min · 14页',pdf:'pdfs/nju_os_03_hardware.pdf',link:'https://www.bilibili.com/video/BV18fcozAEsy',linkLabel:'B站'},
-    {id:'nju04',cat:'nju',type:'lecture',num:'04',title:'LLM, Agents 和 Scaling Law',meta:'蒋炎岩 · 82min · 12页',pdf:'pdfs/nju_os_04_llm_agents.pdf',link:'https://www.bilibili.com/video/BV1gEcmzzE4P',linkLabel:'B站'},
-    {id:'nju05',cat:'nju',type:'lecture',num:'05',title:'程序和进程；fork, execve, exit',meta:'蒋炎岩 · 85min · 13页',pdf:'pdfs/nju_os_05_process_fork.pdf',link:'https://www.bilibili.com/video/BV1N8w9zJENu',linkLabel:'B站'},
-    {id:'nju06',cat:'nju',type:'lecture',num:'06',title:'进程的地址空间；mmap, munmap, mprotect',meta:'蒋炎岩 · 79min · 10页',pdf:'pdfs/nju_os_06_mmap.pdf',link:'https://www.bilibili.com/video/BV18nAjz9EcW',linkLabel:'B站'},
-    {id:'nju07',cat:'nju',type:'lecture',num:'07',title:'访问操作系统对象；文件描述符',meta:'蒋炎岩 · 89min · 11页',pdf:'pdfs/nju_os_07_fd_pipe.pdf',link:'https://www.bilibili.com/video/BV1QFQmB7EQD',linkLabel:'B站'},
-    {id:'nju09',cat:'nju',type:'lecture',num:'09',title:'C 标准库原理',meta:'蒋炎岩 · 85min · 11页',pdf:'pdfs/nju_os_09_cstdlib.pdf',link:'https://www.bilibili.com/video/BV1GHXCBkEZf',linkLabel:'B站'},
-    {id:'nju10',cat:'nju',type:'lecture',num:'10',title:'调试 C 标准库',meta:'蒋炎岩 · 81min · 9页',pdf:'pdfs/nju_os_10_debug_cstdlib.pdf',link:'https://www.bilibili.com/video/BV1yu9cBCEAb',linkLabel:'B站'},
-    {id:'nju11',cat:'nju',type:'lecture',num:'11',title:'链接和加载',meta:'蒋炎岩 · 89min · 18页',pdf:'pdfs/nju_os_11_linking_loading.pdf',link:'https://www.bilibili.com/video/BV1CoDzB5Eey',linkLabel:'B站'},
-    {id:'nju12',cat:'nju',type:'lecture',num:'12',title:'从零开始构建 Linux 应用世界',meta:'蒋炎岩 · 86min · 21页',pdf:'pdfs/nju_os_12_linux_from_scratch.pdf',link:'https://www.bilibili.com/video/BV17JDWBsEMi',linkLabel:'B站'},
-    {id:'nju13',cat:'nju',type:'lecture',num:'13',title:'多处理器编程：从入门到放弃',meta:'蒋炎岩 · 83min · 18页',pdf:'pdfs/nju_os_13_multiprocessor.pdf',link:'https://www.bilibili.com/video/BV1vgQGBREyJ',linkLabel:'B站'},
-    {id:'nju14',cat:'nju',type:'lecture',num:'14',title:'并发控制：互斥',meta:'蒋炎岩 · 86min · 18页',pdf:'pdfs/nju_os_14_mutex.pdf',link:'https://www.bilibili.com/video/BV1hNdhB1Efe',linkLabel:'B站'},
-    {id:'nju15',cat:'nju',type:'lecture',num:'15',title:'并发控制：条件变量和万能同步方法',meta:'蒋炎岩 · 77min · 15页',pdf:'pdfs/nju_os_15_concurrency_cv.pdf',link:'https://www.bilibili.com/video/BV1t3dQBAEzd',linkLabel:'B站'},
-    {id:'nju16',cat:'nju',type:'lecture',num:'16',title:'并发控制：信号量',meta:'蒋炎岩 · 86min · 14页',pdf:'pdfs/nju_os_16_concurrency_sema.pdf',link:'https://www.bilibili.com/video/BV1yQogB2Esf',linkLabel:'B站'},
-    {id:'nju17',cat:'nju',type:'lecture',num:'17',title:'并发 Bugs 与应对',meta:'蒋炎岩 · 88min · 15页',pdf:'pdfs/nju_os_17_concurrency_bugs.pdf',link:'https://www.bilibili.com/video/BV1Jg96BjE68',linkLabel:'B站'},
-    {id:'nju18',cat:'nju',type:'lecture',num:'18',title:'并行算法和数据结构',meta:'蒋炎岩 · 87min · 14页',pdf:'pdfs/nju_os_18_parallel.pdf',link:'https://www.bilibili.com/video/BV1WqdTBiEkN',linkLabel:'B站'},
-    {id:'nju19',cat:'nju',type:'lecture',num:'19',title:'协程、Goroutine、异步编程',meta:'蒋炎岩 · 83min · 12页',pdf:'pdfs/nju_os_19_coroutine.pdf',link:'https://www.bilibili.com/video/BV1dVRdBpEze',linkLabel:'B站'},
-    {id:'nju20',cat:'nju',type:'lecture',num:'20',title:'CPU、SIMD 和 GPU',meta:'蒋炎岩 · 90min · 12页',pdf:'pdfs/nju_os_20_simd_gpu.pdf',link:'https://www.bilibili.com/video/BV1df536aEMk',linkLabel:'B站'},
-    {id:'nju21',cat:'nju',type:'lecture',num:'21',title:'一个 Token 的旅程',meta:'蒋炎岩 · 91min · 12页',pdf:'pdfs/nju_os_21_token_journey.pdf',link:'https://www.bilibili.com/video/BV1zS5R6tEWZ',linkLabel:'B站'},
-    // YouTube
-    {id:'mit01',cat:'yt',type:'lecture',num:'01',title:'Introduction and Matrix Multiplication (53,000× speedup)',meta:'Leiserson (MIT) · 60min · 11页',pdf:'pdfs/mit_6172_01_matmul.pdf',link:'https://www.youtube.com/watch?v=o7h_sYMk_oc',linkLabel:'YT'},
-    {id:'biegler',cat:'yt',type:'lecture',num:'EN',title:'Multi-level Optimization for Nonlinear Energy Systems',meta:'Biegler (CMU) · 45min · 16页',pdf:'pdfs/tamu_biegler_nlp.pdf',link:'https://www.youtube.com/watch?v=mst-tJ6ELTE',linkLabel:'YT'},
-    {id:'rheo',cat:'yt',type:'lecture',num:'EN',title:'Rheology Principles and Applications',meta:'Mark Patrick · 63min · 12页',pdf:'pdfs/aocs_rheology.pdf',link:'https://www.youtube.com/watch?v=etR4ttjY4f0',linkLabel:'YT'},
-    {id:'baron',cat:'yt',type:'lecture',num:'EN',title:'Solving Continuous & Discrete NLPs with BARON',meta:'Zhang & Sahinidis (Georgia Tech) · 25min · 13页',pdf:'pdfs/baron_nlp_tutorial.pdf',link:'https://www.youtube.com/watch?v=oCL9npynb6M',linkLabel:'YT'},
-    // 科普
-    {id:'hbm',cat:'sci',type:'lecture',num:'💾',title:'HBM 高带宽内存的原理与制造',meta:'万物研究所 · 16min · 19页',pdf:'pdfs/hbm_high_bandwidth_memory.pdf',link:'https://www.bilibili.com/video/BV1ahjA6qEwc',linkLabel:'B站'},
-    // 大模型（向量隐修会 · 注意力优化系列）
-    {id:'attn1',cat:'llm',type:'lecture',num:'🧮',title:'GPU 如何一步步计算自注意力机制',meta:'向量隐修会 · 20min · 13页',pdf:'pdfs/gpu_self_attention.pdf',link:'https://www.bilibili.com/video/BV1zFFTziEdL',linkLabel:'B站'},
-    {id:'attn2',cat:'llm',type:'lecture',num:'🧮',title:'KV Cache：为什么能加快大模型推理',meta:'向量隐修会 · 13min · 7页',pdf:'pdfs/kv_cache.pdf',link:'https://www.bilibili.com/video/BV1SmrSBfEg6',linkLabel:'B站'},
-    {id:'attn3',cat:'llm',type:'lecture',num:'🧮',title:'FlashAttention：省显存、还更快',meta:'向量隐修会 · 34min · 8页',pdf:'pdfs/flash_attention.pdf',link:'https://www.bilibili.com/video/BV1irPTzGEhG',linkLabel:'B站'},
-    {id:'attn4',cat:'llm',type:'lecture',num:'🧮',title:'PagedAttention：提升 GPU 显存利用率',meta:'向量隐修会 · 13min · 7页',pdf:'pdfs/paged_attention.pdf',link:'https://www.bilibili.com/video/BV1vKzuBmEWk',linkLabel:'B站'},
-    // Talk
-    {id:'phd',cat:'talk',type:'lecture',num:'🎤',title:'[戒读] 读博那些事儿（八年后回看版）',meta:'蒋炎岩 · 26min · 10页',pdf:'pdfs/jyy_phd_reflection.pdf',link:'https://www.bilibili.com/video/BV1oTwkzvEFu',linkLabel:'B站'},
-    // Papers
-    {id:'p1',cat:'paper',type:'paper',icon:'📐',title:'NonlinearSolve.jl: High-Performance Nonlinear Solvers in Julia',meta:'Solver · Julia · Nonlinear',url:'papers/20260326T133200--paper-nonlinearsolve-jl__paper.html',cls:'paper-s'},
-    {id:'p2',cat:'paper',type:'paper',icon:'📐',title:'Uno: A Unified Solver for Nonlinearly Constrained Optimization',meta:'Solver · NLP · Optimization',url:'papers/20260326T131500--paper-uno-unified-nlp-solver__paper.html',cls:'paper-s'},
-    {id:'p3',cat:'paper',type:'paper',icon:'🤖',title:'AVO: Agentic Variation Operators for Autonomous Evolutionary Search',meta:'LLM Agent · Evolutionary',url:'papers/20260326T125955--paper-avo-agentic-variation-operators__paper.html',cls:'paper-ai'},
-    {id:'p4',cat:'paper',type:'paper',icon:'🤖',title:'Timer-S1: Serial Scaling for Time Series Forecasting',meta:'Time Series · Scaling Law',url:'papers/20260316T142224--paper-timer-s1-serial-scaling__paper.html',cls:'paper-ai'},
-    {id:'p5',cat:'paper',type:'paper',icon:'🤖',title:'AI Scientist: End-to-End Autonomous Research',meta:'AI Research · Automation',url:'papers/20260326T140100--paper-ai-scientist-e2e__paper.html',cls:'paper-ai'},
-    {id:'p6',cat:'paper',type:'paper',icon:'🔬',title:'SAFT-VR: Statistical Associating Fluid Theory',meta:'Thermodynamics · EoS',url:'papers/20260326T160500--paper-saft-vr-sum__paper.html',cls:'paper-sci'},
-    {id:'p7',cat:'paper',type:'paper',icon:'🤖',title:'Multi-Agent LLMs for Process Systems Engineering',meta:'LLM · PSE · Crystallization · NMPC',url:'papers/20260330T120000--paper-llm-pse-multiagent__paper.html',cls:'paper-ai'},
-    {id:'p9',cat:'paper',type:'paper',icon:'📐',title:'Improved modAB Root-Finding Algorithm',meta:'Bracketing · NonlinearSolve.jl · 92-function benchmark',url:'papers/20260401T120000--paper-modab-root-finding__paper.html',cls:'paper-s'},
-    {id:'p8',cat:'paper',type:'paper',icon:'📐',title:'ANTIGONE: Global Optimization of Nonlinear Equations',meta:'MINLP · Global Optimization · Branch-and-Cut',url:'papers/20260331T150000--paper-antigone-global-minlp__paper.html',cls:'paper-s'},
-];
-
-function renderCard(d) {
-    const isLecture = d.type === 'lecture';
-    const numCls = d.cat === 'nju' ? 'nju' : d.cat === 'yt' ? 'yt' : d.cat === 'talk' ? 'talk' : (d.cls || 'paper-ai');
-    const numText = isLecture ? d.num : d.icon;
-    const onclick = isLecture
-        ? `openM('${d.pdf}','${d.title.replace(/'/g,"\\&#39;")}')`
-        : `window.open('${d.url}','_blank')`;
-    const btnMain = isLecture
-        ? `<button class="btn btn-p" onclick="event.stopPropagation();${onclick}">查看</button>`
-        : `<a href="${d.url}" class="btn btn-p" target="_blank" onclick="event.stopPropagation()">查看</a>`;
-    const btnSec = d.link
-        ? `<a href="${d.link}" class="btn btn-g" target="_blank" onclick="event.stopPropagation()">▶ ${d.linkLabel}</a>`
-        : '';
-    return `<div class="card" onclick="${onclick}">
-        <div class="card-top"><div class="card-num ${numCls}">${numText}</div><h3>${d.title}</h3></div>
-        <div class="meta">${d.meta}</div>
-        <div class="actions">${btnMain}${btnSec}</div>
-    </div>`;
-}
-
-function populate() {
-    const all = document.getElementById('grid-all');
-    const lec = document.getElementById('grid-lectures');
-    const pap = document.getElementById('grid-papers');
-    all.innerHTML = DATA.map(renderCard).join('');
-    lec.innerHTML = DATA.filter(d=>d.type==='lecture').map(renderCard).join('');
-    pap.innerHTML = DATA.filter(d=>d.type==='paper').map(renderCard).join('');
-
-    // Auto-generate tab badges from DATA
-    const counts = {all: DATA.length, nju: 0, yt: 0, talk: 0, paper: 0};
-    DATA.forEach(d => { if (counts[d.cat] !== undefined) counts[d.cat]++; });
-    const tabs = [
-        {label:'全部', cat:'all'}, {label:'NJU OS', cat:'nju'}, {label:'YouTube', cat:'yt'},
-        {label:'科普', cat:'sci'}, {label:'大模型', cat:'llm'}, {label:'分享', cat:'talk'}, {label:'论文', cat:'paper'}
-    ];
-    const tabsEl = document.getElementById('tabs-inner');
-    tabsEl.innerHTML = tabs.map((t, i) =>
-        `<div class="tab${i===0?' active':''}" onclick="filterSub(this,'${t.cat}')">${t.label} <span class="badge">${counts[t.cat]}</span></div>`
-    ).join('');
-
-    // Auto-update header stats
-    const lectures = DATA.filter(d=>d.type==='lecture').length;
-    const papers = DATA.filter(d=>d.type==='paper').length;
-    const pages = DATA.filter(d=>d.type==='lecture').reduce((sum,d)=>{
-        const m = (d.meta||'').match(/(\d+)\s*页/);
-        return sum + (m ? parseInt(m[1]) : 0);
-    }, 0);
-    const statEls = document.querySelectorAll('.stat .v');
-    if (statEls[0]) statEls[0].textContent = lectures;
-    if (statEls[1]) statEls[1].textContent = pages;
-    if (statEls[2]) statEls[2].textContent = papers;
-}
-
-function showTab(t) {
-    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-    event.target.classList.add('active');
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    document.getElementById('panel-'+t).classList.add('active');
-}
-
-function filterSub(el, cat) {
-    el.parentElement.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    el.classList.add('active');
-    const grid = document.getElementById('grid-all');
-    const filtered = cat === 'all' ? DATA : DATA.filter(d => d.cat === cat);
-    grid.innerHTML = filtered.map(renderCard).join('');
-}
-
-function openM(url, title) {
-    document.getElementById('m-title').textContent = title;
-    document.getElementById('m-frame').src = url;
-    document.getElementById('modal').classList.add('on');
-    document.body.style.overflow = 'hidden';
-}
-function closeM(e) {
-    if (e && e.target !== document.getElementById('modal')) return;
-    document.getElementById('modal').classList.remove('on');
-    document.getElementById('m-frame').src = '';
-    document.body.style.overflow = '';
-}
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeM(); });
-
-populate();
-</script>
+  <footer class="site-footer">
+    <p>Lecture to Notes · 从视频和论文到可复习的结构化笔记</p>
+    <p>讲义版权归原作者，本站材料仅用于学习与研究。</p>
+  </footer>
+  <script type="module" src="assets/home.js"></script>
 </body>
 </html>

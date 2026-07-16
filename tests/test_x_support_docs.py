@@ -212,7 +212,11 @@ class XSupportDocumentationTests(unittest.TestCase):
         )
         self.assertNotIn("Three-Level Fallback", self.skill)
         self.assertIn("selected full-frame", self.skill)
-        self.assertIn("Selected full-frame figure assets", self.skill)
+        self.assertIn("`figures/` with semantic names", self.skill)
+        self.assertIn("count passes density gate", self.skill)
+        self.assertIn(
+            "`figure_manifest.tsv` and `figure_verification.txt`", self.skill
+        )
         self.assertIn("no automatic cropping", self.skill.lower())
         self.assertIn("optional and experimental", self.skill)
 
