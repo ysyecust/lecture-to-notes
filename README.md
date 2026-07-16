@@ -50,7 +50,7 @@
 │   ├── build_site.py           # 构建静态站点
 │   └── whisper_prompts/        # Whisper --initial_prompt 术语表
 ├── docs/
-│   ├── index.html              # 课程图书馆
+│   ├── index.html              # 课程资料首页
 │   ├── reader.html             # 目录白名单驱动的 PDF 阅读器
 │   ├── contribute.html         # PDF 贡献入口
 │   ├── assets/                 # 无框架前端模块与样式
@@ -90,20 +90,23 @@ cp -R scripts/whisper_prompts ~/.claude/skills/lecture-to-notes/assets/
 
 ### 浏览课程资料
 
-课程站点目前收录 6 门课程、34 份 PDF 和 9 篇论文解读，包括 Stanford
+课程站点收录多门课程的 PDF 和论文解读，包括 Stanford
 CS336: Language Modeling from Scratch（Spring 2026）前三讲的分讲笔记与合集。
 课程卡片进入讲次列表后，PDF 会在独立阅读页中打开；若浏览器内嵌预览不可用，仍可
 直接打开或下载原始 PDF。
 
 ### 贡献 PDF
 
-最简单的方式是打开站点的 **贡献 PDF** 页面，在 GitHub 中把文件添加到
-`content/inbox/`，然后使用 PDF contribution 模板提交 PR。自动化会从可信基础分支
-启动隔离容器，验证完整提交差异并解析 PDF；未合并的内容不会进入部署。
+普通贡献者不能直接修改本仓库的 `main` 分支。他们需要先 Fork 仓库，在自己的
+Fork 中把 PDF 添加到 `content/inbox/` 并保存 commit，再使用 PDF contribution
+模板向本仓库提交 PR。PR 只是一份合并申请，不会让贡献者获得写入权限。
+
+自动化会从可信基础分支启动隔离容器，验证完整提交差异并解析 PDF；只有维护者
+合并后的内容才会部署。网页步骤、命令行步骤和 PR 字段见
+[CONTRIBUTING.md](CONTRIBUTING.md)。
 
 外部投稿的安全容量边界是：单个 PDF 不超过 25 MiB、每个 PR 不超过 10 个 PDF、
-合计不超过 100 MiB。这只是 PR 扫描范围，不是课程库或维护者发布的开发上限。完整
-浏览器与命令行步骤见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+合计不超过 100 MiB。这只是 PR 扫描范围，不是课程库或维护者发布的开发上限。
 
 ### 视频源检测与探测
 

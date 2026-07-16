@@ -15,7 +15,7 @@ const sourceLink = document.querySelector('#source-link');
 function showError(message) {
   stage.hidden = true;
   error.hidden = false;
-  title.textContent = '讲义不可用';
+  title.textContent = '无法打开 PDF';
   meta.textContent = message;
   document.querySelector('.reader-actions').hidden = true;
   selector.closest('.mobile-selector').hidden = true;
@@ -36,7 +36,7 @@ function navLink(item, active) {
 
 function render(catalog, item) {
   const course = catalog.courses.find(candidate => candidate.id === item.course_id);
-  if (!course) return showError('课程信息缺失，请返回课程库。');
+  if (!course) return showError('课程信息缺失，请返回课程资料页。');
   const items = itemMap(catalog);
   const courseItems = course.item_ids.map(id => items.get(id)).filter(Boolean);
   document.title = `${item.title} · Lecture to Notes`;
@@ -67,13 +67,13 @@ function render(catalog, item) {
 async function start() {
   try {
     const id = new URLSearchParams(location.search).get('id');
-    if (!id) return showError('链接中缺少讲义编号。');
+    if (!id) return showError('链接中缺少 PDF 编号。');
     const catalog = await loadCatalog();
     const item = itemMap(catalog).get(id);
-    if (!item) return showError('目录中没有这份讲义。');
+    if (!item) return showError('课程目录中没有这份 PDF。');
     render(catalog, item);
   } catch (cause) {
-    showError(`课程目录加载失败：${cause.message}`);
+    showError(`无法加载课程目录：${cause.message}`);
   }
 }
 

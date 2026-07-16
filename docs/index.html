@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
-  <meta name="description" content="按课程浏览 Lecture to Notes 生成的结构化讲义与论文解读。">
-  <title>Lecture to Notes · 课程图书馆</title>
+  <meta name="description" content="按课程查找、阅读和下载 Lecture to Notes 整理的 PDF 与论文资料。">
+  <title>Lecture to Notes · 课程资料</title>
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body class="home-page">
@@ -18,8 +18,8 @@
         <span>lecture to notes</span>
       </a>
       <div class="nav-links">
-        <a aria-current="page" href="index.html">课程图书馆</a>
-        <a href="contribute.html">贡献 PDF</a>
+        <a aria-current="page" href="index.html">课程资料</a>
+        <a href="contribute.html">提交 PDF</a>
         <a href="https://github.com/ysyecust/lecture-to-notes">GitHub ↗</a>
       </div>
     </nav>
@@ -28,10 +28,10 @@
   <main id="main">
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">LECTURE ARCHIVE / 学习资料库</p>
-        <h1 id="hero-title">把一门课，<br><span>读成一张可探索的学习桌。</span></h1>
-        <p class="hero-lede">按课程找讲义，在专用阅读页里沿着讲次继续读。所有 PDF 都保留来源、页数和可直接打开的备用入口。</p>
-        <a class="text-link" href="#library-title">开始浏览 <span aria-hidden="true">↓</span></a>
+        <p class="eyebrow">课程讲义与学习资料</p>
+        <h1 id="hero-title">按课程查找、阅读<br><span>和下载 PDF。</span></h1>
+        <p class="hero-lede">搜索课程、讲次或主题，在阅读页切换同一门课的不同讲义。每份资料都显示页数，并提供原始 PDF 下载。</p>
+        <a class="text-link" href="#library-title">查看课程 <span aria-hidden="true">↓</span></a>
       </div>
       <div class="hero-ledger" aria-label="资料统计">
         <p class="ledger-label">CATALOG STATUS</p>
@@ -41,17 +41,17 @@
           <div><dt>总页数</dt><dd id="stat-pages">—</dd></div>
           <div><dt>论文解读</dt><dd id="stat-papers">—</dd></div>
         </dl>
-        <p class="ledger-note"><span aria-hidden="true">●</span> 合并后自动发布</p>
+        <p class="ledger-note"><span aria-hidden="true">●</span> 内容随 main 分支更新</p>
       </div>
     </section>
 
     <section class="library" aria-labelledby="library-title">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">COURSE SHELF</p>
-          <h2 id="library-title">课程图书馆</h2>
+          <p class="eyebrow">课程目录</p>
+          <h2 id="library-title">课程资料</h2>
         </div>
-        <p>书脊旁的每一格刻度，对应一份可阅读的讲义。</p>
+        <p>每门课程列出讲次、页数和可打开的 PDF。</p>
       </div>
       <div class="search-panel">
         <label for="course-search">搜索课程、讲次或主题</label>
@@ -80,17 +80,17 @@
     <section class="papers-section" aria-labelledby="papers-title">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">PAPER NOTES</p>
+          <p class="eyebrow">论文资料</p>
           <h2 id="papers-title">论文解读</h2>
         </div>
-        <p>从课程之外继续延伸到求解器、AI 科研和过程系统工程。</p>
+        <p>论文和技术资料的中文整理。</p>
       </div>
       <div id="paper-grid" class="paper-grid"></div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>Lecture to Notes · 从视频和论文到可复习的结构化笔记</p>
+    <p>Lecture to Notes · 可检索、可阅读、可下载的课程资料</p>
     <p>讲义版权归原作者，本站材料仅用于学习与研究。</p>
   </footer>
   <script type="module" src="assets/home.js"></script>

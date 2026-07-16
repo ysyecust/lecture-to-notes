@@ -20,10 +20,10 @@ test('searches the catalog and opens a course', async ({page, request}, testInfo
   const course = data.courses.find(candidate => candidate.id === lecture.course_id);
 
   await page.goto('/index.html');
-  await expect(page.getByRole('heading', {name: '课程图书馆'})).toBeVisible();
+  await expect(page.getByRole('heading', {name: '课程资料', exact: true})).toBeVisible();
   await page.getByRole('searchbox').fill('Tokenization');
   await expect(page.getByText('找到 1 门匹配课程')).toBeVisible();
-  await page.getByRole('link', {name: `查看课程：${course.title}`}).click();
+  await page.getByRole('link', {name: `查看讲义：${course.title}`}).click();
   await expect(page.getByRole('heading', {name: course.title, level: 2})).toBeFocused();
   await expect(page.getByRole('heading', {name: lecture.title})).toBeVisible();
 
@@ -57,12 +57,14 @@ test('opens a catalog-whitelisted PDF in the dedicated reader', async ({page, re
   });
 });
 
-test('sends contributors to the repository inbox', async ({page}) => {
+test('explains fork permissions and starts the contribution flow', async ({page}, testInfo) => {
   await page.goto('/contribute.html');
-  const upload = page.getByRole('link', {name: '在 GitHub 上传 PDF'});
-  await expect(upload).toHaveAttribute(
-    'href',
-    'https://github.com/ysyecust/lecture-to-notes/upload/main/content/inbox',
-  );
-  await expect(page.getByText('未合并的 PR 永远不会部署。')).toBeVisible();
+  const fork = page.getByRole('link', {name: '第一步：Fork 仓库'});
+  await expect(fork).toHaveAttribute('href', 'https://github.com/ysyecust/lecture-to-notes/fork');
+  await expect(page.getByText('普通贡献者不能直接修改这个仓库', {exact: false})).toBeVisible();
+  await expect(page.getByText('PR 只提交变更和说明，不会获得原仓库写入权限。')).toBeVisible();
+  await page.screenshot({
+    path: `${REVIEW_DIR}/${testInfo.project.name}-contribute.png`,
+    fullPage: true,
+  });
 });

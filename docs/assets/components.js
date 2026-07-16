@@ -34,9 +34,9 @@ export function createCourseCard(course, items) {
     ticks.append(tick);
   }
 
-  const link = element('a', 'course-link', '查看课程');
+  const link = element('a', 'course-link', '查看讲义');
   link.href = `#course=${encodeURIComponent(course.id)}`;
-  link.setAttribute('aria-label', `查看课程：${course.title}`);
+  link.setAttribute('aria-label', `查看讲义：${course.title}`);
   body.append(overline, title, description, metrics, ticks, link);
   article.append(spine, body);
   return article;
@@ -50,7 +50,7 @@ export function createItemRow(item) {
   copy.append(element('h3', '', item.title));
   const meta = element('p', 'item-meta', `${item.pages} 页${item.instructor ? ` · ${item.instructor}` : ''}`);
   copy.append(meta);
-  const link = element('a', 'button button-primary', '阅读 PDF');
+  const link = element('a', 'button button-primary', '打开 PDF');
   link.href = readerUrl(item.id);
   row.append(copy, link);
   return row;
@@ -61,7 +61,7 @@ export function createPaperCard(paper) {
   article.append(element('p', 'paper-icon', paper.icon || '↗'));
   const copy = element('div', 'paper-copy');
   copy.append(element('h3', '', paper.title), element('p', '', paper.meta || '论文解读'));
-  const link = element('a', 'paper-link', '阅读解读 ↗');
+  const link = element('a', 'paper-link', '查看全文 ↗');
   link.href = paper.url;
   copy.append(link);
   article.append(copy);

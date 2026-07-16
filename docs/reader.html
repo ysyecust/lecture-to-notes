@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
-  <meta name="description" content="Lecture to Notes 专用 PDF 阅读页。">
-  <title>阅读讲义 · Lecture to Notes</title>
+  <meta name="description" content="打开课程 PDF，并在同一门课程的资料之间切换。">
+  <title>打开 PDF · Lecture to Notes</title>
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body class="reader-page">
@@ -13,21 +13,21 @@
   <header class="site-header reader-header">
     <nav class="nav-shell" aria-label="主导航">
       <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">L/N</span><span>lecture to notes</span></a>
-      <div class="nav-links"><a href="index.html">课程图书馆</a><a href="contribute.html">贡献 PDF</a></div>
+      <div class="nav-links"><a href="index.html">课程资料</a><a href="contribute.html">提交 PDF</a></div>
     </nav>
   </header>
   <main id="reader-main" class="reader-layout">
     <aside class="reader-rail" aria-labelledby="course-nav-title">
-      <a class="back-link" href="index.html">← 返回课程库</a>
-      <p class="eyebrow">COURSE ROUTE</p>
-      <h2 id="course-nav-title">本课程讲义</h2>
+      <a class="back-link" href="index.html">← 返回课程资料</a>
+      <p class="eyebrow">当前课程</p>
+      <h2 id="course-nav-title">本课程的 PDF</h2>
       <nav id="course-nav" aria-label="课程讲义导航"></nav>
     </aside>
     <section class="reader-workspace" aria-labelledby="reader-title">
       <div class="reader-toolbar">
         <div>
-          <p id="reader-course" class="eyebrow">正在载入课程</p>
-          <h1 id="reader-title">正在载入讲义…</h1>
+          <p id="reader-course" class="eyebrow">正在加载课程</p>
+          <h1 id="reader-title">正在加载 PDF…</h1>
           <p id="reader-meta" class="reader-meta" role="status" aria-live="polite"></p>
         </div>
         <div class="reader-actions">
@@ -44,9 +44,9 @@
       </div>
       <div id="reader-error" class="empty-state reader-error" hidden>
         <p class="empty-code">NOTE NOT FOUND</p>
-        <h2>这份讲义不存在</h2>
-        <p>链接可能已经失效。返回课程库选择一份现有讲义。</p>
-        <a class="button button-primary" href="index.html">返回课程库</a>
+        <h2>无法打开这份 PDF</h2>
+        <p>链接无效，或者这份资料已经调整。请返回课程资料页重新选择。</p>
+        <a class="button button-primary" href="index.html">返回课程资料</a>
       </div>
     </section>
   </main>

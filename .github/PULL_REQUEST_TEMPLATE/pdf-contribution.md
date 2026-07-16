@@ -1,11 +1,20 @@
-## PDF contribution
+## 资料信息
 
-- [ ] I only added PDF files directly under `content/inbox/`.
-- [ ] Every PDF is 25 MiB or smaller; this PR contains at most 10 PDFs and 100 MiB total.
+- 课程或活动名称：
+- 学校或机构：
+- 学期或年份：
+- 讲次或主题：
+- 讲师：
+- 原始来源 URL：
+- 文件说明（例如“第 1–3 讲和合集”）：
+- 其他说明：
+
+## 提交前确认
+
+- [ ] 我只在 `content/inbox/` 目录下直接添加了小写 `.pdf` 文件。
+- [ ] 我没有修改代码、课程清单、现有文件或其他目录。
+- [ ] 每个 PDF 不超过 25 MiB；本 PR 最多包含 10 个 PDF，合计不超过 100 MiB。
+- [ ] 我填写了可确认的课程信息和原始来源；无法确认的内容已明确说明。
 - [ ] I have the right to share these PDFs for educational use.
 
-## Context
-
-Course or event name:
-
-Original source URL:
+> 普通贡献者的 commit 保存在自己的 Fork 中。提交这个 Pull Request 不会获得原仓库写入权限；只有维护者合并后，资料才会进入 `main` 并发布。
