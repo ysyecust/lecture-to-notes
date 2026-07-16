@@ -14,6 +14,7 @@ class BuildSiteTests(unittest.TestCase):
         script = (ROOT / "scripts/build_site_container.sh").read_text()
         self.assertIn('mkdir -p "$STAGING"', script)
         self.assertIn('chmod 0777 "$STAGING"', script)
+        self.assertIn('--user "$(id -u):$(id -g)"', script)
         self.assertNotIn('chmod 0777 "$ROOT"', script)
 
     def test_builds_shell_catalog_papers_and_legacy_pdf_path(self):
