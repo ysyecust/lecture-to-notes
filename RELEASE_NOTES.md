@@ -1,5 +1,14 @@
 # Release notes
 
+## 2026-07-16 — Minimal XeTeX fallback
+
+- Lecture-note compilation now checks required LaTeX packages explicitly and falls
+  back to native CJK line breaking when `ctex` is unavailable. Contribution:
+  [@liyuankui](https://github.com/liyuankui) in
+  [PR #4](https://github.com/ysyecust/lecture-to-notes/pull/4).
+- Verification covered the complete `ctex` path and a restricted Debian XeTeX
+  environment with `ctex.sty` intentionally absent.
+
 ## 2026-07-11 — X/Twitter lecture video support
 
 ### Highlights
