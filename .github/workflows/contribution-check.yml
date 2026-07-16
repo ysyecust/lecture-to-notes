@@ -3,7 +3,7 @@ name: PDF contribution check
 on:
   pull_request:
     paths:
-      - content/inbox/**
+      - content/inbox/*.pdf
 
 permissions:
   contents: read

@@ -14,6 +14,7 @@ class WorkflowSecurityTests(unittest.TestCase):
             self.assertNotIn(forbidden, workflow)
         for required in (
             "permissions:\n  contents: read",
+            "- content/inbox/*.pdf",
             "trusted/ci/pdf-sandbox.Dockerfile",
             "github.event.pull_request.base.sha",
             "github.event.pull_request.head.sha",
