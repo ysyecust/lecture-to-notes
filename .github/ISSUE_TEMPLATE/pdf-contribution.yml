@@ -1,30 +1,48 @@
-name: PDF contribution help
-description: Ask for help before submitting course or lecture PDFs
-title: "[PDF contribution] "
+name: PDF 投稿咨询
+description: 在提交 PDF Pull Request 前询问流程、文件或课程归档问题
+title: "[PDF 投稿] "
 labels:
   - contribution
 body:
   - type: markdown
     attributes:
       value: |
-        PDFs are submitted through a pull request, not attached to this issue. Start at the contribution page for the browser and command-line workflows.
+        请不要把 PDF 附在 Issue 中。普通贡献者需要先 Fork 仓库，在自己的 Fork 中 commit，再向本仓库提交 Pull Request。
+
+        完整步骤：https://github.com/ysyecust/lecture-to-notes/blob/main/CONTRIBUTING.md
+        投稿页面：https://blog.simona.plus/lecture-to-notes/contribute.html
   - type: input
     id: course
     attributes:
-      label: Course or event
-      placeholder: Stanford CS336 Spring 2026
+      label: 课程或活动名称
+      placeholder: "Stanford CS336: Language Modeling from Scratch"
     validations:
       required: true
   - type: input
+    id: institution
+    attributes:
+      label: 学校或机构
+      placeholder: Stanford University
+    validations:
+      required: true
+  - type: input
+    id: term
+    attributes:
+      label: 学期或年份
+      placeholder: Spring 2026
+    validations:
+      required: false
+  - type: input
     id: source
     attributes:
-      label: Original source URL
+      label: 原始来源 URL
       placeholder: https://example.edu/course/materials
     validations:
       required: true
   - type: textarea
     id: question
     attributes:
-      label: What do you need help with?
+      label: 你需要确认什么？
+      description: 请说明 PDF 数量、大小，以及你不确定的步骤或课程信息。
     validations:
       required: true

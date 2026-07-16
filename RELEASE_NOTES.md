@@ -18,6 +18,9 @@
 
 - Contributors can add lowercase PDF files directly under `content/inbox/` in a
   fork and open a pull request using the repository template.
+- The contribution page and template now explain the permission boundary directly:
+  contributors commit in their own fork, a pull request does not grant write access,
+  and maintainers alone decide what enters `main` and is published.
 - Pull-request automation compares the complete base and submitted trees, permits
   PDF additions only, and runs the trusted scanner as an unprivileged container
   without network access. It checks structure and active content, then extracts a

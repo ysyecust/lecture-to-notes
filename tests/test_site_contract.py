@@ -54,14 +54,35 @@ class SiteContractTests(unittest.TestCase):
 
     def test_contribution_page_describes_pr_boundary_and_limits(self):
         for fragment in (
-            "只有维护者合并后",
+            "普通贡献者不能直接修改这个仓库",
+            "贡献者在这里 commit",
+            "PR 只提交变更和说明，不会获得原仓库写入权限",
+            "维护者决定是否发布",
+            "按这五步提交",
             "≤ 25 MiB",
             "≤ 10 个 PDF",
             "≤ 100 MiB",
-            "https://github.com/ysyecust/lecture-to-notes/upload/main/content/inbox",
+            "https://github.com/ysyecust/lecture-to-notes/fork",
             "- [x] I have the right to share these PDFs for educational use.",
         ):
             self.assertIn(fragment, self.contribute)
+
+    def test_public_copy_is_direct_and_avoids_slogan_language(self):
+        for fragment in (
+            "按课程查找、阅读",
+            "每门课程列出讲次、页数和可打开的 PDF",
+            "普通贡献者不能直接修改这个仓库",
+        ):
+            self.assertIn(fragment, self.index + self.contribute)
+        for fragment in (
+            "可探索的学习桌",
+            "沿着讲次继续读",
+            "书脊旁的每一格刻度",
+            "自动检查先替我们看一遍",
+            "THREE CHECKPOINTS",
+            "UPLOAD ENVELOPE",
+        ):
+            self.assertNotIn(fragment, self.index + self.contribute)
 
     def test_pages_have_restrictive_csp_and_external_styles(self):
         for source in (self.index, self.reader, self.contribute):
