@@ -1,0 +1,27 @@
+{
+  "id": "science-explainers",
+  "title": "工程与科学科普",
+  "institution": "Multiple",
+  "term": "精选",
+  "description": "从器件、制造到物理机制的工程科普笔记。",
+  "tags": [
+    "科学",
+    "工程",
+    "硬件"
+  ],
+  "featured": false,
+  "items": [
+    {
+      "legacy_id": "hbm",
+      "file": "hbm_high_bandwidth_memory.pdf",
+      "title": "HBM 高带宽内存的原理与制造",
+      "order": 1,
+      "expected_pages": 19,
+      "duration_minutes": 16,
+      "instructor": "万物研究所",
+      "source_url": "https://www.bilibili.com/video/BV1ahjA6qEwc",
+      "source_label": "B站",
+      "meta": "万物研究所 · 16min · 19页"
+    }
+  ]
+}

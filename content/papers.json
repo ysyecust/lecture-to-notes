@@ -1,0 +1,74 @@
+[
+  {
+    "id": "p1",
+    "title": "NonlinearSolve.jl: High-Performance Nonlinear Solvers in Julia",
+    "meta": "Solver · Julia · Nonlinear",
+    "url": "papers/20260326T133200--paper-nonlinearsolve-jl__paper.html",
+    "icon": "📐",
+    "style": "paper-s"
+  },
+  {
+    "id": "p2",
+    "title": "Uno: A Unified Solver for Nonlinearly Constrained Optimization",
+    "meta": "Solver · NLP · Optimization",
+    "url": "papers/20260326T131500--paper-uno-unified-nlp-solver__paper.html",
+    "icon": "📐",
+    "style": "paper-s"
+  },
+  {
+    "id": "p3",
+    "title": "AVO: Agentic Variation Operators for Autonomous Evolutionary Search",
+    "meta": "LLM Agent · Evolutionary",
+    "url": "papers/20260326T125955--paper-avo-agentic-variation-operators__paper.html",
+    "icon": "🤖",
+    "style": "paper-ai"
+  },
+  {
+    "id": "p4",
+    "title": "Timer-S1: Serial Scaling for Time Series Forecasting",
+    "meta": "Time Series · Scaling Law",
+    "url": "papers/20260316T142224--paper-timer-s1-serial-scaling__paper.html",
+    "icon": "🤖",
+    "style": "paper-ai"
+  },
+  {
+    "id": "p5",
+    "title": "AI Scientist: End-to-End Autonomous Research",
+    "meta": "AI Research · Automation",
+    "url": "papers/20260326T140100--paper-ai-scientist-e2e__paper.html",
+    "icon": "🤖",
+    "style": "paper-ai"
+  },
+  {
+    "id": "p6",
+    "title": "SAFT-VR: Statistical Associating Fluid Theory",
+    "meta": "Thermodynamics · EoS",
+    "url": "papers/20260326T160500--paper-saft-vr-sum__paper.html",
+    "icon": "🔬",
+    "style": "paper-sci"
+  },
+  {
+    "id": "p7",
+    "title": "Multi-Agent LLMs for Process Systems Engineering",
+    "meta": "LLM · PSE · Crystallization · NMPC",
+    "url": "papers/20260330T120000--paper-llm-pse-multiagent__paper.html",
+    "icon": "🤖",
+    "style": "paper-ai"
+  },
+  {
+    "id": "p9",
+    "title": "Improved modAB Root-Finding Algorithm",
+    "meta": "Bracketing · NonlinearSolve.jl · 92-function benchmark",
+    "url": "papers/20260401T120000--paper-modab-root-finding__paper.html",
+    "icon": "📐",
+    "style": "paper-s"
+  },
+  {
+    "id": "p8",
+    "title": "ANTIGONE: Global Optimization of Nonlinear Equations",
+    "meta": "MINLP · Global Optimization · Branch-and-Cut",
+    "url": "papers/20260331T150000--paper-antigone-global-minlp__paper.html",
+    "icon": "📐",
+    "style": "paper-s"
+  }
+]

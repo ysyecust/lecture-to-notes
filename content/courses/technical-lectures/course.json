@@ -1,0 +1,63 @@
+{
+  "id": "technical-lectures",
+  "title": "技术公开课精选",
+  "institution": "Multiple",
+  "term": "精选",
+  "description": "矩阵计算、优化与流变学等工程主题的深度公开课。",
+  "tags": [
+    "工程",
+    "优化",
+    "公开课"
+  ],
+  "featured": false,
+  "items": [
+    {
+      "legacy_id": "mit01",
+      "file": "mit_6172_01_matmul.pdf",
+      "title": "Introduction and Matrix Multiplication (53,000× speedup)",
+      "order": 1,
+      "expected_pages": 11,
+      "duration_minutes": 60,
+      "instructor": "Leiserson (MIT)",
+      "source_url": "https://www.youtube.com/watch?v=o7h_sYMk_oc",
+      "source_label": "YT",
+      "meta": "Leiserson (MIT) · 60min · 11页"
+    },
+    {
+      "legacy_id": "biegler",
+      "file": "tamu_biegler_nlp.pdf",
+      "title": "Multi-level Optimization for Nonlinear Energy Systems",
+      "order": 2,
+      "expected_pages": 16,
+      "duration_minutes": 45,
+      "instructor": "Biegler (CMU)",
+      "source_url": "https://www.youtube.com/watch?v=mst-tJ6ELTE",
+      "source_label": "YT",
+      "meta": "Biegler (CMU) · 45min · 16页"
+    },
+    {
+      "legacy_id": "rheo",
+      "file": "aocs_rheology.pdf",
+      "title": "Rheology Principles and Applications",
+      "order": 3,
+      "expected_pages": 12,
+      "duration_minutes": 63,
+      "instructor": "Mark Patrick",
+      "source_url": "https://www.youtube.com/watch?v=etR4ttjY4f0",
+      "source_label": "YT",
+      "meta": "Mark Patrick · 63min · 12页"
+    },
+    {
+      "legacy_id": "baron",
+      "file": "baron_nlp_tutorial.pdf",
+      "title": "Solving Continuous & Discrete NLPs with BARON",
+      "order": 4,
+      "expected_pages": 13,
+      "duration_minutes": 25,
+      "instructor": "Zhang & Sahinidis (Georgia Tech)",
+      "source_url": "https://www.youtube.com/watch?v=oCL9npynb6M",
+      "source_label": "YT",
+      "meta": "Zhang & Sahinidis (Georgia Tech) · 25min · 13页"
+    }
+  ]
+}
