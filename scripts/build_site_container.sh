@@ -7,6 +7,7 @@ STAGING="$ROOT/.tmp/site-build"
 
 rm -rf "$OUTPUT" "$STAGING"
 mkdir -p "$STAGING"
+chmod 0777 "$STAGING"
 docker build -f "$ROOT/ci/pdf-sandbox.Dockerfile" \
   -t lecture-to-notes-pdf-sandbox "$ROOT"
 docker run --rm --network none --read-only --cap-drop ALL \
