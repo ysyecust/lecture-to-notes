@@ -31,14 +31,14 @@
       "title": "Lecture 3: Architectures",
       "order": 3,
       "expected_pages": 31,
-      "instructor": "Percy Liang"
+      "instructor": "Tatsunori Hashimoto"
     },
     {
       "file": "stanford_cs336_2026_01_03_bundle_zh.pdf",
       "title": "Lectures 1–3 Complete Notes",
       "order": 4,
       "expected_pages": 94,
-      "instructor": "Percy Liang",
+      "instructor": "Percy Liang & Tatsunori Hashimoto",
       "bundle": true
     }
   ]
