@@ -1,6 +1,6 @@
 ---
 name: lecture-to-notes
-description: Use when users provide YouTube, Bilibili, or X(Twitter) lecture URLs and want structured Chinese LaTeX/PDF course notes, especially requests phrased as X/Twitter lecture notes, 视频转PDF, 课程笔记, 讲义, or BV号.
+description: Use when users provide YouTube, Bilibili, or X/Twitter lecture URLs and want reader-first Chinese LaTeX/PDF notes with source-faithful claims, fluent authored prose, and verified teaching figures, especially requests phrased as lecture notes, 视频转PDF, 课程笔记, 讲义, YouTube笔记, B站笔记, X/Twitter lecture notes, or BV号; do not produce transcript dumps, quota-padded prose, or screenshot galleries.
 ---
 
 # Lecture to Notes
@@ -64,8 +64,9 @@ Produce a professional Chinese lecture note from a YouTube, Bilibili, or X/Twitt
 
 - use the video's actual teaching content, not just subtitle transcription
 - place the video's original cover image on the front page
-- include selected full-frame slide figures chosen by contact-sheet review
-- achieve high information density — every figure, box, and paragraph earns its space
+- include selected full-frame teaching figures chosen by contact-sheet review
+- let a capable first-time reader understand the question, mechanism, evidence, consequence, and boundary without decoding the transcript
+- achieve source-fit information density — every figure, box, formula, and paragraph earns its space
 - be structurally organized with `\section{}` / `\subsection{}`
 - end with a synthesis section combining speaker's conclusions and your own distillation
 - be a complete `.tex` from `\documentclass` to `\end{document}`
@@ -86,13 +87,49 @@ image-heavy PDFs with thin prose, or missing intermediate artifacts are automati
 | `cover.jpg` | Front-page cover |
 | `video.mp4` | Source for frames (may omit only if user forbids download and provides frames) |
 | `frames/` | Dense sample, default 1 frame / 15s |
-| `figures/` | Selected full-frame figures with **semantic names** (`fig_01_topic.jpg`, …) |
+| `figures/` | Selected full-frame figure assets with **semantic names** (`fig_01_topic.jpg`, …) |
 | `figure_manifest.tsv` | Header `figure\tframe\tstart\tend\ttopic` — one row per figure |
 | `figure_verification.txt` | Full stdout of `verify_figures.py` over **all** manifest timestamps |
+| `lecture_profile.json` | Reader and source-fit profile; required fields are described below |
+| `teaching_atoms.tsv` | Header `atom\tstatus\tevidence` — every teaching atom mapped to the notes |
+| `numerical_claims.tsv` | Header `claim\tvalue\tsource_time\tin_notes`; header-only is valid when the lecture contains no numerical claims |
 | `notes.tex` | Complete Chinese lecture notes |
 | `notes.pdf` | Two-pass `xelatex` output |
 
-### Density and structure gates (hard)
+### Source-fit profile and reader contract (hard)
+
+After subtitle correction and contact-sheet review, create `lecture_profile.json` before
+outlining the notes:
+
+```json
+{
+  "mode": "technical-slide",
+  "audience": "capable first-time reader",
+  "central_question": "What should the reader be able to explain after reading?",
+  "reader_outcome": "A concrete capability, decision, or mental model",
+  "visual_teaching_atoms": 24,
+  "formula_teaching_atoms": 18
+}
+```
+
+Choose exactly one mode:
+
+- `technical-slide`: slides, board work, formulas, code, or diagrams carry most teaching content;
+- `conceptual-talk`: a talk, interview, or discussion carries most content through claims,
+  examples, and reasoning rather than visual mechanisms;
+- `mixed`: both modes contribute substantial teaching content.
+
+Count `visual_teaching_atoms` and `formula_teaching_atoms` from the source, not from the
+draft. A visual atom is a distinct source visual that helps teach a point. A formula atom
+is a source equation or derivation worth preserving. Do not inflate these counts to justify
+more assets, and do not classify a conceptual talk as technical merely to trigger quotas.
+
+For every mode, the hard gates are source fidelity, complete teaching-atom coverage,
+traceable numerical claims, clear source attribution, and a coherent reader path. The
+numeric density gates below are source-fit backstops. They never authorize invented
+equations, low-value talking-head screenshots, repetitive boxes, or synonym padding.
+
+### Density and structure gates (source-adaptive)
 
 For a lecture of duration $T$ minutes (from metadata):
 
@@ -102,22 +139,33 @@ not a second hard floor. Raising the hard floor to the measured gold value encou
 padding, not more teaching atoms. (Validated on CS336 L3: $T\approx 89$ → gate CJK 6246 /
 figs 25; gold ~8035 CJK / 27 figs / 31 pages.)
 
-1. **Chinese character count** in `notes.tex` body (CJK unified ideographs only) must be
-   **at least $\max(5000,\ \mathrm{round}(70\times T))$**.  
-   Example: 86 min → ≥ 6020 CJK chars. Do **not** count English jargon, LaTeX commands, or captions alone.
-2. **Figures**: at least $\max(20,\ \mathrm{round}(T/3.5))$ distinct teaching figures
-   (86 min → ≥ 25). Prefer one figure per teaching atom, not one per half-hour.
-3. **Sections**: major `\section` count ≥ 8 for $T\ge 60$; every major section ends with
-   `\subsection{本章小结}` that restates mechanisms (not a single vague sentence).
-4. **Judgment boxes**: for $T\ge 60$, at least **12** of
-   `importantbox` / `knowledgebox` / `warningbox` / `practicebox` combined. Thin notes often
-   pass CJK by repeating captions; boxes force explicit claims, pitfalls, and checklists.
-5. **Teaching atom template** (required for each non-trivial concept):
-   - judgment / why it matters (2–5 Chinese sentences);
-   - mechanism with display math when needed;
-   - **symbol list** (`itemize` explaining every symbol) immediately after each display formula;
-   - verified figure + same-page time footnote;
-   - `importantbox` / `knowledgebox` / `warningbox` / optional practice checklist as needed.
+1. **Chinese character count** in the `notes.tex` body (CJK unified ideographs only):
+   - `technical-slide`: at least $\max(5000,\ \mathrm{round}(70\times T))$;
+   - `mixed`: at least $\max(3500,\ \mathrm{round}(55\times T))$;
+   - `conceptual-talk`: at least $\max(2500,\ \mathrm{round}(45\times T))$.
+   Do not count English jargon, LaTeX commands, or captions alone. These are completeness
+   floors, not invitations to repeat the same idea.
+2. **Figures**: include every distinct visual teaching atom that materially improves
+   understanding, up to the technical target $\max(20,\ \mathrm{round}(T/3.5))$. A
+   `conceptual-talk` with four real visual atoms should contain four verified figures, not
+   twenty talking-head frames. A slide-led lecture with thirty distinct mechanisms must not
+   stop at twenty.
+3. **Sections** for $T\ge 60$: use at least 8 for `technical-slide`, 6 for `mixed`, and 5
+   for `conceptual-talk`, unless fewer reader questions produce a demonstrably clearer
+   structure. Each major section answers one reader question and ends with
+   `\subsection{本章小结}` that states the answer and prepares the next question.
+4. **Judgment boxes**: use boxes only when they separate a definition, background dependency,
+   decision rule, or failure boundary from the main flow. The technical default is 12 for
+   $T\ge60$; `mixed` and `conceptual-talk` have no box quota. Never split continuous reasoning
+   into boxes merely to raise a count.
+5. **Teaching atom shape** (adapt, do not stamp out a template):
+   - state what the reader needs to understand and why it matters;
+   - explain the mechanism or reasoning in the order needed to follow it;
+   - attach source evidence: a number, example, quotation-level paraphrase, formula, code,
+     table, or verified figure as appropriate;
+   - state the consequence or boundary when it changes interpretation.
+   Use only the components that the source and the reader need. After every display formula
+   with at least two symbols, add an immediate symbol explanation list.
 6. **No outline-only sections.** If a 5-minute span of the lecture introduces a distinct
    mechanism, number, or design choice, it must appear as its own subsection or a clearly
    labeled paragraph with evidence — not a bullet in a summary list.
@@ -131,13 +179,16 @@ figs 25; gold ~8035 CJK / 27 figs / 31 pages.)
    FLOPs≠runtime, SwiGLU, serial vs parallel block, RoPE, FFN ratio, head dim, width/depth,
    vocab size, dropout vs weight decay, z-loss, QK-Norm, Prefill vs Decode, MQA/GQA,
    sliding window / interleaved / hybrid attention.
-   Persist the checklist as `teaching_atoms.tsv` (`atom\tstatus\tevidence`) when practical.
+   Persist the checklist as `teaching_atoms.tsv` (`atom\tstatus\tevidence`).
 
 9. **Mechanism density (hard — L2 gold comparison 2026-07-12):** CJK/fig/box gates alone are
    **not enough**. CS336 L2 first Grok pass: 5463 CJK / 8 formulas / 0 code (gate PASS, gold incomplete);
    after claim-driven补全: ~6450 CJK / 31 formulas / 3 code / 33 pages (matches Codex). Also require:
-   - **Display math**: at least $\max(10,\ \mathrm{round}(T/4))$ blocks (`\[ ... \]` or `equation`),
-     each with an immediate symbol `itemize` when ≥2 symbols appear.
+   - **Display math**: for source formula atoms, preserve at least
+     $\min(N_{\mathrm{formula\ atoms}},\ \max(10,\ \mathrm{round}(T/4)))$ blocks
+     (`\[ ... \]` or `equation`), each with an immediate symbol `itemize` when ≥2 symbols
+     appear. If the source has no formula atoms, the correct count is zero; never invent
+     equations to satisfy a density gate.
    - **Numerical claims file** `numerical_claims.tsv` (header `claim\tvalue\tsource_time\tin_notes`):
      before writing, extract every concrete number/formula from SRT+selected frames
      (e.g. `6PT`, `12 bytes/param`, `I_*=295`, `144 days`, `53.3B`, peak TFLOP/s, bandwidth).
@@ -147,7 +198,7 @@ figs 25; gold ~8035 CJK / 27 figs / 31 pages.)
      include ≥1 `lstlisting` (or equivalent verbatim) with the **same mechanism**, not a prose paraphrase only.
    - **Comparison tables**: if the lecture contrasts ≥3 formats/ops/modes (e.g. FP32/FP16/BF16/FP8),
      include a compact `tabular` — do not leave it only as prose.
-   - **Per-section floor** (for $T\ge 60$): each major `\section` except title/appendix must have
+   - **Per-section floor** (for `technical-slide` with $T\ge 60$): each major `\section` except title/appendix must have
      ≥ $\max(300,\ \mathrm{round}(0.7\times \mathrm{CJK}/N_{\mathrm{sec}}))$ Chinese chars **and**
      at least one of: display formula, table, code block, or ≥2 judgment boxes.
      A section that is only “术语澄清 + 小结” is FAIL.
@@ -155,13 +206,14 @@ figs 25; gold ~8035 CJK / 27 figs / 31 pages.)
      prefer a dedicated `\subsection` (Codex L2: 42 subs vs thin notes ~35). Merging is OK only if
      the merged subsection still contains **all numbers and derivations** from both spans.
 
-10. **Write-from-claims, not write-from-outline (workflow):**
+10. **Write from evidence and a reader map, not from transcript order:**
     Order of work after frames/manifest:
-    (a) build `numerical_claims.tsv` + topic `teaching_atoms.tsv`;
-    (b) draft section outline keyed to claims;
-    (c) write prose that **discharges every claim**;
-    (d) run density + formula + claims gates;
-    (e) only then compile. Skipping (a) is the main root cause of “gate PASS, gold incomplete”.
+    (a) build `numerical_claims.tsv` + `teaching_atoms.tsv` + `lecture_profile.json`;
+    (b) write one-line answers for the central question and each planned section question;
+    (c) draft a section outline keyed to those answers and the source evidence;
+    (d) write prose that **discharges every claim** in a reader-comprehensible order;
+    (e) run the reader-first revision passes in the Phase 3 reference;
+    (f) run source-fit density, formula, claim, compilation, and rendered-page gates.
 
 ### Forbidden shortcuts
 
@@ -172,6 +224,10 @@ figs 25; gold ~8035 CJK / 27 figs / 31 pages.)
 - Merging unrelated teaching points to reduce page count.
 - Padding CJK with repeated slogans or synonym paraphrases that add no mechanism, formula, or decision rule.
 - Treating the **target** (~Codex measured density) as a second **hard gate** and stuffing filler to hit it.
+- Inventing formulas, examples, causal links, or certainty that the source does not support.
+- Adding low-information screenshots, boxes, or micro-sections only to satisfy a numeric quota.
+- Preserving oral repetition, self-correction, filler transitions, or Q&A order when they obstruct the teaching argument.
+- Giving every paragraph the same claim-list-summary rhythm; density without sentence and paragraph flow still fails.
 - **Summary-only mechanism sections**: describing Roofline / MFU / $6BP$ / checkpointing in words while
   omitting the lecture’s actual formulas, critical constants, and worked numerical examples.
 - Marking a teaching atom `ok` because a **topic word** appears, when the lecture’s **number or derivation** is absent.
@@ -480,6 +536,14 @@ For each candidate figure:
 
 ### Phase 3: Writing
 
+#### Reader-first prose reference (mandatory)
+
+Read [references/reader-first-writing.md](references/reader-first-writing.md) after the
+final subtitle track, teaching atoms, numerical claims, and verified figures are ready.
+Use it to build the reader argument map, draft the notes, and run the final prose passes.
+The reference is self-contained; using this skill must not depend on another installed
+writing skill or a network call.
+
 #### Teaching Content Rules
 
 **Include:** title, chapters, on-screen diagrams/formulas/tables/code, subtitle explanations, speaker emphasis.
@@ -490,36 +554,58 @@ For each candidate figure:
 
 #### Writing Rules
 
-1. **Chinese by default** unless user requests otherwise.
+1. **Chinese by default** unless the user requests otherwise. Write authored teaching prose,
+   not line-edited subtitles.
 
-2. Organize with `\section{}` / `\subsection{}`. Reconstruct the teaching flow — don't mirror subtitle order.
+2. Organize with `\section{}` / `\subsection{}` around reader questions and prerequisites.
+   Reconstruct the teaching flow; do not mirror subtitle or Q&A order.
 
-3. Start from `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/notes-template.tex`. Fill metadata and replace the body block.
+3. Before outlining, complete `lecture_profile.json` and write one-line answers for the
+   central question, reader outcome, and each planned section question.
 
-4. **Front page cover**: video's original cover image, visually distinct from in-body figures.
+4. Start from `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/notes-template.tex`. Fill metadata and replace the body block.
 
-5. **Figures: use full frames.** Use as many figures as needed for teaching clarity — do not optimize for a low count. **Every figure MUST pass the Stage 4 three-way verification before being written into LaTeX.** Never write a caption from section context alone — always read the actual frame first.
+5. **Front page cover**: use the video's original cover image, visually distinct from in-body figures.
 
-6. **No figures inside boxes.** `importantbox`, `knowledgebox`, `warningbox` must not contain `\includegraphics`.
+6. **Source voice**: distinguish established background, the speaker's claim or forecast,
+   and the note writer's synthesis. Preserve uncertainty and qualifiers; do not silently
+   strengthen a claim while translating or compressing it.
 
-7. **Math**: display math `$$...$$` followed immediately by a symbol explanation list.
+7. **Paragraph flow**: give each paragraph one main job. Lead with the answer or mechanism,
+   place evidence next to the point it supports, and end with the consequence or boundary.
+   Do not force every paragraph into the same template.
 
-8. **Code**: wrap in `lstlisting` with descriptive `caption`.
+8. **Terminology**: introduce plain meaning before acronyms, stage labels, variants, or
+   project-specific terms. Keep one stable term for one concept.
 
-9. **Box strategy** — no quota, use as many as the teaching signal demands:
+9. **Figures: use full frames.** Use each distinct visual teaching atom that materially
+   improves understanding. **Every figure MUST pass the Stage 4 three-way verification
+   before being written into LaTeX.** Never write a caption from section context alone.
+
+10. **No figures inside boxes.** `importantbox`, `knowledgebox`, `warningbox` must not contain `\includegraphics`.
+
+11. **Math**: use display math only for a source formula or a faithful derivation needed to
+    explain it. Follow each display with an immediate symbol explanation list when at least
+    two symbols appear. Never invent an equation to make conceptual material look technical.
+
+12. **Code**: wrap source-grounded code in `lstlisting` with a descriptive `caption`.
+
+13. **Box strategy** — use boxes only when they improve the teaching signal:
    - `importantbox`: core concepts, definitions, key mechanisms, theorem-like statements
    - `knowledgebox`: background, history, design tradeoffs, terminology, analogies
    - `warningbox`: common mistakes, hidden assumptions, pitfalls, causal confusions
 
-10. Every major `\section` ends with `\subsection{本章小结}`. Add `\subsection{拓展阅读}` when worthwhile.
+14. Every major `\section` ends with `\subsection{本章小结}`. Answer the section's reader
+    question and create a natural handoff; do not repeat its subsection list. Add
+    `\subsection{拓展阅读}` only when the source or verified external material supports it.
 
-11. Final section `\section{总结与延伸}`:
+15. Final section `\section{总结与延伸}`:
     - Speaker's substantive closing (no sign-off fluff)
     - Your structured distillation of core claims and mechanisms
     - Cross-section synthesis, conceptual compression
     - Concrete takeaways, open questions, next steps
 
-12. No `[cite]` placeholders.
+16. No `[cite]` placeholders, invented citations, or unattributed external facts.
 
 #### Figure Time Provenance
 
@@ -545,7 +631,7 @@ For concepts that screenshots and prose can't explain clearly, add visualization
 
 Use for: process flows, architecture layouts, scaling-law plots, comparison charts. No decorative graphics.
 
-### Phase 4: Compilation, Density Gate, and Delivery
+### Phase 4: Compilation, Reader-First Gate, Density Gate, and Delivery
 
 ```bash
 xelatex -interaction=nonstopmode notes.tex && xelatex -interaction=nonstopmode notes.tex
@@ -559,7 +645,7 @@ from pathlib import Path
 import re, json
 tex = Path("notes.tex").read_text(encoding="utf-8")
 cn = sum(1 for c in tex if "\u4e00" <= c <= "\u9fff")
-figs = len(list(Path("figures").glob("*")))
+figs = len([p for p in Path("figures").glob("*") if p.is_file()])
 secs = len(re.findall(r"\\section\{", tex))
 boxes = len(re.findall(r"\\begin\{(important|knowledge|warning|practice)box\}", tex))
 maths = len(re.findall(r"\\\[|\\begin\{equation", tex))
@@ -568,13 +654,39 @@ tables = len(re.findall(r"\\begin\{tabular", tex))
 print(f"CJK_chars={cn} figures={figs} sections={secs} boxes={boxes} display_math={maths} code={codes} tables={tables}")
 meta = json.loads(Path("metadata.json").read_text()) if Path("metadata.json").exists() else {}
 T = float(meta.get("duration") or 0) / 60.0
-need_cn = max(5000, round(70 * T)) if T else 5000
-need_fig = max(20, round(T / 3.5)) if T else 20
-need_box = 12 if T >= 60 else 6
-need_math = max(10, round(T / 4)) if T else 10
-print(f"duration_min={T:.1f} need_CJK>={need_cn} need_figures>={need_fig} need_boxes>={need_box} need_math>={need_math}")
-ok = cn >= need_cn and figs >= need_fig and boxes >= need_box and maths >= need_math
-print("PASS" if ok else "FAIL — expand mechanisms / formulas / figures / boxes before delivery")
+profile_path = Path("lecture_profile.json")
+if not profile_path.exists():
+    raise SystemExit("FAIL — lecture_profile.json missing")
+profile = json.loads(profile_path.read_text(encoding="utf-8"))
+mode = profile.get("mode")
+if mode not in {"technical-slide", "conceptual-talk", "mixed"}:
+    raise SystemExit(f"FAIL — invalid lecture mode: {mode!r}")
+for key in ("audience", "central_question", "reader_outcome", "visual_teaching_atoms", "formula_teaching_atoms"):
+    if key not in profile:
+        raise SystemExit(f"FAIL — lecture_profile.json missing field: {key}")
+visual_atoms = int(profile["visual_teaching_atoms"])
+formula_atoms = int(profile["formula_teaching_atoms"])
+if visual_atoms < 0 or formula_atoms < 0:
+    raise SystemExit("FAIL — teaching atom counts must be non-negative")
+if mode == "technical-slide":
+    need_cn = max(5000, round(70 * T)) if T else 5000
+    need_sec = 8 if T >= 60 else 1
+    need_box = 12 if T >= 60 else 6
+elif mode == "mixed":
+    need_cn = max(3500, round(55 * T)) if T else 3500
+    need_sec = 6 if T >= 60 else 1
+    need_box = 0
+else:
+    need_cn = max(2500, round(45 * T)) if T else 2500
+    need_sec = 5 if T >= 60 else 1
+    need_box = 0
+figure_target = max(20, round(T / 3.5)) if T else 20
+need_fig = min(visual_atoms, figure_target)
+math_target = max(10, round(T / 4)) if T else 10
+need_math = min(formula_atoms, math_target)
+print(f"mode={mode} duration_min={T:.1f} need_CJK>={need_cn} need_figures>={need_fig} need_sections>={need_sec} need_boxes>={need_box} need_math>={need_math}")
+ok = cn >= need_cn and figs >= need_fig and secs >= need_sec and boxes >= need_box and maths >= need_math
+print("PASS" if ok else "FAIL — fill source-backed teaching gaps; never pad prose, formulas, boxes, or figures")
 atoms = Path("teaching_atoms.tsv")
 if atoms.exists():
     rows = [r for r in atoms.read_text().splitlines()[1:] if r.strip()]
@@ -582,6 +694,8 @@ if atoms.exists():
     print(f"teaching_atoms total={len(rows)} missing={len(missing)}")
     if missing:
         print("FAIL — teaching atom gaps remain"); ok = False
+else:
+    print("FAIL — teaching_atoms.tsv missing"); ok = False
 claims = Path("numerical_claims.tsv")
 if claims.exists():
     rows = [r for r in claims.read_text().splitlines()[1:] if r.strip()]
@@ -591,15 +705,33 @@ if claims.exists():
         print("FAIL — numerical claims not discharged:"); ok = False
         for r in miss[:12]:
             print(" ", r)
-elif T >= 45:
-    print("FAIL — numerical_claims.tsv missing (required for T>=45)"); ok = False
+else:
+    print("FAIL — numerical_claims.tsv missing"); ok = False
 print("OVERALL", "PASS" if ok else "FAIL")
 PY
 test -s figure_manifest.tsv && test -s figure_verification.txt && test -s audio.srt
 ```
 
-If the script prints `FAIL`, **keep writing** (add teaching atoms, formulas, numerical claims, and verified figures). Do not hand
-the user a PDF that fails this gate.
+If the script prints `FAIL`, fill the missing source-backed teaching atoms and rerun it.
+Do not add formulas, figures, boxes, or prose that the source and reader do not need.
+
+#### Reader-first prose check (manual and mandatory)
+
+After the two-pass compile:
+
+1. Extract the rendered text with `pdftotext notes.pdf rendered_notes.txt` when available.
+2. Read the opening, every section opening, every `本章小结`, all figure/table captions,
+   and the final synthesis in sequence.
+3. Run the seven revision passes and final checklist in
+   [references/reader-first-writing.md](references/reader-first-writing.md).
+4. Verify that each strong claim is traceable, each speaker opinion is attributed where
+   needed, terms appear after plain meanings, and adjacent paragraphs hand off naturally.
+5. Inspect the final diff after prose revision to ensure no number, qualifier, timestamp,
+   label, or claim boundary changed accidentally.
+
+Phrase searches may identify candidates such as repeated “值得注意的是” or
+“不是……而是……”; they cannot pass or fail the prose by themselves. A clean compile and
+high density counts do not compensate for transcript-like, repetitive, or inflated prose.
 
 #### Delivery Checklist
 
@@ -607,14 +739,19 @@ the user a PDF that fails this gate.
 - [ ] `cover.jpg`
 - [ ] `figures/` with semantic names; count passes density gate
 - [ ] `figure_manifest.tsv` and `figure_verification.txt` present and non-empty
+- [ ] `lecture_profile.json` records mode, audience, central question, reader outcome, and source atom counts
+- [ ] `teaching_atoms.tsv` maps every teaching atom to concrete evidence in the notes
 - [ ] `audio.srt` (and `audio_corrected.srt` when correction was applied or as a copy of the final track)
-- [ ] CJK character count reported and ≥ gate for lecture duration
-- [ ] Judgment-box count ≥ 12 when $T\ge 60$
-- [ ] Display-math count ≥ $\max(10,\mathrm{round}(T/4))$ with symbol lists
-- [ ] `numerical_claims.tsv` complete (`in_notes=yes` for every row) when $T\ge 45$
+- [ ] CJK character count reported and ≥ the source-fit gate for the selected lecture mode
+- [ ] Figure, box, section, and display-math counts satisfy the mode and source atom profile
+- [ ] Every source-backed display formula with ≥2 symbols has an immediate symbol list
+- [ ] `numerical_claims.tsv` complete (`in_notes=yes` for every row; header-only if no numerical claims)
 - [ ] Code/table present when lecture showed code or multi-way format comparisons
 - [ ] Timeline coverage audit done (no multi-minute teaching gaps without prose)
 - [ ] Teaching-atom checklist reviewed (`teaching_atoms.tsv`; atoms require numbers when lecture had numbers)
+- [ ] Reader-first prose reference applied; extracted rendered text reread through all seven passes
+- [ ] Speaker claims, established background, and note-writer synthesis remain distinguishable
+- [ ] No oral debris, repeated paragraph template, invented equation, unsupported causal link, or quota filler remains
 - [ ] Whisper-generated SRT retained if speech-to-text was used
 - [ ] X/Twitter SRT health result and 10% / 50% / 90% semantic samples (if X captions were used)
 - [ ] Absolute paths of PDF and workdir listed for the user
