@@ -60,6 +60,8 @@
         ├── SKILL.md            # Skill 主定义（适用于 Codex / Claude Code）
         ├── agents/
         │   └── openai.yaml     # Agent UI 元数据
+        ├── references/
+        │   └── reader-first-writing.md  # 读者优先写作规则
         └── assets/
             └── notes-template.tex  # LaTeX 模板
 ```
@@ -80,8 +82,10 @@ cp -R scripts/whisper_prompts ~/.codex/skills/lecture-to-notes/assets/
 ```bash
 # 复制 skill + 所有辅助脚本
 mkdir -p ~/.claude/skills/lecture-to-notes/assets
+mkdir -p ~/.claude/skills/lecture-to-notes/references
 cp skills/lecture-to-notes/SKILL.md ~/.claude/skills/lecture-to-notes/
 cp skills/lecture-to-notes/assets/notes-template.tex ~/.claude/skills/lecture-to-notes/assets/
+cp skills/lecture-to-notes/references/reader-first-writing.md ~/.claude/skills/lecture-to-notes/references/
 cp scripts/*.py scripts/prepare_cover.sh ~/.claude/skills/lecture-to-notes/assets/
 cp -R scripts/whisper_prompts ~/.claude/skills/lecture-to-notes/assets/
 ```
