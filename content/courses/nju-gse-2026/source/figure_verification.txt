@@ -1,0 +1,380 @@
+SUMMARY figures=42 context_present=42 entries=2879
+REVIEW_STATE=pass-manual-three-way-check
+
+FIGURE 001
+file=fig_001_crossroads.png
+source_frame=slide_0001.png
+interval=00:00:00--00:00:15
+caption=四次把昂贵能力变成日用品：PC、互联网、移动互联网与生成式 AI
+visual_verified=yes
+subtitle_context=context-present
+transcript=我干了什么呢 | 我这是我的NeoWim | 这是NeoWim | 我按了F | 然后打开了一个浏览器 | 我们就可以正式的开始上课了 | 我们今天站在一个非常重要的交叉路口 | 你们是computer science的同学 | 我们在历史上 | 就从你们刚开始进入学校开始讲 | 计算机发展的历史 | 在计算机发展的历史上 | 其实经历了很多次非常重要的变革 | 我觉得最主要的是 | 把昂贵的能力变成了日用品 | 我们在1975年的时候 | 有第一台PCG R-Tile8800在图片的左边
+
+FIGURE 002
+file=fig_002_learning_after_codex.png
+source_frame=slide_0010.png
+interval=00:02:15--00:02:30
+caption=作业被 Codex 完成之后，学习是否真正发生
+visual_verified=yes
+subtitle_context=context-present
+transcript=就一直在改变我们生活的方式 | 然后到2022年的时候是 | Chance GPG和AI是 | 人类历史上增长最快的产品 | 我们在这样人类命运的交叉路口 | 我觉得我们上课的方式 | 我们该学什么 | 其实我们都需要思考 | 思考一下 | 然后就在这样的一个背景下 | 我决定还是应该 | 开这样的一门外部coding的课程 | 为什么呢 | 前两天的时候 | 有一段时间之前 | 大家有一个说法叫AI替我上大学 | 我觉得这个说法很对 | 你想吗 | 老师用豆包出题 | 大家用豆包做作业 | 然后在这个整个的避缓过程当中 | 只有学生没有受到训练 | 现在5coding很厉害 | 所有的作业直接 | 对吧 | 我的操系统 | 曾经这个操系统的作业折磨大家 | 然后大家在痛苦的折磨中获得提升
+
+FIGURE 003
+file=fig_003_three_anxieties.png
+source_frame=slide_0015.png
+interval=00:03:30--00:03:45
+caption=AI 帮上大学、大学所学被替代与简历同质化的三种焦虑
+visual_verified=yes
+subtitle_context=context-present
+transcript=就结束了 | 对 | 所以在这样的时代 | 我们应该 | 我们还怎么办 | 对吧 | 到底应不应该学 | 学这些编程这样的东西 | 答案肯定是既应该也不应该 | 有些能力你还是需要的 | 然后应该怎么做 | 我们不知道 | 所以我看到的其实大家都在一种 | 非常焦虑的状态上 | 第一个AI帮我上大学了 | 那上完以后 | 我最后什么都没学会 | 对吧 | 我每门课都很好 | 如果假设每门课都开学考试 | 那都是AI答题 | 我全都答对了 | 但我出来以后我发现 | 我被第一个就被AI取代了 | 对吧 | 这是第一种焦虑 | 第二种焦虑是 | 我相信这边还有另外的同学 | 可能延续了你中学的时候 | 很听老实话的状态 | 老师说什么你就做什么 | 老师上课 | 每一堂课你都认真地去听 | 然后每一次做你都认真地做 | 然后做完了以后
+
+FIGURE 004
+file=fig_004_resume_signal.png
+source_frame=slide_0022.png
+interval=00:05:15--00:05:30
+caption=一份高度同质化简历及其缺失的可验证能力信号
+visual_verified=yes
+subtitle_context=context-present
+transcript=我需要把他个人信息给取掉 | 那么这是他把他字符 | 替换人用内扣的方块 | 如果复制粘贴的话 | 因为看到这是一个黑色的方 | 就是方块的字符 | OK | 希望他把这个影子都引掉了 | 然后就这样的一份简历 | 就非常完美的简历 | 一个CCF | 期刊列表上面的论文 | 然后Accept it | 然后有这个 | 当然大家都说 | 在头就等于不存在 | 因为你看不到 | 但这个简历对我来说 | 是一个零分的简历 | 因为没有 | 没有额外的信息 | 他甚至没有一个 | BitHub的链接 | 没有一个个人的主页 | 没有一篇这个东西有 | Preprint | 这是一个 | 我不知道这位同学发生了什么 | 但是 | 对我来说这样的一份简历
+
+FIGURE 005
+file=fig_005_se_wisdom.png
+source_frame=slide_0029.png
+interval=00:07:00--00:07:15
+caption=AI 时代仍有用的软件工程智慧：信息差、能坐牢与能驾驭
+visual_verified=yes
+subtitle_context=context-present
+transcript=还原一种快乐 | wibe coding的快乐 | 因为我觉得在wibe coding中 | 我得到了很多的快乐 | 然后在这个快乐当中 | 你没有能一定程度上去理解 | 比如说染电工程是怎么工作的 | 然后能做出一些有趣的东西 | 然后能让你的简历简历写得更好 | 对我来说 | 其实我觉得你有一篇发表论文 | 可能是一个简陈项 | 可能对很多其他人来说 | 可能还不是的 | OK | 所以我讲了为什么我要来上这门课 | 然后来讲讲这门课到底打算讲什么 | 这门课的题目叫 | 深层是软件工程 | 所以我其实是一本软件工程课 | 软件工程做什么 | 软件工程做的事情很简单 | 怎么样让软件工程不失败 | 就怎么样造出一个软件来 | 我们经常听说的 | 说你们作为人和AI | 比你的优势在哪里 | 你可以坐牢 AI 不能
+
+FIGURE 006
+file=fig_006_case_based_course.png
+source_frame=slide_0036.png
+interval=00:08:45--00:09:00
+caption=案例为主、课后重整与公开可复现的课程组织方式
+visual_verified=yes
+subtitle_context=context-present
+transcript=你作为一个人的优势 | 是你可以坐牢 | 但是大学里面真正教你的 | 是怎么样成为一个更好的人 | 就是你能够驾驭别人 | 驾驭不了的东西 | 你在大学毕业的时候 | 你可以说我是一个更好的人 | 然后我有一个别人没有的能力 | 所以可能这门课试着 | 试着去帮大家建立 | 驾驭人工智能的能力 | OK | 所以这门课怎么上呢 | 怎么上 | 我希望用一个案例为主的 | 一个比较松散的组织 | 所以如果你们有兴趣来 | 比如说想跟我讨论一下的同学 | 就想想站着 | 我说这个老师你这样做不对 | 那就欢迎大家来线下 | 然后如果你是一个听课型的同学 | 就是你希望从这门课里面获取知识 | 那我是完全建议大家就 | 既不用到课也不用看直播 | 因为我今年也想做一个非常有趣的尝试
+
+FIGURE 007
+file=fig_007_everything_is_code_slides.png
+source_frame=slide_0053.png
+interval=00:13:00--00:13:15
+caption=以文本为 source of truth 的幻灯片生成与可再生工作流
+visual_verified=yes
+subtitle_context=context-present
+transcript=我就可以把我上课的那个录像 | 就这次的表演 | 重新回到这个code上 | 把它变得更丰富 | 然后我不就实现了数字永生了吗 | 对吧 | 我就实现了一个课程的数字永生 | 对 | 然后你看到就是我的这一套slides | 是怎么工作的 | 我的这个流程是怎么工作的 | everything is code | 你能看到这个世界里面的一切 | 都可以用代码来 | 来审承 | 包括这个桌子 | 对吧 | Communerated Design CD | 这个桌子椅子电脑 | 那这个slides是怎么工作呢 | 刚才你看那个markdown是 | sort of truth | 然后你看到的所有的其他东西 | 图片 | 换灯片 | 全部都是 | AIGC | 然后我会 | 我会把这个选中的sniff | 比如agent去扩写 | 变成markdownslides | 在导流蓝器里面 | 渲染出来
+
+FIGURE 008
+file=fig_008_token_policy.png
+source_frame=slide_0063.png
+interval=00:15:30--00:15:45
+caption=Token 自费：把成本、质量与延迟变成实验意识
+visual_verified=yes
+subtitle_context=context-present
+transcript=就把你们一关 | 小黑幕离关 | 对吧 | 你们看过我以前出的体验 | 然后就吓尿了 | 对吧 | 然后赶快再去leadcode上 | 再刷一下 | 但 | 我觉得总有一天 | 这个事情会改变的 | 可能从上而下 | 传导不会那么快 | 对吧 | 就是你要改变一个体系很难 | 但是 | 我非常想要撕开一个小的口子 | 然后有几个policy | 第一个 | token自费 | 因为本来不是想去拉一些token的赞助的 | 想拉一些赞助token | 然后但是 | 我当我看到选课的学生的时候 | 数量的时候 | 我就想还是算了 | 我也没有必要再去跟他们拉着脸去 | 要好多好多的token也比较麻烦 | 首先 | 我有个个人观点 | 就是如果你们手上没有token | 没有付费的token同学 | 就要立即退学 | 然后 | 因为你可能确实不需要token matching | 就在柜谷它有一种
+
+FIGURE 009
+file=fig_009_pass_fail_policy.png
+source_frame=slide_0071.png
+interval=00:17:30--00:17:45
+caption=用作品回答做成了什么，而不是用分数回答
+visual_verified=yes
+subtitle_context=context-present
+transcript=所以token非常重要 | 你们每一个同学 | 你们去滴起个充100块 | 这个好像还OK | 然后对 | 还OK | 如果实在token有困难的同学 | 可能可以联系我 | 来帮助大家想一点 | 对吧 | 然后还有 | 还有一个很重要的policy | 我希望用一个通过 | 或者不通过来 | Evaluate的课程 | 所以我在申请这门课程的时候 | 我的考核方式就体验的是通过和不通过 | 但根据教物的反馈是专业选求课 | 大家是不会做成这样 | 一般来说都是什么 | 凝聚政策这样的 | 都是通过和不通过 | 但因为我们现在 | 我觉得还不知道这个平凡标准是什么 | 对吧 | 你可能用更好的模型 | 你就可以有更好的质量 | 对吧 | 同一个任务 | 你让call the fable来做 | 就是比dp.gvcflash要做得好 | 这个做得又快又好 | 没办法 | 我们没有办法限制大家用什么样的模型 | 对吧
+
+FIGURE 010
+file=fig_010_llm_agent_interface.png
+source_frame=slide_0083.png
+interval=00:20:30--00:20:45
+caption=LLM 与 Agent 之间的离谱但关键接口：Pr(token | context)
+visual_verified=yes
+subtitle_context=context-present
+transcript=对吧 | 它都在你的电脑上发生 | 所以都知道 | 我不知道什么时候人类社会会演绎到那个程度 | 但是保持Open | 对 | 这是我们的课程的Pollution | 大概是我课程开了一个头 | 好 | 接下来我就可以进入技术性的内容 | 首先讲一讲什么是大圆模型 | 好 | 我今天不讲什么是大圆模型 | 大圆模型就是一个概率分布 | 跟你们在概率统计课上学的那个拋硬币 | 对吧 | 我知道我拋了6次硬币加起来是40 | 然后你问你第一次拋出1的概率是多少 | 你们在概率课上都做过类似的题目 | 没有任何的区别 | 它是一个学道的概率分布 | 它给一个很长的文本 | 就给你一本书 | 我带了一本书 | 好 | 它随便就好多的文本给你一个一本书
+
+FIGURE 011
+file=fig_011_gpt4_sem.png
+source_frame=slide_0089.png
+interval=00:22:00--00:22:15
+caption=GPT-4 为五岁孩子解释扫描电子显微镜所展示的知识重编码
+visual_verified=yes
+subtitle_context=context-present
+transcript=但这门客是站在使用者的视角上 | 也就是说你们只要知道 | 存在一个东西叫大圆模型 | 你可以打开DPC的网页API | 现在我要登录 | 我就不登录 | 打开网页API | 什么是大圆模型 | 我怎么样体验它 | 然后它会告诉你 | 你现在就在体验大圆模型 | 所以你不需要任何大圆模型的知识 | 然后大圆模型是怎么样进入我们的世界的 | 我第一次被大圆模型按在地上打 | 是给我5岁的孩子 | 2023年的时候GPD4的时代 | GPD4这个幻觉非常严重的模型 | 给我5岁的孩子解释什么是扫描电子显微镜 | 然后我大概有个这样的prompt | 那个时候我们就玩prompt and denier | 说我希望用朴素的语言打一个合适的比方 | 帮助他理解这个事 | 有一天我给我的5岁的孩子讲一个什么故事的时候 | 不知道为什么讲到了这个扫描电子显微镜 | 我讲不下去了 | 然后讲不下去以后GPD4给了我一个比方
+
+FIGURE 012
+file=fig_012_chatgpt_to_agent.png
+source_frame=slide_0098.png
+interval=00:24:15--00:24:30
+caption=从 ChatGPT 到 Agent：推理、检索、工具与错误恢复
+visual_verified=yes
+subtitle_context=context-present
+transcript=就一个pram可以给GCLVM找到150个 | 然后在今天你这个工作 | 就完全在GP5.6的时代一句话的事情 | 真的是一句话 | 不需要再做任何的为GPT的特别的调整 | 然后从GPT | 就从一个能预测下一个token的概率分布 | 随着大家发现模型可以输出越来越长的文本 | 也接受越来越长的上下文的时候 | agent就出现了 | 他有了推理的模型 | 然后有了coding reactors的agent | agent有了 | agent就是刚才那个语言的模型 | 语言的模型 | 他可以输出下一个token | 那我就可以让他输出一个特殊的token | 说能不能较用一个batch程序 | 对吧 | 然后这个batch程序会运行 | 运行和batch程序的结果 | 会重新送回到这个agent loop
+
+FIGURE 013
+file=fig_013_writable_context.png
+source_frame=slide_0111.png
+interval=00:27:30--00:27:45
+caption=不止 next token：把 context 视为可写状态
+visual_verified=yes
+subtitle_context=context-present
+transcript=它就停下来了 | 但是到今年我上操系统课的时候 | 这个agent就非常非常能用了 | 到现在你看到agent的产品爆发 | 到处铺天盖地都是workbody的广告 | 对吧 | 像workbody豆包的agent | 就是这样的react类型的agent | 但这其实也 | 就你们这个好像插开了这个话题了 | 这个故事其实远远没有结束 | 今天你们已经感受到agent非常强 | 但是我认为agent的能力 | 还远远没有被释放出来 | 我们next token prediction | 其实是一个 | 我觉得是个效率很低的模型 | 比如说这里有一个diffusion model | 一个diffusion model | 比如说我可以说
+
+FIGURE 014
+file=fig_014_agent_push_things.png
+source_frame=slide_0121.png
+interval=00:30:00--00:30:15
+caption=从回答问题到把事情推进的普通人 Agent 视角
+visual_verified=yes
+subtitle_context=context-present
+transcript=是每一个同学我觉得都值得好好考虑一下的 | 好好考虑一下的问题 | 好 | 下午人的事情说完了 | 我们可以吸一口气 | 我可以真的告诉大家 | 应该怎么样来实际操作 | 我们的Agent | 这还是这门课主要要讲的 | 所以我首先站在普通人的视角 | 来给大家科普一下 | 我现在假设大家其实不会用Agent | 不太会用Agent | 就除了什么把我把这个作业做了以外 | 从我上个学期 | 看给大家那个清末考试题的感觉 | 好像就是 | 因为我清末考试题最后考了一个 | 如果你要用Agent给我的课 | 清末考试出一个卷子 | 这个应该怎么办 | 然后我发现大家用Agent的方式 | 可能需要我来稍微解锁一下 | 也可以跟大家一起探讨
+
+FIGURE 015
+file=fig_015_imagination_limit.png
+source_frame=slide_0129.png
+interval=00:32:00--00:32:15
+caption=想象力限制了可以委托给 Agent 的可观察数字任务
+visual_verified=yes
+subtitle_context=context-present
+transcript=Agent.md的配置 | 这部分是零式的基因 | 所以使用Agent的第一个原则 | 现在就开始用 | 第二个原则随时问他 | OK | 这是最小的第一个原则 | 好 | 然后在这个意义上 | 其实是你的想象力 | 限制了你的Agent的上限 | 所以正好一会客间的时候 | 大家可以想一想 | 你没有Agent的做的最酷的一件事情 | 是什么 | 想象力是你们的上限 | 我的第一个例子是 | 我今天上课的这个系统 | 刚才我给大家展示了 | 我也说了 | 所有的配置安装都是由AI完成的 | 我要在U盘上 | 这一直以来是我上操系统课的一个特色 | 我会带一个U盘 | U盘里边装一个Linux操系统
+
+FIGURE 016
+file=fig_016_debian_usb.png
+source_frame=slide_0130.png
+interval=00:32:15--00:32:30
+caption=Debian on USB：AI 完成、QEMU 验证与配置生成
+visual_verified=yes
+subtitle_context=context-present
+transcript=这是最小的第一个原则 | 好 | 然后在这个意义上 | 其实是你的想象力 | 限制了你的Agent的上限 | 所以正好一会客间的时候 | 大家可以想一想 | 你没有Agent的做的最酷的一件事情 | 是什么 | 想象力是你们的上限 | 我的第一个例子是 | 我今天上课的这个系统 | 刚才我给大家展示了 | 我也说了 | 所有的配置安装都是由AI完成的 | 我要在U盘上 | 这一直以来是我上操系统课的一个特色 | 我会带一个U盘 | U盘里边装一个Linux操系统 | Linux操系统可以直接插在教室的电脑 | 然后就启动 | 所以你看到我 | 我现在 | 你可以看到我 | 这是我的U盘 | 然后这是电脑的硬盘 | 我在有一年的操系统课上 | 把这个硬盘给抹掉了
+
+FIGURE 017
+file=fig_017_email_draft.png
+source_frame=slide_0153.png
+interval=00:38:00--00:38:15
+caption=邮件数据库查询、回复草稿与 Reminders 双向接口
+visual_verified=yes
+subtitle_context=context-present
+transcript=你先用好它 | 先把东西搞出来 | 再回头去复盘理解 | 这个效率会比你从零开始 | 一点一点大进步要高很多 | 但这里面危险是你的理解 | 可能和那个比较好的理解会有差距 | 微动的我们不知道 | 但是 | 但是这是一个非常不一样的事情 | 第二个 | 收发邮件写曹岗 | 我有一个自己的skill | 但是我就不展示了 | 他 | 我的数据库里面 | 有我历史上回过的所有的邮件 | 所以每当我收到一封邮件的时候 | 他会自动把它变成一个已读的状态 | 然后自动帮我写好回复的曹岗 | 用我的口吻 | 虽然我现在觉得他做的还不够好 | 除了一些简单的Routine性质的东西 | 可以直接用他的回忆没完 | 大部分时候我还得 | 还得去改 | 但是我得到了AI的Bot
+
+FIGURE 018
+file=fig_018_deep_reading.png
+source_frame=slide_0163.png
+interval=00:40:30--00:40:45
+caption=电子书 Agent 的深度阅读：追踪论证、对抗阅读与知识重组
+visual_verified=yes
+subtitle_context=context-present
+transcript=在OpenCloud之前我就这样 | 然后在OpenCloud | 我觉得OpenCloud或者Ermes | 不是个人agent的产品的 | 个人agent的产品的终极形态 | 这个产品还可以做得更好 | 所以未来还有很多的空间 | 还有你们还在读书吗 | 你们还看书吗 | 看 | 你们还看论文吗 | 看 | 看论文痛苦吗 | 痛苦 | 痛苦吗 | 不痛苦 | 大家在笑 | 我是一个很喜欢看书的人 | 我在你们这么大的时候 | 每年都叫课书就要看几十本 | 还会看很多闲书 | 但我今天已经不看书了 | 我现在已经不看书了 | 但是我还是买了一本 | 对吧 | 因为我要上这个 | 《生生世软件共同的课》
+
+FIGURE 019
+file=fig_019_agent_ecosystem.png
+source_frame=slide_0203.png
+interval=00:50:30--00:50:45
+caption=从白板 Agent 到领域插件与完整能力生态
+visual_verified=yes
+subtitle_context=context-present
+transcript=那个接口在机器的后面我碰不到 | 然后它帮我拔了一下 | 插了一下 | 然后就好 | OK | 现在这个视频还是没有问题的 | 如果视频再有问题的话 | 就请大家打断我 | 我再来重置一下 | 好 | 我刚才说了 | 还不是AI的真正的形态 | 作为普通人 | 刚才我给大家展示的是一个白板的派 | 什么也没有 | 就是你在那个派的官方网站上 | 把它安装下来 | 你配置一个Deep Seek WC Flash的API Key | 你立即就可以得到刚才所有的那些东西 | 多么可怕的一件事 | 对吧 | 但是Agent远不止于此 | Agent能用为一个完整的生态系统 | 所以当你有一个领域特定的任务的时候 | 根据计算机科学的定律 | 我上课的时候一直会说 | 这可能是science的定律
+
+FIGURE 020
+file=fig_020_browser_not_black_box.png
+source_frame=slide_0208.png
+interval=00:51:45--00:52:00
+caption=Browser Use 和 Computer Use 不应被视为黑盒
+visual_verified=yes
+subtitle_context=context-present
+transcript=然后你把它拉下来 | 可以做自己的事 | 在AI时代 | 做这件事情 | 附用别人的能力 | 变得前所未有的轻松 | 我可以往skill hub上面发一个skill | 然后你可以在AI的插件生态上面 | 找到一个插件生态 | 所以你们想到 | 应该下一步做一个普通人 | 你应该做什么 | 应该用插件把浏览器管控起来 | 应该用插件把电脑管控起来 | 浏览器是一个非常好的工程产品 | 我不用的是crown | 那其实是一个非常好的工程产品 | 它可以说是人类软件工程史上的奇迹之一 | 非常的复杂 | 看起来就是一个浏览器显示网页的 | 它的代码量甚至远超操作系统内核 | 因为它要和用户打交道
+
+FIGURE 021
+file=fig_021_cdp_demo.png
+source_frame=slide_0222.png
+interval=00:55:15--00:55:30
+caption=通过 Chrome DevTools Protocol 导航南京大学网页的现场闭环
+visual_verified=yes
+subtitle_context=context-present
+transcript=所以这是一个非常非常powerful的工具 | 但我今天不讲这个 | 让我们来概念什么事 | 你们都讨厌教物系统吧 | 我也很讨厌 | 这个我一会会讲到 | 就是我当我讲到软件工程的时候 | 我还会特别讲 | 讲到这个教物系统是一个软件工程的 | 非常反面的例子 | 来啊 | 我的手机 | 好 让我扫个码 | 你们不要扫 | 你们不要扫 | 确认 | 应该不会暴动隐私 | 希望不要暴动隐私 | 我可以稍微放大一点 | 比如说 | 我现在的教学周力是空的
+
+FIGURE 022
+file=fig_022_programming_by_demo.png
+source_frame=slide_0239.png
+interval=00:59:30--00:59:45
+caption=Programming by Demonstration：把一次操作沉淀成可复用资产
+visual_verified=yes
+subtitle_context=context-present
+transcript=我完全可以不需要指手 | 对吧 | 让他随便给我填写什么 | ASL | anyway doesn't matter | 能力真正的边界在哪里 | 当他走通过一次以后 | 这个session里面的东西会留下来 | 我可以把它沉淀成确定性的脚本 | 他可以形成记忆 | 就说说这条路径应该怎么走 | 什么能成功 什么能失败 | 他也可以把走过的这些网页全部变成脚本 | 你就得到了一个自动选课抢课的系统 | 所以这是多么恐怖的一件事 | 你不需要有任何的 | 不需要有任何的知识 | 他就在这里帮我填写 ASL | 如果我要对付本科生润 | 一定要我填的话 | 我就用这个方式来处理
+
+FIGURE 023
+file=fig_023_composition.png
+source_frame=slide_0241.png
+interval=01:00:00--01:00:15
+caption=信息源、信息处理与操作的自由组合及工作流自举
+visual_verified=yes
+subtitle_context=context-present
+transcript=什么能成功 什么能失败 | 他也可以把走过的这些网页全部变成脚本 | 你就得到了一个自动选课抢课的系统 | 所以这是多么恐怖的一件事 | 你不需要有任何的 | 不需要有任何的知识 | 他就在这里帮我填写 ASL | 如果我要对付本科生润 | 一定要我填的话 | 我就用这个方式来处理 | OK | 对吧 | 而这其实是一整个生态 | 他不是 | 就是说你们会觉得OK | 好 这是又是一个很繁协的案例 | 对吧 | 我今天讲了好多 | 我可以这样用 这样用 这样用 | 这样每一个都很厉害 | 而 | 因为我是交操系统 | 操系统上面的应用程序 | Unix的philosophy | 它能成立的原因 | 就是管道 | 能实现所有程序的 | 自由组合和无限复用
+
+FIGURE 024
+file=fig_024_harness_unstable.png
+source_frame=slide_0258.png
+interval=01:04:15--01:04:30
+caption=Harness 尚不稳定：单步 99% 在百步任务中仅约 36.6%
+visual_verified=yes
+subtitle_context=context-present
+transcript=就还有很大的提升空间 | 所以你们是 | 对吧 | 你们是这一代人在AI native下长大 | 你们这一代人才是未来才有出路 | 像我现在已经被迫的 | 对吧 | 被迫要处理什么事不行的事情 | 我已经没有这个机会了 | 所以虽然现在还没有完全的准备好 | 但我真的是很难理解 | 为什么有些救人类 | 尤其是老灯类 | 为什么还要心安理得的 | 每天去做这个重复的事情 | 他为什么要我 | 感觉出了一些小问题 | 但是 | doesn't matter | doesn't matter | 我只要让他 | 对吧 | 我只要让他修就行了 | 这个不重要 | 显然我需要一个更好的模型 | 但是就是我不理解
+
+FIGURE 025
+file=fig_025_cs_professional.png
+source_frame=slide_0262.png
+interval=01:05:15--01:05:30
+caption=CS Professional 视角：把自然语言需求编译成现场工具
+visual_verified=yes
+subtitle_context=context-present
+transcript=这些人不意识到的可能公众号 | 就公众号的消息 | 和真正你第一手用过的人 | 他的感受是很不一样的 | 但这个时代来了 | 所以我们需要认真的思考这个问题 | 好 | 这是普通人的视角 | 那接下来是我的CS作为一个 | Commure Science的从业人员的视角 | 就是如果你们只是用Agent Codex | 说来的方法 | 操心作业做了 | 那你们真的是太小看他了 | 我们是Commure Science的人 | 我们非常知道编程的能力界线在哪里 | 其实这就是我们和其他的一般人 | 对不对 | 一般人他很容易提出一个需求 | 然后这个需求Agent可能做不好 | 做不了 | 然后或者说他不知道应该怎么样 | Problem的这个Agent能够确定性快速的完成 | 但我们有 | 我们知道的是 | 我们是怎么可以把需求编译成 | 就像刚才里面的东西编译成的
+
+FIGURE 026
+file=fig_026_exam_scoring.png
+source_frame=slide_0265.png
+interval=01:06:00--01:06:15
+caption=考试统分的四阶段证据链，而不是一次 OCR
+visual_verified=yes
+subtitle_context=context-present
+transcript=然后或者说他不知道应该怎么样 | Problem的这个Agent能够确定性快速的完成 | 但我们有 | 我们知道的是 | 我们是怎么可以把需求编译成 | 就像刚才里面的东西编译成的 | 什么东西可以附用 | 什么东西应该以代码的形式附用 | 什么东西应该以skill的形式附用 | 我们会非常的清楚 | 我举一个例子 | 这件事情如果是一般人和AI协作 | 就会稍微 | 可能现在AI还做不到 | 我改gent | 改完以后我要统分 | 那一般来说这个任务就是给助教的 | 对吧 | 好 | 助教你去把这个分家了吧 | 然后助教就淘置一个计算器 | 这个12加13加14加15加16 | 然后再仔细回应 | 所以我觉得我对我的学生太好了 | 这个也不行 | 我今年尝试了这样的流水线 | 我基本上就是我第一遍 | 我先是WipeCode让它出脚本测试
+
+FIGURE 027
+file=fig_027_output_only_machine.png
+source_frame=slide_0279.png
+interval=01:09:30--01:09:45
+caption=只进不出的机器仍可经可观察像素泄露信息
+visual_verified=yes
+subtitle_context=context-present
+transcript=到不了一个这么快的收敛的方案 | 对 | 所以有些时候现在我还需要 | 人和AI要共建 | 但我也独有一天AI的能力 | 能够强到它能够感知我的一切 | 能帮我做一个完美的东西 | 好 | 我们就可以回到软件工程的话题了 | 毕竟这是深层是软件工程 | 我们来做一个小的软件工程的产品 | 因为我选它 | 正好是有一天 | 就前几天 | 它一个星期左右的时间里 | 有一个我们在群里面突然闲聊 | 说机器被管控了 | 很讨厌 | 然后我们就想 | 有没有可能 | 你假设 | 你现在在一个金融公司里 | 然后这个金融公司 | 数据是可以带进去的 | 但是数据是出不来的 | 就是你 | 比如说你插一个U盘 | 然后你可以把一个Word或者XR | 考进去 | 然后Word的XR考进去以后 | 它就进去了 | 但是没有任何文件可以考到外
+
+FIGURE 028
+file=fig_028_qr_protocol.png
+source_frame=slide_0291.png
+interval=01:12:30--01:12:45
+caption=用 Excel、QR Code、鼠标和 Reed-Solomon 构造单向协议栈
+visual_verified=yes
+subtitle_context=context-present
+transcript=大家可以看一下 | 公式在这里 | 全部都是excel的公式 | 都是合法的excel公式 | 而且是2019之前的excel都兼容的公式 | 然后把这个二维码偷出来 | 这个是没什么 | 就是一个例子 | 然后你作为CS Professional | 你可以用这个方式偷数据出来 | 你也可以 | 如果能在那个机器里面装EXE的话 | 当然一般是不行的 | 你可以用抖鼠标的方式 | 你可以在上下维度抖鼠标就是0 | 左右维度抖鼠标就是1 | 然后你用一个远程桌面连进去 | 然后你就可以可以往里面传输数据 | 然后你用二维码的动画 | 就可以往外面送数据 | 这样你只要有一个远程桌面 | 你就可以在那里面做一个虚拟网卡 | 你可以把远程桌面变成虚拟网卡
+
+FIGURE 029
+file=fig_029_everything_bits_atoms.png
+source_frame=slide_0296.png
+interval=01:13:45--01:14:00
+caption=Everything Is Code：从视频和论文到 CAD、BOM 与 G-code
+visual_verified=yes
+subtitle_context=context-present
+transcript=好 | 所以对吧 | 当然就这个有意思的例子 | 我刚才我这个excel是用AI生成的 | 你的想象力限制了你的做法 | 就这个对吧 | 我们总结一下 | 我们作为一般人 | 一般人可以学习 | 对吧 | 看书 | 可以做总结 | 然后可以实现一个这样的信息处理的闭环 | 还可以操作 | 对吧 | 用computer use browser use去做任何 | 你平时日常里面做的事情 | 同时因为everything is coded | 我可以用AI生成 | 你能看到的所有的东西 | 视频 论文 东西 | 我再和一个同学做一个叫onefab的项目 | 用一个自然语言 | 我再一打一击 | 可以打一个东西出来 | 真的东西也是coded
+
+FIGURE 030
+file=fig_030_product_reliability.png
+source_frame=slide_0300.png
+interval=01:14:45--01:15:00
+caption=产品是系统性工程：十个 90% 环节的整体成功率约为 35%
+visual_verified=yes
+subtitle_context=context-present
+transcript=所以能够实现从bit.atoms | 这个未来已经来了 | 我们看到它AI的能力只会变强 | 不会变弱 | 那么下一个问题就是它什么时候来 | 以及我们应该怎么面对它 | 好 | 那关于面对 | 我们就可以进入这个 | 生成式软件工程最重要的内容 | 对吧 | 刚才我们就建立了一个思路 | 三观敬悔 | 时代的车轮来了 | 我已经被压在车底下了 | 不着急 | AI也不是完全完美的 | 在LM之前的时代就有一个老梗说 | idea都有了 | 我们是商学院的 | 这个你不知道 | 你们商学院同学有没有给你们说过这个 | idea都有了 | 就差一个程序员了 | 我们去挣一个意外 | 对吧 | 然后ABCD轮也都有了 | 就差一个天使投资人了 | 没有人投资
+
+FIGURE 031
+file=fig_031_hidden_spec_space.png
+source_frame=slide_0310.png
+interval=01:17:15--01:17:30
+caption=qrcode.xlsx 的明确需求与隐藏规格空间
+visual_verified=yes
+subtitle_context=context-present
+transcript=你没有想到学校竟然还有校区这个东西 | 数据库里就没有这个东西 | 然后突然有一天你的产品经理说 | 我们两个校区选择要分开的时候 | 对吧 | 当然你现在就是没问题 | 就是因为你是产品经理 | 就是跟AI说好 | 现在原来系统是可以用的 | 我现在多了一个校区 | 苏州校区我要把校区分开 | 然后AI就开始写单了 | 但是还是很容易失败的 | 这就是非常典型的软件工程的失败 | 所以我可以讲一下刚才那个QRGEN的暴斃 | AI是怎么暴斃的 | 它是一个非常明确的需求 | 我要一个QRCODEXR | 然后我只使用XR2019兼容的公式 | 把输入的任意一个字服串 | 先用Base64编码 | 然后转成QRCODE动画 | 没真实是不真实是不真实 | 那当然我为了 | 我开始让AI做的时候 | 我还发现这个任务 | 经常他做之后停下来问我
+
+FIGURE 032
+file=fig_032_running_not_done.png
+source_frame=slide_0316.png
+interval=01:18:45--01:19:00
+caption=程序跑出来不等于做成：硬编码、AI slop 与不可维护性
+visual_verified=yes
+subtitle_context=context-present
+transcript=所以他认为AI哪里容易犯错呢 | AI容易在小Conert case上犯错 | GPT 5.6第一秒钟就被带歪了 | 他希望做一个对于任意的S | 都满足正确性的东西 | 这就已经错了 | 不是的 | 软件工程的第一步 | 不要破大 | 做最简单的东西 | 不会失败 | 他没有理解这一点 | 事实上是这样的 | 我后来做了一个受控的实验 | 因为第一个版本是我带着AI做的 | 外部科技做的 | 所以做得还比较顺利 | 然后后来我就直接把这个 | specification | 就这个告诉AI | 然后AI | GPT 5.3 | 第一次思考了25分钟 | 然后开始疯狂的输出 | 写了超过32K的alpha token | 然后直接我的calpha token就干爆了 | 他说你直接 | 就说我已经超过了 | 默认的alpha token的限制了 | 然后被截断了 | 然后他再跑 | 总共跑了
+
+FIGURE 033
+file=fig_033_change_architecture.png
+source_frame=slide_0326.png
+interval=01:21:15--01:21:30
+caption=少量 Prompt 换架构：从生成文件转向设计可复用计算结构
+visual_verified=yes
+subtitle_context=context-present
+transcript=软件会发生很大的变化 | 这个很像过去的没有100年50年 | 操系统发生什么样的变化 | 图形界面发生了什么样的变化 | 就要用户界面 | 应用程序发生了什么样的变化 | 有没有一个软件能生存100年 | 还不知道 | 但是你看这GPT 5.6还都不知道 | 还不知道 | 其实我们需要一个好的架构 | 才能完成这个任务 | 我是怎么办到的呢 | 你们可以想想 | 如果你们要一个quick quiz | 如果你们要实现这个QRGEN | 你们会怎么写 | 怎么promp的AI | 对吧 | 我实际上是只用了少量的promp的 | GNM 5.3在200k上下方里面 | 就完成了第一个正确的办法 | 当时是我升级的GNM 5.3 | 我就想测试一下它的能力 | 我干了这样的一件事 | 我让它设计一个各种各样的Python类 | 就有点像编译器一样
+
+FIGURE 034
+file=fig_034_intent_spec_impl.png
+source_frame=slide_0338.png
+interval=01:24:15--01:24:30
+caption=Intent、Spec 与 Impl 三个空间以及正确性所在层次
+visual_verified=yes
+subtitle_context=context-present
+transcript=我让他们把那个工作区 | 从一个位置移动到另外一个位置 | 他都得修两个小时 | 就是他不停的错 | 不停的错 | 他会 | 就他 | 对吧 | 因为他所有东西的人一边码 | 他只要改错一点点地方 | 他的virtuation通不过 | 他得再像Agent那样 | 他确实可能能修完 | 但是这个是软件工程 | 所以在今天 | 你还需要生成是软件工程 | 需要这门课 | 所以我基本上就是 | 我作为一个软工人 | 对吧 | 我其实是做软件工程 | 把我的必生所学 | 虽然我觉得AI应该也懂的 | 但我不知道为什么 | 就是可能是因为后讯链的原因 | AI上手解决问题的 | 欲望太强了 | 导致了好像 | 我觉得可能做的还不是特别的好 | 好 | 这里面核心的问题是什么呢 | 是这个世界上有三个
+
+FIGURE 035
+file=fig_035_fill_gap_by_guessing.png
+source_frame=slide_0357.png
+interval=01:29:00--01:29:15
+caption=模型以猜测补齐 gap，人机协同要把决策变成低成本实验
+visual_verified=yes
+subtitle_context=context-present
+transcript=然后最后实际上 | 这个customer要的是这个 | 但是最后造出来的是 | 对吧 | 造出来是这个 | 就这个 | 这个 | 这个 | 而造成这个的根本原因 | 实际上就是这些space之间的 | 这个 | 而当我们谈软件工程 | 不管是软件工程 | 生成是软件工程的时候 | 我们要做的事情就是补上 | 补上这些概谱 | 而今天这些概谱是怎么补的呢 | 模型用的是猜 | 对吧 | 模型是猜 | 模型就说好 | 你既然说了这句话 | 那我猜应该是这个吧 | 我就去实现 | 为什么呢 | 因为后训练的时候 | 模型是有rebo的的 | 我们每个人都是rebo的hacker | 对吧 | 模型受到奖励 | 他如果任务做对了 | 做完了 | 测试通过了 | 就会得到奖励 | 所以他就会形成一种倾向 | 他会疯狂地立即上手 | 去把这个任务尽可能快地完成 | 因为做得慢了 | 你也要吧 | 对吧 | 然后他能够越来越多的
+
+FIGURE 036
+file=fig_036_mythical_man_month.png
+source_frame=slide_0364.png
+interval=01:30:45--01:31:00
+caption=人月神话：焦油坑来自全局耦合，而不是局部代码量
+visual_verified=yes
+subtitle_context=context-present
+transcript=你既要阻止AI去乱猜 | 你又要尽可能地发挥AI能够从A到B的能力 | 这个时候 | 我想这就是我这个学期要讨论的 | 讨论的问题 | 就是我们的生成是软件工程 | 想要告诉大家的 | 我开个头 | 对吧 | 人越神话 | The mythical man mouse | 大型动物一旦陷入这个郊游坑就很难逃脱 | 对吧 | 它像泥潭一样进去以后 | 而且冰死的动物又会引来各种略施者 | 然后他们也进了郊游坑 | 他们也出不去 | 这里面有一个很经典的论断 | 是如果一个团队已经开始 | 或者一个软件产品已经开始失败了 | 你加进去更多的人 | 只会让它变得更失败 | 不会变得更成功 | 也就是说 | 就跟刚才那个QRG一样
+
+FIGURE 037
+file=fig_037_se_research.png
+source_frame=slide_0369.png
+interval=01:32:00--01:32:15
+caption=软件工程研究人和工具在共同协作下做成大事
+visual_verified=yes
+subtitle_context=context-present
+transcript=教育系统不就是这样吗 | 随着共它不断地 | 我觉得每一年 | 你打开那个教育系统 | 你都发现它增加了功能 | 你们也发现了 | 然后我的感受就是 | 学校又花了很多纳税人的钱 | Anyway这也许不是坏事 | 因为它促进了经济的发展 | 然后软件工程 | 软件工程研究的就是 | 怎么让在这个gap实际存在的情况下 | 把一件足够大的事就是一个真的 | 对吧 | 这刚才我们讲是一个很小的事 | 教育系统是一个相对来说比较大的 | 你真的去能够挣几百万 几千万的上市公司 | 对吧 | 那是上市公司 | 你是真的可以挣到很多钱的 | 一个产业级的产品 | 然后再到 | 你真的要做一个国民级的新的东西 | 它有一套方法论 | 然后这个方法论就是这些人在 | 投入了billions of dollars里面得到的教训
+
+FIGURE 038
+file=fig_038_failure_unchanged.png
+source_frame=slide_0385.png
+interval=01:36:00--01:36:15
+caption=LLM 时代失败的定义没有变：不满足真实 intent 与 constraints
+visual_verified=yes
+subtitle_context=context-present
+transcript=我知道有些软件工程同学在抱怨他们的课程 | 说我上了文科 | 然后怎么怎么怎么 | 你回过头来 | 如果你能把技术硬设回这些文科的东西的时候 | 你会发现其实软件工程还是 | 这就是一个文科 | 就是一个管理学 | 这是一本管理学的时候 | 但它里面确实有很多真实的有趣的学者 | 实际上在大语言模型的时代 | 软件工程失败的定义没有变 | 就是从intent到specification | 到implementation的翻译错了 | 对吧 | 要么就是intent的spec之间不满足 | 我做了一个东西 | 其实不是我要的 | 然后我做了一个实现 | 但是不满足我的specification | 比如说正确性或者性 | 但是今天模型 | 因为它有这种reinforcement learning
+
+FIGURE 039
+file=fig_039_make_failure_small.png
+source_frame=slide_0393.png
+interval=01:38:00--01:38:15
+caption=把不可控的大赌注拆成可验证的小赌注
+visual_verified=yes
+subtitle_context=context-present
+transcript=我讲所有东西都已经没用了 | 这都是有可能发生的 | 就是我在上着上着上着上着 | 这门客所有东西就不存在了 | 因为我其实非常确信 | 对吧 | 它既然能解决数学问题 | 它既然能解决这种编程里面很细税的逻辑 | 它为什么不能 | 因为它都知道这些好的设计 | 它都见过 | 它为什么不能从它的记忆库里面 | 找到那个好的设计 | 然后来解决这个问题 | 我觉得是可以的 | 甚至我有一些skills | 就能够朝这个方向来做 | 所以我觉得这是一个 | 都值得我们深思的问题 | 你们可以回去想一想 | 对吧 | 怎么阻挡PRG的开发 | 然后怎么设计1号的研究 | 但是可以告诉大家的是 | GPT 5.6送给我的答案 | 非常糟糕 | 就是这两个设计都是一定会失败 | 它给了一定会失败的软件工程设计 | 然后我们可能会 | 我们的做一切的方式
+
+FIGURE 040
+file=fig_040_risk_retirement.png
+source_frame=slide_0394.png
+interval=01:38:15--01:38:30
+caption=按风险退休次序推进 qrgen，而不是按最终需求堆功能
+visual_verified=yes
+subtitle_context=context-present
+transcript=它为什么不能 | 因为它都知道这些好的设计 | 它都见过 | 它为什么不能从它的记忆库里面 | 找到那个好的设计 | 然后来解决这个问题 | 我觉得是可以的 | 甚至我有一些skills | 就能够朝这个方向来做 | 所以我觉得这是一个 | 都值得我们深思的问题 | 你们可以回去想一想 | 对吧 | 怎么阻挡PRG的开发 | 然后怎么设计1号的研究 | 但是可以告诉大家的是 | GPT 5.6送给我的答案 | 非常糟糕 | 就是这两个设计都是一定会失败 | 它给了一定会失败的软件工程设计 | 然后我们可能会 | 我们的做一切的方式 | 可能都会发生变化 | 我不知道 | 就如果AI连品位也选会以后 | 会发生什么 | 所以最后一页 | 首先古法变成已经死了 | 对吧
+
+FIGURE 041
+file=fig_041_human_upstream.png
+source_frame=slide_0395.png
+interval=01:38:30--01:38:45
+caption=AI 会品味之后，人的稀缺性继续向选择、设计与责任上游迁移
+visual_verified=yes
+subtitle_context=context-present
+transcript=所以我觉得这是一个 | 都值得我们深思的问题 | 你们可以回去想一想 | 对吧 | 怎么阻挡PRG的开发 | 然后怎么设计1号的研究 | 但是可以告诉大家的是 | GPT 5.6送给我的答案 | 非常糟糕 | 就是这两个设计都是一定会失败 | 它给了一定会失败的软件工程设计 | 然后我们可能会 | 我们的做一切的方式 | 可能都会发生变化 | 我不知道 | 就如果AI连品位也选会以后 | 会发生什么 | 所以最后一页 | 首先古法变成已经死了 | 对吧 | A正在完成一个单个任务上 | 已经无人能敌了 | 这个软件工程暂时还没有死 | 但我希望每一个同学 | 经过这一门课的 | 可以说是探讨的 | 我也不能说我做的对或者怎么样
+
+FIGURE 042
+file=fig_042_se_not_dead.png
+source_frame=slide_0397.png
+interval=01:39:00--01:39:15
+caption=软件工程暂时没有死：方向、验证、责任与长期结果仍不可外包
+visual_verified=yes
+subtitle_context=context-present
+transcript=就如果AI连品位也选会以后 | 会发生什么 | 所以最后一页 | 首先古法变成已经死了 | 对吧 | A正在完成一个单个任务上 | 已经无人能敌了 | 这个软件工程暂时还没有死 | 但我希望每一个同学 | 经过这一门课的 | 可以说是探讨的 | 我也不能说我做的对或者怎么样 | 试图回答一个问题 | 在保养的时候 | 你能导师问你 | 为什么我要找你 | 而不是买一个200刀的Colmax | 对吧 | 怎么接触这个问题 | 我觉得这个问题上 | GPT 5.6回答的还挺好的 | 虽然他做不到 | 他说他能找到能 | 值在解决的问题 | 把位置拆成便宜的实验 | 用证据让坏方向及时停下 | 并对长期结果负责 | 这是个好的回答

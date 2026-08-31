@@ -1,0 +1,25 @@
+{
+  "course_id": "nju-gse-2026",
+  "catalog_item_id": "nju-gse-2026-1-d5b3c2aa",
+  "site_build": {
+    "status": "pass",
+    "qpdf_version": "12.4.0",
+    "course_count": 9,
+    "lecture_count": 56,
+    "page_count": 1841,
+    "paper_count": 9
+  },
+  "tests": {
+    "portable_unit_suite": "83 passed, 4 deselected, 97 subtests passed",
+    "deselected_reason": "Windows host lacks symlink privilege and zsh; these four tests are environment-specific",
+    "playwright": "6 passed",
+    "status": "pass"
+  },
+  "pdf": {
+    "pages": 41,
+    "sha256": "d5b3c2aafb4e0dc04b55e3007f3835f98b3b9ac231116bcc7c7e2d688746d29f",
+    "catalog_pages_match": true,
+    "active_content_scan": "pass"
+  },
+  "overall": "pass"
+}

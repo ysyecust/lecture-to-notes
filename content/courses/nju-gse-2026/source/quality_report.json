@@ -1,0 +1,30 @@
+{
+  "lecture": "南京大学生成式软件工程 2026 第1讲：欢迎来到未来",
+  "video_duration_seconds": 5999.317,
+  "subtitle": {
+    "source": "Whisper small int8",
+    "entries": 2879,
+    "coverage": 0.9998104784261276,
+    "repetition_ratio": 0.06807919416464048,
+    "start_middle_end_windows": true,
+    "raw_retained": true,
+    "status": "pass"
+  },
+  "figures": {
+    "sampled_frames": 400,
+    "selected": 42,
+    "visual_verified": 42,
+    "subtitle_verified": 42,
+    "three_way_review": "pass"
+  },
+  "document": {
+    "pages": 41,
+    "sections": 10,
+    "figures": 42,
+    "empty_pages": 0,
+    "compile_passes": 2,
+    "visual_review": "all pages",
+    "status": "pass"
+  },
+  "overall": "pass"
+}

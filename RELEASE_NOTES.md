@@ -1,5 +1,17 @@
 # Release notes
 
+## 2026-08-31
+
+- Published Stanford CS336 Spring 2026 as a complete 18-lecture Chinese course, with a
+  Lecture 4–18 bundle and official course materials.
+- Added Stanford CS336 Spring 2025 Lectures 4–8 and NJU Generative Software Engineering
+  2026 Lecture 1 to the course library.
+- Added an optional sherpa-onnx X ASR backend for fast local Chinese/English transcription,
+  with bounded chunks, token-timestamp SRT generation, health gates, tests, and a reproducible
+  CPU benchmark. Whisper remains the fallback.
+- Merged the reader-first writing workflow from PR #13 so density requirements adapt to
+  technical, conceptual, and mixed lectures without inventing figures or equations.
+
 ## 2026-07-16 — Course library, dedicated PDF reader, and community inbox
 
 ### Highlights

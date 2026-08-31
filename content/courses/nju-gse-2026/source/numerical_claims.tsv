@@ -1,0 +1,13 @@
+claim	value	evidence	status
+字幕条目数	2879	audio_corrected.srt	verified
+字幕时长覆盖率	99.981%	check_srt_health.py	verified
+密集采样间隔	15 seconds	frames/ and slide_frames/	verified
+采样帧数	400	slide_frames/	verified
+正文插图数	42	figure_manifest.tsv	verified
+Harness 百步成功率	0.99^100 = 0.366	fig_024 and lecture slide	verified
+十环节系统成功率	0.9^10 = 0.349	fig_030 and lecture slide	verified
+GLM-5.3 首轮思考	25 minutes	fig_032 and lecture slide	verified
+GLM-5.3 输出上限	more than 32K output tokens	fig_032 and lecture slide	verified
+GLM-5.3 完成时间	about 6 hours	fig_032 and lecture slide	verified
+GLM-5.3 architecture context	200K context	fig_033 and lecture slide	verified
+PDF 页数	41	pdfinfo notes.pdf	verified

@@ -1,0 +1,11 @@
+segment	start	end	minutes	coverage
+01_交叉路口	00:00:00	00:09:00	9.00	covered
+02_课程方法与规则	00:09:00	00:20:30	11.50	covered
+03_LLM到Agent	00:20:30	00:32:30	12.00	covered
+04_Agent真实案例	00:32:30	00:50:30	18.00	covered
+05_工具生态与浏览器	00:50:30	01:00:15	9.75	covered
+06_可靠工作流与CS视角	01:00:15	01:09:45	9.50	covered
+07_Everything_Is_Code	01:09:45	01:14:45	5.00	covered
+08_qrgen失败案例	01:14:45	01:24:30	9.75	covered
+09_软件工程为何仍必要	01:24:30	01:38:15	13.75	covered
+10_风险退休与结语	01:38:15	01:39:59	1.73	covered

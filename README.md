@@ -13,7 +13,7 @@
 ## 特性
 
 - **多平台支持**：YouTube、Bilibili 和 X/Twitter（自动识别 URL）
-- **字幕四级回退**：CC 字幕 → 平台自动字幕（YouTube 自动去重）→ Whisper 语音转写 → 纯视觉模式
+- **字幕四级回退**：CC 字幕 → 平台自动字幕（YouTube 自动去重）→ 本地 ASR（中英优先 X ASR，Whisper 回退）→ 纯视觉模式
 - **字幕清洗**：YouTube auto-subs 自动去重（通常去除 50% 重复行）
 - **密集帧采样**：每 15 秒采样 + contact sheet 批量审查，不遗漏关键画面
 - **图文三方验证**：每个配图写入前必须通过「帧画面 + 字幕内容 + 描述文字」三方一致性检查，防止图文不匹配
@@ -40,6 +40,7 @@
 │   ├── video_source.py        # YouTube / Bilibili / X(Twitter) URL 识别与元数据探测
 │   ├── check_srt_health.py    # X/Twitter 字幕结构健康检查
 │   ├── clean_subs.py          # YouTube 自动字幕去重
+│   ├── transcribe_x_asr.py    # 可选 X ASR 中英混合本地转写与 SRT 时间戳
 │   ├── correct_srt.py         # Whisper SRT 词典级修正（数据驱动，快）
 │   ├── llm_correct_srt.py     # Whisper SRT 段级修正（LLM + 多模态，慢但更准）
 │   ├── verify_figures.py      # 图文三方验证（时间戳 × 字幕 × 画面）
@@ -95,7 +96,8 @@ cp -R scripts/whisper_prompts ~/.claude/skills/lecture-to-notes/assets/
 ### 浏览课程资料
 
 课程站点收录多门课程的 PDF 和论文解读，包括 Stanford
-CS336: Language Modeling from Scratch（Spring 2026）前三讲的分讲笔记与合集。
+CS336: Language Modeling from Scratch Spring 2026 全 18 讲、Spring 2025 第 4–8 讲，
+以及南京大学《生成式软件工程》2026 课程讲义。
 课程卡片进入讲次列表后，PDF 会在独立阅读页中打开；若浏览器内嵌预览不可用，仍可
 直接打开或下载原始 PDF。
 
@@ -124,7 +126,7 @@ python3 scripts/video_source.py probe "<URL>"
 
 下载到的 X/Twitter 字幕必须先通过 `scripts/check_srt_health.py` 的结构健康检查，
 再在视频时长 10%、50%、90% 三处对照音频和画面做语义抽样；任一检查失败时，改用
-X 音频 → Whisper → 现有 SRT 修正流程。
+X 音频 → 本地 ASR（中英优先 X ASR，Whisper 回退）→ 现有 SRT 修正流程。
 
 ## 依赖
 
@@ -134,6 +136,7 @@ X 音频 → Whisper → 现有 SRT 修正流程。
 brew install yt-dlp ffmpeg imagemagick poppler
 brew install --cask mactex        # 含 xelatex + CTeX 中文支持
 pip install openai-whisper         # Bilibili / 无字幕视频必需
+pip install sherpa-onnx numpy      # 可选：X ASR 中英混合快速转写
 pip install Pillow                 # 仅 smart_crop.py 需要（可选）
 ```
 
@@ -145,6 +148,7 @@ winget install --id Gyan.FFmpeg -e --silent
 winget install --id ImageMagick.ImageMagick -e --silent
 winget install --id MiKTeX.MiKTeX -e --silent      # ~140 MB，首次编译会自动装 ctex
 pip install --user openai-whisper                  # 会一起装 torch，~2 GB
+pip install --user sherpa-onnx numpy               # 可选：X ASR 中英混合快速转写
 ```
 
 > 注意：MiKTeX 默认需要对缺失宏包手动放行；命令行调用 `xelatex` 时加 `-enable-installer` 让它自动下。Whisper 依赖的 ffmpeg 需要在 PATH 中（否则跑 Whisper 时会 `FileNotFoundError`）。
@@ -154,6 +158,7 @@ pip install --user openai-whisper                  # 会一起装 torch，~2 GB
 ```bash
 sudo apt install yt-dlp ffmpeg imagemagick texlive-xetex texlive-lang-chinese
 pip install openai-whisper
+pip install sherpa-onnx numpy  # 可选
 ```
 
 ### 工具一览
@@ -161,10 +166,11 @@ pip install openai-whisper
 | 工具 | 必需 | 用途 |
 |------|:---:|------|
 | `yt-dlp` | ✓ | 视频 / 字幕 / 元数据下载 |
-| `ffmpeg` | ✓ | 帧提取、音频提取、Whisper 前置 |
+| `ffmpeg` | ✓ | 帧提取、音频提取、本地 ASR 前置 |
 | `xelatex` | ✓ | LaTeX 编译（含 ctex 宏包） |
 | `magick` | ✓ | Contact sheet、帧处理 |
-| `whisper` | ✓ | 语音转写（Bilibili 基本无 CC，必用） |
+| `sherpa-onnx` + X ASR | △ | 中英混合快速本地转写；模型单独缓存，不进 Git |
+| `whisper` | △ | ASR 回退及其他语言转写 |
 | `python3` | ✓ | 运行 `scripts/` 下所有脚本 |
 | `scripts/video_source.py` | ✓ | YouTube / Bilibili / X/Twitter URL 识别与元数据探测 |
 | `scripts/check_srt_health.py` | X/Twitter 字幕 | 检查 SRT 覆盖率、重复率和运行时窗口 |
@@ -180,8 +186,8 @@ pip install openai-whisper
   │
   ├─ yt-dlp ──→ 封面 + 字幕(CC/自动轨) + 视频
   │                                │
-  │  字幕不可用或 X 字幕检查失败？──→ Whisper 转写
-  │                                │（可选配 --initial_prompt 喂领域术语表）
+  │  字幕不可用或 X 字幕检查失败？──→ 本地 ASR
+  │                                │（中英优先 X ASR；失败或其他语言用 Whisper）
   │                                ▼
   │                          correct_srt.py      （词典级快速修正）
   │                                │
@@ -215,7 +221,7 @@ pip install openai-whisper
 | 全自动（无需手动粘贴 prompt） | ✗ | ✓ | ✓ |
 | Bilibili 支持 | ✗ | ✗ | ✓ |
 | X/Twitter 支持 | ✗ | ✗ | ✓ |
-| 字幕回退（Whisper） | ✗ | ✗ | ✓ |
+| 字幕回退（X ASR / Whisper） | ✗ | ✗ | ✓ |
 | 分P视频处理 | ✗ | ✗ | ✓ |
 | Contact sheet 帧审查 | ✗ | ✓ | ✓ |
 | 时间溯源脚注 | ✗ | ✓ | ✓ |

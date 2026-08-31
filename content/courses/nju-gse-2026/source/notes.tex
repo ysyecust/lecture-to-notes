@@ -1,0 +1,924 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[fontset=none]{ctex}
+\setCJKmainfont{Microsoft YaHei}
+\setCJKsansfont{Microsoft YaHei}
+\setCJKmonofont{Microsoft YaHei}
+\usepackage{amsmath,amssymb,graphicx,geometry,booktabs,float,hyperref,listings,xcolor,tabularx,longtable,array}
+\usepackage[most]{tcolorbox}
+\geometry{margin=2.1cm}
+\hypersetup{colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!65!black}
+\newtcolorbox{knowledgebox}[1]{enhanced,colback=blue!4,colframe=blue!70!black,title=#1,fonttitle=\bfseries,breakable}
+\newtcolorbox{importantbox}[1]{enhanced,colback=yellow!8,colframe=orange!80!black,title=#1,fonttitle=\bfseries,breakable}
+\newtcolorbox{warningbox}[1]{enhanced,colback=red!4,colframe=red!70!black,title=#1,fonttitle=\bfseries,breakable}
+\newtcolorbox{practicebox}[1]{enhanced,colback=green!4,colframe=green!55!black,title=#1,fonttitle=\bfseries,breakable}
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true,frame=single,numbers=left,numberstyle=\tiny,showstringspaces=false,columns=fullflexible}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.38em}
+\setcounter{tocdepth}{1}
+\renewcommand{\arraystretch}{1.24}
+\begin{document}
+\begin{titlepage}
+\centering
+{\Large 南京大学《生成式软件工程》2026 秋季学期\par}
+\vspace{0.8cm}
+{\huge\bfseries 第 1 讲：欢迎来到未来\par}
+\vspace{0.35cm}
+{\Large AI、Agent 与软件工程的重新定位\par}
+\vspace{0.55cm}
+{\large 主讲：蒋炎岩\qquad 中文精讲笔记\par}
+\vspace{0.7cm}
+\includegraphics[width=0.90\textwidth,height=0.43\textheight,keepaspectratio]{cover.jpg}\par
+\vfill
+\begin{tcolorbox}[width=0.93\textwidth,colback=black!2,colframe=black!55]
+\textbf{视频标题}：欢迎来到未来 [01-Raw/26生成式软件工程/NJU]\par
+\textbf{视频作者/频道}：绿导师原谅你了\par
+\textbf{发布日期}：2026-08-27\par
+\textbf{时长}：01:39:59\par
+\textbf{视频}：\url{https://www.bilibili.com/video/BV1pb8o6yE8f/}\par
+\textbf{课程主页}：\url{https://jyywiki.cn/GSE/2026/}
+\end{tcolorbox}
+\end{titlepage}
+\tableofcontents
+\newpage
+
+\section{导读：这不是一堂工具速成课}
+
+\begin{importantbox}{本讲主问题}
+当代码生成、搜索、工具调用和长程任务执行逐渐成为廉价能力以后，计算机专业学生还需要学习什么？软件工程又应该保护什么？
+\end{importantbox}
+
+本讲既是课程说明，也是一次软件工程立场的重建。讲者没有把 Agent 描述成一个更聪明的聊天框，而是把它放入真实系统：它要读取信息、修改状态、调用工具、观察结果、发现错误、重新规划，并最终对可验证的结果负责。由此，问题从“模型能不能写代码”升级为“人和工具怎样把一件大事可靠地做成”。
+
+本笔记使用四类证据：Bilibili 原视频、Whisper 生成并校订的时间轴字幕、每 15 秒抽取的完整画面，以及南京大学课程主页。正文中的 42 张图均经过联系表筛选、全分辨率复核和字幕上下文核对；图下注明的 15 秒区间可直接回到原视频。课程中的玩笑和即兴表达只在帮助理解时保留，所有课程管理信息都被还原为其背后的设计理由。
+
+\begin{knowledgebox}{贯穿全讲的四条线索}
+\begin{enumerate}
+  \item \textbf{能力日用品化}：PC、互联网、移动互联网和 AI 都把曾经昂贵的能力降到大众可用。
+  \item \textbf{Agent 化}：系统不再只返回文本，而是把上下文、工具和可观察环境连成反馈循环。
+  \item \textbf{Everything Is Code}：文本、视频、论文、表格、协议乃至制造描述，都可以成为可重放、可修改、可验证的计算资产。
+  \item \textbf{软件工程不死}：失败仍然是系统没有满足真实意图与约束；只是实现速度提高以后，失败更容易被快速放大。
+\end{enumerate}
+\end{knowledgebox}
+
+\subsection{阅读方法}
+
+建议每个案例都问四个问题：输入和状态是什么？Agent 能做哪些动作？完成条件是否可观察？失败后能否以低成本回滚或缩小问题？若缺少其中任意一项，所谓“自动完成”通常只是一次无法复用的演示。
+
+\subsection{全讲路线图}
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{>{\bfseries}p{0.18\textwidth} X}
+\toprule
+视频区间 & 主要问题 \\
+\midrule
+00:00--07:00 & 能力为何突然成为日用品；AI 代做以后，作业和简历还能证明什么 \\
+07:00--20:30 & AI 时代的软件工程智慧、开放课程组织、Token 与通过政策 \\
+20:30--32:15 & LLM 的 next-token 接口、知识重编码、ChatGPT 到 Agent、可写 context \\
+32:15--50:30 & Debian、邮件和论文阅读三个 Agent 案例 \\
+50:30--65:15 & Agent 生态、Computer Use、CDP、轨迹复用和 Harness 可靠性 \\
+65:15--74:45 & 考试统分、隔离机二维码通道与 Everything Is Code \\
+74:45--89:00 & qrgen 失败、系统成功率、规格空间、架构转折、Intent/Spec/Impl \\
+89:00--99:59 & gap、软件工程研究、风险退休、人的上游责任 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{本章小结}
+
+课程的中心不是追逐某个模型或产品，而是学习把开放世界中的模糊意图压缩成可执行、可观察、可验证、可追责的工程闭环。
+
+\section{交叉路口：能力日用品化与学习危机}
+
+\subsection{四次能力下放}
+
+Altair 8800 代表个人计算，Mosaic 代表大众互联网，iPhone 代表移动互联网，ChatGPT 代表生成式 AI。四次转折的共同点并不是机器只强了一点，而是某种过去稀缺的能力突然成为日用品。日用品化改变的不只是生产效率，也会改变课程、职业和组织的默认分工。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_001_crossroads.png}}
+\caption{四次把昂贵能力变成日用品：PC、互联网、移动互联网与生成式 AI\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:00:00--00:00:15。}
+
+
+\begin{importantbox}{交叉路口的真正含义}
+旧任务可以更快完成，不等于旧训练仍能形成能力。教育必须重新设计反馈、作品和责任，使学生不能只把输入交给模型、再把输出交给教师。
+\end{importantbox}
+
+\subsection{作业完成不等于学习发生}
+
+过去，作品通常是能力留下的痕迹：程序能运行，意味着学生至少亲自经历过分解、调试和修正。生成式工具打破了这一推断。同一份正确作业可能来自完全不同的能力，因此“通过测试”只能证明产物满足部分显式条件，不能直接证明学生掌握了问题。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_002_learning_after_codex.png}}
+\caption{作业被 Codex 完成之后，学习是否真正发生\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:02:15--00:02:30。}
+
+
+这并不推出“禁止 AI”。更合理的课程设计是把学习证据从静态答案移向可追溯过程：学生能否解释关键决策，能否构造反例，能否定位失败，能否在约束改变时维护作品。
+
+\subsection{三种焦虑来自同一个根}
+
+第一种焦虑是把学习外包给 AI，毕业时发现自己没有形成能力；第二种焦虑是认真完成旧课程，却发现所学任务已经被自动化；第三种焦虑是简历和作品都被模型生成，人与人之间失去可辨认的信号。三者的共同根源是把“完成任务”误认为“形成稀缺能力”。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_003_three_anxieties.png}}
+\caption{AI 帮上大学、大学所学被替代与简历同质化的三种焦虑\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:03:30--00:03:45。}
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_004_resume_signal.png}}
+\caption{一份高度同质化简历及其缺失的可验证能力信号\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:05:15--00:05:30。}
+
+
+一份表面漂亮但无法追溯的简历缺少的不是更多关键词，而是可验证的个人痕迹：公开代码、持续演化的项目、设计取舍、错误记录和他人可复现的结果。在作品普遍可以生成以后，证据链本身成为能力的一部分。
+
+\begin{warningbox}{不要把焦虑转化为错误结论}
+“AI 能完成我的作业”既不意味着学习无用，也不意味着必须拒绝 AI。它意味着考核单位需要改变：从一次提交，变为问题选择、过程证据、验证能力、维护成本和最终责任。
+\end{warningbox}
+
+\subsection{本章小结}
+
+能力日用品化使旧产物失去鉴别力。新的学习目标不是和模型比手速，而是获得提出问题、驾驭工具、识别风险和证明结果的能力。
+
+\section{课程的答案：可复现的开放工程}
+
+\subsection{软件工程研究的是怎样不失败}
+
+讲者把软件工程的目标概括为“让工程不失败”。AI 可以加速实现，却不会自动暴露未知约束、分配责任或验证端到端结果。系统必须在多人协作、环境变化和局部故障中继续活着，因此工程能力更接近驾驭：让人、Agent 和反馈持续对齐目标。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_005_se_wisdom.png}}
+\caption{AI 时代仍有用的软件工程智慧：信息差、能坐牢与能驾驭\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:07:00--00:07:15。}
+
+
+其中“信息差、能坐牢、能驾驭”是一组带有课堂幽默的压缩表达。信息差指知道哪里不知道；“能坐牢”强调法律与社会责任最终落在人身上；能驾驭则是把目标、分工、验证和纠错组织成闭环。
+
+\subsection{案例、公开过程与可再生讲义}
+
+课程采用案例为主的松散组织：课堂允许讨论，直播保留完整过程，课后再重整为公开材料。这里的“永生”不是把一次讲课录像永久保存，而是保留可编辑、可 diff、可重建的源文件和生成流程。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_006_case_based_course.png}}
+\caption{案例为主、课后重整与公开可复现的课程组织方式\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:08:45--00:09:00。}
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_007_everything_is_code_slides.png}}
+\caption{以文本为 source of truth 的幻灯片生成与可再生工作流\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:13:00--00:13:15。}
+
+
+幻灯片工作流把人工写下的文本当作 source of truth，再由 Agent 补全上下文、重写选中片段、生成 Markdown slides 并交给浏览器渲染。图片和网页片段只是可再生成的派生产物。这个例子提前展示了本讲的核心：把内容生产从一次性结果变成可维护系统。
+
+\subsection{课程政策是实验设计}
+
+Token 自费并不是鼓励无节制消费。自费使成本、质量和延迟成为可感知变量，学生需要知道何时使用更强模型、何时缩小上下文、何时复用结果。真正稀缺的不是 token，而是值得花 token 的问题、清晰约束和可验证实验。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_008_token_policy.png}}
+\caption{Token 自费：把成本、质量与延迟变成实验意识\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:15:30--00:15:45。}
+
+
+课程尽量采用通过/不通过，不验收传统作业，也不以分数制造排名。学生需要用一个别人可以打开、运行、质疑和继续使用的作品回答“你做成了什么”。在 AI 时代，公开项目历史比孤立分数更接近可审计的成长轨迹。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_009_pass_fail_policy.png}}
+\caption{用作品回答做成了什么，而不是用分数回答\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:17:30--00:17:45。}
+
+
+\begin{practicebox}{推荐的课程作品证据}
+\begin{itemize}
+  \item 明确的问题与不做什么；
+  \item 可执行的仓库、部署地址或复现实验；
+  \item 关键失败、回滚和设计转折的版本历史；
+  \item 自动检查与人工判断的边界；
+  \item 后续使用者能否在不询问作者的情况下继续维护。
+\end{itemize}
+\end{practicebox}
+
+\subsection{本章小结}
+
+这门课把教学本身设计成软件工程：源文件公开、过程可追溯、结果可再生、作品可检验，并用真实成本迫使学习者形成实验判断。
+
+\section{从 LLM 到 Agent：上下文成为可写状态}
+
+\subsection{简单接口为何产生复杂行为}
+
+自回归语言模型可以写成：
+
+\[
+P(x_{t+1}\mid x_{\le t})
+\]
+
+\begin{itemize}
+  \item \(x_{\le t}\) 是当前上下文中的 token 序列；
+  \item \(x_{t+1}\) 是下一 token；
+  \item 概率分布只保证在给定上下文下的流畅延续，不直接等价于事实、证明或完成任务。
+\end{itemize}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_010_llm_agent_interface.png}}
+\caption{LLM 与 Agent 之间的离谱但关键接口：Pr(token | context)\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:20:30--00:20:45。}
+
+
+这个接口看似离谱：模型只预测下一个 token，却能生成代码、证明、对话和计划。关键是自回归过程不断把输出写回上下文，足够长的序列可以承载算法和推理。用户真正“编程”的对象不是答案数据库，而是由上下文条件化的模拟器。
+
+\subsection{知识重编码比背诵更重要}
+
+GPT-4 为五岁孩子解释扫描电子显微镜的例子说明，模型的价值不只是复述术语，而是根据受众重组知识：用铅笔扫描纸面、电子反弹和信号成像建立可理解的因果链。知识没有被简化为更强相机，而是被重新编码为适合当前认知背景的模型。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_011_gpt4_sem.png}}
+\caption{GPT-4 为五岁孩子解释扫描电子显微镜所展示的知识重编码\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:22:00--00:22:15。}
+
+
+这也解释了为什么 Agent 的上下文需要包含目标、受众、环境状态和历史反馈。缺少这些条件，模型只能生成表面合理的通用答案。
+
+\subsection{从 ChatGPT 到工具闭环}
+
+Transformer 带来可扩展训练，ChatGPT 把模型变成对话产品，chain-of-thought 与 test-time scaling 把更多计算放到推理时，检索和工具则把模型连接到外部状态。ReAct 类 Agent 的关键变化是交替执行“推理、行动、观察”，并在错误后恢复。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_012_chatgpt_to_agent.png}}
+\caption{从 ChatGPT 到 Agent：推理、检索、工具与错误恢复\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:24:15--00:24:30。}
+
+
+一个最小 Agent 循环可以表示为：
+
+\begin{lstlisting}[caption={可观察、可验证的 Agent 循环}]
+state = load_goal_constraints_and_history()
+while not done(state):
+    observation = observe_environment()
+    proposal = model(state, observation)
+    action = choose_tool_call(proposal)
+    result = execute(action)
+    evidence = verify(result, invariants, acceptance_tests)
+    state = record(state, action, result, evidence)
+    if evidence.failed:
+        state = revise_or_rollback(state)
+\end{lstlisting}
+
+\subsection{Context 不再只是只读提示}
+
+当系统可以调用工具、接收观察并写回记忆时，context 变成了可写状态。Diffusion LM 可以同时修改多个位置；Agent loop 则把“模型状态、工具调用、环境观察、工作记忆”连接成 context-to-context 变换。真正困难的问题从“能否修改”转为“哪些约束必须保持不变”。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_013_writable_context.png}}
+\caption{不止 next token：把 context 视为可写状态\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:27:30--00:27:45。}
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_014_agent_push_things.png}}
+\caption{从回答问题到把事情推进的普通人 Agent 视角\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:30:00--00:30:15。}
+
+
+普通用户不必先学完全部模型知识才能使用 Agent，但必须学会把事情推进：不要只问“答案是什么”，而要明确下一步行动、可检查结果和失败后的处理。
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{>{\bfseries}p{0.19\textwidth} X X}
+\toprule
+形态 & 主要能力 & 缺失的工程保证 \\
+\midrule
+LLM & 在给定 context 下生成下一 token & 无外部状态、工具执行和独立验收 \\
+ChatGPT & 多轮对话、指令跟随、面向用户的交互 & 会话之外的持续状态和可靠行动有限 \\
+Agent & 推理、工具调用、观察、记忆和重试 & 权限、幂等、回滚、长程可靠性仍依赖 Harness \\
+工程系统 & 明确状态、受控动作、监控、验收、审计和责任 & 需要持续维护，不能仅靠一次生成完成 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{想象力是委托边界}
+
+很多任务看似必须由人逐步操作，其实可以改写成“可观察、可检查、低风险”的数字动作。媒体从手抄本到印刷、从剪辑台到数字时间线的迁移说明，当表示和接口改变以后，人类往往先复制旧流程，再发明全新工作流。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_015_imagination_limit.png}}
+\caption{想象力限制了可以委托给 Agent 的可观察数字任务\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:32:00--00:32:15。}
+
+
+\begin{warningbox}{可委托不等于可放任}
+适合委托给 Agent 的任务应具有明确的数字边界、低成本回滚和独立验收信号。不可逆、高影响或法律责任重大的决策，需要人在关键节点停下来。
+\end{warningbox}
+
+\subsection{本章小结}
+
+LLM 提供条件生成，Agent 把生成接到工具、环境和记忆。能力的上限不仅由模型决定，也由人能否构造可观察状态、可验证动作和持续反馈决定。
+
+\section{Agent 案例：把事情真正推进}
+
+\subsection{案例一：一套现在运行的系统}
+
+Debian on USB 案例由 AI 生成安装、启动和编辑器配置，并在 QEMU 中验证。重点不是“AI 会装系统”，而是学习效率的转变：先用验证判断每一步是否正确，再在成功轨迹上理解原理，减少因机械配置造成的无反馈摩擦。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_016_debian_usb.png}}
+\caption{Debian on USB：AI 完成、QEMU 验证与配置生成\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:32:15--00:32:30。}
+
+
+这个顺序并不适合所有领域。若错误会造成数据丢失、权限泄露或真实设备损坏，必须先建立隔离环境、快照和回滚。AI 加速试错的前提是试错本身可控。
+
+\subsection{案例二：邮件与提醒形成闭环}
+
+邮件 Agent 读取历史回复，通过 db-query skill 检索相关往来，判断哪些邮件需要回复，并按照个人口吻生成草稿。Apple Reminders 不是单向通知面板，而是 Agent 与用户之间的双向接口：Agent 创建待办，人类确认、修改或完成，状态再回到下一轮决策。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_017_email_draft.png}}
+\caption{邮件数据库查询、回复草稿与 Reminders 双向接口\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:38:00--00:38:15。}
+
+
+\subsection{案例三：深度阅读不是自动摘要}
+
+电子书 Agent 可以从古法学习的材料生成批注，再进一步追踪论证、定位原文、提出反例、重组知识并连接到个人笔记。简单摘要压缩信息，深度阅读则维护“结论、证据、反证、来源、个人问题”之间的结构。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_018_deep_reading.png}}
+\caption{电子书 Agent 的深度阅读：追踪论证、对抗阅读与知识重组\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:40:30--00:40:45。}
+
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{>{\bfseries}p{0.16\textwidth} X X}
+\toprule
+案例 & 自动化对象 & 真正的验收信号 \\
+\midrule
+Debian on USB & 安装、配置、启动 & QEMU 可启动，关键工具可用，步骤可复现 \\
+邮件草稿 & 检索历史、分类、拟稿 & 引用正确上下文，语气符合用户，人工确认后发送 \\
+论文阅读 & 定位论证、生成批注、重组材料 & 每个结论可回原文，能给反证，能连接真实研究问题 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{共同模式：状态、动作、证据}
+
+三个案例的共同结构是：系统先获得可查询状态，再执行受限动作，然后用独立证据更新状态。若只保留最后的文本输出，就失去了判断系统是否可靠的最重要信息。
+
+\subsection{本章小结}
+
+Agent 的价值不是生成更多文字，而是把长期任务转化成有状态、有动作、有证据的闭环。不同领域的插件和验收器决定它是否真的能推进工作。
+
+\section{从白板 Agent 到完整生态}
+
+\subsection{白板 Agent 只是起点}
+
+通用 Agent 可以完成前述任务，但完整生态还需要领域任务、领域插件和可验证接口。课程引用 Engelbart 的思想：增强智能来自“人、工具、语言和方法”的系统，而不是一个孤立的聪明部件。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_019_agent_ecosystem.png}}
+\caption{从白板 Agent 到领域插件与完整能力生态\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:50:30--00:50:45。}
+
+
+可以把 Agent 能力粗略写成：
+
+\[
+A \approx R \times O \times U \times F
+\]
+
+\begin{itemize}
+  \item \(R\) 表示推理与规划能力；
+  \item \(O\) 表示环境的可观察性；
+  \item \(U\) 表示可操作性与工具覆盖；
+  \item \(F\) 表示反馈的及时性与可靠性。
+\end{itemize}
+
+乘法形式强调任何一项接近零都会卡住整个系统；它是分析框架，不是课程给出的经验定律。
+
+\subsection{浏览器不是黑盒}
+
+Computer Use 经常被误解为“模型看到像素并点击”。计算机专业学生还有更稳定的控制面：DOM、网络请求、事件、状态机和 Chrome DevTools Protocol。像素适合兜底，结构化接口更容易验证和复用。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_020_browser_not_black_box.png}}
+\caption{Browser Use 和 Computer Use 不应被视为黑盒\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:51:45--00:52:00。}
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_021_cdp_demo.png}}
+\caption{通过 Chrome DevTools Protocol 导航南京大学网页的现场闭环\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:55:15--00:55:30。}
+
+
+现场演示通过 CDP 打开空白页、导航到南京大学网上办事服务大厅，再观察页面是否正确加载。闭环不止是 `navigate` 调用成功，而是浏览器状态与目标页面均提供可检查证据。
+
+\subsection{从一次操作到软件资产}
+
+让 Agent 观察页面、理解流程并完成一次任务只是 demo。更高价值的做法是把成功轨迹沉淀为脚本或插件，再进行校验、修改和重放。Programming by Demonstration 的思想因此重新重要：自然语言负责提出目标，结构化轨迹负责形成可执行资产。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_022_programming_by_demo.png}}
+\caption{Programming by Demonstration：把一次操作沉淀成可复用资产\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：00:59:30--00:59:45。}
+
+
+\subsection{能力组合与工作流自举}
+
+信息源、信息处理和操作可以自由组合。网页、B 站、arXiv 或 Hacker News 提供信息；模型完成抽取、比较和规划；外部系统完成下单、上传或记录。若整个过程被观察和记录，Agent 还可以发现重复模式并生成下一层自动化。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_023_composition.png}}
+\caption{信息源、信息处理与操作的自由组合及工作流自举\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:00:00--01:00:15。}
+
+
+\subsection{Harness 的可靠性债务}
+
+能做不等于能放心托付。若单步成功率为 \(p\)，连续 \(n\) 步全部成功的朴素上界为：
+
+\[
+P_{\mathrm{all}}=p^n
+\]
+
+当 \(p=0.99\)、\(n=100\) 时：
+
+\[
+0.99^{100}\approx 0.366
+\]
+
+也就是说，单步 99\% 看似很高，百步任务无故障完成率却只有约 36.6\%。长流程需要状态、权限、重试、幂等、回滚和验证，而不能只依赖模型“再想一下”。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_024_harness_unstable.png}}
+\caption{Harness 尚不稳定：单步 99\% 在百步任务中仅约 36.6\%\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:04:15--01:04:30。}
+
+
+\begin{practicebox}{长程 Agent 的可靠性清单}
+\begin{itemize}
+  \item \textbf{状态}：重启后能否知道做到哪一步，是否存在重复执行风险；
+  \item \textbf{权限}：读、写、删除、发送、付款等动作是否按最小权限分离；
+  \item \textbf{幂等}：网络超时后重试会不会重复提交或破坏外部状态；
+  \item \textbf{验证}：成功信号来自工具自己的返回值，还是独立观察和验收器；
+  \item \textbf{恢复}：失败能否回滚，不能回滚时是否先使用沙箱或影子模式；
+  \item \textbf{升级}：何种不确定性、金额、影响范围或重复失败必须交还给人。
+\end{itemize}
+\end{practicebox}
+
+\subsection{CS Professional：把需求编译成现场工具}
+
+Agent 不应只用于交作业。计算机专业的优势是知道可编程性的边界：即使没有正式 API，只要存在可控输入、可观察输出和可判定完成条件，就可以把一次性自然语言需求编译成可重复执行的工具。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_025_cs_professional.png}}
+\caption{CS Professional 视角：把自然语言需求编译成现场工具\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:05:15--01:05:30。}
+
+
+\begin{importantbox}{从聊天到工程系统的升级条件}
+对话给出建议；工具改变状态；工程系统还必须记录状态变化、验证不变量、管理权限，并在失败时提供恢复路径。
+\end{importantbox}
+
+\subsection{本章小结}
+
+完整 Agent 生态由模型、领域插件、结构化控制面、反馈和可靠性机制共同构成。Harness 的主要工作不是让模型更会说，而是把开放动作空间压缩为明确、可验证的操作。
+
+\section{现场造工具：边界、协议与证据链}
+
+\subsection{考试统分：不是 OCR，而是证据链}
+
+课堂中的统分工具采用四阶段流水线：拍照并离线识别身份与小分；按题目顺序录入并检查总分；写入教务系统 Excel 模板；最后由 Agent 逐份校对。这种设计保留原始照片、小分中间表示和 Excel 派生结果，便于反向 readback、定位错位与发现漏项。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_026_exam_scoring.png}}
+\caption{考试统分的四阶段证据链，而不是一次 OCR\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:06:00--01:06:15。}
+
+
+“不是 OCR”强调系统目标不是识别几个数字，而是建立证据链。OCR 只是局部组件；总分一致性、行列映射、异常样本和最终人工确认共同决定系统是否可信。
+
+\subsection{只进不出的机器也可能泄露}
+
+假设隔离机允许输入文件，却禁止运行不可信程序、访问网页或输出文件。只要屏幕像素仍可观察，信息通道容量就不是零：Agent 可以把文件编码成二维码动画，再由外部相机恢复。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_027_output_only_machine.png}}
+\caption{只进不出的机器仍可经可观察像素泄露信息\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:09:30--01:09:45。}
+
+
+这个 Quiz 的意义不是鼓励绕过安全，而是训练边界思维：安全策略限制了“文件”，却没有限制“信息”。工程审计必须追问所有可观察通道，而不是只检查名义接口。
+
+\subsection{Excel、二维码和鼠标组成协议栈}
+
+解决方案把 Excel 视为可编程显示设备：公式生成 QR Code，鼠标抖动作为输入线路，二维码作为发送端，外部程序通过 Raw Socket 实现协议。Reed-Solomon、纠错、ACK/NAK 和重传使二维码不再只是图片，而成为可靠传输介质。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_028_qr_protocol.png}}
+\caption{用 Excel、QR Code、鼠标和 Reed-Solomon 构造单向协议栈\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:12:30--01:12:45。}
+
+
+\subsection{Everything Is Code：从 Bits 到 Atoms}
+
+视频可以拆为脚本、分镜、素材、时间线、字幕和渲染流水线；论文可以拆为问题、证据、实验、图表和可复现构建；实体制造可以拆为 CAD、仿真、BOM、固件和 G-code。它们的共同点是把结果表示为可修改的控制描述，再由渲染器、排版系统或机器负责兑现。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_029_everything_bits_atoms.png}}
+\caption{Everything Is Code：从视频和论文到 CAD、BOM 与 G-code\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:13:45--01:14:00。}
+
+
+\begin{warningbox}{“一切皆代码”的边界}
+可编码不代表无成本。物理世界有材料、时间、安全与不可逆性；组织世界有权限、伦理与责任。表示层越强，越需要独立验证它和现实之间的对应关系。
+\end{warningbox}
+
+\subsection{本章小结}
+
+工具的价值来自边界建模和证据链，而不是调用了多少模型。把对象转成代码后，工程师仍要验证表示、传输、执行和现实结果之间没有断裂。
+
+\section{qrgen 失败案例：跑出来不等于做成}
+
+\subsection{产品是系统性工程}
+
+“AI 造航母”式乐观忽略了端到端可靠性。产品包含前端、后端、交互、运维、组织和数据等多个环节；任一环节失败都可能暴露整个系统。若十个环节独立且各有 90\% 可靠性，整体成功率为：
+
+\[
+P_{\mathrm{system}}=\prod_{i=1}^{10}p_i=0.9^{10}\approx 0.349
+\]
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_030_product_reliability.png}}
+\caption{产品是系统性工程：十个 90\% 环节的整体成功率约为 35\%\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:14:45--01:15:00。}
+
+
+实际环节通常并不独立，因此这个计算只是提醒：局部漂亮不能替代系统验收。更复杂的依赖可能使尾部风险更难发现。
+
+\subsection{一句明确需求里的隐藏规格空间}
+
+qrgen 的表面需求很具体：使用 Excel 2019 兼容公式，把任意长度输入编码为 Base64，再生成逐帧二维码动画，用 F9 刷新，每秒一帧，扫描后拼接并恢复原文件。但“任意字符串”同时隐藏编码、分片顺序、容量、空串、超长输入、刷新时钟和工作表膨胀等选择。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_031_hidden_spec_space.png}}
+\caption{qrcode.xlsx 的明确需求与隐藏规格空间\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:17:15--01:17:30。}
+
+
+真正的验收不是“文件能打开”，而是：
+
+\[
+\operatorname{Base64}^{-1}\!\left(
+\operatorname{concat}(\operatorname{scan}(\operatorname{frames}(s)))
+\right)=\operatorname{bytes}(s)
+\]
+
+\begin{itemize}
+  \item \(s\) 是任意合法输入；
+  \item \(\operatorname{frames}\) 生成有序二维码帧；
+  \item \(\operatorname{scan}\) 是独立解码器；
+  \item 等式要求端到端字节完全一致。
+\end{itemize}
+
+\subsection{跑出来不等于做成}
+
+GLM-5.3 在 25 分钟思考和超过 32K 输出后，用约六小时给出结果；DeepSeek V4 Pro 最终给出硬编码版本并承认设计需要重想。两者都可能生成可以打开的 Excel，却留下 2MB 级 AI slop、硬编码公式或不可维护结构。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_032_running_not_done.png}}
+\caption{程序跑出来不等于做成：硬编码、AI slop 与不可维护性\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:18:45--01:19:00。}
+
+
+失败不在于模型没有继续输出，而在于架构没有表达任务的不变量。继续追加 Prompt 只会把工作表和上下文一起膨胀。
+
+\subsection{少量 Prompt，换一个架构}
+
+更好的转折不是“再多想一会”，而是从“生成一个能跑的文件”切换到“设计可复用的计算结构”。公式模板和工作表结构保持 \(O(1)\)，只有输入数据、计算量和帧数随长度 \(O(n)\) 增长。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_033_change_architecture.png}}
+\caption{少量 Prompt 换架构：从生成文件转向设计可复用计算结构\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:21:15--01:21:30。}
+
+
+架构检查应问：输入从 1KB 变成 10KB 时，哪些资产必须增长？哪些模板和公式理应保持不变？如果静态结构随数据量线性复制，系统已经把数据和程序混在一起。
+
+\subsection{Intent、Spec 与 Impl 三个空间}
+
+讲者把问题拆成三个空间：Intent Space 是需求方也未必完全知道的真实意图；Spec Space 是从意图提炼出的明确约束；Impl Space 是计算机程序可以接受的无歧义指令。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_034_intent_spec_impl.png}}
+\caption{Intent、Spec 与 Impl 三个空间以及正确性所在层次\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:24:15--01:24:30。}
+
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{>{\bfseries}p{0.16\textwidth} X X}
+\toprule
+空间 & 典型内容 & 主要失败 \\
+\midrule
+Intent & 为什么要做、谁使用、风险和价值 & 人自己也没有想清，目标随反馈变化 \\
+Spec & 接口、约束、不变量、验收与边界 & 只覆盖可见样例，遗漏真实约束 \\
+Impl & 数据结构、算法、代码和部署 & 正确实现了错误或不完整的 Spec \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+测试可以证明实现满足某些 Spec，却不能自动证明 Spec 满足真实 Intent。这个 gap 是需求工程、软件工程与人机协作的核心。
+
+正确性因此至少有三层。第一层是\textbf{执行正确}：代码没有崩溃并产生某种输出。第二层是\textbf{规格正确}：对所有已定义边界，输出满足不变量和验收条件。第三层是\textbf{意图正确}：规格本身解决了用户真正的问题，且没有违反未写入测试的安全、兼容、维护和责任约束。大量 AI demo 只达到第一层，却在界面上制造“已经完成”的错觉。
+
+\begin{warningbox}{测试通过的有限含义}
+测试是对实现的有限观察，不是真实意图的完整副本。若测试样例、奖励或 benchmark 可以被直接优化，系统可能学会满足 proxy 而绕开目标。工程师必须维护测试来源、独立 oracle、未见样例和现实使用反馈。
+\end{warningbox}
+
+\subsection{模型以猜测补齐 gap}
+
+模型常通过猜测补齐未说明细节；用户又可能厌烦无穷追问。正确策略不是让系统猜得更自信，而是把关键不确定性变成低影响、可逆、可验证的实验。课程给出一个决策条件：
+
+\[
+P(\text{猜错})\cdot C(\text{返工}) > C(\text{澄清})
+\]
+
+当左侧更大，应停下来提问；否则先做最小实验，以实际反馈缩小 gap。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_035_fill_gap_by_guessing.png}}
+\caption{模型以猜测补齐 gap，人机协同要把决策变成低成本实验\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:29:00--01:29:15。}
+
+
+\subsection{本章小结}
+
+qrgen 的教训不是某个模型不够强，而是自然语言需求中存在巨大规格空间。工程进步来自不变量、独立验收、可复用架构和快速反馈，而不是更长的生成。
+
+\section{软件工程为什么仍然必要}
+
+\subsection{焦油坑来自耦合}
+
+《人月神话》与《死亡搁浅》的焦油坑比喻强调：局部功能看起来简单，真正成本来自耦合、隐含知识和验证链。增加一点功能可能要求大量 token、重测和上下文同步，因为约束是全局的。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_036_mythical_man_month.png}}
+\caption{人月神话：焦油坑来自全局耦合，而不是局部代码量\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:30:45--01:31:00。}
+
+
+软件工程处理的不是单个函数，而是多人、工具、接口、历史和责任构成的系统。模型降低局部实现成本，反而使系统级协调成为更大比例的工作。
+
+\subsection{软件工程研究什么}
+
+软件工程研究怎样在人和工具的共同协作下做成大事。领域既包含 AI4SE，也包含 Analytics、Architecture and Design、Dependability and Security、Evolution、Human and Social Aspects、Requirements and Modeling、Testing and Analysis 等方向。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_037_se_research.png}}
+\caption{软件工程研究人和工具在共同协作下做成大事\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:32:00--01:32:15。}
+
+
+教育体系若只训练分钟级、终点明确的考题，就无法训练 long-horizon 能力。工程能力需要在稀疏、延迟的反馈下保持方向，并处理组织技术、协作关系、人的动机和时间。
+
+\subsection{LLM 时代，失败的定义没有变}
+
+软件失败仍然是产物没有满足真实 Intent 和 constraints。真实意图和真实 Spec 难以获得；长程奖励信号较弱；失败项目不能通过一次推理重新生成；利益相关方也不会为“模型很努力”买单。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_038_failure_unchanged.png}}
+\caption{LLM 时代失败的定义没有变：不满足真实 intent 与 constraints\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:36:00--01:36:15。}
+
+
+测试与 reward 通常只看见末端 proxy。能通过测试不等于满足真实意图，正如作业完成不等于学习发生。Agentic 系统需要维护代理指标与真实目标之间的证据联系。
+
+\subsection{让失败更小、更早、更可逆}
+
+避免工程失败的核心不是消灭所有错误，而是把不可控的大赌注改造成可验证的小赌注：拆解、独立验证、持续集成、门控、短迭代和快速回滚构成反馈控制环。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_039_make_failure_small.png}}
+\caption{把不可控的大赌注拆成可验证的小赌注\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:38:00--01:38:15。}
+
+
+qrgen 的开发顺序应按“风险退休”安排：先冻结 Excel 版本、Base64 可重组、每帧可解码和工作表不随输入膨胀等不变量；再建立独立 oracle 和 golden cases；随后依次增加单帧、分片、多帧与刷新；性能和兼容性最后加入，每一步都保留回归门。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_040_risk_retirement.png}}
+\caption{按风险退休次序推进 qrgen，而不是按最终需求堆功能\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:38:15--01:38:30。}
+
+
+\subsection{人的稀缺性继续向上游迁移}
+
+当 AI 能生成代码、执行操作甚至模仿品味时，人的稀缺性从亲手生产迁移到选择“什么值得存在”、设计怎样验证、决定何时停下以及承担后果。正确性和问责不会因为能力迁移而自动迁移。
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_041_human_upstream.png}}
+\caption{AI 会品味之后，人的稀缺性继续向选择、设计与责任上游迁移\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:38:30--01:38:45。}
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_042_se_not_dead.png}}
+\caption{软件工程暂时没有死：方向、验证、责任与长期结果仍不可外包\protect\footnotemark}
+\end{figure}
+\footnotetext{视频画面时间区间：01:39:00--01:39:15。}
+
+
+\begin{importantbox}{为什么不是买一个更贵的模型就够了}
+方向、验证和责任需要最终决策权。可以把工作交给 Agent，但不能把责任隐藏在自动化系统的缝隙里。真正可靠的团队让 Agent 可复制、可审计、可中止，并由人对长期结果负责。
+\end{importantbox}
+
+\subsection{本章小结}
+
+软件工程暂时没有死，因为系统失败的根源不是打字速度，而是意图不完整、全局耦合、证据不足、反馈延迟和责任不清。AI 改变实现方式，却放大了这些经典问题的重要性。
+
+\section{总结与延伸}
+
+\subsection{讲者的结论}
+
+本讲从能力日用品化出发，说明传统作业和简历为何失去鉴别力；再用 LLM、Agent、Computer Use、Debian、邮件、论文阅读、浏览器和 Excel 二维码展示新的可编程空间；最后通过 qrgen 失败案例回到软件工程：实现跑起来只是开始，真实目标、约束、验证和责任仍决定系统是否成功。
+
+\subsection{本笔记的结构化压缩}
+
+可以用一条链压缩全讲：
+
+\[
+\text{Intent}
+\longrightarrow \text{Spec}
+\longrightarrow \text{Impl}
+\longrightarrow \text{Execution}
+\longrightarrow \text{Evidence}
+\longrightarrow \text{Feedback}
+\longrightarrow \text{Revised Intent}
+\]
+
+每个箭头都可能丢失信息。Agent 提高了生成和执行速度，却不能消除这些映射误差；软件工程的任务就是让误差尽早暴露、让反馈尽快返回、让责任始终可定位。
+
+\subsection{五个可执行结论}
+
+\begin{enumerate}
+  \item 不要用“模型能否生成”定义问题，先定义成功证据与不可违反的不变量。
+  \item 把一次成功操作沉淀为可重放工具，并为它补上状态、权限、验证和回滚。
+  \item 先做能够退休最大风险的最小实验，不要按最终界面从外到内堆功能。
+  \item 在作品中保留版本历史、失败与决策，使能力不再依赖一份可伪造的最终结果。
+  \item 把人的时间放到上游：问题选择、架构、验收、伦理和责任，而不是和模型竞争机械执行。
+\end{enumerate}
+
+\subsection{开放问题}
+
+\begin{itemize}
+  \item 如何设计既允许 AI、又能真实训练能力的课程评价？
+  \item 如何给长程 Agent 建立跨工具、跨天甚至跨团队的可靠证据链？
+  \item 当 Intent 会在反馈中改变时，Spec 应如何版本化并与责任绑定？
+  \item 哪些人类判断必须保留最终决策权，哪些可以在充分验证后委托？
+  \item 当一切都可编码时，如何避免现实世界的成本、伦理和不可逆性被表示层遮蔽？
+\end{itemize}
+
+\subsection{资料与证据边界}
+
+\begin{itemize}
+  \item 课程视频：\url{https://www.bilibili.com/video/BV1pb8o6yE8f/}
+  \item 课程主页：\url{https://jyywiki.cn/GSE/2026/}
+  \item 本笔记中的时间脚注来自 15 秒密集采帧与 Whisper 时间轴对齐。
+  \item 课程页面当前提供课程定位和主题规划；本讲的详细论证、案例与数值以视频证据为准。
+\end{itemize}
+
+\subsection{本章小结}
+
+“欢迎来到未来”不是宣告工程师被替代，而是提醒工程师改变工作重心：让模型负责廉价执行，让系统暴露可检查状态，让反馈驱动下一步，让人对方向和后果负责。
+
+\end{document}

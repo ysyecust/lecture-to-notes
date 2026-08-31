@@ -1,0 +1,7 @@
+artifact	role	source	sha256	status
+video.mp4	lecture video	https://www.bilibili.com/video/BV1pb8o6yE8f/	CF7377550B866198A4F677C007171216ACD25600C033B6D24C2C684BB345E5A0	verified
+cover.jpg	Bilibili cover	https://i0.hdslb.com/bfs/archive/d6c6e9f0534276d739e7ba3c8ae84473fd58c784.jpg	75CBC02334274669959F501ACC39DBCE99555212E05A1813916849FDD0DE02C8	verified
+audio_whisper_raw.srt	raw ASR transcript	Whisper small int8 from lecture audio	354ACF3813FB10C6B22C26A60F4320C42EE7945CA751371A350F81B7BC0E0BBD	retained
+audio_corrected.srt	conservatively corrected transcript	audio_whisper_raw.srt + slide-confirmed term corrections	1CE96C0F615FDF2699560B277B2EA9C78B181433FF703738189AF585415E80A8	verified
+official_materials/course_homepage.html	official course outline	https://jyywiki.cn/GSE/2026/	F27D84098DB1A4874624A108F371E6714CB7B9556C97ECB6AE15A24B7AFE830D	verified
+notes.pdf	final Chinese lecture notes	local XeLaTeX build	D5B3C2AAFB4E0DC04B55E3007F3835F98B3B9AC231116BCC7C7E2D688746D29F	verified

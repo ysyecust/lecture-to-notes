@@ -1,0 +1,25 @@
+id	start	end	topic	evidence	status
+T01	00:00:00	00:02:30	能力日用品化与课程交叉路口	fig_001,fig_002	verified
+T02	00:02:30	00:05:30	学习、替代与简历同质化焦虑	fig_003,fig_004	verified
+T03	00:05:30	00:09:00	生成式软件工程仍可提供的智慧	fig_005,fig_006	verified
+T04	00:09:00	00:13:15	课程组织、案例驱动与公开重整	fig_006,fig_007	verified
+T05	00:13:15	00:17:45	Token policy 与通过制考核	fig_008,fig_009	verified
+T06	00:17:45	00:22:15	LLM 概率接口与 GPT-4 的早期能力	fig_010,fig_011	verified
+T07	00:22:15	00:27:45	从 ChatGPT 到 Agent 的状态与行动	fig_012,fig_013	verified
+T08	00:27:45	00:32:30	可写上下文、任务推进与想象力上限	fig_014,fig_015	verified
+T09	00:32:30	00:38:15	Debian on USB 与可验证配置生成	fig_016	verified
+T10	00:38:15	00:40:45	邮件草稿、个人数据库与双向接口	fig_017	verified
+T11	00:40:45	00:50:30	电子书 Agent 与深度阅读工作流	fig_018	verified
+T12	00:50:30	00:52:00	白板 Agent、插件和能力生态	fig_019,fig_020	verified
+T13	00:52:00	00:55:30	Computer Use、Browser Use 与 CDP	fig_020,fig_021	verified
+T14	00:55:30	01:00:15	Programming by Demonstration 与资产沉淀	fig_022,fig_023	verified
+T15	01:00:15	01:05:30	Harness 可靠性与 CS Professional 视角	fig_024,fig_025	verified
+T16	01:05:30	01:09:45	考试统分的多阶段证据链	fig_026	verified
+T17	01:09:45	01:14:00	只进不出机器、二维码协议与 Everything Is Code	fig_027,fig_028,fig_029	verified
+T18	01:14:00	01:17:30	产品可靠性与隐藏规格空间	fig_030,fig_031	verified
+T19	01:17:30	01:21:30	qrgen 失败、AI slop 与架构转折	fig_032,fig_033	verified
+T20	01:21:30	01:29:15	Intent、Spec、Impl 三空间与 gap	fig_034,fig_035	verified
+T21	01:29:15	01:32:15	焦油坑、人月神话与软件工程研究	fig_036,fig_037	verified
+T22	01:32:15	01:38:15	LLM 时代软件失败的定义	fig_038,fig_039	verified
+T23	01:38:15	01:39:00	风险退休与人类角色上移	fig_040,fig_041	verified
+T24	01:39:00	01:39:59	方向、验证、责任与长期结果	fig_042	verified

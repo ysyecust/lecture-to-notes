@@ -1,0 +1,43 @@
+figure	source_frame	start	end	chapter	caption	visual_verified	subtitle_verified
+fig_001_crossroads.png	slide_0001.png	00:00:00	00:00:15	交叉路口	四次把昂贵能力变成日用品：PC、互联网、移动互联网与生成式 AI	yes	yes
+fig_002_learning_after_codex.png	slide_0010.png	00:02:15	00:02:30	交叉路口	作业被 Codex 完成之后，学习是否真正发生	yes	yes
+fig_003_three_anxieties.png	slide_0015.png	00:03:30	00:03:45	交叉路口	AI 帮上大学、大学所学被替代与简历同质化的三种焦虑	yes	yes
+fig_004_resume_signal.png	slide_0022.png	00:05:15	00:05:30	交叉路口	一份高度同质化简历及其缺失的可验证能力信号	yes	yes
+fig_005_se_wisdom.png	slide_0029.png	00:07:00	00:07:15	课程方法	AI 时代仍有用的软件工程智慧：信息差、能坐牢与能驾驭	yes	yes
+fig_006_case_based_course.png	slide_0036.png	00:08:45	00:09:00	课程方法	案例为主、课后重整与公开可复现的课程组织方式	yes	yes
+fig_007_everything_is_code_slides.png	slide_0053.png	00:13:00	00:13:15	课程方法	以文本为 source of truth 的幻灯片生成与可再生工作流	yes	yes
+fig_008_token_policy.png	slide_0063.png	00:15:30	00:15:45	课程方法	Token 自费：把成本、质量与延迟变成实验意识	yes	yes
+fig_009_pass_fail_policy.png	slide_0071.png	00:17:30	00:17:45	课程方法	用作品回答做成了什么，而不是用分数回答	yes	yes
+fig_010_llm_agent_interface.png	slide_0083.png	00:20:30	00:20:45	LLM 与 Agent	LLM 与 Agent 之间的离谱但关键接口：Pr(token | context)	yes	yes
+fig_011_gpt4_sem.png	slide_0089.png	00:22:00	00:22:15	LLM 与 Agent	GPT-4 为五岁孩子解释扫描电子显微镜所展示的知识重编码	yes	yes
+fig_012_chatgpt_to_agent.png	slide_0098.png	00:24:15	00:24:30	LLM 与 Agent	从 ChatGPT 到 Agent：推理、检索、工具与错误恢复	yes	yes
+fig_013_writable_context.png	slide_0111.png	00:27:30	00:27:45	LLM 与 Agent	不止 next token：把 context 视为可写状态	yes	yes
+fig_014_agent_push_things.png	slide_0121.png	00:30:00	00:30:15	LLM 与 Agent	从回答问题到把事情推进的普通人 Agent 视角	yes	yes
+fig_015_imagination_limit.png	slide_0129.png	00:32:00	00:32:15	LLM 与 Agent	想象力限制了可以委托给 Agent 的可观察数字任务	yes	yes
+fig_016_debian_usb.png	slide_0130.png	00:32:15	00:32:30	Agent 案例	Debian on USB：AI 完成、QEMU 验证与配置生成	yes	yes
+fig_017_email_draft.png	slide_0153.png	00:38:00	00:38:15	Agent 案例	邮件数据库查询、回复草稿与 Reminders 双向接口	yes	yes
+fig_018_deep_reading.png	slide_0163.png	00:40:30	00:40:45	Agent 案例	电子书 Agent 的深度阅读：追踪论证、对抗阅读与知识重组	yes	yes
+fig_019_agent_ecosystem.png	slide_0203.png	00:50:30	00:50:45	Agent 生态	从白板 Agent 到领域插件与完整能力生态	yes	yes
+fig_020_browser_not_black_box.png	slide_0208.png	00:51:45	00:52:00	Agent 生态	Browser Use 和 Computer Use 不应被视为黑盒	yes	yes
+fig_021_cdp_demo.png	slide_0222.png	00:55:15	00:55:30	Agent 生态	通过 Chrome DevTools Protocol 导航南京大学网页的现场闭环	yes	yes
+fig_022_programming_by_demo.png	slide_0239.png	00:59:30	00:59:45	Agent 生态	Programming by Demonstration：把一次操作沉淀成可复用资产	yes	yes
+fig_023_composition.png	slide_0241.png	01:00:00	01:00:15	Agent 生态	信息源、信息处理与操作的自由组合及工作流自举	yes	yes
+fig_024_harness_unstable.png	slide_0258.png	01:04:15	01:04:30	Agent 生态	Harness 尚不稳定：单步 99% 在百步任务中仅约 36.6%	yes	yes
+fig_025_cs_professional.png	slide_0262.png	01:05:15	01:05:30	Agent 生态	CS Professional 视角：把自然语言需求编译成现场工具	yes	yes
+fig_026_exam_scoring.png	slide_0265.png	01:06:00	01:06:15	工程工具	考试统分的四阶段证据链，而不是一次 OCR	yes	yes
+fig_027_output_only_machine.png	slide_0279.png	01:09:30	01:09:45	工程工具	只进不出的机器仍可经可观察像素泄露信息	yes	yes
+fig_028_qr_protocol.png	slide_0291.png	01:12:30	01:12:45	工程工具	用 Excel、QR Code、鼠标和 Reed-Solomon 构造单向协议栈	yes	yes
+fig_029_everything_bits_atoms.png	slide_0296.png	01:13:45	01:14:00	工程工具	Everything Is Code：从视频和论文到 CAD、BOM 与 G-code	yes	yes
+fig_030_product_reliability.png	slide_0300.png	01:14:45	01:15:00	失败案例	产品是系统性工程：十个 90% 环节的整体成功率约为 35%	yes	yes
+fig_031_hidden_spec_space.png	slide_0310.png	01:17:15	01:17:30	失败案例	qrcode.xlsx 的明确需求与隐藏规格空间	yes	yes
+fig_032_running_not_done.png	slide_0316.png	01:18:45	01:19:00	失败案例	程序跑出来不等于做成：硬编码、AI slop 与不可维护性	yes	yes
+fig_033_change_architecture.png	slide_0326.png	01:21:15	01:21:30	失败案例	少量 Prompt 换架构：从生成文件转向设计可复用计算结构	yes	yes
+fig_034_intent_spec_impl.png	slide_0338.png	01:24:15	01:24:30	失败案例	Intent、Spec 与 Impl 三个空间以及正确性所在层次	yes	yes
+fig_035_fill_gap_by_guessing.png	slide_0357.png	01:29:00	01:29:15	失败案例	模型以猜测补齐 gap，人机协同要把决策变成低成本实验	yes	yes
+fig_036_mythical_man_month.png	slide_0364.png	01:30:45	01:31:00	软件工程	人月神话：焦油坑来自全局耦合，而不是局部代码量	yes	yes
+fig_037_se_research.png	slide_0369.png	01:32:00	01:32:15	软件工程	软件工程研究人和工具在共同协作下做成大事	yes	yes
+fig_038_failure_unchanged.png	slide_0385.png	01:36:00	01:36:15	软件工程	LLM 时代失败的定义没有变：不满足真实 intent 与 constraints	yes	yes
+fig_039_make_failure_small.png	slide_0393.png	01:38:00	01:38:15	软件工程	把不可控的大赌注拆成可验证的小赌注	yes	yes
+fig_040_risk_retirement.png	slide_0394.png	01:38:15	01:38:30	软件工程	按风险退休次序推进 qrgen，而不是按最终需求堆功能	yes	yes
+fig_041_human_upstream.png	slide_0395.png	01:38:30	01:38:45	软件工程	AI 会品味之后，人的稀缺性继续向选择、设计与责任上游迁移	yes	yes
+fig_042_se_not_dead.png	slide_0397.png	01:39:00	01:39:15	软件工程	软件工程暂时没有死：方向、验证、责任与长期结果仍不可外包	yes	yes

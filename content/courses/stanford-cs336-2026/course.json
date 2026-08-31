@@ -3,13 +3,17 @@
   "title": "Stanford CS336: Language Modeling from Scratch",
   "institution": "Stanford University",
   "term": "Spring 2026",
-  "description": "从分词、PyTorch 资源核算到语言模型架构的前三讲中文学习笔记。",
+  "description": "Stanford CS336 Spring 2026 全 18 讲中文精讲笔记，结合课程视频、官方讲义或代码、逐图时间证据与可复现公式。",
   "tags": [
     "language modeling",
-    "PyTorch",
-    "transformers"
+    "transformers",
+    "systems",
+    "training",
+    "evaluation",
+    "multimodality"
   ],
   "source_url": "https://cs336.stanford.edu/",
+  "playlist_url": "https://www.youtube.com/playlist?list=PLoROMvodv4rMqXOcazWaTUHhq-yembLCV",
   "featured": true,
   "items": [
     {
@@ -34,11 +38,128 @@
       "instructor": "Tatsunori Hashimoto"
     },
     {
+      "file": "stanford_cs336_2026_04_attention_alternatives_moe_zh.pdf",
+      "title": "Lecture 4: Attention Alternatives and Mixture of Experts",
+      "order": 4,
+      "expected_pages": 50,
+      "instructor": "Tatsunori Hashimoto"
+    },
+    {
+      "file": "stanford_cs336_2026_05_gpus_tpus_zh.pdf",
+      "title": "Lecture 5: GPUs and TPUs",
+      "order": 5,
+      "expected_pages": 39,
+      "instructor": "Tatsunori Hashimoto"
+    },
+    {
+      "file": "stanford_cs336_2026_06_kernels_triton_xla_zh.pdf",
+      "title": "Lecture 6: Kernels, Triton, and XLA",
+      "order": 6,
+      "expected_pages": 38,
+      "instructor": "Percy Liang"
+    },
+    {
+      "file": "stanford_cs336_2026_07_parallelism_1_zh.pdf",
+      "title": "Lecture 7: Parallelism 1",
+      "order": 7,
+      "expected_pages": 38,
+      "instructor": "Percy Liang"
+    },
+    {
+      "file": "stanford_cs336_2026_08_parallelism_2_zh.pdf",
+      "title": "Lecture 8: Parallelism 2",
+      "order": 8,
+      "expected_pages": 36,
+      "instructor": "Tatsunori Hashimoto"
+    },
+    {
+      "file": "stanford_cs336_2026_09_scaling_laws_1_zh.pdf",
+      "title": "Lecture 9: Scaling Laws 1",
+      "order": 9,
+      "expected_pages": 39,
+      "instructor": "Tatsunori Hashimoto"
+    },
+    {
+      "file": "stanford_cs336_2026_10_inference_zh.pdf",
+      "title": "Lecture 10: Inference",
+      "order": 10,
+      "expected_pages": 36,
+      "instructor": "Percy Liang"
+    },
+    {
+      "file": "stanford_cs336_2026_11_scaling_laws_2_zh.pdf",
+      "title": "Lecture 11: Scaling Laws 2",
+      "order": 11,
+      "expected_pages": 39,
+      "instructor": "Tatsunori Hashimoto"
+    },
+    {
+      "file": "stanford_cs336_2026_12_evaluation_zh.pdf",
+      "title": "Lecture 12: Evaluation",
+      "order": 12,
+      "expected_pages": 38,
+      "instructor": "Percy Liang"
+    },
+    {
+      "file": "stanford_cs336_2026_13_data_sources_datasets_zh.pdf",
+      "title": "Lecture 13: Data Sources and Datasets",
+      "order": 13,
+      "expected_pages": 39,
+      "instructor": "Percy Liang"
+    },
+    {
+      "file": "stanford_cs336_2026_14_data_filtering_dedup_mixing_zh.pdf",
+      "title": "Lecture 14: Data Filtering, Deduplication, Mixing, and Synthetic Data",
+      "order": 14,
+      "expected_pages": 37,
+      "instructor": "Percy Liang"
+    },
+    {
+      "file": "stanford_cs336_2026_15_mid_post_training_sft_rlhf_zh.pdf",
+      "title": "Lecture 15: Mid/Post-Training — SFT and RLHF",
+      "order": 15,
+      "expected_pages": 36,
+      "instructor": "Tatsunori Hashimoto"
+    },
+    {
+      "file": "stanford_cs336_2026_16_post_training_rlvr_zh.pdf",
+      "title": "Lecture 16: Post-Training — RLVR",
+      "order": 16,
+      "expected_pages": 37,
+      "instructor": "Tatsunori Hashimoto"
+    },
+    {
+      "file": "stanford_cs336_2026_17_alignment_multimodality_zh.pdf",
+      "title": "Lecture 17: Alignment and Multimodality",
+      "order": 17,
+      "expected_pages": 35,
+      "instructor": "Percy Liang"
+    },
+    {
+      "file": "stanford_cs336_2026_18_guest_dan_fu_zh.pdf",
+      "title": "Lecture 18: Guest Lecture — Dan Fu",
+      "order": 18,
+      "expected_pages": 36,
+      "instructor": "Dan Fu"
+    },
+    {
       "file": "stanford_cs336_2026_01_03_bundle_zh.pdf",
       "title": "Lectures 1–3 Complete Notes",
-      "order": 4,
+      "order": 19,
       "expected_pages": 94,
       "instructor": "Percy Liang & Tatsunori Hashimoto",
+      "start_order": 1,
+      "end_order": 3,
+      "bundle": true
+    },
+    {
+      "file": "stanford_cs336_2026_04_18_complete_bundle_zh.pdf",
+      "title": "Lectures 4–18 Complete Notes",
+      "order": 20,
+      "expected_pages": 573,
+      "instructor": "Stanford CS336 teaching team",
+      "start_order": 4,
+      "end_order": 18,
       "bundle": true
     }
   ]

@@ -1,0 +1,28 @@
+{
+  "id": "nju-gse-2026",
+  "title": "生成式软件工程",
+  "institution": "南京大学",
+  "term": "2026 秋季学期",
+  "description": "蒋炎岩老师的生成式软件工程课程中文精讲笔记，从 LLM/Agent 的能力边界走向规格、验证、架构与风险退休。",
+  "tags": [
+    "生成式软件工程",
+    "Agent",
+    "软件工程",
+    "人机协作"
+  ],
+  "source_url": "https://jyywiki.cn/GSE/2026/",
+  "featured": true,
+  "items": [
+    {
+      "file": "nju_gse_2026_01_welcome_to_future_zh.pdf",
+      "title": "第 1 讲：欢迎来到未来",
+      "order": 1,
+      "expected_pages": 41,
+      "duration_minutes": 100,
+      "instructor": "蒋炎岩",
+      "source_url": "https://www.bilibili.com/video/BV1pb8o6yE8f/",
+      "source_label": "B站",
+      "meta": "蒋炎岩 · 100min · 41页"
+    }
+  ]
+}
