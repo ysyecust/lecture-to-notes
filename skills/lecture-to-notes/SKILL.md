@@ -17,8 +17,9 @@ Check before starting (use `which`). Prompt the user to install any missing tool
 | `ffmpeg` | Always | Frame extraction, audio extraction |
 | `xelatex` | Always | LaTeX compilation (TeX Live + CTeX for Chinese) |
 | `magick` | Always | Frame montage and contact sheets |
-| `python3` | Always | Installed helper scripts and Whisper support |
-| `whisper` | Bilibili / X fallback / no-CC | Speech-to-text fallback (openai-whisper) |
+| `python3` | Always | Installed helper scripts and local ASR support |
+| `sherpa-onnx` + X ASR model | Optional zh/en ASR | Fast local Chinese/English transcription with token timestamps |
+| `whisper` | ASR fallback / non-zh-en / no-CC | Speech-to-text fallback (openai-whisper) |
 
 Additional Python dependencies: `Pillow` (`pip install Pillow`) only for the optional
 `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/smart_crop.py` experiment.
@@ -82,8 +83,8 @@ image-heavy PDFs with thin prose, or missing intermediate artifacts are automati
 | File | Required content |
 |------|------------------|
 | `metadata.json` | From `video_source.py probe` (or equivalent full dump) |
-| `audio.srt` | Final subtitle track used for writing (manual CC, cleaned auto, or Whisper) |
-| `audio_corrected.srt` | Copy of final track, or LLM/dictionary-corrected track when Whisper was used |
+| `audio.srt` | Final subtitle track used for writing (manual CC, cleaned auto, X ASR, or Whisper) |
+| `audio_corrected.srt` | Copy of final track, or LLM/dictionary-corrected track when local ASR was used |
 | `cover.jpg` | Front-page cover |
 | `video.mp4` | Source for frames (may omit only if user forbids download and provides frames) |
 | `frames/` | Dense sample, default 1 frame / 15s |
@@ -262,6 +263,7 @@ for helper in \
   "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/video_source.py" \
   "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/check_srt_health.py" \
   "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/clean_subs.py" \
+  "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/transcribe_x_asr.py" \
   "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/correct_srt.py" \
   "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/llm_correct_srt.py" \
   "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/verify_figures.py" \
@@ -273,7 +275,7 @@ for helper in \
 done
 ```
 
-**CRITICAL**: Always use absolute paths for background commands (Whisper, video download).
+**CRITICAL**: Always use absolute paths for background commands (local ASR, video download).
 Claude Code's shell resets the working directory between commands. Background tasks that
 use relative paths will write output to the wrong location.
 
@@ -313,7 +315,7 @@ languages. For X/Twitter, pass the full original `<URL>` including optional
 `/video/<n>`; `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/video_source.py` retains that URL and probes it with
 `--no-playlist`.
 
-#### 1c. Subtitle Acquisition (Four-Stage Fallback: Manual CC → Automatic Captions → Whisper → Visual-Only)
+#### 1c. Subtitle Acquisition (Four-Stage Fallback: Manual CC → Automatic Captions → Local ASR → Visual-Only)
 
 **Stage 1 — Manual CC subtitles:**
 ```bash
@@ -349,7 +351,7 @@ check with the duration extracted from `metadata.json`:
 DURATION="$(python3 -c 'import json,sys; print(json.load(sys.stdin)["duration"])' < metadata.json)"
 find . -maxdepth 1 -type f -name 'x_caption.*.srt' -print > x_caption_candidates.txt
 if [ ! -s x_caption_candidates.txt ]; then
-  echo "No X caption candidates; continue with Whisper fallback."
+  echo "No X caption candidates; continue with local ASR fallback."
 else
   while IFS= read -r srt; do
     if python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/check_srt_health.py" "$srt" --duration "$DURATION"; then
@@ -371,7 +373,7 @@ printf '%s\n' "<one explicitly accepted x_caption path>" > selected_x_caption.tx
 ```
 
 Do not select a merely structurally healthy track. If there are no candidates, or no
-candidate passes all three semantic samples, use X audio → Whisper → the existing
+candidate passes all three semantic samples, use X audio → local ASR → the existing
 dictionary and LLM SRT correction passes below.
 
 External official captions may be used only when all of the following are documented:
@@ -385,7 +387,36 @@ Put an external official track under the deterministic `x_caption.<id>.<lang>.sr
 naming scheme and apply the same structural and semantic gates; provenance never bypasses
 validation.
 
-**Stage 3 — Whisper speech-to-text** (when captions are absent or rejected):
+**Stage 3 — Local speech-to-text** (when captions are absent or rejected):
+
+For Chinese, English, or mixed zh/en lectures, prefer the local X ASR INT8 model when it
+is already available or can be cached once. It is substantially faster on CPU and returns
+token timestamps, but it is not trusted merely because it completed. Preserve the raw SRT,
+run `check_srt_health.py`, and compare audio/visible content at 10%, 50%, and 90%. If X ASR
+is unavailable or any gate fails, use Whisper. Use Whisper directly for languages outside
+the selected X ASR model's documented scope.
+
+The tested model is the official sherpa-onnx release asset
+`sherpa-onnx-x-asr-zipformer-transducer-zh-en-punct-int8-2026-06-03.tar.bz2`
+(SHA-256 `5d02c36d7b44e886b7c8f0d8e051f8713acab96c264bb6ef9e718be39a6a2224`).
+Keep downloaded models outside Git. Install the optional runtime with
+`python3 -m pip install "numpy>=1.24" "sherpa-onnx>=1.13.6"`, extract the model, then run:
+
+```bash
+yt-dlp --no-playlist -x --audio-format wav -o "audio.%(ext)s" "<URL>"
+python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/transcribe_x_asr.py" audio.wav \
+  --model-dir "/ABSOLUTE/PATH/TO/CACHED/X-ASR-MODEL" \
+  --output audio.srt --report x_asr_report.json
+python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/check_srt_health.py" \
+  audio.srt --duration "<VIDEO_DURATION_SECONDS>"
+```
+
+The offline X ASR encoder requires bounded chunks. The helper normalizes audio with
+ffmpeg, selects low-energy boundaries, keeps every chunk at or below 30 seconds, and
+turns token timestamps into non-overlapping SRT cues. Do not pass a whole long lecture
+directly to the model.
+
+**Whisper fallback:**
 ```bash
 yt-dlp --no-playlist -x --audio-format wav -o "audio.%(ext)s" "<URL>"
 # IMPORTANT: Use absolute paths for Whisper to avoid working directory issues
@@ -404,7 +435,7 @@ speaker names, course-specific jargon). See
 working example. This dramatically reduces same-sound errors like
 "PASSNAME" instead of "pathname" or "SAM" instead of "sum".
 
-**Post-Whisper SRT correction passes:**
+**Post-ASR SRT correction passes:**
 ```bash
 # Stage A — fast dictionary-level fix (wrong → right pairs)
 python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/correct_srt.py" audio.srt \
@@ -415,7 +446,7 @@ python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/llm_correct_srt.py" \
     --srt audio.srt --frames frames/ --out corrected.srt \
     --context "南京大学操作系统原理，讲师 jyy"
 ```
-Stage A is essentially free and catches 80% of wrong characters. Stage B is expensive
+Stage A is essentially free and catches common wrong characters. Stage B is expensive
 (one Claude call per ~90s of audio) and only worth running for notes you plan to publish.
 
 **Stage 4 — Visual-only mode** (when audio quality is unusable):
@@ -752,7 +783,8 @@ high density counts do not compensate for transcript-like, repetitive, or inflat
 - [ ] Reader-first prose reference applied; extracted rendered text reread through all seven passes
 - [ ] Speaker claims, established background, and note-writer synthesis remain distinguishable
 - [ ] No oral debris, repeated paragraph template, invented equation, unsupported causal link, or quota filler remains
-- [ ] Whisper-generated SRT retained if speech-to-text was used
+- [ ] Raw ASR SRT and backend report retained if speech-to-text was used
+- [ ] Local ASR SRT health result and 10% / 50% / 90% semantic samples recorded
 - [ ] X/Twitter SRT health result and 10% / 50% / 90% semantic samples (if X captions were used)
 - [ ] Absolute paths of PDF and workdir listed for the user
 
@@ -762,6 +794,7 @@ high density counts do not compensate for transcript-like, repetitive, or inflat
 - `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/video_source.py`: YouTube / Bilibili / X/Twitter URL detection and metadata probe
 - `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/check_srt_health.py`: Structural health gate for downloaded X/Twitter SRT tracks
 - `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/clean_subs.py`: YouTube auto-subtitle deduplication
+- `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/transcribe_x_asr.py`: optional local X ASR zh/en transcription with bounded chunks and SRT timestamps
 - `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/correct_srt.py`: Whisper SRT dictionary-level fix (fast, data-driven)
 - `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/llm_correct_srt.py`: Whisper SRT LLM + multimodal segment-level fix (slow, uses Claude Code CLI — no API key needed)
 - `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/verify_figures.py`: Three-way figure verification (timestamp × subtitle × frame)

@@ -87,7 +87,7 @@ class XSupportDocumentationTests(unittest.TestCase):
         self.assertNotIn("fallback", description.lower())
 
         self.assertIn("X(Twitter)", self.openai)
-        self.assertIn("X/Twitter", self.openai)
+        self.assertIn("$lecture-to-notes", self.openai)
         self.assertIn("full-frame", self.openai)
         self.assertIn("contact-sheet", self.openai)
         self.assertIn("Whisper", self.openai)
@@ -107,6 +107,7 @@ class XSupportDocumentationTests(unittest.TestCase):
             "video_source.py",
             "check_srt_health.py",
             "clean_subs.py",
+            "transcribe_x_asr.py",
             "correct_srt.py",
             "llm_correct_srt.py",
             "verify_figures.py",
@@ -178,7 +179,7 @@ class XSupportDocumentationTests(unittest.TestCase):
         )
         self.assertIn('if [ ! -s x_caption_candidates.txt ]; then', health_block)
         self.assertIn(
-            "No X caption candidates; continue with Whisper fallback.", health_block
+            "No X caption candidates; continue with local ASR fallback.", health_block
         )
         self.assertIn('while IFS= read -r srt; do', health_block)
         self.assertIn(
@@ -198,7 +199,7 @@ class XSupportDocumentationTests(unittest.TestCase):
         self.assertNotIn("subs.srt", self.skill)
 
         for phrase in (
-            "X audio → Whisper",
+            "X audio → local ASR",
             "constant-offset alignment",
             "three-point audio/visual validation",
             "provenance disclosure",
@@ -207,7 +208,7 @@ class XSupportDocumentationTests(unittest.TestCase):
 
     def test_skill_documents_four_stage_full_frame_workflow(self):
         self.assertIn(
-            "Four-Stage Fallback: Manual CC → Automatic Captions → Whisper → Visual-Only",
+            "Four-Stage Fallback: Manual CC → Automatic Captions → Local ASR → Visual-Only",
             self.skill,
         )
         self.assertNotIn("Three-Level Fallback", self.skill)
@@ -275,7 +276,7 @@ class PackagedSkillSmokeTests(unittest.TestCase):
 
             self.assertEqual(0, completed.returncode, completed.stderr)
             self.assertIn(
-                "No X caption candidates; continue with Whisper fallback.",
+                "No X caption candidates; continue with local ASR fallback.",
                 completed.stdout,
             )
 

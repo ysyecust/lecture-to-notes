@@ -1,4 +1,4 @@
 interface:
   display_name: "Lecture to Notes"
-  short_description: "Turn YouTube/Bilibili/X(Twitter) lectures into source-faithful, reader-first notes."
-  default_prompt: "Use this skill when a user provides a YouTube, Bilibili, or X/Twitter lecture URL. Build a source-fit reader profile, preserve claim boundaries, reconstruct the teaching argument in fluent Chinese, select verified full-frame teaching figures through contact-sheet review, fall back to Whisper when captions are absent or rejected, and deliver compiled LaTeX/PDF notes without transcript or quota filler."
+  short_description: "Create source-faithful, reader-first lecture notes."
+  default_prompt: "Use $lecture-to-notes for this YouTube, Bilibili, or X(Twitter) lecture URL to create source-faithful, reader-first Chinese notes with verified full-frame figures, contact-sheet review, and validated local ASR with Whisper fallback, without transcript or quota filler."
