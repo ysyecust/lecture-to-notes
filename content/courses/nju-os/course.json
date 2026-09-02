@@ -96,6 +96,17 @@
       "meta": "蒋炎岩 · 89min · 11页"
     },
     {
+      "legacy_id": "nju08",
+      "file": "08-Aside)_-_终端和_UNIX_Shell.pdf",
+      "title": "终端和 UNIX Shell",
+      "order": 8,
+      "expected_pages": 19,
+      "duration_minutes": 95,
+      "instructor": "蒋炎岩",
+      "source_label": "本地课程视频",
+      "meta": "蒋炎岩 · 95min · 19页"
+    },
+    {
       "legacy_id": "nju09",
       "file": "nju_os_09_cstdlib.pdf",
       "title": "C 标准库原理",
@@ -250,6 +261,105 @@
       "source_url": "https://www.bilibili.com/video/BV1zS5R6tEWZ",
       "source_label": "B站",
       "meta": "蒋炎岩 · 91min · 12页"
+    },
+    {
+      "legacy_id": "nju22",
+      "file": "22-输入输出设备和驱动.pdf",
+      "title": "输入输出设备和驱动",
+      "order": 22,
+      "expected_pages": 16,
+      "duration_minutes": 87,
+      "instructor": "蒋炎岩",
+      "source_label": "本地课程视频",
+      "meta": "蒋炎岩 · 87min · 16页"
+    },
+    {
+      "legacy_id": "nju23",
+      "file": "23-存储设备原理.pdf",
+      "title": "存储设备原理",
+      "order": 23,
+      "expected_pages": 15,
+      "duration_minutes": 80,
+      "instructor": "蒋炎岩",
+      "source_label": "本地课程视频",
+      "meta": "蒋炎岩 · 80min · 15页"
+    },
+    {
+      "legacy_id": "nju24",
+      "file": "24-文件系统_API_(1).pdf",
+      "title": "文件系统 API (1)",
+      "order": 24,
+      "expected_pages": 18,
+      "duration_minutes": 79,
+      "instructor": "蒋炎岩",
+      "source_label": "本地课程视频",
+      "meta": "蒋炎岩 · 79min · 18页"
+    },
+    {
+      "legacy_id": "nju25",
+      "file": "25-文件系统_API_(2).pdf",
+      "title": "文件系统 API (2)",
+      "order": 25,
+      "expected_pages": 19,
+      "duration_minutes": 83,
+      "instructor": "蒋炎岩",
+      "source_label": "本地课程视频",
+      "meta": "蒋炎岩 · 83min · 19页"
+    },
+    {
+      "legacy_id": "nju26",
+      "file": "26-文件系统实现和崩溃一致性.pdf",
+      "title": "文件系统实现和崩溃一致性",
+      "order": 26,
+      "expected_pages": 20,
+      "duration_minutes": 87,
+      "instructor": "蒋炎岩",
+      "source_label": "本地课程视频",
+      "meta": "蒋炎岩 · 87min · 20页"
+    },
+    {
+      "legacy_id": "nju27",
+      "file": "27-数据库系统.pdf",
+      "title": "数据库系统",
+      "order": 27,
+      "expected_pages": 21,
+      "duration_minutes": 83,
+      "instructor": "蒋炎岩",
+      "source_label": "本地课程视频",
+      "meta": "蒋炎岩 · 83min · 21页"
+    },
+    {
+      "legacy_id": "nju28",
+      "file": "28-计算机系统安全.pdf",
+      "title": "计算机系统安全",
+      "order": 28,
+      "expected_pages": 20,
+      "duration_minutes": 84,
+      "instructor": "蒋炎岩",
+      "source_label": "本地课程视频",
+      "meta": "蒋炎岩 · 84min · 20页"
+    },
+    {
+      "legacy_id": "nju29",
+      "file": "29-虚拟机和容器.pdf",
+      "title": "虚拟机和容器",
+      "order": 29,
+      "expected_pages": 20,
+      "duration_minutes": 84,
+      "instructor": "蒋炎岩",
+      "source_label": "本地课程视频",
+      "meta": "蒋炎岩 · 84min · 20页"
+    },
+    {
+      "legacy_id": "nju30",
+      "file": "30-Agentic_AI_和我们的未来；课程总结.pdf",
+      "title": "Agentic AI 和我们的未来；课程总结",
+      "order": 30,
+      "expected_pages": 19,
+      "duration_minutes": 84,
+      "instructor": "蒋炎岩",
+      "source_label": "本地课程视频",
+      "meta": "蒋炎岩 · 84min · 19页"
     }
   ]
 }
