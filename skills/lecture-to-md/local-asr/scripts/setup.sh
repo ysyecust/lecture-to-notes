@@ -20,6 +20,9 @@ set -uo pipefail
 
 X_ASR_RELEASE_NAME="sherpa-onnx-x-asr-zipformer-transducer-zh-en-punct-int8-2026-06-03"
 X_ASR_RELEASE_URL="${X_ASR_RELEASE_URL:-https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/${X_ASR_RELEASE_NAME}.tar.bz2}"
+# SHA-256 由上游 README/docs/asr-benchmark-2026-08-31.md 记录。解压前必校验，
+# 不一致则丢弃并 exit，避免被替换的 ONNX 模型进入推理链。
+X_ASR_SHA256="${X_ASR_SHA256:-5d02c36d7b44e886b7c8f0d8e051f8713acab96c264bb6ef9e718be39a6a2224}"
 MODEL_DIR="${ASR_MODEL_DIR:-$HOME/.cache/sherpa-onnx-models/${X_ASR_RELEASE_NAME}}"
 PIP_CMD="${PIP:-python3 -m pip}"
 
@@ -75,6 +78,32 @@ else
     else
       echo "✗ 没找到 curl 或 wget"
       exit 1
+    fi
+
+    # ---- SHA-256 校验 ----
+    # 不一致则删除并退出：避免被替换的 ONNX 模型进入推理链。
+    if [[ -n "$X_ASR_SHA256" ]]; then
+      echo "==> 校验 SHA-256"
+      if command -v shasum >/dev/null 2>&1; then
+        ACTUAL_SHA="$(shasum -a 256 "$TAR_FILE" | awk '{print $1}')"
+      elif command -v sha256sum >/dev/null 2>&1; then
+        ACTUAL_SHA="$(sha256sum "$TAR_FILE" | awk '{print $1}')"
+      else
+        echo "✗ 找不到 shasum / sha256sum，跳过校验（不推荐）"
+        ACTUAL_SHA=""
+      fi
+      if [[ -n "$ACTUAL_SHA" ]]; then
+        echo "    expected: $X_ASR_SHA256"
+        echo "    actual:   $ACTUAL_SHA"
+        if [[ "$ACTUAL_SHA" != "$X_ASR_SHA256" ]]; then
+          echo "✗ SHA-256 不匹配，删除下载文件并退出"
+          echo "  设为 X_ASR_SHA256= 可跳过校验（不推荐）"
+          echo "  或者用 X_ASR_RELEASE_URL= 下载你信任的镜像，重跑本脚本"
+          rm -f "$TAR_FILE"
+          exit 1
+        fi
+        echo "  ✓ SHA-256 匹配"
+      fi
     fi
 
     echo "==> 解压到 $CACHE_DIR"

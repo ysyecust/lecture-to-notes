@@ -59,25 +59,52 @@ def require(cmd: str) -> str:
 
 
 def probe(path: str) -> dict:
-    """返回时长(秒)与流信息。失败时抛出 RuntimeError。"""
-    ffprobe = require("ffprobe")
-    out = subprocess.run(
-        [ffprobe, "-v", "error", "-show_entries", "format=duration",
-         "-show_entries", "stream=codec_type", "-of", "json", path],
-        capture_output=True, text=True, check=True,
-    ).stdout
-    data = json.loads(out)
-    duration = 0.0
+    """返回时长(秒)与流信息。失败时抛出 RuntimeError。
+
+    优先 ffprobe；若不可用或报「不支持的选项」（如 imageio_ffmpeg 送的
+    johnvansickle 静态 build），回退到 Python stdlib `wave`（仅 wav 路径）。
+    """
+    ffprobe = shutil.which("ffprobe")
+    if ffprobe:
+        try:
+            out = subprocess.run(
+                [ffprobe, "-v", "error", "-show_entries", "format=duration",
+                 "-show_entries", "stream=codec_type", "-of", "json", path],
+                capture_output=True, text=True, check=True,
+            ).stdout
+            data = json.loads(out)
+            duration = 0.0
+            try:
+                duration = float(data.get("format", {}).get("duration") or 0.0)
+            except (TypeError, ValueError):
+                duration = 0.0
+            codec_types = [s.get("codec_type") for s in data.get("streams", [])]
+            return {
+                "duration": duration,
+                "has_video": "video" in codec_types,
+                "has_audio": "audio" in codec_types,
+            }
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            pass  # 下面走 wave 兜底
+
+    # wave 兜底：仅适用于 wav；其它格式会报错
+    import wave as _wave
     try:
-        duration = float(data.get("format", {}).get("duration") or 0.0)
-    except (TypeError, ValueError):
-        duration = 0.0
-    codec_types = [s.get("codec_type") for s in data.get("streams", [])]
-    return {
-        "duration": duration,
-        "has_video": "video" in codec_types,
-        "has_audio": "audio" in codec_types,
-    }
+        with _wave.open(path, "rb") as w:
+            n_frames = w.getnframes()
+            sr = w.getframerate()
+            duration = n_frames / sr if sr else 0.0
+            n_channels = w.getnchannels()
+        return {
+            "duration": duration,
+            "has_video": False,
+            "has_audio": True,
+            "has_audio_fallback_wave": True,  # 标记：未走 ffprobe
+        }
+    except Exception as exc:
+        raise RuntimeError(
+            f"ffprobe 不可用且 wave 模块读不出 {path}: {exc}"
+        )
 
 
 def extract_audio(src: str, dst_wav: str, sample_rate: int = 16000) -> str:

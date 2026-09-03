@@ -1,17 +1,17 @@
 ---
 name: local-asr
-description: 把本地长视频/音频转写成文字稿 + 可选字幕，纯本地（不上传云端），用 sherpa-onnx X-ASR Zipformer transducer 模型（int8 量化、中英双语、自动标点）；跨平台支持 macOS / Linux / Windows；对核显支持较好（macOS 自动走 CoreML，Linux 自动检测 CUDA）。Use when the user wants 音视频转文字、课程录转录、转录稿、ASR、speech to text、transcribe a lecture video、给转写稿加时间戳、生成字幕 srt，especially for 一两个小时的课程视频 → 文字稿/字幕 → 再整理笔记 的场景。Trigger words include 转写、转录、转文字、语音识别、asr、transcribe、时间戳、字幕、srt。本 skill 是 `lecture-to-md` 的默认 ASR 后端；默认不要换成 Qwen（Qwen 链路只在 macOS 可用，且实测准确率不如 X-ASR）。
+description: 把本地长视频/音频转写成文字稿 + 可选字幕，纯本地（不上传云端），用 sherpa-onnx X-ASR Zipformer transducer 模型（int8 量化、中英双语、自动标点）。已在 macOS Apple Silicon（CoreML）与 Linux ARM64（CPU）端到端验证；Windows 路径齐备但未验证。使用 `$lecture-to-md` 默认 ASR 后端；默认不要换成 Qwen。
 ---
 
 # Local ASR Transcribe（`lecture-to-md` 子 skill，sherpa-onnx X-ASR）
 
-在本地（macOS / Linux / Windows）把**长课程视频/音频**转成文字稿，可选补时间戳出字幕。单一后端，中英文通用：
+在本地（macOS Apple Silicon + Linux ARM64 已端到端验证；Windows 路径齐备但未验证）把**长课程视频/音频**转成文字稿，可选补时间戳出字幕。单一后端，中英文通用：
 
 ```text
 中文/英文 ──→ sherpa-onnx OfflineRecognizer (X-ASR Zipformer transducer, int8) ──→ 文本 + token 级时间戳 ──→ txt / md / srt / vtt
 ```
 
-**首选这个 skill 而非 `volcengine-asr/`**：纯本地不上传、对核显/集显支持较好（Apple Silicon 自动用 CoreML 加速，Linux 上自动检测 CUDA）、int8 量化体积小、首包延迟低。
+**首选这个 skill 而非 `volcengine-asr/`**：纯本地不上传、对核显/集显支持较好（Apple Silicon 自动用 CoreML 加速，Linux 上自动检测 CUDA）、int8 量化体积小、首包延迟低。已在 macOS Apple Silicon 与 Linux ARM64 上验证过 CPU 与 CoreML provider。
 
 前提只要：`ffmpeg` / `ffprobe`、`python3`、`sherpa-onnx` pip 包、X-ASR 模型权重。**首次跑 `bash scripts/setup.sh` 一键完成**（macOS / Linux；Windows 用户见后文「Windows 设置」一节）。
 

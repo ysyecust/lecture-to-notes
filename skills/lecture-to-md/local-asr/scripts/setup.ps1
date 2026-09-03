@@ -6,6 +6,7 @@
 #
 # 进阶：
 #   $env:X_ASR_RELEASE_URL  自定义 release URL
+#   $env:X_ASR_SHA256        覆盖默认 SHA-256（设空字符串跳过校验，不推荐）
 #   $env:ASR_MODEL_DIR      模型目录（默认 ~/.cache/sherpa-onnx-models/<...>）
 #   $env:GITHUB_PROXY       GitHub 镜像前缀（如 https://gh-proxy.com/）
 #   $env:SKIP_PIP=1         跳过 pip install
@@ -16,6 +17,10 @@ $ErrorActionPreference = "Stop"
 $XASRReleaseName = "sherpa-onnx-x-asr-zipformer-transducer-zh-en-punct-int8-2026-06-03"
 $XASRReleaseUrl  = if ($env:X_ASR_RELEASE_URL) { $env:X_ASR_RELEASE_URL } else {
     "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/${XASRReleaseName}.tar.bz2"
+}
+# SHA-256 由上游 README/docs/asr-benchmark-2026-08-31.md 记录。解压前必校验。
+$XASRSHA256      = if ($env:X_ASR_SHA256) { $env:X_ASR_SHA256 } else {
+    "5d02c36d7b44e886b7c8f0d8e051f8713acab96c264bb6ef9e718be39a6a2224"
 }
 $ModelDir = if ($env:ASR_MODEL_DIR) { $env:ASR_MODEL_DIR } else {
     Join-Path $env:USERPROFILE ".cache\sherpa-onnx-models\$XASRReleaseName"
@@ -60,6 +65,24 @@ if (-not ($env:SKIP_MODEL -eq "1")) {
     } else {
         Write-Host "  下载中..."
         Invoke-WebRequest -Uri $DownloadUrl -OutFile $TarFile -UseBasicParsing
+
+        # ---- SHA-256 校验 ----
+        # 不一致则删除并退出：避免被替换的 ONNX 模型进入推理链。
+        if ($XASRSHA256) {
+            Write-Host "==> 校验 SHA-256"
+            $Actual = (Get-FileHash -Algorithm SHA256 -Path $TarFile).Hash
+            Write-Host "    expected: $XASRSHA256"
+            Write-Host "    actual:   $Actual"
+            if ($Actual -ne $XASRSHA256) {
+                Write-Host "✗ SHA-256 不匹配，删除下载文件并退出"
+                Write-Host "  设 `$env:X_ASR_SHA256='' 可跳过校验（不推荐）"
+                Write-Host "  或用 `$env:X_ASR_RELEASE_URL= 下载你信任的镜像，重跑本脚本"
+                Remove-Item $TarFile -Force
+                exit 1
+            }
+            Write-Host "  ✓ SHA-256 匹配"
+        }
+
         Write-Host "  解压中..."
         tar -xjvf $TarFile -C $CacheDir
         Remove-Item $TarFile -Force

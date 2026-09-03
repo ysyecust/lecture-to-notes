@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """本地音视频转写统一入口（sherpa-onnx X-ASR，中英双语）。
 
-只依赖标准库 + ffmpeg；真正的推理在 sherpa-onnx 包里跑（首次需执行 setup.sh）。
-X-ASR 输出文本 + token 级时间戳，因此 --timestamps 不引入额外权重。
+**默认复用上游 `scripts/transcribe_x_asr.py`** 作为后端（它有 30s 分块 +
+低能量切分 + 时间戳拼接 + 单测）。仅在子 skill 被单独拷贝到上游 repo 之外
+（找不到上游脚本）时才走内置 `asr_x.py` 路径——内置路径只适合短音频，
+长音频请确保用上游后端。
 
 用法:
     python3 transcribe.py <视频或音频> [--lang zh|en] [--output-dir DIR] [选项]
@@ -33,6 +35,14 @@ from common import (  # noqa: E402
 )
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+# 子 skill 在 lecture-to-md/ 之下；上游脚本在 lecture-to-notes/scripts/
+# 即 SCRIPT_DIR = skills/lecture-to-md/local-asr/scripts/
+#     ../../../../scripts/transcribe_x_asr.py
+SKILL_DIR = os.path.dirname(SCRIPT_DIR)              # local-asr
+SUBBUNDLE_DIR = os.path.dirname(SKILL_DIR)           # lecture-to-md
+SKILLS_DIR = os.path.dirname(SUBBUNDLE_DIR)          # skills
+REPO_ROOT = os.path.dirname(SKILLS_DIR)              # lecture-to-notes repo root
+UPSTREAM_SCRIPT = os.path.join(REPO_ROOT, "scripts", "transcribe_x_asr.py")
 
 LANG_ALIASES = {
     "zh": "zh", "chinese": "zh", "中文": "zh",
@@ -42,7 +52,7 @@ LANG_ALIASES = {
 
 DEFAULT_FORMATS = "txt,md"
 
-# 字幕条合并阈值
+# 字幕条合并阈值（仅内置后端路径用）
 MAX_CUE_SEC = 8.0       # 单条字幕最长时长
 HARD_CUE_SEC = 12.0      # 超过就强制切断
 MAX_CUE_CJK = 40         # 中文单条最长字符
@@ -63,7 +73,11 @@ _CJK_RANGES = (
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     ap = argparse.ArgumentParser(
-        description="本地转写：sherpa-onnx X-ASR（中英双语），跨平台")
+        description=(
+            "本地转写：sherpa-onnx X-ASR（中英双语）。"
+            "默认复用上游 scripts/transcribe_x_asr.py 后端（含 30s 分块、低能量切分、时间戳拼接）。"
+        )
+    )
     ap.add_argument("input", help="视频或音频文件路径")
     ap.add_argument("--lang", "-l", default="zh",
                     help="语言：zh（默认）| en | auto")
@@ -71,18 +85,17 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
                     help="输出目录，默认与源文件同目录")
     ap.add_argument("--model-dir", default=None,
                     help="X-ASR 模型目录（覆盖 ASR_MODEL_DIR 与默认缓存位置）")
-    ap.add_argument("--provider", default=None,
-                    help="cpu / coreml / cuda；默认 macOS Apple Silicon=coreml，其它=cpu")
-    ap.add_argument("--num-threads", type=int, default=3, help="CPU 线程数")
+    ap.add_argument("--backend", choices=["auto", "upstream", "builtin"],
+                    default="auto",
+                    help="auto=优先上游 backend，找不到则 builtin；"
+                         "upstream=强制上游（缺则报错）；"
+                         "builtin=只用本 skill 自带的 asr_x.py（仅适合短音频）")
+    ap.add_argument("--num-threads", type=int, default=4, help="推理线程数")
     ap.add_argument("--formats", default=DEFAULT_FORMATS,
                     help="输出格式组合，逗号分隔：txt,md,json,srt,vtt（默认 txt,md）")
-    ap.add_argument("--context", default=None,
-                    help="术语/热词提示（当前 sherpa-onnx 版本忽略，留兼容）")
-    ap.add_argument("--max-chunk-sec", type=float, default=600.0,
-                    help="单次解码音频秒数（默认 600）")
     ap.add_argument("--keep-audio", action="store_true", help="保留中间 16k wav")
     ap.add_argument("--timestamps", action="store_true",
-                    help="保留 token 时间戳，产出 srt/vtt 字幕")
+                    help="保留时间戳，产出 srt/vtt 字幕（上游 backend 默认就有，builtin 需要 token）")
     ap.add_argument("--overwrite", action="store_true", help="允许覆盖已存在的输出文件")
     return ap.parse_args(argv)
 
@@ -101,22 +114,162 @@ def is_cjk_heavy(text: str) -> bool:
     return cjk / len(sample) > 0.2
 
 
-def tokens_to_cues(tokens: list[str], timestamps: list[float],
-                   text: str, cjk: bool) -> list[dict]:
-    """把 X-ASR 的 token 时间戳转成字幕条。
+def has_upstream_backend() -> bool:
+    return os.path.isfile(UPSTREAM_SCRIPT)
 
-    不从 token 重构文本（X-ASR int8 的英文 BPE 切得太碎，"quality" 会变成
-    [" q", "u", "al", "ity"]；从 token 拼回去总会有乱七八糟的间隙）。
-    改为：直接信任 sherpa-onnx 已产生的 text，按标点切句，每句时间区间由该句
-    对应 token 的首/尾时间戳决定。
 
-    token → text 字符映射：每条 token (去前导空格后) 的内容挨个平铺到文本上，
-    生成一个 char_idx → token_idx 的表。切句后从表里查句首/末字符对应的 token。
-    """
+def resolve_model_dir(explicit: str | None = None) -> str:
+    """定位 X-ASR 模型目录：CLI 参数 > 环境变量 > 默认缓存目录。"""
+    if explicit:
+        if not os.path.isdir(explicit):
+            sys.exit(f"[asr] 找不到模型目录: {explicit}\n先跑 bash scripts/setup.sh 下载。")
+        return os.path.abspath(explicit)
+    env_dir = os.environ.get("ASR_MODEL_DIR")
+    if env_dir and os.path.isdir(env_dir):
+        return os.path.abspath(env_dir)
+    default = os.path.expanduser(
+        "~/.cache/sherpa-onnx-models/"
+        "sherpa-onnx-x-asr-zipformer-transducer-zh-en-punct-int8-2026-06-03"
+    )
+    if os.path.isdir(default):
+        return default
+    sys.exit(
+        f"[asr] 模型未下载。先跑 bash scripts/setup.sh（Windows 见 SKILL.md 「Windows 设置」）。\n"
+        f"或者 --model-dir <dir> 指向已解压好的 X-ASR 目录。"
+    )
+
+
+# -------------------- 上游 backend --------------------
+
+def parse_srt(srt_text: str) -> list[dict]:
+    """极简 SRT 解析：list of {index, start, end, text}。"""
+    cues: list[dict] = []
+    blocks = re.split(r"\n\s*\n", srt_text.strip())
+    for block in blocks:
+        lines = block.splitlines()
+        if len(lines) < 3:
+            continue
+        m = re.match(r"(\S+)\s*-->\s*(\S+)", lines[1])
+        if not m:
+            continue
+        start = _srt_ts_to_seconds(m.group(1))
+        end = _srt_ts_to_seconds(m.group(2))
+        text = "\n".join(lines[2:]).strip()
+        if text and end > start:
+            cues.append({"index": lines[0], "start": start, "end": end, "text": text})
+    return cues
+
+
+def _srt_ts_to_seconds(ts: str) -> float:
+    ts = ts.replace(",", ".")
+    parts = ts.split(":")
+    if len(parts) == 3:
+        h, m, s = parts
+    elif len(parts) == 2:
+        h, m, s = "0", parts[0], parts[1]
+    else:
+        return 0.0
+    return int(h) * 3600 + int(m) * 60 + float(s)
+
+
+def run_upstream(args, src, info, out_dir, stem, formats, targets, model_dir):
+    """调用上游 scripts/transcribe_x_asr.py，解析其 SRT，再产出多种格式。"""
+    with tempfile.TemporaryDirectory(prefix="asr-upstream-") as tmp:
+        srt_path = os.path.join(tmp, f"{stem}.srt")
+        report_path = os.path.join(tmp, "report.json")
+        cmd = [
+            sys.executable, UPSTREAM_SCRIPT, src,
+            "--output", srt_path,
+            "--report", report_path,
+            "--model-dir", model_dir,
+            "--threads", str(args.num_threads),
+            "--max-chunk-seconds", "30.0",
+            "--chunk-seconds", "27.0",
+            "--min-chunk-seconds", "20.0",
+        ]
+        print(f"[asr] 后端: upstream ({UPSTREAM_SCRIPT})", flush=True)
+        print("[asr] 开始转写（长音频请耐心等待，分块上限 30s）...", flush=True)
+        proc = subprocess.run(cmd, cwd=tmp)
+        if proc.returncode != 0:
+            sys.exit(f"[asr] 上游 backend 转写失败，退出码 {proc.returncode}")
+
+        with open(srt_path, encoding="utf-8") as f:
+            cues = parse_srt(f.read())
+        report = {}
+        if os.path.isfile(report_path):
+            try:
+                with open(report_path, encoding="utf-8") as f:
+                    report = json.load(f)
+            except Exception:
+                report = {}
+
+    if not cues:
+        sys.exit("[asr] 没有识别出任何内容，请检查音频轨是否存在。")
+
+    # 由 SRT 拼出完整文字
+    text = "\n".join(c["text"] for c in cues).strip()
+    # 归一化「汉字 汉字」中间的空格
+    text = re.sub(rf"(?<=[{_CJK_RANGES}])\s+(?=[{_CJK_RANGES}])", "", text)
+
+    written = []
+    for fmt in formats:
+        path = targets[fmt]
+        if fmt == "txt":
+            write_plain_txt(text, path)
+        elif fmt == "md":
+            write_plain_md(text, path, title=stem, source=src)
+        elif fmt == "srt":
+            # 直接把上游的 SRT 拷过去（保持一致）
+            with open(path, "w", encoding="utf-8") as f:
+                _write_cues_as_srt(cues, f)
+        elif fmt == "vtt":
+            with open(path, "w", encoding="utf-8") as f:
+                f.write("WEBVTT\n\n")
+                for c in cues:
+                    f.write(f"{fmt_ts_srt(c['start']).replace(',', '.')} --> "
+                            f"{fmt_ts_srt(c['end']).replace(',', '.')}\n{c['text']}\n\n")
+        elif fmt == "json":
+            meta = {
+                "source": src,
+                "language": args.lang,
+                "backend": "sherpa-onnx-x-asr (upstream)",
+                "model": model_dir,
+                "duration": report.get("audio_seconds") or info["duration"],
+                "chunks": report.get("chunks"),
+                "cues": len(cues),
+                "decode_seconds": report.get("decode_seconds"),
+                "rtf": report.get("rtf"),
+                "sherpa_onnx_version": report.get("sherpa_onnx_version"),
+            }
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump({"meta": meta, "text": text, "cues": cues}, f,
+                          ensure_ascii=False, indent=2)
+        else:
+            continue
+        written.append(path)
+
+    duration = report.get("audio_seconds") or info["duration"]
+    chunks = report.get("chunks", "?")
+    print(f"[asr] 完成：{len(text)} 字 / {len(cues)} cues / {chunks} chunks / "
+          f"{duration:.1f}s audio (上游 backend)")
+    for path in written:
+        print(f"  - {path}")
+    return 0
+
+
+def _write_cues_as_srt(cues: list[dict], f) -> None:
+    for i, c in enumerate(cues, 1):
+        f.write(f"{i}\n{fmt_ts_srt(c['start'])} --> {fmt_ts_srt(c['end'])}\n"
+                f"{c['text']}\n\n")
+
+
+# -------------------- 内置 backend（fallback） --------------------
+
+def tokens_to_cues(tokens, timestamps, text, cjk):
+    """从 sherpa-onnx 输出的 token+timestamp 重构字幕条（内置后端路径）。"""
     if not tokens or not timestamps or len(tokens) != len(timestamps):
         return []
 
-    # 1) 切句：按 SENT_END 标点切，保留末尾标点
     sentences: list[str] = []
     buf: list[str] = []
     for i, ch in enumerate(text):
@@ -124,7 +277,7 @@ def tokens_to_cues(tokens: list[str], timestamps: list[float],
         end_sentence = ch in SENT_END
         if ch == ".":
             nxt = text[i + 1] if i + 1 < len(text) else ""
-            end_sentence = (nxt == "" or nxt.isspace())  # 英文句号避免切在 3.14
+            end_sentence = (nxt == "" or nxt.isspace())
         if end_sentence:
             sentences.append("".join(buf).strip())
             buf = []
@@ -137,7 +290,6 @@ def tokens_to_cues(tokens: list[str], timestamps: list[float],
     if not sentences:
         return []
 
-    # 2) char_idx → token_idx 映射
     char_to_token: list[int] = []
     for tok_idx, tok in enumerate(tokens):
         content = tok.lstrip(" \u2581")
@@ -146,7 +298,6 @@ def tokens_to_cues(tokens: list[str], timestamps: list[float],
     if not char_to_token:
         return []
 
-    # 3) 为每句查找起止 token 时间戳
     cues: list[dict] = []
     char_pos = 0
     text_len = len(text)
@@ -157,117 +308,33 @@ def tokens_to_cues(tokens: list[str], timestamps: list[float],
         sent_start = min(char_pos, len(char_to_token) - 1)
         sent_end = min(char_pos + sent_len - 1, len(char_to_token) - 1)
         char_pos += sent_len
-
         if sent_start < 0 or sent_end < sent_start:
             continue
-
         start_idx = char_to_token[sent_start]
         end_idx = char_to_token[sent_end]
         start_ts = float(timestamps[start_idx])
         end_ts = float(timestamps[end_idx])
-
-        # 末句末尾加一点塞住，避免与下一句重叠
         if end_idx == last_token_idx:
             end_ts = end_ts + 0.3
-
         cues.append({"start": round(start_ts, 3),
                      "end": round(end_ts, 3),
                      "text": sent})
 
-    # 4) 超长句再细分（按 char 数线性插值时间）
-    max_chars = MAX_CUE_CJK if cjk else MAX_CUE_WORD
-    final: list[dict] = []
-    for c in cues:
-        text_seg = c["text"]
-        n = len(text_seg)
-        dur = c["end"] - c["start"]
-        if n <= max_chars and dur <= HARD_CUE_SEC:
-            final.append(c)
-            continue
-        # 超长：按 max_chars 切，时间按字符线性分
-        pos = 0
-        seg_start = c["start"]
-        while pos < n:
-            cut = min(n, pos + max_chars)
-            seg_text = text_seg[pos:cut].strip()
-            if seg_text:
-                seg_end = seg_start + dur * (cut - 0) / n
-                final.append({
-                    "start": round(seg_start, 3),
-                    "end": round(min(c["end"], seg_end), 3),
-                    "text": seg_text,
-                })
-            seg_start = c["start"] + dur * cut / n
-            pos = cut
-
-    return final
+    return cues
 
 
-def _is_cjk(ch: str) -> bool:
-    """单字 CJK 判定。含 CJK 统一表意、CJK Extension A/B、全角 ASCII 标点。"""
-    if not ch:
-        return False
-    o = ord(ch)
-    return (
-        0x3000 <= o <= 0x303F   # CJK Symbols and Punctuation（含 ， 。 、 「 」 ！ ？ ： ；）
-        or 0x4E00 <= o <= 0x9FFF
-        or 0x3400 <= o <= 0x4DBF
-        or 0x20000 <= o <= 0x2A6DF
-        or 0x2A700 <= o <= 0x2B73F
-        or 0x2B740 <= o <= 0x2B81F
-        or 0x2B820 <= o <= 0x2CEAF
-        or 0xF900 <= o <= 0xFAFF
-        or 0xFF00 <= o <= 0xFFEF  # 全角 ASCII
-    )
-
-
-def write_srt(cues: list[dict], path: str) -> None:
-    with open(path, "w", encoding="utf-8") as f:
-        for i, c in enumerate(cues, 1):
-            f.write(f"{i}\n{fmt_ts_srt(c['start'])} --> {fmt_ts_srt(c['end'])}\n{c['text']}\n\n")
-
-
-def write_vtt(cues: list[dict], path: str) -> None:
-    """srt → vtt：把逗号换成点。"""
-    with open(path, "w", encoding="utf-8") as f:
-        f.write("WEBVTT\n\n")
-        for c in cues:
-            f.write(f"{fmt_ts_srt(c['start']).replace(',', '.')} --> "
-                    f"{fmt_ts_srt(c['end']).replace(',', '.')}\n{c['text']}\n\n")
-
-
-def main(argv: list[str] | None = None) -> int:
-    args = parse_args(argv)
-    src = os.path.abspath(os.path.expanduser(args.input))
-    if not os.path.isfile(src):
-        sys.exit(f"[asr] 文件不存在: {src}")
-
-    lang = normalize_lang(args.lang)
-
-    info = probe(src)
-    print(f"[asr] 源文件: {src}")
-    print(f"[asr] 时长: {fmt_ts_short(info['duration'])} | 音频轨: {info['has_audio']} "
-          f"| 语言: {lang}")
-
-    out_dir = os.path.abspath(os.path.expanduser(
-        args.output_dir if args.output_dir else os.path.dirname(src)))
-    os.makedirs(out_dir, exist_ok=True)
-    stem = os.path.splitext(os.path.basename(src))[0]
-
-    formats = [f.strip().lower() for f in args.formats.split(",") if f.strip()]
-    if args.timestamps and args.formats == DEFAULT_FORMATS:
-        formats = ["txt", "md", "srt"]  # 没显式指定时，开 timestamps 就顺带出 srt
-    if any(f in ("srt", "vtt") for f in formats) and not args.timestamps:
-        sys.exit("[asr] 输出 srt/vtt 需要加 --timestamps（时间戳由 X-ASR 解码时给出）")
-
-    targets = {f: os.path.join(out_dir, f"{stem}.{f}") for f in formats}
-    if not args.overwrite:
-        clash = [p for p in targets.values() if os.path.exists(p)]
-        if clash:
-            sys.exit("[asr] 已存在输出文件（加 --overwrite 覆盖）:\n  " + "\n  ".join(clash))
+def run_builtin(args, src, info, out_dir, stem, formats, targets, model_dir):
+    """走内置 asr_x.py：短音频 OK，长音频可能爆（受 30s 上限制约）。"""
+    if info["duration"] > 60 and "upstream" not in args.backend:
+        sys.exit(
+            f"[asr] 内置 backend 不支持长音频（{info['duration']:.0f}s > 60s）。\n"
+            f"  请确认 upstream backend 可用（默认情况下会自动走 upstream），\n"
+            f"  或显式 --backend upstream 强制；找不到时检查 {UPSTREAM_SCRIPT}"
+            )
 
     keep = args.keep_audio
     wav, workdir = prepare_audio(src)
+    print(f"[asr] 后端: builtin (asr_x.py)", flush=True)
     print(f"[asr] 音频: {wav}")
 
     with tempfile.TemporaryDirectory(prefix="asr-result-") as tmp:
@@ -275,17 +342,11 @@ def main(argv: list[str] | None = None) -> int:
         cmd = [
             sys.executable, os.path.join(SCRIPT_DIR, "asr_x.py"), wav,
             "--out", result_json,
-            "--language", lang,
+            "--language", args.lang,
             "--num-threads", str(args.num_threads),
+            "--model-dir", model_dir,
         ]
-        if args.model_dir:
-            cmd += ["--model-dir", args.model_dir]
-        if args.provider:
-            cmd += ["--provider", args.provider]
-        if args.context:
-            cmd += ["--context", args.context]
-
-        print("[asr] 开始转写（长音频请耐心等待）...", flush=True)
+        print("[asr] 开始转写（内置后端单次推理）...", flush=True)
         proc = subprocess.run(cmd, cwd=tmp)
         if proc.returncode != 0:
             sys.exit(f"[asr] 转写失败，退出码 {proc.returncode}")
@@ -298,9 +359,6 @@ def main(argv: list[str] | None = None) -> int:
     text = (payload.get("text") or "").strip()
     if not text:
         sys.exit("[asr] 没有识别出任何内容，请检查音频轨是否存在。")
-
-    # sherpa-onnx X-ASR raw text 有时候会留下「汉字 汉字」中的多余空格
-    # （不像 token 那样有 lstrip）。按 CJK 边界扫一遍，归一化为「汉字汉字」。
     text = re.sub(rf"(?<=[{_CJK_RANGES}])\s+(?=[{_CJK_RANGES}])", "", text)
 
     tokens = payload.get("tokens") or []
@@ -319,7 +377,7 @@ def main(argv: list[str] | None = None) -> int:
                 json.dump({
                     "meta": {
                         "source": src,
-                        "language": payload.get("language", lang),
+                        "language": payload.get("language", args.lang),
                         "backend": payload.get("backend"),
                         "model": payload.get("model"),
                         "provider": payload.get("provider"),
@@ -335,17 +393,74 @@ def main(argv: list[str] | None = None) -> int:
                          "升级 sherpa-onnx 或换用 cloud ASR。")
             cjk = is_cjk_heavy(text)
             cues = tokens_to_cues(tokens, timestamps, text, cjk)
-            (write_srt if fmt == "srt" else write_vtt)(cues, path)
+            with open(path, "w", encoding="utf-8") as f:
+                if fmt == "srt":
+                    _write_cues_as_srt(cues, f)
+                else:
+                    f.write("WEBVTT\n\n")
+                    for c in cues:
+                        f.write(f"{fmt_ts_srt(c['start']).replace(',', '.')} --> "
+                                f"{fmt_ts_srt(c['end']).replace(',', '.')}\n{c['text']}\n\n")
         else:
             continue
         written.append(path)
 
     print(f"[asr] 完成：{len(text)} 字 / 模型 {payload.get('model', '?')}"
-          f" / provider {payload.get('provider', '?')}"
-          + (" / coreml 回退 cpu" if payload.get("tried_coreml_fallback") else ""))
+          f" / provider {payload.get('provider', '?')} (内置 backend)")
     for path in written:
         print(f"  - {path}")
     return 0
+
+
+# -------------------- main --------------------
+
+def main(argv: list[str] | None = None) -> int:
+    args = parse_args(argv)
+    src = os.path.abspath(os.path.expanduser(args.input))
+    if not os.path.isfile(src):
+        sys.exit(f"[asr] 文件不存在: {src}")
+
+    args.lang = normalize_lang(args.lang)
+
+    info = probe(src)
+    print(f"[asr] 源文件: {src}")
+    print(f"[asr] 时长: {fmt_ts_short(info['duration'])} | 音频轨: {info['has_audio']} "
+          f"| 语言: {args.lang}")
+
+    out_dir = os.path.abspath(os.path.expanduser(
+        args.output_dir if args.output_dir else os.path.dirname(src)))
+    os.makedirs(out_dir, exist_ok=True)
+    stem = os.path.splitext(os.path.basename(src))[0]
+
+    formats = [f.strip().lower() for f in args.formats.split(",") if f.strip()]
+    # 没显式 --formats、只给了 --timestamps：顺带出 srt（vtt 保留为可选）
+    if args.timestamps and args.formats == DEFAULT_FORMATS:
+        formats = ["txt", "md", "srt"]
+    if any(f in ("srt", "vtt") for f in formats) and not args.timestamps:
+        sys.exit("[asr] 输出 srt/vtt 需要加 --timestamps")
+
+    targets = {f: os.path.join(out_dir, f"{stem}.{f}") for f in formats}
+    if not args.overwrite:
+        clash = [p for p in targets.values() if os.path.exists(p)]
+        if clash:
+            sys.exit("[asr] 已存在输出文件（加 --overwrite 覆盖）:\n  " + "\n  ".join(clash))
+
+    model_dir = resolve_model_dir(args.model_dir)
+
+    # backend 选择
+    if args.backend == "upstream":
+        if not has_upstream_backend():
+            sys.exit(f"[asr] --backend upstream 但找不到 {UPSTREAM_SCRIPT}")
+        chosen = "upstream"
+    elif args.backend == "builtin":
+        chosen = "builtin"
+    else:  # auto
+        chosen = "upstream" if has_upstream_backend() else "builtin"
+    print(f"[asr] backend: {chosen}")
+
+    if chosen == "upstream":
+        return run_upstream(args, src, info, out_dir, stem, formats, targets, model_dir)
+    return run_builtin(args, src, info, out_dir, stem, formats, targets, model_dir)
 
 
 if __name__ == "__main__":

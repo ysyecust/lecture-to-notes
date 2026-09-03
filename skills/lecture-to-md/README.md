@@ -17,7 +17,7 @@ skills/lecture-to-md/
 │   ├── clean_subs.py            ← YouTube 自动字幕去重
 │   └── correct_srt.py           ← 词典级同音字修正
 │
-├── local-asr/                ← 默认 ASR 子 skill（sherpa-onnx X-ASR，跨平台）
+├── local-asr/                ← 默认 ASR 子 skill（sherpa-onnx X-ASR，已在 macOS Apple Silicon + Linux ARM64 验证）
 │   ├── SKILL.md
 │   ├── agents/openai.yaml
 │   ├── references/models.md
@@ -50,7 +50,7 @@ skills/lecture-to-md/
 | 输出    | `.tex` + PDF             | `notes.md` + 图片              |
 | 抽帧密度 | 每 15s（按章节）              | 严格每 5s                     |
 | 配图    | contact sheet + 人工       | 多模态按 `###` 自动选（课件 > 视频帧） |
-| 默认 ASR | Whisper                | **sherpa-onnx X-ASR**（本地、跨平台） |
+| 默认 ASR | Whisper                | **sherpa-onnx X-ASR**（本地；已在 macOS Apple Silicon + Linux ARM64 端到端验证） |
 | 编译    | xelatex                | 无                          |
 
 **两者完全独立**——本包不修改也不依赖上游 `lecture-to-notes/` 的脚本、模板、`scripts/` 目录；上游用户按需把 `lecture-to-md/` 拷到 `~/.codex/skills/` 或 `~/.claude/skills/` 即可启用。
@@ -58,7 +58,7 @@ skills/lecture-to-md/
 ## 默认 ASR：`local-asr/`（sherpa-onnx X-ASR）
 
 - **模型**：[sherpa-onnx X-ASR](https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-x-asr-zipformer-transducer-zh-en-punct-int8-2026-06-03.tar.bz2)（Zipformer transducer，int8 量化，中英双语带标点，约 200 MB）。
-- **后端**：`sherpa-onnx`（纯 Python 推理，跨平台）。
+- **后端**：`sherpa-onnx`（纯 Python 推理，路径跨平台齐备）。
 - **核显支持**：macOS Apple Silicon 自动用 CoreML（coreml EP 不可用时 fallback CPU）；Linux NVIDIA 自动用 CUDA；其它默认 CPU。
 - **默认**不要切到 Qwen。Qwen 链路仅 macOS 可用且实测准确率不如 X-ASR。
 

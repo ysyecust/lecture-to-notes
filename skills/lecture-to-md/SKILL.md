@@ -7,7 +7,7 @@ description: 把课堂视频（本地或 B 站/YouTube）、文字稿、课件�
 
 把课堂视频（本地或 B 站/YouTube）、文字稿、课件三者（任意组合）整理成一份详细的中文 Markdown 课堂笔记，输出 `notes.md` + 相对路径图片。**作为上游 `lecture-to-notes` LaTeX/PDF 流的 Markdown 平行方案；本 skill 与上游 skill 完全独立，不修改也不依赖上游 skill 的脚本。**
 
-> **子代理分工**：素材获取（下载/ASR/抽帧/课件转 PNG）委派 **S0** 子代理并行做；主代理通读文字稿定死一级标题结构后，切素材（文字稿切片 / 帧按时段分目录 / 课件标页码）委派 **S1** 子代理做；然后每个撰写子代理领 1–3 个 H1 并行撰写 → 主代理汇总 → **对照文字稿重排目录结构**（只改标题、不动正文）→ 交付。  
+> **子代理分工**：素材获取（下载/ASR/抽帧/课件转 PNG）委派 **S0** 子代理并行做；主代理通读文字稿定死一级标题结构后，切素材（文字稿切片 / 帧按时段分目录 / 课件标页码）委派 **S1** 子代理做；然后每个撰写子代理领 1–3 个 H1 并行撰写 → 主代理汇总 → **对照文字稿重排目录结构**（只改标题、不动正文）→ 交付。
 > 切分与素材委派见 [`references/splitting.md`](references/splitting.md)，派发与汇总见 [`references/subagent-workflow.md`](references/subagent-workflow.md)，结构重排见 [`references/structure-reorder.md`](references/structure-reorder.md)。
 
 ## 与 LaTeX 版的区别
@@ -26,14 +26,14 @@ description: 把课堂视频（本地或 B 站/YouTube）、文字稿、课件�
 
 | 子 skill 路径                              | 何时用                                                                  |
 | ---------------------------------------- | -------------------------------------------------------------------- |
-| [`local-asr/`](local-asr/SKILL.md)       | **默认**。无字幕时全文转写 / 短片段核验；纯本地、跨平台（macOS / Linux / Windows）       |
+| [`local-asr/`](local-asr/SKILL.md)       | **默认**。无字幕时全文转写 / 短片段核验。已在 **macOS Apple Silicon** 与 **Linux ARM64**（CPU）端到端跑通；Windows 路径齐备但未验证。       |
 | [`volcengine-asr/`](volcengine-asr/SKILL.md) | 备用。火山引擎豆包 BigASR / 豆包 2.0，需要 APP ID + Token；长音频首选异步模式       |
 
 调用约定见各子 skill 的 SKILL.md，本 SKILL.md 不重复列参数。
 
 ## ASR 选型
 
-- **首选 `local-asr/`**（sherpa-onnx X-ASR，跨平台、int8 量化、对核显友好）。
+- **首选 `local-asr/`**（sherpa-onnx X-ASR，跨平台路径齐备、int8 量化、对核显友好）。
 - 本地模型在本人尝试过的若干本地 ASR 里准确率较高，且对核显支持较友好，**默认不要换成 Qwen**（Qwen 链路 MLX 仅 macOS 可用，且实测不如 sherpa-onnx X-ASR）。
 - 若用户已自带文字稿（火山引擎豆包、飞书妙记等），**跳过 ASR**，直接走 Phase 1 的文字稿核验。
 - 火山引擎走 `volcengine-asr/`，把产出的 `transcript.txt` 当作 S0-a 的产物继续。
