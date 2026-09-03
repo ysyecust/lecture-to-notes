@@ -23,6 +23,17 @@
       "source_url": "https://www.bilibili.com/video/BV1pb8o6yE8f/",
       "source_label": "B站",
       "meta": "蒋炎岩 · 100min · 41页"
+    },
+    {
+      "file": "nju_gse_2026_02_prompt_context_engineering_zh.pdf",
+      "title": "第 2 讲：提示词工程",
+      "order": 2,
+      "expected_pages": 28,
+      "duration_minutes": 98,
+      "instructor": "蒋炎岩",
+      "source_url": "https://www.bilibili.com/video/BV1CQt365EzW/",
+      "source_label": "B站",
+      "meta": "蒋炎岩 · 98min · 28页"
     }
   ]
 }

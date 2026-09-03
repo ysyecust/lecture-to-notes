@@ -1,0 +1,4 @@
+position	timestamp	transcript_sample	matching_visual	assessment
+10%	00:09:46	讲者提出费曼学习法：判断是否理解，不只向 AI 追问，还要反过来把自己当老师复述	fig_005_feynman_learning.jpg	pass: topic and visual agree
+50%	00:49:01	讲者解释每个 chain-of-thought token 都会重新注意过去的局部；代码完成后注意力会转向总结	fig_022_past_context_attention.jpg	pass: topic and visual agree
+90%	01:28:22	讲者强调 timeout 内产生的搜索路径也有价值，它揭示哪些程序结构不适合现有探索方法	fig_033_research_failure.jpg + neighboring slide	pass: topic and neighboring visual agree

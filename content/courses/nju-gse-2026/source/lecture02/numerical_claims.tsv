@@ -1,0 +1,12 @@
+claim_id	claim	value	unit	timestamp	source_status	note	in_notes
+N01	GPT-2 论文中已使用 prompting trained model 的说法	2019	year	00:00:15	visible-on-slide	用于说明 prompt 不是 ChatGPT 才发明的概念	yes
+N02	GPT-3 将自然语言任务描述与样例放入上下文	2020	year	00:00:15	visible-on-slide	与后续 prompt programming 发展相连	yes
+N03	Prompt programming 与 prompt-based learning 术语集中出现	2021	year	00:00:15	visible-on-slide	课程给出的历史节点	yes
+N04	英国《经度法》以可验收结果替代含糊愿望	1714	year	00:21:00	visible-on-slide	将需求改写为可验证条件的历史例子	yes
+N05	Raglan 战役命令因省略共同视野而产生灾难性歧义	1854	year	00:24:30	visible-on-slide	用来说明未写明约束会扩大选择空间	yes
+N06	乔治·佩雷克《消失》以形式约束生成整部小说	1969	year	00:44:30	visible-on-slide	Verifier 可见形式约束的文学例子	yes
+N07	Brooks 论述软件的 essence 与 accident	1986	year	00:31:15	visible-on-slide	实现变便宜不等于需求与设计消失	yes
+N08	课程用于安全调用边界的漏洞案例	CVE-2025-54558	identifier	00:12:30	visible-on-slide	只作为调用边界与权限设计案例	yes
+N09	复用相近代码库的研究报告中基线提升超过	10	percent	01:21:00	visible-on-slide	讲者同时强调外部有效性尚未证明	yes
+N10	对照实验建议为相同任务保留	3-5	golden paths	01:21:00	visible-on-slide	用于比较无示例与完整参考仓库	yes
+N11	Stanford AI Index 2025 所述 notable models 中产业来源接近	90	percent	01:37:30	visible-on-slide	课程结尾关于算力成为生产资料的证据	yes

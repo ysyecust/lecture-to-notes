@@ -1,0 +1,55 @@
+{
+  "lecture": "南京大学生成式软件工程 2026 第2讲：提示词工程",
+  "video_duration_seconds": 5905.536,
+  "acquisition": {
+    "part_count": 1,
+    "video_resolution": "1280x410",
+    "video_bytes": 305004220,
+    "yt_dlp_version": "2026.8.19",
+    "status": "pass"
+  },
+  "subtitle": {
+    "source": "sherpa-onnx X ASR zh-en punct int8 2026-06-03",
+    "entries": 1416,
+    "coverage": 1.0,
+    "repetition_ratio": 0.05225988700564976,
+    "start_middle_end_windows": true,
+    "semantic_samples_10_50_90": "pass",
+    "raw_retained": true,
+    "status": "pass"
+  },
+  "figures": {
+    "sampled_frames": 394,
+    "sampling_interval_seconds": 15,
+    "selected": 39,
+    "visual_verified": 39,
+    "subtitle_verified": 39,
+    "full_frame_policy": true,
+    "three_way_review": "pass"
+  },
+  "density": {
+    "mode": "technical-slide",
+    "cjk_chars": 10568,
+    "required_cjk_chars": 6890,
+    "sections": 13,
+    "required_sections": 8,
+    "boxes": 26,
+    "required_boxes": 12,
+    "display_math": 2,
+    "required_display_math": 2,
+    "figures": 39,
+    "required_figures": 28,
+    "teaching_atoms": 35,
+    "numerical_claims": 11,
+    "status": "pass"
+  },
+  "document": {
+    "pages": 28,
+    "empty_pages": 0,
+    "compile_passes": 2,
+    "reader_first_review": "pass",
+    "visual_review": "all pages",
+    "status": "pass"
+  },
+  "overall": "pass"
+}

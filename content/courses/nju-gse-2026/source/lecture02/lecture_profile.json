@@ -1,0 +1,29 @@
+{
+  "lecture_id": "nju-gse-2026-02",
+  "title": "提示词工程与上下文工程",
+  "course": "南京大学《生成式软件工程》2026 秋季学期",
+  "instructor": "蒋炎岩",
+  "mode": "technical-slide",
+  "audience": "具备基础编程经验、希望系统使用 LLM Agent 的学生与工程师",
+  "central_question": "如何把一句自然语言指令升级为包含证据、权限、反馈和完成条件的可验证上下文系统",
+  "reader_outcome": "读者能够分层设计 Agent 上下文，写出 Intent-Spec-Impl 契约，配置 Verifier，并为长程任务设计可归因反馈",
+  "visual_teaching_atoms": 39,
+  "formula_teaching_atoms": 2,
+  "duration_minutes": 98.4,
+  "duration_seconds": 5905.536,
+  "language": "zh-CN with English technical terms",
+  "visual_layout": "split classroom and full slide or live demo",
+  "sampling_interval_seconds": 15,
+  "sampled_frames": 394,
+  "selected_figures": 39,
+  "asr_backend": "sherpa-onnx X ASR zh-en punct int8 2026-06-03",
+  "subtitle_source": "local ASR; Bilibili exposed no subtitle track",
+  "writing_targets": {
+    "minimum_cjk_chars": 6890,
+    "minimum_sections": 8,
+    "minimum_boxes": 12,
+    "minimum_figures": 28,
+    "minimum_source_grounded_display_formulas": 2
+  },
+  "editorial_principle": "reader-first reconstruction grounded by video, corrected subtitle timeline, and full-frame visual evidence"
+}

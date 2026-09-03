@@ -96,7 +96,7 @@ cp -R scripts/whisper_prompts ~/.claude/skills/lecture-to-notes/assets/
 ### 浏览课程资料
 
 课程站点收录多门课程的 PDF 和论文解读，包括 Stanford
-CS336: Language Modeling from Scratch Spring 2026 全 18 讲、Spring 2025 第 4–8 讲，
+CS336: Language Modeling from Scratch Spring 2026 全 18 讲，
 以及南京大学《生成式软件工程》2026 课程讲义。
 课程卡片进入讲次列表后，PDF 会在独立阅读页中打开；若浏览器内嵌预览不可用，仍可
 直接打开或下载原始 PDF。

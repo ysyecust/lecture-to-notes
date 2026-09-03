@@ -1,0 +1,36 @@
+atom_id	status	start	end	topic	claim	visual	formula_or_check
+A01	ok	00:00	01:15	Prompt 术语史	ChatGPT 普及了 prompt，但没有发明它	fig_001_prompt_origin.jpg	年份与原始论文用语可复核
+A02	ok	01:15	03:15	Agent 的真实输入	模型看见的是 system prompt、项目规则、技能、工具与历史共同组成的 context	fig_002_prompt_beyond_chat.jpg	Pr[token|context]
+A03	ok	03:15	04:45	上下文工程	工作集必须足够、最新、有来源并可验证	fig_003_context_engineering.jpg	检查上下文是否含目标、事实与验证器
+A04	ok	04:45	07:30	立即行动	AI 把第一次尝试变便宜，学习者应立即做最小问题并验证	fig_004_immediate_action.jpg	最小问题→检查→反馈→更新
+A05	ok	07:30	10:30	费曼学习	让 AI 当听众，以复述暴露理解缺口	fig_005_feynman_learning.jpg	能否不用原句讲清并回答追问
+A06	ok	10:30	12:30	上下文盘点	把上下文分类为目标、权限、流程、规则、事实与优先级	fig_006_dissect_context.jpg	逐项与实际行为核对
+A07	ok	12:30	15:30	安全命令边界	模型建议动作，Harness 决定策略，操作系统执行强制约束	fig_007_safe_command_layers.jpg	allow/prompt/forbidden
+A08	ok	15:30	18:45	Guardian 分层	静态路由、模型评审、人工批准共同形成 fail-closed 边界	fig_008_guardian_layers.jpg	检查语法、意图、权限三层
+A09	ok	18:45	20:45	完成语义	上下文必须描述什么才算 done，否则模型会按高频模式提前结束	fig_009_done_in_context.jpg	V(T)=1
+A10	ok	20:45	22:30	验收条件	把愿望改写为可运行或可判定的通过条件	fig_010_verifiable_acceptance.jpg	测试/证据通过才完成
+A11	ok	22:30	24:30	Intent-Spec-Impl	每省略一层，模型可自由选择的空间都会放大	fig_011_intent_spec_impl_gap.jpg	逐层列出不可替代约束
+A12	ok	24:30	26:15	承担歧义后果	好指令要么完成，要么以明确证据失败	fig_013_rule_of_thumb.jpg	未验证时报告未完成
+A13	ok	26:15	31:15	设计语言	抽象风格词不能排除模板；颜色、字体、栅格、留白、组件参考能压缩合法解空间	fig_014_bad_better_homepage.jpg	比较两次实现与验收截图
+A14	ok	31:15	33:15	新分工	人定义问题和目标，AI 搜索实现，判断是否达标仍需人承担	fig_016_human_problem_ai_search.jpg	目标 G、验证器 V、搜索 x
+A15	ok	33:15	38:45	Token 计算深度	单步计算很浅，但中间 token 可成为后续上下文，使一串浅步骤形成深推理	fig_017_token_context_depth.jpg	Pr[token|context]
+A16	ok	38:45	41:45	约束写作	藏头、顺序、字数等形式约束让生成目标可检验	fig_018_constrained_poem.jpg	编写字符级检查器
+A17	ok	41:45	44:30	压缩搜索空间	偏旁、韵母、故事性等约束将开放写作变成结构化搜索	fig_019_eighteen_char_alliteration.jpg	18 字与部首一致检查
+A18	ok	44:30	47:30	Verifier 的盲区	通过形式测试不等于写得好；趣味、论证与品味常不可被检查器看见	fig_021_verifier_visible_invisible.jpg	区分可判定约束与语义评审
+A19	ok	47:30	50:45	历史上下文	每个新 token 都能重新注意过去，但旧信息不一定被同等可靠地使用	fig_022_past_context_attention.jpg	在阶段边界复述关键约束
+A20	ok	50:45	54:45	注意力竞争	规则会纠偏也会抢占注意力，常驻规则与按需加载应分层	fig_023_context_competes_attention.jpg	持久规则/任务 Skill/验收接口
+A21	ok	54:45	58:30	AI 同行评审	只指定 reviewer 身份会学到格式，不一定学到证据链与反证程序	fig_024_ai_peer_review.jpg	先验、证据、反证分别检查
+A22	ok	58:30	65:00	论文证据审计	把核心 claim 与记忆或外部证据逐项对齐，并标注置信度	fig_026_memory_claim_table.jpg	claim→evidence→assumption
+A23	ok	65:00	71:00	独立 Reviewer	剥离贡献、证据审计、反方复现三路独立后再汇合	fig_027_three_review_routes.jpg	三路先独立形成判断
+A24	ok	71:00	75:00	方法论上限	作者结构会锚定 reviewer；应先独立写问题、替代解释和可推翻结果	fig_028_method_limits.jpg	避免先读结论再找支持
+A25	ok	75:00	75:45	Skill 蒸馏	成功经验应保存搜索策略、判断标准、检查点与失败转向条件	fig_029_skill_distillation.jpg	少写答案，多写闭环
+A26	ok	75:45	77:00	Long-Horizon	能力来自尝试、编译/测试、观察与修复形成的反馈循环	fig_030_long_horizon_feedback.jpg	held-out tests 与独立 review
+A27	ok	77:00	81:00	Greenfield 悖论	代码少不等于信息少；成熟仓库提供约定，也可能带来历史噪声	fig_031_greenfield_paradox.jpg	固定任务与预算做对照
+A28	ok	81:00	85:15	代码库复用实验	相近仓库可能帮助，也可能负迁移，结论必须由受控实验支持	fig_032_reuse_repo_experiment.jpg	无示例/完整仓库/精选路径
+A29	ok	85:15	88:45	Research Failure	总 benchmark 不提供局部、便宜、可归因反馈，token 会烧完而知识不增加	fig_033_research_failure.jpg	先构造几十秒可反馈的 micro-benchmark
+A30	ok	88:45	91:30	吞吐量优先	自动化目标是提高全天吞吐量，而非把每一步人工等待时间压到最低	fig_034_less_intervention.jpg	任务可并行、失败可恢复
+A31	ok	91:30	93:15	记忆变机制	上下文越长不等于记得越牢，应把关键要求沉淀成测试、接口、CI 和 checkpoint	fig_035_context_memory_mechanism.jpg	关键约束重新落地
+A32	ok	93:15	94:30	不确定性搜索	开放问题没有唯一停止概率，应显式定义多样化路线与停止条件	fig_036_uncertainty_search.jpg	深度换长度，校验换宽度
+A33	ok	94:30	96:45	算力换智力	与其让模型只给几个名字，不如定义探索空间、并行采样并独立校验	fig_037_compute_for_intelligence.jpg	覆盖率×评估分辨率
+A34	ok	96:45	97:30	群体多样性	偏见不可彻底消除时，用不同采样与批判路线避免只剩一种偏见	fig_038_diverse_sampling.jpg	生成与校验使用不同路径
+A35	ok	97:30	98:25	墙内的超人	算力成为生产资料后，人的价值转向定义墙的位置、验收门槛与外部世界责任	fig_039_wall_superhuman.jpg	人负责目标、边界与后果

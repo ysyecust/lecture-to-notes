@@ -1,0 +1,18 @@
+{
+  "backend": "sherpa-onnx-x-asr",
+  "sherpa_onnx_version": "1.13.6",
+  "input": "D:\\Code\\lecture-to-notes\\workspace\\nju-gse-2026-02-prompt-engineering\\video.mp4",
+  "output": "D:\\Code\\lecture-to-notes\\workspace\\nju-gse-2026-02-prompt-engineering\\audio_x_asr_raw.srt",
+  "model": {
+    "encoder": "D:\\Code\\lecture-to-notes\\workspace\\issue-12-x-asr\\sherpa-onnx-x-asr-zipformer-transducer-zh-en-punct-int8-2026-06-03\\encoder-epoch-99-avg-1.int8.onnx",
+    "decoder": "D:\\Code\\lecture-to-notes\\workspace\\issue-12-x-asr\\sherpa-onnx-x-asr-zipformer-transducer-zh-en-punct-int8-2026-06-03\\decoder-epoch-99-avg-1.onnx",
+    "joiner": "D:\\Code\\lecture-to-notes\\workspace\\issue-12-x-asr\\sherpa-onnx-x-asr-zipformer-transducer-zh-en-punct-int8-2026-06-03\\joiner-epoch-99-avg-1.int8.onnx",
+    "tokens": "D:\\Code\\lecture-to-notes\\workspace\\issue-12-x-asr\\sherpa-onnx-x-asr-zipformer-transducer-zh-en-punct-int8-2026-06-03\\tokens.txt"
+  },
+  "threads": 8,
+  "chunks": 219,
+  "cues": 1416,
+  "audio_seconds": 5905.536,
+  "decode_seconds": 82.3055598998908,
+  "rtf": 0.013937017723690244
+}

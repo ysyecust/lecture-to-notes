@@ -1,0 +1,15 @@
+{
+  "engine": "XeLaTeX",
+  "passes": 2,
+  "exit_code": 0,
+  "pages": 28,
+  "page_size": "A4",
+  "file_size_bytes": 4789252,
+  "overfull_boxes": 0,
+  "underfull_boxes": 0,
+  "undefined_references": 0,
+  "missing_characters": 0,
+  "qpdf_structure_check": "pass",
+  "active_content_scan": "pass",
+  "status": "pass"
+}

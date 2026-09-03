@@ -1,0 +1,14 @@
+start	end	section	core_question	evidence
+00:00	04:15	从提示词到上下文	提示词究竟从哪里来，Agent 实际看见什么	video+slides+ASR
+04:15	10:30	立即行动与费曼学习	AI 降低第一次尝试成本后，怎样保证学习发生	video+slides+ASR
+10:30	18:45	上下文解剖与安全边界	系统提示词、规则、技能、工具、沙箱如何共同约束动作	video+live-demo+ASR
+18:45	25:30	完成条件与逐级规格	模型何时停止，模糊意图如何转成可验收条件	video+slides+ASR
+25:30	31:15	从 AI 味到设计语言	怎样压缩合法解空间并承担未说明部分的后果	video+live-demo+ASR
+31:15	38:45	人定义问题，AI 搜索实现	Intent、Spec、Impl 如何重新分工；token 怎样形成计算深度	video+slides+ASR
+38:45	45:30	约束写作与 Verifier	形式检查能做到什么，语义质量为何仍不可见	video+slides+ASR
+45:30	54:45	注意力也是资源	长上下文中为何会偏航，规则应该常驻还是按需加载	video+slides+ASR
+54:45	71:00	AI 审稿与证据链	怎样让 reviewer 分离贡献、证据、假设与反例	video+live-demo+ASR
+71:00	78:15	方法蒸馏与长程任务	成功经验怎样变成 Skill，反馈循环怎样训练出长程能力	video+slides+ASR
+78:15	84:45	Greenfield 与复用悖论	成熟代码库是帮助还是噪声，怎样设计对照实验	video+slides+ASR
+84:45	91:30	研究失败与吞吐量	为什么烧完 token 仍没增加知识，何时少干预反而更好	video+slides+ASR
+91:30	98:25	不确定性搜索与多样化	如何把记忆升级成机制，用并行采样与校验换取覆盖率	video+slides+ASR

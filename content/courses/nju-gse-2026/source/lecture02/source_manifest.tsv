@@ -1,0 +1,11 @@
+artifact	role	source	sha256	status
+metadata.json	Bilibili metadata	public Bilibili APIs	0a5df1f79ef285b09ef2f8abbfe9aaea5ab8d5b656472c66515448e64363fdb7	verified
+video.mp4	lecture video	https://www.bilibili.com/video/BV1CQt365EzW/	564999a0d32f6c5588470b66ab18f257576b5253d7ea7f8a2b670113a6d2d66a	verified
+cover.jpg	Bilibili cover	public Bilibili API	ff4e8e85c637a5cd370b46627018fbaad918ceebd870f8090124ac8cee4733ff	verified
+audio_x_asr_raw.srt	raw ASR transcript	sherpa-onnx X ASR zh-en punct int8 2026-06-03	d0953778323a15d7fb50623b75f30ae9f11ca6b2eca4bfe5dc47b4cdb1f155bc	retained
+audio_corrected.srt	conservatively corrected transcript	audio_x_asr_raw.srt plus observed terminology glossary	8808d03df0d3453de9fd4b919dfe686c11515fdb23b2d398907e68c042f5c22e	verified
+notes.tex	reader-first LaTeX source	video plus ASR plus full-frame visual review	b792fc8b46db3bc17e0d0187f68a409417acc7cc3794b1750eead3aebd828266	verified
+notes.pdf	final Chinese lecture notes	local two-pass XeLaTeX build	07f7bb4e903614da113c1d28bf1ac73431f43d2cad039d89811bf55a74938a6d	verified
+figure_manifest.tsv	figure evidence map	39 selected full frames	325f24474666264a415ab8792b965678f52610442b44d6987527af6b94629155	verified
+teaching_atoms.tsv	teaching coverage map	35 source-backed atoms	3240cea2f11aecf3893e167d858ef7600e75cdbe7a37e06a9f7f7c76a36c2bf9	verified
+numerical_claims.tsv	numeric claim audit	11 lecture-visible claims	5f214c26b80c2ffa75366ae46044384f8c315a93cde9f0b06b15fc4c9b990e8c	verified

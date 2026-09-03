@@ -1,0 +1,40 @@
+figure	source_frame	start	end	chapter	caption	visual_verified	subtitle_verified
+fig_001_prompt_origin.jpg	frame_0002.jpg	00:00:15	00:00:30	提示词史	Prompt 术语早于 ChatGPT：从 GPT-2、GPT-3 到提示词编程	yes	yes
+fig_002_prompt_beyond_chat.jpg	frame_0007.jpg	00:01:30	00:01:45	上下文	提示词不只在对话框，Agent 看到的是整个运行上下文	yes	yes
+fig_003_context_engineering.jpg	frame_0013.jpg	00:03:00	00:03:15	上下文	从提示词工程转向上下文工程：组织可用工作集	yes	yes
+fig_004_immediate_action.jpg	frame_0020.jpg	00:04:45	00:05:00	学习	AI 降低第一次尝试成本，立即行动并形成反馈飞轮	yes	yes
+fig_005_feynman_learning.jpg	frame_0039.jpg	00:09:30	00:09:45	学习	费曼学习法：让 AI 当听众，用复述暴露理解缺口	yes	yes
+fig_006_dissect_context.jpg	frame_0045.jpg	00:11:00	00:11:15	上下文	解剖当前上下文：目标、权限、流程、规则、事实与优先级	yes	yes
+fig_007_safe_command_layers.jpg	frame_0051.jpg	00:12:30	00:12:45	安全	安全动作由模型建议、Harness 决策、操作系统强制	yes	yes
+fig_008_guardian_layers.jpg	frame_0070.jpg	00:17:15	00:17:30	安全	Guardian 的静态路由、模型评审与人工批准分层	yes	yes
+fig_009_done_in_context.jpg	frame_0077.jpg	00:19:00	00:19:15	完成条件	上下文必须告诉模型什么才算完成	yes	yes
+fig_010_verifiable_acceptance.jpg	frame_0085.jpg	00:21:00	00:21:15	完成条件	把含糊愿望改写成可以验收的结果	yes	yes
+fig_011_intent_spec_impl_gap.jpg	frame_0091.jpg	00:22:30	00:22:45	规格	Intent 到 Spec 再到 Impl 的逐级放大	yes	yes
+fig_012_driving_game_demo.jpg	frame_0092.jpg	00:22:45	00:23:00	规格	一句话生成极品飞车的实现展示了巨大默认选择空间	yes	yes
+fig_013_rule_of_thumb.jpg	frame_0099.jpg	00:24:30	00:24:45	规格	写清指令并承担未说明部分的后果：要么完成，要么显式失败	yes	yes
+fig_014_bad_better_homepage.jpg	frame_0103.jpg	00:25:30	00:25:45	设计	从 AI 味到个人主页：具体设计语言压缩合法解空间	yes	yes
+fig_015_generated_homepage.jpg	frame_0106.jpg	00:26:15	00:26:30	设计	具体风格、排版与组件约束生成的个人主页	yes	yes
+fig_016_human_problem_ai_search.jpg	frame_0126.jpg	00:31:15	00:31:30	分工	人定义问题与目标，AI 搜索实现	yes	yes
+fig_017_token_context_depth.jpg	frame_0134.jpg	00:33:15	00:33:30	推理	一步很浅，一串 token 借助上下文可以形成深计算	yes	yes
+fig_018_constrained_poem.jpg	frame_0156.jpg	00:38:45	00:39:00	约束写作	把藏头、顺序和数字约束写进八句诗	yes	yes
+fig_019_eighteen_char_alliteration.jpg	frame_0168.jpg	00:41:45	00:42:00	约束写作	十八个字、同一偏旁与故事性的组合约束	yes	yes
+fig_020_yi_pinyin_story.jpg	frame_0176.jpg	00:43:45	00:44:00	约束写作	只许一个音仍要讲现代故事的生成实验	yes	yes
+fig_021_verifier_visible_invisible.jpg	frame_0179.jpg	00:44:30	00:44:45	验证	Verifier 看得见形式约束，却未必看得见趣味与品味	yes	yes
+fig_022_past_context_attention.jpg	frame_0191.jpg	00:47:30	00:47:45	注意力	每个新 token 都可能回看旧上下文，但不保证同等可靠	yes	yes
+fig_023_context_competes_attention.jpg	frame_0204.jpg	00:50:45	00:51:00	注意力	上下文既会纠偏，也会争用注意力	yes	yes
+fig_024_ai_peer_review.jpg	frame_0221.jpg	00:55:00	00:55:15	审稿	让 AI 评审自己的论文：身份提示不等于审稿方法	yes	yes
+fig_025_paper_review_demo.jpg	frame_0224.jpg	00:55:45	00:56:00	审稿	读取论文并生成审稿意见的现场演示	yes	yes
+fig_026_memory_claim_table.jpg	frame_0243.jpg	01:00:30	01:00:45	审稿	把论文断言、既有记忆与置信度做成证据表	yes	yes
+fig_027_three_review_routes.jpg	frame_0280.jpg	01:09:45	01:10:00	审稿	剥离贡献、证据审计、反方复现三条独立审稿路线	yes	yes
+fig_028_method_limits.jpg	frame_0285.jpg	01:11:00	01:11:15	审稿	不要被作者带着走：先独立重建 claim、evidence 与 assumption	yes	yes
+fig_029_skill_distillation.jpg	frame_0301.jpg	01:15:00	01:15:15	方法	把偶然成功蒸馏成可复用 Skill 与检查闭环	yes	yes
+fig_030_long_horizon_feedback.jpg	frame_0304.jpg	01:15:45	01:16:00	长程任务	长程能力来自尝试、测试、观察、修复的反馈循环	yes	yes
+fig_031_greenfield_paradox.jpg	frame_0309.jpg	01:17:00	01:17:15	工程上下文	Greenfield 代码少不代表信息少，成熟仓库也可能带来历史噪声	yes	yes
+fig_032_reuse_repo_experiment.jpg	frame_0325.jpg	01:21:00	01:21:15	工程上下文	用受控实验检验参考代码库的帮助与负迁移	yes	yes
+fig_033_research_failure.jpg	frame_0342.jpg	01:25:15	01:25:30	研究	Research Failure：token 花完但知识没有增加	yes	yes
+fig_034_less_intervention.jpg	frame_0356.jpg	01:28:45	01:29:00	吞吐量	少干预反而做得更多：区分单步延迟与系统吞吐量	yes	yes
+fig_035_context_memory_mechanism.jpg	frame_0367.jpg	01:31:30	01:31:45	记忆	Context 越长不等于记得越牢，应把要求升级为机制	yes	yes
+fig_036_uncertainty_search.jpg	frame_0374.jpg	01:33:15	01:33:30	探索	在不确定性中探索：定义路线、停止条件与校验宽度	yes	yes
+fig_037_compute_for_intelligence.jpg	frame_0379.jpg	01:34:30	01:34:45	探索	算力换智力：把灵感生成改造成并行搜索	yes	yes
+fig_038_diverse_sampling.jpg	frame_0388.jpg	01:36:45	01:37:00	探索	通过多采样与交叉批判保持群体多样性	yes	yes
+fig_039_wall_superhuman.jpg	frame_0391.jpg	01:37:30	01:37:45	结论	墙内的超人：算力成为生产资料后，人仍负责墙与外部世界	yes	yes

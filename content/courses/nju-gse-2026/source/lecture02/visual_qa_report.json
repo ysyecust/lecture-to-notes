@@ -1,0 +1,17 @@
+{
+  "rendered_pages": 28,
+  "render_dpi": 120,
+  "contact_sheets": [
+    "quality/final_pages_contact_01.jpg",
+    "quality/final_pages_contact_02.jpg",
+    "quality/final_pages_contact_03.jpg",
+    "quality/final_pages_contact_04.jpg"
+  ],
+  "blank_pages": 0,
+  "cropped_content_pages": 0,
+  "overlapping_content_pages": 0,
+  "unreadable_figure_pages": 0,
+  "manual_review": "all pages",
+  "latest_render_reviewed": true,
+  "status": "pass"
+}
