@@ -50,6 +50,16 @@ MAX_CUE_WORD = 90        # 非中文单条最长字符
 
 SENT_END = "。！？!?；;…"
 
+# CJK 字符范围（用于去除「汉字 汉字」中的多余空格）
+_CJK_RANGES = (
+    "\u3000-\u303F"   # CJK Symbols and Punctuation
+    "\u4E00-\u9FFF"   # CJK Unified Ideographs
+    "\u3400-\u4DBF"   # CJK Extension A
+    "\U00020000-\U0002A6DF"   # CJK Extension B
+    "\uF900-\uFAFF"   # CJK Compatibility Ideographs
+    "\uFF00-\uFFEF"   # 全角 ASCII
+)
+
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     ap = argparse.ArgumentParser(
@@ -93,83 +103,122 @@ def is_cjk_heavy(text: str) -> bool:
 
 def tokens_to_cues(tokens: list[str], timestamps: list[float],
                    text: str, cjk: bool) -> list[dict]:
-    """把 X-ASR 输出的 (token, 起始秒) 列表合并成字幕条。
+    """把 X-ASR 的 token 时间戳转成字幕条。
 
-    X-ASR tokens 列表去掉 BPE 标记后会比原文细；这里用一个简单启发：
-    - 把 tokens 按自然停顿（句末标点、逗号）合并；
-    - 若一整段无标点（如纯中文识别结果），按「N 字符/段」与「最大时长」切。
-    时间戳：每条字幕 start = 第一个 token 的时间戳，end = 最后一个 token 的时间戳 + 词时长估值。
+    不从 token 重构文本（X-ASR int8 的英文 BPE 切得太碎，"quality" 会变成
+    [" q", "u", "al", "ity"]；从 token 拼回去总会有乱七八糟的间隙）。
+    改为：直接信任 sherpa-onnx 已产生的 text，按标点切句，每句时间区间由该句
+    对应 token 的首/尾时间戳决定。
+
+    token → text 字符映射：每条 token (去前导空格后) 的内容挨个平铺到文本上，
+    生成一个 char_idx → token_idx 的表。切句后从表里查句首/末字符对应的 token。
     """
     if not tokens or not timestamps or len(tokens) != len(timestamps):
         return []
 
-    # X-ASR token 里可能含 <blk> / ▁/ BPE 边界符；粗略清理
-    clean_pairs: list[tuple[str, float]] = []
-    for tok, ts in zip(tokens, timestamps):
-        # sherpa-onnx X-ASR PUNCT 模型：标点是独立 token；保留
-        if not tok:
-            continue
-        clean_pairs.append((tok, float(ts)))
+    # 1) 切句：按 SENT_END 标点切，保留末尾标点
+    sentences: list[str] = []
+    buf: list[str] = []
+    for i, ch in enumerate(text):
+        buf.append(ch)
+        end_sentence = ch in SENT_END
+        if ch == ".":
+            nxt = text[i + 1] if i + 1 < len(text) else ""
+            end_sentence = (nxt == "" or nxt.isspace())  # 英文句号避免切在 3.14
+        if end_sentence:
+            sentences.append("".join(buf).strip())
+            buf = []
+    if buf:
+        tail = "".join(buf).strip()
+        if tail:
+            sentences.append(tail)
 
-    if not clean_pairs:
+    sentences = [s for s in sentences if s]
+    if not sentences:
         return []
 
-    max_chars = MAX_CUE_CJK if cjk else MAX_CUE_WORD
+    # 2) char_idx → token_idx 映射
+    char_to_token: list[int] = []
+    for tok_idx, tok in enumerate(tokens):
+        content = tok.lstrip(" \u2581")
+        for _ in content:
+            char_to_token.append(tok_idx)
+    if not char_to_token:
+        return []
 
+    # 3) 为每句查找起止 token 时间戳
     cues: list[dict] = []
-    buf_tokens: list[str] = []
-    buf_start: float | None = None
-    buf_end: float | None = None
+    char_pos = 0
+    text_len = len(text)
+    last_token_idx = char_to_token[-1]
 
-    def flush(reason_end_ts: float | None = None):
-        nonlocal buf_tokens, buf_start, buf_end
-        if not buf_tokens:
-            return
-        text_seg = "".join(buf_tokens).strip()
-        if not text_seg:
-            buf_tokens, buf_start, buf_end = [], None, None
-            return
-        start = buf_start or 0.0
-        if reason_end_ts is not None:
-            end = reason_end_ts
-        elif buf_end is not None:
-            end = buf_end
-        else:
-            end = start + 0.5  # 兜底
-        # 单条最长时长限制：超过就强制切
-        if end - start > HARD_CUE_SEC:
-            end = start + HARD_CUE_SEC
-        cues.append({"start": round(start, 3), "end": round(end, 3), "text": text_seg})
-        buf_tokens, buf_start, buf_end = [], None, None
+    for sent in sentences:
+        sent_len = len(sent)
+        sent_start = min(char_pos, len(char_to_token) - 1)
+        sent_end = min(char_pos + sent_len - 1, len(char_to_token) - 1)
+        char_pos += sent_len
 
-    # 提前算好「下一 token 的起始时间」作为本条字幕的 end（更贴近真实语音尾）。
-    # 末 token 没有后继，给个默认兜底（用自身时间 + 0.3s），避免 end == start。
-    n = len(clean_pairs)
-    next_ts: list[float] = [
-        clean_pairs[i + 1][1] if i + 1 < n else clean_pairs[i][1] + 0.3
-        for i in range(n)
-    ]
+        if sent_start < 0 or sent_end < sent_start:
+            continue
 
-    for i, (tok, ts) in enumerate(clean_pairs):
-        if buf_start is None:
-            buf_start = ts
-        buf_tokens.append(tok)
-        buf_end = ts
+        start_idx = char_to_token[sent_start]
+        end_idx = char_to_token[sent_end]
+        start_ts = float(timestamps[start_idx])
+        end_ts = float(timestamps[end_idx])
 
-        # 触发切分的条件（命中任一即 flush 当前 buf）：
-        seg_so_far = "".join(buf_tokens)
-        end_sentence = tok[-1] in SENT_END if tok else False
-        too_long = len(seg_so_far) >= max_chars
-        too_long_time = (buf_end - buf_start) >= MAX_CUE_SEC if buf_end is not None and buf_start is not None else False
+        # 末句末尾加一点塞住，避免与下一句重叠
+        if end_idx == last_token_idx:
+            end_ts = end_ts + 0.3
 
-        if end_sentence or too_long or too_long_time:
-            # 用下一 token 的时间戳作为本条结束（更贴近真实语音尾）
-            flush(next_ts[i])
+        cues.append({"start": round(start_ts, 3),
+                     "end": round(end_ts, 3),
+                     "text": sent})
 
-    # 收尾
-    flush()
+    # 4) 超长句再细分（按 char 数线性插值时间）
+    max_chars = MAX_CUE_CJK if cjk else MAX_CUE_WORD
+    final: list[dict] = []
+    for c in cues:
+        text_seg = c["text"]
+        n = len(text_seg)
+        dur = c["end"] - c["start"]
+        if n <= max_chars and dur <= HARD_CUE_SEC:
+            final.append(c)
+            continue
+        # 超长：按 max_chars 切，时间按字符线性分
+        pos = 0
+        seg_start = c["start"]
+        while pos < n:
+            cut = min(n, pos + max_chars)
+            seg_text = text_seg[pos:cut].strip()
+            if seg_text:
+                seg_end = seg_start + dur * (cut - 0) / n
+                final.append({
+                    "start": round(seg_start, 3),
+                    "end": round(min(c["end"], seg_end), 3),
+                    "text": seg_text,
+                })
+            seg_start = c["start"] + dur * cut / n
+            pos = cut
 
-    return cues
+    return final
+
+
+def _is_cjk(ch: str) -> bool:
+    """单字 CJK 判定。含 CJK 统一表意、CJK Extension A/B、全角 ASCII 标点。"""
+    if not ch:
+        return False
+    o = ord(ch)
+    return (
+        0x3000 <= o <= 0x303F   # CJK Symbols and Punctuation（含 ， 。 、 「 」 ！ ？ ： ；）
+        or 0x4E00 <= o <= 0x9FFF
+        or 0x3400 <= o <= 0x4DBF
+        or 0x20000 <= o <= 0x2A6DF
+        or 0x2A700 <= o <= 0x2B73F
+        or 0x2B740 <= o <= 0x2B81F
+        or 0x2B820 <= o <= 0x2CEAF
+        or 0xF900 <= o <= 0xFAFF
+        or 0xFF00 <= o <= 0xFFEF  # 全角 ASCII
+    )
 
 
 def write_srt(cues: list[dict], path: str) -> None:
@@ -249,6 +298,10 @@ def main(argv: list[str] | None = None) -> int:
     text = (payload.get("text") or "").strip()
     if not text:
         sys.exit("[asr] 没有识别出任何内容，请检查音频轨是否存在。")
+
+    # sherpa-onnx X-ASR raw text 有时候会留下「汉字 汉字」中的多余空格
+    # （不像 token 那样有 lstrip）。按 CJK 边界扫一遍，归一化为「汉字汉字」。
+    text = re.sub(rf"(?<=[{_CJK_RANGES}])\s+(?=[{_CJK_RANGES}])", "", text)
 
     tokens = payload.get("tokens") or []
     timestamps = payload.get("timestamps") or []

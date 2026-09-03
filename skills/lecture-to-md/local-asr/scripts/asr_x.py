@@ -70,14 +70,34 @@ def _resolve_provider(args: argparse.Namespace) -> str:
 
 
 def _load_audio(path: str, target_sr: int = 16000):
-    """读 wav（不依赖 soundfile，sherpa-onnx 自带 read_wave）。"""
-    import sherpa_onnx
+    """读 wav：优先 stdlib `wave`（零依赖）；不上 numpy / soundfile。
+    sherpa-onnx 1.13+ 已不再导出 read_wave，这里按它的约定手读。
+    """
+    import wave
 
-    samples = sherpa_onnx.read_wave(path).samples
-    if hasattr(samples, "numpy"):
-        samples = samples.numpy()
-    samples = list(samples)  # sherpa-onnx 接受 list[float]
-    return samples, target_sr
+    with wave.open(path, "rb") as w:
+        n_channels = w.getnchannels()
+        sample_width = w.getsampwidth()
+        sr = w.getframerate()
+        n_frames = w.getnframes()
+        raw = w.readframes(n_frames)
+
+    # 仅支持 16-bit PCM（入口脚本会确保转成 16k mono s16le；非 wav 直接报错）
+    if sample_width != 2:
+        raise RuntimeError(
+            f"_load_audio 仅支持 16-bit PCM wav（sample_width={sample_width}）。"
+            f"先跑 transcribe.py 由 ffmpeg 统一预转 16k 单声道 s16le。"
+        )
+
+    import array as _array
+    # little-endian signed short -> float32 in [-1, 1]
+    shorts = _array.array("h", raw)
+    if n_channels > 1:
+        # 取第一个声道（入口已转单声道，这里仅兜底）
+        shorts = shorts[0::n_channels]
+    samples = [s / 32768.0 for s in shorts]
+    # sherpa-onnx accept_waveform 会按需重采样；这里把入口的 sr 原样回传
+    return samples, sr
 
 
 def main() -> int:
