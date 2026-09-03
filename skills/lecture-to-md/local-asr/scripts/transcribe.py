@@ -24,12 +24,15 @@ import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import (  # noqa: E402
+    child_env,
     cleanup_dir,
+    configure_utf8,
     fmt_ts_short,
     fmt_ts_srt,
     prepare_audio,
     probe,
     require,
+    resolve_model_dir,
     write_plain_md,
     write_plain_txt,
 )
@@ -118,25 +121,8 @@ def has_upstream_backend() -> bool:
     return os.path.isfile(UPSTREAM_SCRIPT)
 
 
-def resolve_model_dir(explicit: str | None = None) -> str:
-    """定位 X-ASR 模型目录：CLI 参数 > 环境变量 > 默认缓存目录。"""
-    if explicit:
-        if not os.path.isdir(explicit):
-            sys.exit(f"[asr] 找不到模型目录: {explicit}\n先跑 bash scripts/setup.sh 下载。")
-        return os.path.abspath(explicit)
-    env_dir = os.environ.get("ASR_MODEL_DIR")
-    if env_dir and os.path.isdir(env_dir):
-        return os.path.abspath(env_dir)
-    default = os.path.expanduser(
-        "~/.cache/sherpa-onnx-models/"
-        "sherpa-onnx-x-asr-zipformer-transducer-zh-en-punct-int8-2026-06-03"
-    )
-    if os.path.isdir(default):
-        return default
-    sys.exit(
-        f"[asr] 模型未下载。先跑 bash scripts/setup.sh（Windows 见 SKILL.md 「Windows 设置」）。\n"
-        f"或者 --model-dir <dir> 指向已解压好的 X-ASR 目录。"
-    )
+# resolve_model_dir 来自 common.py（CLI > ASR_MODEL_DIR > ~/.cache 默认位置），
+# 这里不再复制一份，避免两处提示文案漂移。
 
 
 # -------------------- 上游 backend --------------------
@@ -189,7 +175,7 @@ def run_upstream(args, src, info, out_dir, stem, formats, targets, model_dir):
         ]
         print(f"[asr] 后端: upstream ({UPSTREAM_SCRIPT})", flush=True)
         print("[asr] 开始转写（长音频请耐心等待，分块上限 30s）...", flush=True)
-        proc = subprocess.run(cmd, cwd=tmp)
+        proc = subprocess.run(cmd, cwd=tmp, env=child_env())
         if proc.returncode != 0:
             sys.exit(f"[asr] 上游 backend 转写失败，退出码 {proc.returncode}")
 
@@ -347,7 +333,7 @@ def run_builtin(args, src, info, out_dir, stem, formats, targets, model_dir):
             "--model-dir", model_dir,
         ]
         print("[asr] 开始转写（内置后端单次推理）...", flush=True)
-        proc = subprocess.run(cmd, cwd=tmp)
+        proc = subprocess.run(cmd, cwd=tmp, env=child_env())
         if proc.returncode != 0:
             sys.exit(f"[asr] 转写失败，退出码 {proc.returncode}")
         with open(result_json, encoding="utf-8") as f:

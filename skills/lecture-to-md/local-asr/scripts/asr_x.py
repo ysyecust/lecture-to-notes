@@ -23,6 +23,11 @@ import sys
 # 把脚本所在目录加到 sys.path，方便 transcribe.py 用 `python3 asr_x.py ...` 启动时
 # 我们也能 import common.py（虽然这里实际上用不到，但保持一致）。
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from common import configure_utf8  # noqa: E402
+
+# 本脚本全程往 stderr 打中文进度；Windows 默认用 ANSI 代码页写标准流，
+# 非中文系统上会 UnicodeEncodeError，所以先把 stderr 钉成 UTF-8。
+configure_utf8()
 
 
 def parse_args() -> argparse.Namespace:

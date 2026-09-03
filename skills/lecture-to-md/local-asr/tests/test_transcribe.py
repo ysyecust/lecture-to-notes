@@ -5,9 +5,18 @@
 - 拼接出来的时间轴连续、无 overlap、无 gap >0.05s
 - builtin backend 在 audio >60s 时拒绝
 
-跑法：
+跨平台（macOS / Linux / Windows 均验证）：
+
     cd skills/lecture-to-md/local-asr
     python3 tests/test_transcribe.py
+
+Windows 上也可以：
+
+    powershell -ExecutionPolicy Bypass -Command "python tests\\test_transcribe.py"
+
+需要模型才跑得起来的用例会自动 skip：
+    - TestUpstreamChunking   需要上游脚本 + X-ASR 模型
+    - 其余纯逻辑用例无外部依赖
 """
 
 from __future__ import annotations
@@ -25,6 +34,25 @@ sys.path.insert(0, os.path.join(SKILL_DIR, "scripts"))
 # SCRIPT_DIR=tests, SKILL_DIR=local-asr, lecture-to-md, skills, lecture-to-notes
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(SCRIPT_DIR))))
 UPSTREAM = os.path.join(REPO_ROOT, "scripts", "transcribe_x_asr.py")
+
+from common import child_env, configure_utf8  # noqa: E402
+
+# Windows 上子进程默认按 ANSI 代码页输出，父进程必须用同一个编码解码，
+# 否则中文断言（如「内置 backend 不支持长音频」）会比对到乱码。
+configure_utf8()
+RUN_KW = {"encoding": "utf-8", "errors": "replace"}
+
+
+def _unlink(path: str) -> None:
+    """删除临时产物，但绝不因为清理失败而中断测试。
+
+    finally 块里如果 unlink 抛异常（Windows 上很常见：文件被杀毒软件/索引器
+    短暂占用、或已被并发清理掉），会把真正的断言失败掩盖掉，所以这里吞掉异常。
+    """
+    try:
+        os.remove(path)
+    except OSError:
+        pass
 
 
 def _write_sine_wav(path: str, duration_sec: float, freq: int = 440) -> None:
@@ -65,11 +93,11 @@ class TestUpstreamChunking(unittest.TestCase):
     def setUpClass(cls):
         if not os.path.isfile(UPSTREAM):
             raise unittest.SkipTest(f"upstream backend not found: {UPSTREAM}")
-        if not os.path.isfile(os.path.join(cls.MODEL_DIR, "tokens.txt")):
-            raise unittest.SkipTest(
-                f"X-ASR model not found: {cls.MODEL_DIR}. "
-                f"Run bash scripts/setup.sh first."
-            )
+            if not os.path.isfile(os.path.join(cls.MODEL_DIR, "tokens.txt")):
+                raise unittest.SkipTest(
+                    f"X-ASR model not found: {cls.MODEL_DIR}. "
+                    f"Run scripts/setup.sh (macOS/Linux) or scripts/setup.ps1 (Windows) first."
+                )
 
     def _transcribe(self, wav_path: str) -> dict:
         import tempfile
@@ -86,7 +114,8 @@ class TestUpstreamChunking(unittest.TestCase):
                 "--chunk-seconds", "27.0",
                 "--min-chunk-seconds", "20.0",
             ]
-            proc = subprocess.run(cmd, capture_output=True, text=True)
+            proc = subprocess.run(cmd, capture_output=True, text=True,
+                                  env=child_env(), **RUN_KW)
             if proc.returncode != 0:
                 self.fail(f"upstream failed: {proc.stderr[-500:]}")
             with open(report_path, encoding="utf-8") as f:
@@ -99,7 +128,7 @@ class TestUpstreamChunking(unittest.TestCase):
         try:
             report = self._transcribe(wav)
         finally:
-            os.remove(wav)
+            _unlink(wav)
 
         chunks = report.get("chunks", 0)
         audio_seconds = report.get("audio_seconds", 0.0)
@@ -115,7 +144,7 @@ class TestUpstreamChunking(unittest.TestCase):
         try:
             report = self._transcribe(wav)
         finally:
-            os.remove(wav)
+            _unlink(wav)
         self.assertEqual(report.get("chunks"), 1,
                          f"10s 音频应只有 1 个 chunk")
 
@@ -145,13 +174,12 @@ class TestBuiltinRejectsLongAudio(unittest.TestCase):
         if os.path.isfile(os.path.join(model_dir, "tokens.txt")):
             cmd += ["--model-dir", model_dir]
         try:
-            proc = subprocess.run(cmd, capture_output=True, text=True)
+            proc = subprocess.run(cmd, capture_output=True, text=True,
+                                  env=child_env(), **RUN_KW)
         finally:
-            os.remove(wav)
+            _unlink(wav)
             for ext in ("txt", "md", "srt"):
-                p = os.path.join(SCRIPT_DIR, "_test_long_builtin." + ext)
-                if os.path.isfile(p):
-                    os.remove(p)
+                _unlink(os.path.join(SCRIPT_DIR, "_test_long_builtin." + ext))
 
         self.assertNotEqual(proc.returncode, 0,
                             "内置 backend 不应成功处理 120s 音频")

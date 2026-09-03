@@ -16,6 +16,49 @@ import sys
 import tempfile
 from pathlib import Path
 
+IS_WINDOWS = os.name == "nt"
+
+
+def configure_utf8() -> None:
+    """把 stdout/stderr 切到 UTF-8。
+
+    Windows 上 Python 默认用 ANSI 代码页（简体中文机是 GBK，英文机是 cp1252）
+    写标准流。一旦日志里出现该代码页装不下的字符就会抛 UnicodeEncodeError，
+    直接把转写流程中断在中途——而这台机器上用 GBK 只是"碰巧没炸"。
+
+    非 Windows 平台不动；Python < 3.7（无 reconfigure）静默跳过。
+    """
+    if not IS_WINDOWS:
+        return
+    for name in ("stdout", "stderr"):
+        stream = getattr(sys, name, None)
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is None:
+            continue
+        try:
+            reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+
+
+def child_env(extra: dict | None = None) -> dict:
+    """子进程环境：强制子进程也用 UTF-8 输出。
+
+    父进程调用 subprocess 时如果只写 text=True，会按自己的 locale 编码去解码
+    子进程的字节流。子进程默认写 GBK、父进程按 UTF-8 解码（或反过来）就是乱码。
+    这里把两边钉死成 UTF-8，调用方再配合 encoding="utf-8" 即可。
+    """
+    env = os.environ.copy()
+    env["PYTHONUTF8"] = "1"
+    env["PYTHONIOENCODING"] = "utf-8"
+    if extra:
+        env.update(extra)
+    return env
+
+
+# 入口脚本只要 import 本模块就自动生效（transcribe.py / 单测都走这里）
+configure_utf8()
+
 
 def _candidate_dirs() -> list[str]:
     """按当前平台返回常见二进制目录，按优先级排序。"""
@@ -30,29 +73,50 @@ def _candidate_dirs() -> list[str]:
             "/snap/bin",
         ]
     elif system == "windows":
-        # Windows：依赖 PATH；这里只是兜底，常见安装位置
+        # Windows：依赖 PATH；这里只是兜底，按常见安装方式排序
         candidates += [
-            os.path.expandvars(r"%ProgramFiles%\ffmpeg\bin"),
-            os.path.expandvars(r"%ProgramFiles%\ImageMagick"),
-            os.path.expandvars(r"%LOCALAPPDATA%\Programs\Python"),
+            os.path.expandvars(r"%LOCALAPPDATA%\Microsoft\WinGet\Links"),   # winget
+            os.path.expandvars(r"%ProgramFiles%\ffmpeg\bin"),               # 手动解包
+            os.path.expandvars(r"%ProgramFiles%\Gyan.FFmpeg\bin"),
+            os.path.expandvars(r"%ProgramData%\chocolatey\bin"),            # Chocolatey
+            os.path.expanduser(r"~\scoop\shims"),                           # Scoop
+            os.path.expanduser(r"~\scoop\apps\ffmpeg\current\bin"),
         ]
     return [p for p in candidates if p and os.path.isdir(p)]
+
+
+def _is_executable(path: str) -> bool:
+    """Windows 下 os.access(path, os.X_OK) 对"任何存在的文件"都返回 True，
+    连 .txt 都是 True，等于只做了存在性检查，所以这里单独按平台判断。"""
+    if not os.path.isfile(path):
+        return False
+    if IS_WINDOWS:
+        return True
+    return os.access(path, os.X_OK)
+
+
+def _install_hint(cmd: str) -> str:
+    if IS_WINDOWS:
+        return ("  Windows: winget install Gyan.FFmpeg  (PowerShell)\n"
+                "           或跑 .\\scripts\\setup.ps1 让它替你检查")
+    if platform.system().lower() == "darwin":
+        return "  macOS:   brew install ffmpeg"
+    return "  Linux:   sudo apt install ffmpeg  (Debian/Ubuntu)"
 
 
 def require(cmd: str) -> str:
     """查找命令；跨平台兜底：PATH 找不到时按平台常见目录挨个找。"""
     path = shutil.which(cmd)
     if path is None:
+        suffix = ".exe" if IS_WINDOWS else ""
         for cand in _candidate_dirs():
-            full = os.path.join(cand, cmd + (".exe" if platform.system().lower() == "windows" else ""))
-            if os.path.exists(full) and os.access(full, os.X_OK):
+            full = os.path.join(cand, cmd + suffix)
+            if _is_executable(full):
                 return full
     if path is None:
         sys.exit(
             f"[asr] 缺少命令: {cmd}。\n"
-            f"  macOS:   brew install ffmpeg\n"
-            f"  Linux:   sudo apt install ffmpeg  (Debian/Ubuntu)\n"
-            f"  Windows: winget install Gyan.FFmpeg  (PowerShell)\n"
+            f"{_install_hint(cmd)}\n"
             f"装完后确保 {cmd} 在 PATH 中，或把它放进上面列出的常见目录。"
         )
     return path
@@ -218,7 +282,7 @@ def resolve_model_dir(explicit: str | None = None) -> str:
     """定位 X-ASR 模型目录：CLI 参数 > 环境变量 > 默认缓存目录。"""
     if explicit:
         if not os.path.isdir(explicit):
-            sys.exit(f"[asr] 找不到模型目录: {explicit}\n先跑 bash scripts/setup.sh 下载。")
+            sys.exit(f"[asr] 找不到模型目录: {explicit}\n{_setup_hint()}")
         return os.path.abspath(explicit)
     env_dir = os.environ.get("ASR_MODEL_DIR")
     if env_dir and os.path.isdir(env_dir):
@@ -230,9 +294,17 @@ def resolve_model_dir(explicit: str | None = None) -> str:
     if os.path.isdir(default):
         return default
     sys.exit(
-        f"[asr] 模型未下载。先跑 bash scripts/setup.sh（Windows 见 SKILL.md 「Windows 设置」）。\n"
-        f"或者 --model <dir> 指向已解压好的 X-ASR 目录。"
+        f"[asr] 模型未下载。\n{_setup_hint()}\n"
+        f"或者用 --model-dir <dir> 指向已解压好的 X-ASR 目录。"
     )
+
+
+def _setup_hint() -> str:
+    """模型没装时给出的一键命令，按平台区分。"""
+    if IS_WINDOWS:
+        return ("  Windows: powershell -ExecutionPolicy Bypass -File .\\scripts\\setup.ps1\n"
+                "           （脚本会顺带装 ffmpeg 之外的 sherpa-onnx 与模型）")
+    return "  macOS / Linux: bash scripts/setup.sh"
 
 
 def find_model_files(model_dir: str) -> tuple[str, str, str, str]:

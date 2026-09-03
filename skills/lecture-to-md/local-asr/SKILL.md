@@ -1,11 +1,11 @@
 ---
 name: local-asr
-description: 把本地长视频/音频转写成文字稿 + 可选字幕，纯本地（不上传云端），用 sherpa-onnx X-ASR Zipformer transducer 模型（int8 量化、中英双语、自动标点）。已在 macOS Apple Silicon（CoreML）与 Linux ARM64（CPU）端到端验证；Windows 路径齐备但未验证。使用 `$lecture-to-md` 默认 ASR 后端；默认不要换成 Qwen。
+description: 把本地长视频/音频转写成文字稿 + 可选字幕，纯本地（不上传云端），用 sherpa-onnx X-ASR Zipformer transducer 模型（int8 量化、中英双语、自动标点）。已在 macOS Apple Silicon（CoreML）、Linux ARM64（CPU）与 Windows（PowerShell 5.1，CPU）端到端验证。使用 `$lecture-to-md` 默认 ASR 后端；默认不要换成 Qwen。
 ---
 
 # Local ASR Transcribe（`lecture-to-md` 子 skill，sherpa-onnx X-ASR）
 
-在本地（macOS Apple Silicon + Linux ARM64 已端到端验证；Windows 路径齐备但未验证）把**长课程视频/音频**转成文字稿，可选补时间戳出字幕。单一后端，中英文通用：
+在本地（macOS Apple Silicon、Linux ARM64、Windows 均已端到端验证）把**长课程视频/音频**转成文字稿，可选补时间戳出字幕。单一后端，中英文通用：
 
 ```text
 中文/英文 ──→ sherpa-onnx OfflineRecognizer (X-ASR Zipformer transducer, int8) ──→ 文本 + token 级时间戳 ──→ txt / md / srt / vtt
@@ -13,7 +13,7 @@ description: 把本地长视频/音频转写成文字稿 + 可选字幕，纯本
 
 **首选这个 skill 而非 `volcengine-asr/`**：纯本地不上传、对核显/集显支持较好（Apple Silicon 自动用 CoreML 加速，Linux 上自动检测 CUDA）、int8 量化体积小、首包延迟低。已在 macOS Apple Silicon 与 Linux ARM64 上验证过 CPU 与 CoreML provider。
 
-前提只要：`ffmpeg` / `ffprobe`、`python3`、`sherpa-onnx` pip 包、X-ASR 模型权重。**首次跑 `bash scripts/setup.sh` 一键完成**（macOS / Linux；Windows 用户见后文「Windows 设置」一节）。
+前提只要：`ffmpeg` / `ffprobe`、`python3`、`sherpa-onnx` pip 包、X-ASR 模型权重。**首次跑 `bash scripts/setup.sh` 一键完成**（macOS / Linux）；Windows 原生 PowerShell 用户跑 `.\scripts\setup.ps1`（见「Windows 设置」）。
 
 ## 关键约定
 
@@ -55,23 +55,27 @@ bash scripts/setup.sh
 
 ## Windows 设置
 
-`setup.sh` 是 bash 脚本，**Git Bash / WSL** 下可直接跑。原生 PowerShell 用户：
+`setup.sh` 是 bash 脚本，**Git Bash / WSL** 下可直接跑。原生 PowerShell（Windows 默认的 5.1）用户用配套的 `setup.ps1`，它会自动：检查 `python`/`py`（并跳过 Microsoft Store 的假 python stub）、`ffmpeg`/`ffprobe`、`tar`，装 `sherpa-onnx`，下载并解压 X-ASR 模型。
 
 ```powershell
-# 安装 sherpa-onnx
-py -m pip install -U sherpa-onnx
+cd "<skill 目录>"    # 即 skills/lecture-to-md/local-asr
 
-# 下载 X-ASR 模型（解压到 %USERPROFILE%\.cache\sherpa-onnx\...）
-$dir = "$env:USERPROFILE\.cache\sherpa-onnx-models"
-New-Item -ItemType Directory -Force -Path $dir | Out-Null
-$url = "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-x-asr-zipformer-transducer-zh-en-punct-int8-2026-06-03.tar.bz2"
-$tar = "$dir\x-asr.tar.bz2"
-Invoke-WebRequest -Uri $url -OutFile $tar
-tar -xjvf $tar -C $dir
-Remove-Item $tar
+# 首次：装依赖 + 下载模型（~200 MB，耐心等）
+powershell -ExecutionPolicy Bypass -File .\scripts\setup.ps1
+
+# 之后正常转写（命令与 macOS/Linux 相同）
+python scripts\transcribe.py "C:\path\to\课程录像.mp4"
 ```
 
-随后跑同样的 `python3 scripts/transcribe.py ...` 命令。
+要点：
+
+- **必须在脚本目录下用相对路径 `.\\scripts\\setup.ps1` 调用**（脚本靠 `$PSScriptRoot` 定位自身，不依赖当前工作目录）。
+- 若系统没有 `python`/`py` 命令，可用 `$env:PYTHON = "C:\Python312\python.exe"` 指定解释器后重跑。
+- 装不了 ffmpeg 的话 `winget install Gyan.FFmpeg`，或把 ffmpeg 放进 PATH；脚本会明确报缺哪个。
+- 国内直连 GitHub release 偶尔断，设 `$env:GITHUB_PROXY = "https://gh-proxy.com"` 后重跑会走镜像。
+- 已在 Windows PowerShell 5.1（Windows 默认版本）实测通过：脚本兼容 5.1（不使用 `?.` 等 PS7 专有语法），输出统一 UTF-8，中文文件名/路径正常。
+
+随后跑同样的 `python scripts\transcribe.py ...` 命令。
 
 ## 参数
 
@@ -102,7 +106,7 @@ Remove-Item $tar
 | macOS Intel          | `cpu`       | int8 + 多线程                                       | ~1× 实时                     |
 | Linux NVIDIA GPU     | `cuda`（检测到时）| ONNX Runtime CUDA EP                            | 需 `pip install onnxruntime-gpu` |
 | Linux 其它            | `cpu`       | int8 + 多线程                                       | ~0.5–1× 实时                  |
-| Windows              | `cpu`       | int8 + 多线程                                       | WSL / Git Bash 下脚本可用        |
+| Windows              | `cpu`       | int8 + 多线程                                       | 原生 PowerShell 用 `setup.ps1`，已实测 |
 
 **核显**指 Apple Silicon（M1/M2/M3/M4）的统一 GPU/ANE —— 这是 X-ASR 在 macOS 上跑得最快、最省电的路径。NVIDIA 独显上也可走 CUDA，但需要装 `onnxruntime-gpu`（pip 装 sherpa-onnx 自带的是 CPU 路径）。
 
@@ -135,7 +139,7 @@ X-ASR 系列 sherpa-onnx 官方推出的中文/英文双语 Zipformer transducer
 
 | 现象 | 原因 / 处理 |
 |---|---|
-| `ModuleNotFoundError: sherpa_onnx` | 先跑 `bash scripts/setup.sh`（Windows 用 PowerShell 段） |
+| `ModuleNotFoundError: sherpa_onnx` | 先跑 `bash scripts/setup.sh`（Windows 用 `.\scripts\setup.ps1`） |
 | `Model directory not found` | 模型未下载，重跑 `setup.sh` 或 `--model <dir>` 指向已有目录 |
 | HuggingFace 报 401（**不会发生**） | sherpa-onnx 模型从 GitHub release 下，不走 HF |
 | 对齐权重下载中断 | 国内直连 GitHub release 偶发断，用镜像：`GITHUB_PROXY=https://gh-proxy.com` 重跑 `setup.sh`（脚本识别此变量） |

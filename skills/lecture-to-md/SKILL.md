@@ -26,7 +26,7 @@ description: 把课堂视频（本地或 B 站/YouTube）、文字稿、课件�
 
 | 子 skill 路径                              | 何时用                                                                  |
 | ---------------------------------------- | -------------------------------------------------------------------- |
-| [`local-asr/`](local-asr/SKILL.md)       | **默认**。无字幕时全文转写 / 短片段核验。已在 **macOS Apple Silicon** 与 **Linux ARM64**（CPU）端到端跑通；Windows 路径齐备但未验证。       |
+| [`local-asr/`](local-asr/SKILL.md)       | **默认**。无字幕时全文转写 / 短片段核验。已在 **macOS Apple Silicon**、**Linux ARM64**（CPU）与 **Windows**（PowerShell 5.1，CPU）端到端跑通。       |
 | [`volcengine-asr/`](volcengine-asr/SKILL.md) | 备用。火山引擎豆包 BigASR / 豆包 2.0，需要 APP ID + Token；长音频首选异步模式       |
 
 调用约定见各子 skill 的 SKILL.md，本 SKILL.md 不重复列参数。
