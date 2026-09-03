@@ -1,0 +1,17 @@
+# 凭据文件 — 包含真实 APP ID / Access Token，绝不入库
+.secret
+
+# 火山引擎 ASR 工作目录（上传/转写产物）
+_volcengine_transcripts/
+job.json
+
+# 通用 Python 产物
+__pycache__/
+*.pyc
+.venv/
+
+# 模型/缓存目录（保留示例配置文件）
+*.tar
+*.tar.bz2
+*.tar.gz
+*.zip

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lecture to Notes (Markdown)"
+  short_description: "视频/文字稿/课件 → 中文 Markdown 课堂笔记（Markdown 平行版，不依赖 LaTeX）"
+  default_prompt: "Use this skill to turn a lecture video (local file or Bilibili/YouTube URL), transcript, and/or slide deck into detailed Chinese Markdown notes. Auto-detects the platform, extracts 5s-spaced frames, selects figures per ### heading with slide screenshots prioritized over video frames, verifies transcripts against official subtitles or local ASR, and outputs notes.md with relative-path images. Uses sherpa-onnx X-ASR as the default local ASR backend (cross-platform: macOS/Linux/Windows) with volcengine-asr as an optional cloud alternative."

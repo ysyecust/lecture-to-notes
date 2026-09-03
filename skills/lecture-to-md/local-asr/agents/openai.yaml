@@ -1,0 +1,4 @@
+interface:
+  display_name: "Local ASR (sherpa-onnx X-ASR)"
+  short_description: "Transcribe local audio/video with sherpa-onnx X-ASR Zipformer transducer (int8). Cross-platform (macOS/Linux/Windows). Default ASR backend of lecture-to-md."
+  default_prompt: "Use $local-asr to transcribe a local audio/video file with sherpa-onnx X-ASR (Zipformer transducer, int8, zh+en with punctuation). Cross-platform; on macOS Apple Silicon defaults to CoreML, on Linux defaults to CPU and auto-detects CUDA. Optional --timestamps emits token-level subtitles (srt/vtt). Do NOT substitute Qwen/Whisper unless the user explicitly asks."
