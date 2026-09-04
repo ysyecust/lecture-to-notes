@@ -39,7 +39,14 @@ description: 把课堂视频（本地或 B 站/YouTube）、文字稿、课件�
 
 ## Dependencies
 
-先 `which` 检查（沙箱 PATH 可能不含 `/opt/homebrew/bin`，见「已知坑」）。缺则提示用户安装。
+跨平台检查命令是否就位，缺则按平台提示用户安装（具体安装命令见各子 skill 的 setup 脚本）：
+
+| 平台                              | 检查命令                              | 备注                                                                                              |
+| ------------------------------- | --------------------------------- | ----------------------------------------------------------------------------------------------- |
+| macOS / Linux shell             | `which <cmd>` 或 `command -v <cmd>` | 沙箱 PATH 可能不含 `/opt/homebrew/bin`（macOS）/ `/usr/local/bin`（Linux），见「已知坑」#1                  |
+| Windows PowerShell 5.1 / cmd    | `where.exe <cmd>`                 | **`which` 不是 Windows 内建命令**，PowerShell 5.1 也没有该 alias；只有装了 Git for Windows / msys2 时才会有 `which.exe`（实测）。Windows 沙箱 PATH 可能不含 winget links / scoop shims / Chocolatey bin，见「已知坑」#1 |
+
+最简做法：跑 `local-asr/scripts/common.py::require("<cmd>")`，它内部已经做了 `shutil.which` 兜底 + 按平台补齐常见 bin 目录（macOS `/opt/homebrew/bin`、Windows `winget links` / `%ProgramFiles%\ffmpeg\bin` / `~\scoop\shims` / `%ProgramData%\chocolatey\bin` 等），并返回**绝对路径**，避免子进程再吃 PATH 的亏。
 
 | 工具                      | 必需 | 用途                                                            |
 | ----------------------- | -- | ------------------------------------------------------------- |
@@ -54,7 +61,7 @@ description: 把课堂视频（本地或 B 站/YouTube）、文字稿、课件�
 
 ## 已知坑（务必遵守）
 
-1. **PATH 兜底**：沙箱 PATH 可能不含 `/opt/homebrew/bin`（macOS）或 `/usr/local/bin`（Linux），`yt-dlp`/`ffmpeg`/`pdftoppm`/`soffice` 一律用绝对路径，或先 `require()` 兜底（参考 `../local-asr/scripts/common.py`）。
+1. **PATH 兜底**：沙箱 PATH 可能丢以下常用 bin 目录——macOS `/opt/homebrew/bin`、`/usr/local/bin`、`/opt/local/bin`；Linux `/usr/local/bin`、`~/.local/bin`、`/snap/bin`；Windows `%LOCALAPPDATA%\Microsoft\WinGet\Links`、`%ProgramFiles%\ffmpeg\bin`、`~\scoop\shims`、`~\scoop\apps\<app>\current\bin`、`%ProgramData%\chocolatey\bin`。`yt-dlp`/`ffmpeg`/`pdftoppm`/`soffice` 一律用绝对路径，或先 `require()` 兜底（参考 `../local-asr/scripts/common.py::require`，Python 脚本首选；它内部已按平台列好候选目录）。
 2. **帧序号 → 时间戳**：`verify_figures.py`（LaTeX 版脚本）硬编码 `×15`，本 skill 不复用该脚本。**不要硬编码 `帧时间 = (帧序号-1)×5`**——`fps=1/5` 的首帧可能不落在 0s、末尾帧可能被被丢、起始 PTS/掉帧都会让算术失真（实测 12s 片段只出 2 帧而非 3 帧）。帧时间一律由 ffmpeg 的 `showinfo` 记录真实 `pts_time`（见 Phase 1 的 S0-b）。
 3. **ASR 时间戳选型**：`local-asr/` 默认 sherpa-onnx X-ASR 模型直接产出 token 级时间戳（transducer 模型自带）。**需要字幕时间戳时**，给 S0-a 的命令加 `--timestamps`（`transcribe.py --timestamps`，会写 srt/vtt）；若是已有稿子想补时间戳，跑一次 `transcribe.py 音频 --timestamps`，把生成的 srt 时间轴对齐到原文即可（sherpa-onnx 不需要独立的 ForcedAligner 模型）。
 
