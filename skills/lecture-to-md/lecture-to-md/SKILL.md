@@ -1,11 +1,11 @@
 ---
 name: lecture-to-md
-description: 把课堂视频（本地或 B 站/YouTube）、文字稿、课件三者（任意组合）整理成一份详细的中文 Markdown 课堂笔记，输出 `notes.md` + 相对路径图片。Markdown 工作流，与上游 `lecture-to-notes` 的 LaTeX/PDF 输出并行存在；上游 skill 完全不动。触发词：markdown 笔记、md 笔记、视频转 markdown、Markdown 讲义、不要 LaTeX、不要 PDF、纯文本笔记。
+description: 把课堂视频（本地或 B 站/YouTube）、文字稿、课件三者（任意组合）整理成一份详细的中文 Markdown 课堂笔记，输出按课程标题命名的 `{title_name}.md`（首行为 `# 文档标题`）+ 相对路径图片。Markdown 工作流，与上游 `lecture-to-notes` 的 LaTeX/PDF 输出并行存在；上游 skill 完全不动。触发词：markdown 笔记、md 笔记、视频转 markdown、Markdown 讲义、不要 LaTeX、不要 PDF、纯文本笔记。
 ---
 
 # Lecture to Notes (Markdown)
 
-把课堂视频（本地或 B 站/YouTube）、文字稿、课件三者（任意组合）整理成一份详细的中文 Markdown 课堂笔记，输出 `notes.md` + 相对路径图片。**作为上游 `lecture-to-notes` LaTeX/PDF 流的 Markdown 平行方案；本 skill 与上游 skill 完全独立，不修改也不依赖上游 skill 的脚本。**
+把课堂视频（本地或 B 站/YouTube）、文字稿、课件三者（任意组合）整理成一份详细的中文 Markdown 课堂笔记，输出按课程标题命名的 `{title_name}.md`（首行为 `# 文档标题`）+ 相对路径图片。**作为上游 `lecture-to-notes` LaTeX/PDF 流的 Markdown 平行方案；本 skill 与上游 skill 完全独立，不修改也不依赖上游 skill 的脚本。**
 
 > **子代理分工**：素材获取（下载/ASR/抽帧/课件转 PNG）委派 **S0** 子代理并行做；主代理通读文字稿定死一级标题结构后，切素材（文字稿切片 / 帧按时段分目录 / 课件标页码）委派 **S1** 子代理做；然后每个撰写子代理领 1–3 个 H1 并行撰写 → 主代理汇总 → **对照文字稿重排目录结构**（只改标题、不动正文）→ 交付。
 > 切分与素材委派见 [`references/splitting.md`](references/splitting.md)，派发与汇总见 [`references/subagent-workflow.md`](references/subagent-workflow.md)，结构重排见 [`references/structure-reorder.md`](references/structure-reorder.md)。
@@ -14,7 +14,7 @@ description: 把课堂视频（本地或 B 站/YouTube）、文字稿、课件�
 
 |       | lecture-to-notes (LaTeX) | 本 skill (Markdown)    |
 | ----- | ------------------------ | --------------------- |
-| 输出    | `.tex` + PDF             | `notes.md` + 图片       |
+| 输出    | `.tex` + PDF             | `{title_name}.md` + 图片  |
 | 抽帧    | 每 15s（按章节）               | 严格每 5s                |
 | 配图    | 全帧 + contact sheet 人工选   | LLM 多模态按 `###` 标题自动选图 |
 | 配图优先级 | 视频帧                      | 课件截图 > 视频帧            |
@@ -26,15 +26,14 @@ description: 把课堂视频（本地或 B 站/YouTube）、文字稿、课件�
 
 | 子 skill 路径                              | 何时用                                                                  |
 | ---------------------------------------- | -------------------------------------------------------------------- |
-| [`local-asr/`](local-asr/SKILL.md)       | **默认**。无字幕时全文转写 / 短片段核验。已在 **macOS Apple Silicon**、**Linux ARM64**（CPU）与 **Windows**（PowerShell 5.1，CPU）端到端跑通。       |
-| [`volcengine-asr/`](volcengine-asr/SKILL.md) | 备用。火山引擎豆包 BigASR / 豆包 2.0，需要 APP ID + Token；长音频首选异步模式       |
+| [`local-asr/`](../local-asr/SKILL.md)       | **默认**。无字幕时全文转写 / 短片段核验。已在 **macOS Apple Silicon**、**Linux ARM64**（CPU）与 **Windows**（PowerShell 5.1，CPU）端到端跑通。       |
+| [`volcengine-asr/`](../volcengine-asr/SKILL.md) | 备用。火山引擎豆包 BigASR / 豆包 2.0，需要 APP ID + Token；长音频首选异步模式       |
 
 调用约定见各子 skill 的 SKILL.md，本 SKILL.md 不重复列参数。
 
 ## ASR 选型
 
 - **首选 `local-asr/`**（sherpa-onnx X-ASR，跨平台路径齐备、int8 量化、对核显友好）。
-- 本地模型在本人尝试过的若干本地 ASR 里准确率较高，且对核显支持较友好，**默认不要换成 Qwen**（Qwen 链路 MLX 仅 macOS 可用，且实测不如 sherpa-onnx X-ASR）。
 - 若用户已自带文字稿（火山引擎豆包、飞书妙记等），**跳过 ASR**，直接走 Phase 1 的文字稿核验。
 - 火山引擎走 `volcengine-asr/`，把产出的 `transcript.txt` 当作 S0-a 的产物继续。
 
@@ -46,16 +45,16 @@ description: 把课堂视频（本地或 B 站/YouTube）、文字稿、课件�
 | ----------------------- | -- | ------------------------------------------------------------- |
 | `yt-dlp`                | ✓  | 视频/字幕/元数据下载（YouTube + Bilibili）                               |
 | `ffmpeg`                | ✓  | 5s 抽帧、音频提取（`ffprobe` 随 ffmpeg 一起装，Phase 4 判时长要用）              |
-| `python3`               | ✓  | `clean_subs.py` / `correct_srt.py`                            |
+| `python3`               | ✓  | `clean_subs.py`                                                |
 | `pdftoppm`              | △  | 课件 PDF → PNG                                                  |
 | `soffice` (LibreOffice) | △  | 课件 PPT/PPTX → PDF                                             |
 | `local-asr/`            | △  | 无字幕时全文转写 / 前 1min 核验；可加 `--timestamps` 出 srt/vtt 时间戳             |
 | `volcengine-asr/`       | △  | 调用火山引擎豆包 ASR（需要凭据）                                           |
-| `sherpa-onnx` (pip 包)     | △  | `local-asr/` 后端依赖，首次跑 `bash local-asr/scripts/setup.sh` 自动装           |
+| `sherpa-onnx` (pip 包)     | △  | `local-asr/` 后端依赖，首次跑 `bash ../local-asr/scripts/setup.sh` 自动装           |
 
 ## 已知坑（务必遵守）
 
-1. **PATH 兜底**：沙箱 PATH 可能不含 `/opt/homebrew/bin`（macOS）或 `/usr/local/bin`（Linux），`yt-dlp`/`ffmpeg`/`pdftoppm`/`soffice` 一律用绝对路径，或先 `require()` 兜底（参考 `local-asr/scripts/common.py`）。
+1. **PATH 兜底**：沙箱 PATH 可能不含 `/opt/homebrew/bin`（macOS）或 `/usr/local/bin`（Linux），`yt-dlp`/`ffmpeg`/`pdftoppm`/`soffice` 一律用绝对路径，或先 `require()` 兜底（参考 `../local-asr/scripts/common.py`）。
 2. **帧序号 → 时间戳**：`verify_figures.py`（LaTeX 版脚本）硬编码 `×15`，本 skill 不复用该脚本。**不要硬编码 `帧时间 = (帧序号-1)×5`**——`fps=1/5` 的首帧可能不落在 0s、末尾帧可能被被丢、起始 PTS/掉帧都会让算术失真（实测 12s 片段只出 2 帧而非 3 帧）。帧时间一律由 ffmpeg 的 `showinfo` 记录真实 `pts_time`（见 Phase 1 的 S0-b）。
 3. **ASR 时间戳选型**：`local-asr/` 默认 sherpa-onnx X-ASR 模型直接产出 token 级时间戳（transducer 模型自带）。**需要字幕时间戳时**，给 S0-a 的命令加 `--timestamps`（`transcribe.py --timestamps`，会写 srt/vtt）；若是已有稿子想补时间戳，跑一次 `transcribe.py 音频 --timestamps`，把生成的 srt 时间轴对齐到原文即可（sherpa-onnx 不需要独立的 ForcedAligner 模型）。
 
@@ -144,7 +143,7 @@ B 站分 P（多 part）视频：先用 `yt-dlp --flat-playlist --dump-json "<UR
 2. 无 CC 时自动字幕（YouTube）：
    yt-dlp --write-auto-subs --sub-langs "en" --convert-subs srt --skip-download "{URL}"
 3. 自动字幕逐行重复 2-3 次，务必去重：
-   python3 {repo_root}/skills/lecture-to-md/scripts/clean_subs.py subs.en.srt --stats
+   python3 {repo_root}/skills/lecture-to-md/lecture-to-md/scripts/clean_subs.py subs.en.srt --stats
 4. 无任何字幕 → 本地 ASR 全文转写（sherpa-onnx X-ASR，默认中文）：
    python3 {repo_root}/skills/lecture-to-md/local-asr/scripts/transcribe.py "{abs_video_path}" --lang zh --timestamps
    首次跑会提示执行 bash setup.sh 装 sherpa-onnx + 下载 X-ASR 模型（约 200MB）。
@@ -268,6 +267,7 @@ ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 video.mp4
 
 读取 `assets/notes-prompt.md` 作为写作规范，产出 `<outdir>/{title_name}.md`。
 
+- **文件名与文档标题**：`{title_name}` 取自课程标题（如 `cs336_01_tokenization`）；文件第一行是文档标题 `# <课程标题>`，与文件名对应，**不计入正文 H1 ≤ 10 的限额**；
 - 图片用相对路径 `assets/{title_name}/xxx.png`；
 - 视频帧图下用 `> 画面时间 00:12:31` 标注来源（时间查 `frames/times.txt`）；
 - 课件图标注页码（如 `> 课件第 12 页`）。
@@ -293,7 +293,7 @@ ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 video.mp4
 四条硬规则：
 
 1. **主代理必须先读完整个文字稿再定大纲**——只有通读才能按课程真实结构划分，不能让子代理边读边自由发挥。
-2. **切分单位是一级标题，且大纲里的 H1 就是最终 `notes.md` 里的 H1**——子代理不得改名、增删、调序。每个子代理最多分 **1–3 个一级标题**。
+2. **切分单位是一级标题，且大纲里的 H1 就是最终 `{title_name}.md` 里的 H1**——子代理不得改名、增删、调序。每个子代理最多分 **1–3 个一级标题**。
 3. **素材按片段隔离**：文字稿切进 `parts/`（相邻段**重叠** 30–60 秒保证衔接），视频帧按时段切进 `parts/frames_part_XX/`（帧**不重叠**，避免重复配图）。**课件不复制**——只在 prompt 里给路径 + 页码区间；课件常是整门课合订 PDF，不标页码子代理就会用到别的课时的页。
 4. **并行不共享文件**：每个子代理只写 `parts/part_XX.md` 和自己前缀为 `pXX_` 的图片，互不覆盖。
 
@@ -307,7 +307,7 @@ ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 video.mp4
 
 |          |                                          |
 | -------- | ---------------------------------------- |
-| **谁做**   | 主代理，且**必须重新对照文字稿**，不能只看 `notes.md` 自己改自己 |
+| **谁做**   | 主代理，且**必须重新对照文字稿**，不能只看 `{title_name}.md` 自己改自己 |
 | **改什么**  | 只有标题行：调层级、改文字、删重复、在段落边界插新标题、同步序号         |
 | **不改什么** | 正文段落、公式代码、图片引用与图注、「画面时间」「课件第 N 页」标注      |
 | **判据**   | **去掉所有标题行之后，重排前后的正文应逐字相同**（`diff` 可验）    |
@@ -326,6 +326,5 @@ ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 video.mp4
 - `references/subagent-workflow.md`：**子代理规范**（派发与汇总）——prompt 模板、汇总校验、常见错误
 - `references/structure-reorder.md`：**结构重排**（Phase 6）——诊断切分失真、对照文字稿定位真实母题、只改标题行不改正文的两级自检
 - `scripts/clean_subs.py`：YouTube 自动字幕去重（✓ 复用，已复制到本 skill `scripts/`）
-- `scripts/correct_srt.py`：词典级同音字修正（可选，默认不跑；无对应词表时跳过）
-- `local-asr/`：**本地 ASR 子 skill**（sherpa-onnx X-ASR，跨平台）——见 `local-asr/SKILL.md`
-- `volcengine-asr/`：**火山引擎 ASR 子 skill**（BigASR / 豆包 2.0，云端）——见 `volcengine-asr/SKILL.md`
+- `local-asr/`：**本地 ASR 子 skill**（sherpa-onnx X-ASR，跨平台）——见 [../local-asr/SKILL.md](../local-asr/SKILL.md)
+- `volcengine-asr/`：**火山引擎 ASR 子 skill**（BigASR / 豆包 2.0，云端）——见 [../volcengine-asr/SKILL.md](../volcengine-asr/SKILL.md)

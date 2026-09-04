@@ -6,16 +6,18 @@
 
 ```text
 skills/lecture-to-md/
-├── SKILL.md                 ← 父 skill：笔记生成主流程（Phase 0–7）
-├── agents/openai.yaml
-├── assets/notes-prompt.md   ← 写作规范（子代理也读这个）
-├── references/
-│   ├── splitting.md             ← >30min 长课程切分规范
-│   ├── subagent-workflow.md     ← 子代理派发与汇总
-│   └── structure-reorder.md     ← Phase 6 标题重排
-├── scripts/
-│   ├── clean_subs.py            ← YouTube 自动字幕去重
-│   └── correct_srt.py           ← 词典级同音字修正
+├── README.md                ← 本文件（包说明）
+├── lecture-to-md/           ← 父 skill：笔记生成主流程（Phase 0–7）
+│   ├── SKILL.md
+│   ├── agents/openai.yaml
+│   ├── assets/notes-prompt.md   ← 写作规范（子代理也读这个）
+│   ├── references/
+│   │   ├── splitting.md             ← >30min 长课程切分规范
+│   │   ├── subagent-workflow.md     ← 子代理派发与汇总
+│   │   └── structure-reorder.md     ← Phase 6 标题重排
+│   └── scripts/
+│       ├── clean_subs.py            ← YouTube 自动字幕去重
+│       └── correct_srt.py           ← 词典级同音字修正
 │
 ├── local-asr/                ← 默认 ASR 子 skill（sherpa-onnx X-ASR，已在 macOS Apple Silicon + Linux ARM64 + Windows 验证）
 │   ├── SKILL.md
@@ -47,7 +49,7 @@ skills/lecture-to-md/
 
 |       | `lecture-to-notes/`（上游） | `lecture-to-md/`（本包）        |
 | ----- | --------------------- | ------------------------- |
-| 输出    | `.tex` + PDF             | `notes.md` + 图片              |
+| 输出    | `.tex` + PDF             | `{title_name}.md`（按课程标题命名，首行为 `# 文档标题`）+ 图片    |
 | 抽帧密度 | 每 15s（按章节）              | 严格每 5s                     |
 | 配图    | contact sheet + 人工       | 多模态按 `###` 自动选（课件 > 视频帧） |
 | 默认 ASR | Whisper                | **sherpa-onnx X-ASR**（本地；已在 macOS Apple Silicon + Linux ARM64 + Windows 端到端验证） |
