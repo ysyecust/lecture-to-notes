@@ -410,4 +410,3 @@ def delete_tos_object(config: Mapping[str, str], bucket: str, object_key: str) -
 def fail(message: str) -> "None":
     print(f"error: {message}", file=sys.stderr)
     raise SystemExit(1)
-

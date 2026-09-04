@@ -160,6 +160,7 @@ def _srt_ts_to_seconds(ts: str) -> float:
 
 def run_upstream(args, src, info, out_dir, stem, formats, targets, model_dir):
     """调用上游 scripts/transcribe_x_asr.py，解析其 SRT，再产出多种格式。"""
+    model_dir = resolve_model_dir(model_dir)
     with tempfile.TemporaryDirectory(prefix="asr-upstream-") as tmp:
         srt_path = os.path.join(tmp, f"{stem}.srt")
         report_path = os.path.join(tmp, "report.json")
@@ -318,6 +319,9 @@ def run_builtin(args, src, info, out_dir, stem, formats, targets, model_dir):
             f"  或显式 --backend upstream 强制；找不到时检查 {UPSTREAM_SCRIPT}"
             )
 
+    # 先于任何模型访问做长音频拒绝，再解析模型目录（无模型时优先报“长音频拒绝”）。
+    model_dir = resolve_model_dir(model_dir)
+
     keep = args.keep_audio
     wav, workdir = prepare_audio(src)
     print(f"[asr] 后端: builtin (asr_x.py)", flush=True)
@@ -431,7 +435,9 @@ def main(argv: list[str] | None = None) -> int:
         if clash:
             sys.exit("[asr] 已存在输出文件（加 --overwrite 覆盖）:\n  " + "\n  ".join(clash))
 
-    model_dir = resolve_model_dir(args.model_dir)
+    # 模型目录在选定 backend 后、真正需要时才解析（见 run_upstream / run_builtin），
+    # 这样 builtin 的“长音频拒绝”能先于“模型缺失”报错。
+    model_dir = args.model_dir
 
     # backend 选择
     if args.backend == "upstream":

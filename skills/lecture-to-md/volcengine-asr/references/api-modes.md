@@ -44,4 +44,3 @@ The console's speech Secret Key is not used by these requests.
 - Idle API: <https://www.volcengine.com/docs/6561/1840838?lang=zh>
 - 1.0/2.0 resource mapping: <https://www.volcengine.com/docs/85637/2477587?lang=zh>
 - TOS Python SDK: <https://github.com/volcengine/ve-tos-python-sdk>
-

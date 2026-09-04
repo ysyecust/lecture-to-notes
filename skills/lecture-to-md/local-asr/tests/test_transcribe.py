@@ -1,8 +1,8 @@
 """Unit tests for lecture-to-md/local-asr scripts.
 
 覆盖 review #1 的硬要求：
-- 上游 backend 把音频切成 ≤30s 的 chunk
-- 拼接出来的时间轴连续、无 overlap、无 gap >0.05s
+- 上游 backend 把音频切成 ≤30s 的 chunk（TestChunking 直接断言分块边界）
+- 拼接出来的时间轴连续、无 overlap、无 gap（TestChunking 逐块断言）
 - builtin backend 在 audio >60s 时拒绝
 
 跨平台（macOS / Linux / Windows 均验证）：
@@ -14,8 +14,9 @@ Windows 上也可以：
 
     powershell -ExecutionPolicy Bypass -Command "python tests\\test_transcribe.py"
 
-需要模型才跑得起来的用例会自动 skip：
-    - TestUpstreamChunking   需要上游脚本 + X-ASR 模型
+需要外部依赖才跑得起来的用例会自动 skip：
+    - TestUpstreamChunking   需要上游脚本 + X-ASR 模型 + sherpa_onnx 运行时
+    - TestChunking           需要上游脚本 + numpy（纯逻辑，不加载模型）
     - 其余纯逻辑用例无外部依赖
 """
 
@@ -79,6 +80,8 @@ class TestUpstreamChunking(unittest.TestCase):
     """在 mac / Linux 上跑真实的 upstream backend，验证：
     1) 长音频被切成多个 chunk，每个 chunk 持续 ≤30s
     2) 拼接后 cues 的时间轴连续（无 overlap、无 gap >0.05s）
+
+    依赖上游脚本 + X-ASR 模型 + sherpa_onnx 运行时；缺任一则 skip。
     """
 
     MODEL_DIR = os.environ.get(
@@ -91,13 +94,18 @@ class TestUpstreamChunking(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        # 三个前置条件各自独立判断，避免“缺上游却因模型检查被吞掉”的不可达分支。
         if not os.path.isfile(UPSTREAM):
             raise unittest.SkipTest(f"upstream backend not found: {UPSTREAM}")
-            if not os.path.isfile(os.path.join(cls.MODEL_DIR, "tokens.txt")):
-                raise unittest.SkipTest(
-                    f"X-ASR model not found: {cls.MODEL_DIR}. "
-                    f"Run scripts/setup.sh (macOS/Linux) or scripts/setup.ps1 (Windows) first."
-                )
+        if not os.path.isfile(os.path.join(cls.MODEL_DIR, "tokens.txt")):
+            raise unittest.SkipTest(
+                f"X-ASR model not found: {cls.MODEL_DIR}. "
+                f"Run scripts/setup.sh (macOS/Linux) or scripts/setup.ps1 (Windows) first."
+            )
+        try:
+            import sherpa_onnx  # noqa: F401
+        except ModuleNotFoundError:
+            raise unittest.SkipTest("sherpa-onnx not installed; run setup first")
 
     def _transcribe(self, wav_path: str) -> dict:
         import tempfile
@@ -122,7 +130,7 @@ class TestUpstreamChunking(unittest.TestCase):
                 return json.load(f)
 
     def test_long_audio_split_into_chunks(self):
-        """90s 正弦波 → 至少 3 个 chunk。"""
+        """90s 正弦波 → 至少 3 个 chunk，且每块都不超过 30s 上限。"""
         wav = os.path.join(SCRIPT_DIR, "_test_long.wav")
         _write_sine_wav(wav, duration_sec=90.0)
         try:
@@ -132,8 +140,11 @@ class TestUpstreamChunking(unittest.TestCase):
 
         chunks = report.get("chunks", 0)
         audio_seconds = report.get("audio_seconds", 0.0)
+        # 90s 音频按 ≤30s/块必然 ≥3 块
         self.assertGreaterEqual(chunks, 3,
                                 f"90s 音频应至少 3 个 chunk，实际 {chunks}")
+        # 每块 ≤30s：chunks 块至少能铺满 audio_seconds（平均下来每块 ≤ audio/chunks）
+        # 更强的可观察断言由 TestChunking（见下）直接对分块边界做，这里只做端到端烟测。
         self.assertGreaterEqual(chunks * 30.0, audio_seconds,
                                 f"chunks*30 ({chunks * 30}) < audio ({audio_seconds})")
 
@@ -147,6 +158,57 @@ class TestUpstreamChunking(unittest.TestCase):
             _unlink(wav)
         self.assertEqual(report.get("chunks"), 1,
                          f"10s 音频应只有 1 个 chunk")
+
+
+class TestChunking(unittest.TestCase):
+    """对上游 iter_wave_chunks 做纯逻辑单测（不加载模型、不依赖音频内容）。
+
+    直接导入上游脚本的分块迭代器，喂一段合成 wav，断言每个产出的 chunk：
+    - 时长 ≤ max_seconds（30s 硬上限）
+    - chunk_start 严格连续：下一块的 start == 上一块的 start + duration
+      （无 overlap、无 gap，字节级精确）
+    这比“chunks >= 3”更能证明分块与时间轴拼接正确。
+    """
+
+    def _iter_chunks(self, wav_path, **kw):
+        # 延迟导入：上游脚本在仓库根，缺了就 skip。
+        if not os.path.isfile(UPSTREAM):
+            raise unittest.SkipTest(f"upstream backend not found: {UPSTREAM}")
+        try:
+            import numpy
+        except ModuleNotFoundError:
+            raise unittest.SkipTest("numpy not installed")
+        sys.path.insert(0, os.path.dirname(UPSTREAM))
+        import transcribe_x_asr as upstream  # noqa: E402
+        return list(upstream.iter_wave_chunks(
+            wav_path, numpy=numpy, **kw))
+
+    def test_every_chunk_within_limit_and_contiguous(self):
+        """90s 音频 → 每块 ≤30s，且块间时间轴严格连续（无 overlap/gap）。"""
+        wav = os.path.join(SCRIPT_DIR, "_test_chunk.wav")
+        _write_sine_wav(wav, duration_sec=90.0)
+        try:
+            chunks = self._iter_chunks(
+                wav,
+                min_seconds=20.0, target_seconds=27.0, max_seconds=30.0,
+            )
+        finally:
+            _unlink(wav)
+
+        self.assertGreaterEqual(len(chunks), 3, f"90s 应切成 ≥3 块，实际 {len(chunks)}")
+        expected_start = 0.0
+        for i, (chunk_start, samples, sample_rate) in enumerate(chunks):
+            duration = len(samples) / sample_rate
+            self.assertLessEqual(duration, 30.0 + 1e-6,
+                                 f"chunk[{i}] 时长 {duration:.3f}s 超过 30s 上限")
+            # 时间轴严格连续：无 overlap、无 gap
+            self.assertAlmostEqual(chunk_start, expected_start, delta=1e-6,
+                                   msg=f"chunk[{i}] start={chunk_start:.6f} "
+                                       f"应等于上一块末尾 {expected_start:.6f}")
+            expected_start += duration
+        # 最后一块的末尾应覆盖到接近 90s（允许最后一块略短）
+        self.assertAlmostEqual(expected_start, 90.0, delta=1.0,
+                               msg=f"拼接总时长 {expected_start:.3f}s 应接近 90s")
 
 
 class TestBuiltinRejectsLongAudio(unittest.TestCase):

@@ -84,26 +84,30 @@ else
     # 不一致则删除并退出：避免被替换的 ONNX 模型进入推理链。
     if [[ -n "$X_ASR_SHA256" ]]; then
       echo "==> 校验 SHA-256"
+      # 计算实际 SHA-256：优先 shasum / sha256sum，都没有则用 python3 hashlib 兜底。
+      # 三者都不可用则 fail closed（绝不带病解压）。
       if command -v shasum >/dev/null 2>&1; then
         ACTUAL_SHA="$(shasum -a 256 "$TAR_FILE" | awk '{print $1}')"
       elif command -v sha256sum >/dev/null 2>&1; then
         ACTUAL_SHA="$(sha256sum "$TAR_FILE" | awk '{print $1}')"
+      elif command -v python3 >/dev/null 2>&1; then
+        ACTUAL_SHA="$(python3 -c 'import hashlib,sys; h=hashlib.sha256(); b=open(sys.argv[1],"rb").read(); h.update(b); print(h.hexdigest())' "$TAR_FILE")"
       else
-        echo "✗ 找不到 shasum / sha256sum，跳过校验（不推荐）"
-        ACTUAL_SHA=""
+        echo "✗ 找不到 shasum / sha256sum / python3，无法校验，停止（拒绝解压）"
+        echo "  安装任一工具后重跑，或设为 X_ASR_SHA256= 显式跳过校验（不推荐）"
+        rm -f "$TAR_FILE"
+        exit 1
       fi
-      if [[ -n "$ACTUAL_SHA" ]]; then
-        echo "    expected: $X_ASR_SHA256"
-        echo "    actual:   $ACTUAL_SHA"
-        if [[ "$ACTUAL_SHA" != "$X_ASR_SHA256" ]]; then
-          echo "✗ SHA-256 不匹配，删除下载文件并退出"
-          echo "  设为 X_ASR_SHA256= 可跳过校验（不推荐）"
-          echo "  或者用 X_ASR_RELEASE_URL= 下载你信任的镜像，重跑本脚本"
-          rm -f "$TAR_FILE"
-          exit 1
-        fi
-        echo "  ✓ SHA-256 匹配"
+      echo "    expected: $X_ASR_SHA256"
+      echo "    actual:   $ACTUAL_SHA"
+      if [[ "$ACTUAL_SHA" != "$X_ASR_SHA256" ]]; then
+        echo "✗ SHA-256 不匹配，删除下载文件并退出"
+        echo "  设为 X_ASR_SHA256= 可跳过校验（不推荐）"
+        echo "  或者用 X_ASR_RELEASE_URL= 下载你信任的镜像，重跑本脚本"
+        rm -f "$TAR_FILE"
+        exit 1
       fi
+      echo "  ✓ SHA-256 匹配"
     fi
 
     echo "==> 解压到 $CACHE_DIR"

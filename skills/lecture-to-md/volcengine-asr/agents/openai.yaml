@@ -1,4 +1,4 @@
 interface:
   display_name: "Volcengine ASR (sub-skill of lecture-to-md)"
-  short_description: "Cloud ASR via Volcengine Doubao / BigASR. Optional alternative to the default local sherpa-onnx X-ASR backend."
+  short_description: "Cloud ASR via Volcengine Doubao/BigASR, alt to local ASR."
   default_prompt: "Use $volcengine-asr to transcribe a local audio/video file with Volcengine Doubao / BigASR (BigASR 1.0 Turbo, 1.0 standard/idle, or 2.0 standard). This is the cloud alternative; prefer the default local sherpa-onnx X-ASR backend unless the user explicitly asks for cloud accuracy."
