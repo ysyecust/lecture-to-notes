@@ -33,7 +33,7 @@ description: 把课堂视频（本地或 B 站/YouTube）、文字稿、课件�
 
 ## ASR 选型
 
-- **首选 `local-asr/`**（sherpa-onnx X-ASR，跨平台路径齐备、int8 量化、对核显友好）。
+- **首选 `local-asr/`**（sherpa-onnx X-ASR，跨平台路径齐备，int8 量化 + Apple Silicon AMX 矩阵加速 ~100× 实时）；调用时默认带 `--timestamps`，以保留字幕时间轴。
 - 若用户已自带文字稿（火山引擎豆包、飞书妙记等），**跳过 ASR**，直接走 Phase 1 的文字稿核验。
 - 火山引擎走 `volcengine-asr/`，把产出的 `transcript.txt` 当作 S0-a 的产物继续。
 
@@ -55,7 +55,7 @@ description: 把课堂视频（本地或 B 站/YouTube）、文字稿、课件�
 | `python3`               | ✓  | `clean_subs.py`                                                |
 | `pdftoppm`              | △  | 课件 PDF → PNG                                                  |
 | `soffice` (LibreOffice) | △  | 课件 PPT/PPTX → PDF                                             |
-| `local-asr/`            | △  | 无字幕时全文转写 / 前 1min 核验；可加 `--timestamps` 出 srt/vtt 时间戳             |
+| `local-asr/`            | △  | 无字幕时全文转写 / 前 1min 核验；默认加 `--timestamps` 出 srt/vtt 时间戳             |
 | `volcengine-asr/`       | △  | 调用火山引擎豆包 ASR（需要凭据）                                           |
 | `sherpa-onnx` (pip 包)     | △  | `local-asr/` 后端依赖，首次跑 `bash ../local-asr/scripts/setup.sh` 自动装           |
 
@@ -63,7 +63,7 @@ description: 把课堂视频（本地或 B 站/YouTube）、文字稿、课件�
 
 1. **PATH 兜底**：沙箱 PATH 可能丢以下常用 bin 目录——macOS `/opt/homebrew/bin`、`/usr/local/bin`、`/opt/local/bin`；Linux `/usr/local/bin`、`~/.local/bin`、`/snap/bin`；Windows `%LOCALAPPDATA%\Microsoft\WinGet\Links`、`%ProgramFiles%\ffmpeg\bin`、`~\scoop\shims`、`~\scoop\apps\<app>\current\bin`、`%ProgramData%\chocolatey\bin`。`yt-dlp`/`ffmpeg`/`pdftoppm`/`soffice` 一律用绝对路径，或先 `require()` 兜底（参考 `../local-asr/scripts/common.py::require`，Python 脚本首选；它内部已按平台列好候选目录）。
 2. **帧序号 → 时间戳**：`verify_figures.py`（LaTeX 版脚本）硬编码 `×15`，本 skill 不复用该脚本。**不要硬编码 `帧时间 = (帧序号-1)×5`**——`fps=1/5` 的首帧可能不落在 0s、末尾帧可能被被丢、起始 PTS/掉帧都会让算术失真（实测 12s 片段只出 2 帧而非 3 帧）。帧时间一律由 ffmpeg 的 `showinfo` 记录真实 `pts_time`（见 Phase 1 的 S0-b）。
-3. **ASR 时间戳选型**：`local-asr/` 默认 sherpa-onnx X-ASR 模型直接产出 token 级时间戳（transducer 模型自带）。**需要字幕时间戳时**，给 S0-a 的命令加 `--timestamps`（`transcribe.py --timestamps`，会写 srt/vtt）；若是已有稿子想补时间戳，跑一次 `transcribe.py 音频 --timestamps`，把生成的 srt 时间轴对齐到原文即可（sherpa-onnx 不需要独立的 ForcedAligner 模型）。
+3. **ASR 时间戳选型**：`local-asr/` 默认 sherpa-onnx X-ASR 模型直接产出 token 级时间戳（transducer 模型自带）。S0-a 调用默认带 `--timestamps`（`transcribe.py --timestamps`，会写 srt/vtt）；只有用户明确只要纯文本时才省略。若是已有稿子想补时间戳，跑一次 `transcribe.py 音频 --timestamps`，把生成的 srt 时间轴对齐到原文即可（sherpa-onnx 不需要独立的 ForcedAligner 模型）。
 
 ## 平台识别
 
@@ -88,7 +88,7 @@ B 站分 P（多 part）视频：先用 `yt-dlp --flat-playlist --dump-json "<UR
 |  ✗  |  ✗  |  ✗  | 询问用户至少提供一样                                   |
 
 - **视频来源**：本地路径 → 直接用；B 站/YouTube URL → `yt-dlp` 下载。
-- **文字稿来源**：路径/粘贴文本 → 直接用；否则下载官方字幕（CC → 自动字幕去重）；再否则 `local-asr/` 全文转写（火山引擎走 `volcengine-asr/`）。
+- **文字稿来源**：路径/粘贴文本 → 直接用；否则下载官方字幕（CC → 自动字幕去重）；再否则 `local-asr/` 全文转写（如果用户指定了火山引擎走 `volcengine-asr/`）。
 - **课件来源**：PDF / PPT / PPTX 路径。
 
 ## 工作流

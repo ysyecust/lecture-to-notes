@@ -1,4 +1,4 @@
 interface:
   display_name: "Local ASR (sherpa-onnx X-ASR)"
   short_description: "Transcribe audio/video locally with sherpa-onnx X-ASR (int8)."
-  default_prompt: "Use $lecture-to-md to transcribe a lecture video/audio. It bundles a local ASR sub-skill ($local-asr, sherpa-onnx X-ASR int8) for offline transcription and a cloud fallback ($volcengine-asr, Volcengine Doubao). The local backend reuses the upstream scripts/transcribe_x_asr.py when bundled in the same repo (provides 30s chunking and timestamp stitching); the standalone fallback path is for short audio only. macOS Apple Silicon picks CoreML automatically; Linux runs on CPU (CUDA if onnxruntime-gpu is installed); Windows runs on CPU. Do NOT substitute Qwen/Whisper unless the user explicitly asks."
+  default_prompt: "Use $local-asr to transcribe a lecture video/audio locally with sherpa-onnx X-ASR and include --timestamps by default; omit it only when plain text is explicitly requested."

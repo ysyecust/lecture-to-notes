@@ -2,7 +2,7 @@
 
 > 视频 / 文字稿 / 课件 → 中文 **Markdown** 课堂笔记（与上游 `lecture-to-notes` 的 LaTeX/PDF 流并行存在）。
 
-对应 GitHub issue [#14](https://github.com/ysyecust/lecture-to-notes/issues/14)。本 skill 包按上游维护者意见作为**子 skill** 合入，目录 `skills/lecture-to-md/` 下分两层：
+目录 `skills/lecture-to-md/` 下分两层：
 
 ```text
 skills/lecture-to-md/
@@ -26,7 +26,7 @@ skills/lecture-to-md/
 │   ├── scripts/
 │   │   ├── common.py            ← ffmpeg/ffmpeg 探测与抽音频
 │   │   ├── transcribe.py        ← 统一入口（CLI）
-│   │   ├── asr_x.py             ← sherpa-onnx X-ASR 推理后端
+│   │   ├── transcribe_x_asr.py  ← sherpa-onnx X-ASR 分块/字幕后端
 │   │   ├── setup.sh             ← macOS / Linux 一键安装
 │   │   └── setup.ps1            ← Windows PowerShell 一键安装
 │   └── .gitignore
@@ -61,8 +61,7 @@ skills/lecture-to-md/
 
 - **模型**：[sherpa-onnx X-ASR](https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-x-asr-zipformer-transducer-zh-en-punct-int8-2026-06-03.tar.bz2)（Zipformer transducer，int8 量化，中英双语带标点，约 200 MB）。
 - **后端**：`sherpa-onnx`（纯 Python 推理，路径跨平台齐备；Windows 用 `setup.ps1` 已在 PowerShell 5.1 实测）。
-- **核显支持**：macOS Apple Silicon 自动用 CoreML（coreml EP 不可用时 fallback CPU）；Linux NVIDIA 自动用 CUDA；其它默认 CPU。
-- **默认**不要切到 Qwen。Qwen 链路仅 macOS 可用且实测准确率不如 X-ASR。
+- **加速**：macOS Apple Silicon（M1+）上 ~100× 实时（int8 + AMX 矩阵加速）；Linux NVIDIA 可走 CUDA（需 `onnxruntime-gpu`）；其它默认 CPU。
 
 首次跑前先装环境：
 

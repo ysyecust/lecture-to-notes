@@ -139,7 +139,7 @@ cat <<TXT
 
     python3 scripts/transcribe.py /path/to/课程.mp4 --timestamps
 
-- macOS Apple Silicon 默认用 coreml provider；其它默认 cpu
+- macOS Apple Silicon 默认用 cpu provider（int8 + AMX 矩阵加速 + 多线程，约 100× 实时）；其他平台默认 cpu
 - 加 --provider cuda 可强制 NVIDIA GPU（需先装 onnxruntime-gpu）
 - 模型路径：$MODEL_DIR
 - 升级模型：设 REINSTALL_MODEL=1 重跑本脚本，或编辑顶部 X_ASR_RELEASE_URL 后重跑

@@ -252,25 +252,13 @@ def write_plain_md(text: str, path: str, title: str = "转写稿", source: str =
     return path
 
 
-def cleanup_dir(path: str) -> None:
-    if path and os.path.isdir(path) and os.path.basename(path).startswith("asr-audio-"):
-        shutil.rmtree(path, ignore_errors=True)
-
-
 def detect_default_provider() -> str:
     """根据当前平台自动选 provider。
 
-    - macOS Apple Silicon（M1+）→ coreml（若 sherpa-onnx 支持；不支持则 transcribe.py 兜底为 cpu）
     - Linux 且检测到 CUDA → cuda
     - 其它 → cpu
-
-    注意：coreml provider 需要 sherpa-onnx 版本支持且模型本身未禁用；当前 X-ASR int8 release
-    没有官方 coreml 编译产物，transcribe.py 会在加载失败时自动 fallback 到 cpu 并打印警告。
     """
     system = platform.system().lower()
-    machine = platform.machine().lower()  # 'arm64' / 'x86_64' / 'amd64'
-    if system == "darwin" and machine in ("arm64", "aarch64"):
-        return "coreml"
     if system == "linux":
         # 检测 NVIDIA：是否存在 nvidia-smi，或 torch / onnxruntime 能见到 CUDA。
         if shutil.which("nvidia-smi"):
@@ -305,31 +293,3 @@ def _setup_hint() -> str:
         return ("  Windows: powershell -ExecutionPolicy Bypass -File .\\scripts\\setup.ps1\n"
                 "           （脚本会顺带装 ffmpeg 之外的 sherpa-onnx 与模型）")
     return "  macOS / Linux: bash scripts/setup.sh"
-
-
-def find_model_files(model_dir: str) -> tuple[str, str, str, str]:
-    """在模型目录里找 encoder / decoder / joiner / tokens 四件套。
-
-    sherpa-onnx 各版本文件名形如：
-            encoder-epoch-99-avg-1.onnx   /   encoder.onnx
-            decoder-epoch-99-avg-1.onnx   /   decoder.onnx
-            joiner-epoch-99-avg-1.onnx    /   joiner.onnx
-            tokens.txt
-    本函数取目录下第一个匹配的 *.onnx，避免写死 epoch 数字。
-    """
-    if not os.path.isdir(model_dir):
-        sys.exit(f"[asr] 模型目录不存在: {model_dir}")
-
-    def _pick(prefix: str) -> str:
-        for entry in sorted(os.listdir(model_dir)):
-            if entry.startswith(prefix) and entry.endswith(".onnx"):
-                return os.path.join(model_dir, entry)
-        sys.exit(f"[asr] 模型目录里没有 {prefix}*.onnx: {model_dir}")
-
-    encoder = _pick("encoder")
-    decoder = _pick("decoder")
-    joiner = _pick("joiner")
-    tokens = os.path.join(model_dir, "tokens.txt")
-    if not os.path.isfile(tokens):
-        sys.exit(f"[asr] 模型目录里没有 tokens.txt: {model_dir}")
-    return encoder, decoder, joiner, tokens
