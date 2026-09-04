@@ -67,6 +67,11 @@ bash scripts/setup.sh
 powershell -ExecutionPolicy Bypass -File .\scripts\setup.ps1
 ```
 
+### 环境预检（pre-flight check，必做）
+
+一定要检测`ffmpeg`、`Python`是否可用（可能是`python`或者是`python3`），以及`pip`是否可用。
+
+
 ## 参数
 
 ### transcribe.py（转写，可选补时间戳）
