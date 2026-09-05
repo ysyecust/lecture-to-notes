@@ -1,5 +1,38 @@
 # Release notes
 
+## 2026-09-04 — Hard-sub OCR, budgeted transcription, overlay-aware figures, one-shot gate
+
+Driven by a 160-minute DeepSeek Harness run on a 61-minute Bilibili lecture (session
+`session-18d94bd5`): 62 minutes were spent waiting on a CPU Whisper that never finished,
+half of 12.9M input tokens went to hand-written post-compile checks, and 13 of 44 figures
+were presenter-only or subtitle-covered frames because the model could not see images.
+
+### Highlights
+
+- `scripts/transcribe_whisper.py` picks the transcription backend per platform (`mlx-whisper` on
+  Apple silicon, `faster-whisper` elsewhere, `openai-whisper` last), moves model caches
+  into the workdir when `~/.cache` is not writable, and exits 3 when no segment appears
+  within `--budget-minutes` so the agent switches instead of waiting.
+- `scripts/ocr_hardsubs.py` detects burned-in subtitles, OCRs the band into `hardsub_ocr.srt`
+  (≈2 s per video minute measured), reports overlay geometry (`bands.json`), and derives a
+  Whisper correction glossary by aligning the two tracks (刻石→刻蚀, 光眼膜→光掩膜).
+- `scripts/frame_filter.py` measures and crops the navigation strip and subtitle band and
+  scores frames so hosts without image input can reject presenter-only frames.
+- `scripts/extract_claims.py` builds `numerical_claims.tsv` from subtitle and OCR tracks and
+  checks every number against `notes.tex`, tolerant of LaTeX spacing and unit macros.
+- `scripts/verify_notes.py` replaces the inline density script with one gate covering
+  density, mandatory artifacts, the compile log, figure files, and same-page footnotes.
+- `notes-template.tex` defines `\vtag`, `\srcnote`, `\degC`, `\um`, `\nm`, and `\angstrom`.
+- `scripts/install_skill.sh` installs the skill into `~/.agents/skills` (DeepSeek Harness /
+  Codex agents), `~/.claude/skills`, or `~/.codex/skills`; SKILL.md now starts with an
+  installation check that stops on a missing helper and records whether the host can
+  show images.
+
+### Compatibility
+
+- No breaking changes to existing helpers; the new scripts are additive and SKILL.md
+  still accepts `\protect\footnotemark` / `\footnotetext` figure provenance.
+
 ## 2026-08-31
 
 - Published Stanford CS336 Spring 2026 as a complete 18-lecture Chinese course, with a

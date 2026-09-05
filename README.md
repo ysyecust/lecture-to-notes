@@ -13,7 +13,9 @@
 ## 特性
 
 - **多平台支持**：YouTube、Bilibili 和 X/Twitter（自动识别 URL）
-- **字幕四级回退**：CC 字幕 → 平台自动字幕（YouTube 自动去重）→ 本地 ASR（中英优先 X ASR，Whisper 回退）→ 纯视觉模式
+- **字幕五级回退**：CC 字幕 → 平台自动字幕（YouTube 自动去重）→ 烧录字幕 OCR（B 站常见，≈2 s/视频分钟）→ 本地 ASR（中英优先 X ASR；否则 `transcribe_whisper.py` 按平台选 mlx / faster / openai 后端，超预算无进度即切换）→ 纯视觉模式
+- **无视觉模型兜底**：`frame_filter.py` 自动裁掉导航条和字幕带、识别讲者出镜帧；模型看不到图时靠 OCR 文字选图、写 caption
+- **一次性交付门禁**：`verify_notes.py` 检查密度、必需产物、编译日志、配图文件和脚注同页，`extract_claims.py` 核对讲座里每个数字
 - **字幕清洗**：YouTube auto-subs 自动去重（通常去除 50% 重复行）
 - **密集帧采样**：每 15 秒采样 + contact sheet 批量审查，不遗漏关键画面
 - **图文三方验证**：每个配图写入前必须通过「帧画面 + 字幕内容 + 描述文字」三方一致性检查，防止图文不匹配
@@ -44,6 +46,12 @@
 │   ├── correct_srt.py         # Whisper SRT 词典级修正（数据驱动，快）
 │   ├── llm_correct_srt.py     # Whisper SRT 段级修正（LLM + 多模态，慢但更准）
 │   ├── verify_figures.py      # 图文三方验证（时间戳 × 字幕 × 画面）
+│   ├── transcribe_whisper.py          # Whisper 转写：按平台选 mlx / faster / openai 后端 + 无进度预算
+│   ├── ocr_hardsubs.py        # 烧录字幕 OCR：检测 / 抽取为 SRT / 叠加层几何 / Whisper 纠错词典
+│   ├── frame_filter.py        # 导航条、字幕带测量与裁剪；讲者出镜帧打分
+│   ├── extract_claims.py      # 从字幕 / OCR 提取数值主张并核对讲义
+│   ├── verify_notes.py        # 交付前一次性门禁：密度、产物、编译日志、配图与脚注同页
+│   ├── install_skill.sh       # 安装 skill 到 ~/.agents / ~/.claude / ~/.codex
 │   ├── prepare_cover.sh       # 封面格式转换（webp/png → jpg）
 │   ├── smart_crop.py          # 课件区域检测（实验性，实际流程中通常直接用全帧）
 │   ├── pdf_inspector.py        # PDF 安全检查、元数据与首图解析
@@ -69,27 +77,19 @@
 
 ## 快速开始
 
-### 作为 Codex Skill
+### 安装 Skill（DeepSeek Harness / Codex / Claude Code）
 
 ```bash
-mkdir -p ~/.codex/skills
-cp -R skills/lecture-to-notes ~/.codex/skills/
-cp scripts/*.py scripts/prepare_cover.sh ~/.codex/skills/lecture-to-notes/assets/
-cp -R scripts/whisper_prompts ~/.codex/skills/lecture-to-notes/assets/
+scripts/install_skill.sh            # → ~/.agents/skills（DeepSeek Harness 与 Codex agents 读取此目录）
+scripts/install_skill.sh --claude   # → ~/.claude/skills
+scripts/install_skill.sh --codex    # → ~/.codex/skills
+scripts/install_skill.sh --all      # 三处都装
 ```
 
-### 作为 Claude Code Skill
-
-```bash
-# 复制 skill + 所有辅助脚本
-mkdir -p ~/.claude/skills/lecture-to-notes/assets
-mkdir -p ~/.claude/skills/lecture-to-notes/references
-cp skills/lecture-to-notes/SKILL.md ~/.claude/skills/lecture-to-notes/
-cp skills/lecture-to-notes/assets/notes-template.tex ~/.claude/skills/lecture-to-notes/assets/
-cp skills/lecture-to-notes/references/reader-first-writing.md ~/.claude/skills/lecture-to-notes/references/
-cp scripts/*.py scripts/prepare_cover.sh ~/.claude/skills/lecture-to-notes/assets/
-cp -R scripts/whisper_prompts ~/.claude/skills/lecture-to-notes/assets/
-```
+脚本把 `SKILL.md`、`references/`、`agents/`、LaTeX 模板和 `scripts/` 下全部辅助脚本复制到
+`<root>/lecture-to-notes/assets/`，并写入 `assets/INSTALLED_FROM` 记录来源 commit；重复运行会整体替换旧副本。
+SKILL.md 的第 0 步会逐个检查这些辅助脚本，缺任何一个就停止，不会退回到别的 skill。
+如果同一目录下还留着旧的 `source-command-*-render-pdf` 之类命令式 skill，先移走，否则 agent 可能加载错的那个。
 
 然后在 Claude Code 中使用 `/lecture-to-notes <URL>` 触发（或直接贴一个 B 站 / YouTube / X(Twitter) 链接，skill 会被自动匹配）。
 
@@ -135,9 +135,10 @@ X 音频 → 本地 ASR（中英优先 X ASR，Whisper 回退）→ 现有 SRT �
 ```bash
 brew install yt-dlp ffmpeg imagemagick poppler
 brew install --cask mactex        # 含 xelatex + CTeX 中文支持
-pip install openai-whisper         # Bilibili / 无字幕视频必需
 pip install sherpa-onnx numpy      # 可选：X ASR 中英混合快速转写
-pip install Pillow                 # 仅 smart_crop.py 需要（可选）
+pip install mlx-whisper            # Apple silicon：Whisper GPU 转写，61 分钟音频约 6 分钟
+pip install rapidocr-onnxruntime Pillow numpy   # 烧录字幕 OCR + frame_filter.py
+# 非 Apple silicon 的 mac 用 pip install faster-whisper；openai-whisper 只作最后回退
 ```
 
 ### Windows（winget，已实测通过）
@@ -147,8 +148,9 @@ pip install --user yt-dlp
 winget install --id Gyan.FFmpeg -e --silent
 winget install --id ImageMagick.ImageMagick -e --silent
 winget install --id MiKTeX.MiKTeX -e --silent      # ~140 MB，首次编译会自动装 ctex
-pip install --user openai-whisper                  # 会一起装 torch，~2 GB
 pip install --user sherpa-onnx numpy               # 可选：X ASR 中英混合快速转写
+pip install --user faster-whisper rapidocr-onnxruntime Pillow numpy
+pip install --user openai-whisper                  # 最后回退；会一起装 torch，~2 GB
 ```
 
 > 注意：MiKTeX 默认需要对缺失宏包手动放行；命令行调用 `xelatex` 时加 `-enable-installer` 让它自动下。Whisper 依赖的 ffmpeg 需要在 PATH 中（否则跑 Whisper 时会 `FileNotFoundError`）。
@@ -156,9 +158,9 @@ pip install --user sherpa-onnx numpy               # 可选：X ASR 中英混合
 ### Linux（Debian / Ubuntu 参考）
 
 ```bash
-sudo apt install yt-dlp ffmpeg imagemagick texlive-xetex texlive-lang-chinese
-pip install openai-whisper
+sudo apt install yt-dlp ffmpeg imagemagick poppler-utils texlive-xetex texlive-lang-chinese
 pip install sherpa-onnx numpy  # 可选
+pip install faster-whisper rapidocr-onnxruntime Pillow numpy
 ```
 
 ### 工具一览
@@ -169,12 +171,14 @@ pip install sherpa-onnx numpy  # 可选
 | `ffmpeg` | ✓ | 帧提取、音频提取、本地 ASR 前置 |
 | `xelatex` | ✓ | LaTeX 编译（含 ctex 宏包） |
 | `magick` | ✓ | Contact sheet、帧处理 |
+| `pdftotext` | ✓ | `verify_notes.py` 的脚注同页检查（poppler） |
 | `sherpa-onnx` + X ASR | △ | 中英混合快速本地转写；模型单独缓存，不进 Git |
-| `whisper` | △ | ASR 回退及其他语言转写 |
+| Whisper 后端 | △ | ASR 回退及其他语言：`transcribe_whisper.py` 自动选 `mlx-whisper`（macOS arm64）→ `faster-whisper` → `openai-whisper` |
+| `rapidocr-onnxruntime` | 有烧录字幕时 | `ocr_hardsubs.py` 读字幕带和叠加层几何 |
+| `Pillow` + `numpy` | ✓ | `frame_filter.py` 裁剪叠加层、给帧打分 |
 | `python3` | ✓ | 运行 `scripts/` 下所有脚本 |
 | `scripts/video_source.py` | ✓ | YouTube / Bilibili / X/Twitter URL 识别与元数据探测 |
 | `scripts/check_srt_health.py` | X/Twitter 字幕 | 检查 SRT 覆盖率、重复率和运行时窗口 |
-| `Pillow` | △ | 仅 `smart_crop.py` 需要 |
 | Claude Code CLI | △ | 仅 `llm_correct_srt.py` 需要（复用本地登录态，无需 API key） |
 
 ## 工作流程
@@ -186,24 +190,30 @@ pip install sherpa-onnx numpy  # 可选
   │
   ├─ yt-dlp ──→ 封面 + 字幕(CC/自动轨) + 视频
   │                                │
-  │  字幕不可用或 X 字幕检查失败？──→ 本地 ASR
-  │                                │（中英优先 X ASR；失败或其他语言用 Whisper）
+  │  字幕不可用或 X 字幕检查失败？──→ ocr_hardsubs.py detect / extract（烧录字幕 OCR）
+  │                                │ 无硬字幕 → 本地 ASR（中英优先 X ASR；否则 transcribe_whisper.py：mlx / faster / openai，10 分钟无进度即换后端）
   │                                ▼
-  │                          correct_srt.py      （词典级快速修正）
+  │                          ocr_hardsubs.py glossary → correct_srt.py（词典级快速修正）
   │                                │
   │                          llm_correct_srt.py  （LLM + 多模态段级修正，可选）
   │
   ├─ ffmpeg ──→ 按章节密集帧采样 (1帧/15秒)
   │
+  ├─ frame_filter.py bands / score ──→ 叠加层几何 + 讲者出镜帧标记（模型看不到图时必跑）
+  │
   ├─ magick montage ──→ Contact sheet 批量审查（直接用全帧，smart_crop 通常不启用）
   │
   ├─ 筛选候选帧 ──→ verify_figures.py 三方校验（时间戳 × 字幕 × 画面）
   │
-  ├─ 通过校验的 ──→ figures/ 目录
+  ├─ 通过校验的 ──→ frame_filter.py crop（只切导航条 / 字幕带）──→ figures/ 目录
+  │
+  ├─ extract_claims.py extract ──→ numerical_claims.tsv（讲座里的每个数字）
   │
   ├─ 基于模板生成 .tex ──→ 结构化中文讲义
   │
-  └─ xelatex ×2 ──→ 最终 PDF（含目录 / TOC）
+  ├─ xelatex ×2 ──→ 最终 PDF（含目录 / TOC）
+  │
+  └─ extract_claims.py check + verify_notes.py ──→ OVERALL PASS 才算交付
 ```
 
 ### SRT 修正两阶段

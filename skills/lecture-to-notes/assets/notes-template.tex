@@ -65,6 +65,16 @@
     extendedchars=false
 }
 
+% ===== Figure provenance and unit macros =====
+% \vtag goes inside \caption{...}; \srcnote{MM:SS--MM:SS} follows the figure environment.
+\newcommand{\vtag}{\protect\footnotemark}
+\newcommand{\srcnote}[1]{\footnotetext{视频画面时间区间：#1。若为裁剪图，时间区间仍对应原视频画面。}}
+% Units work in text and math mode; never hand-write $^\circ$ or \AA inside \mathrm.
+\newcommand{\degC}{\ensuremath{^{\circ}\mathrm{C}}}
+\newcommand{\um}{\ensuremath{\mu\mathrm{m}}}
+\newcommand{\nm}{\ensuremath{\mathrm{nm}}}
+\newcommand{\angstrom}{\ensuremath{\text{\AA}}}
+
 % ===== Front-page metadata =====
 % Fill these in when generating notes.
 \newcommand{\notetitle}{课程笔记：[课程主题]}
@@ -125,13 +135,15 @@
 % 1. Fill the metadata commands above (\notetitle, \videocoverpath, etc.)
 % 2. Replace this block with the generated notes.
 %
-% FIGURE PATTERN (use smart-cropped frames):
+% FIGURE PATTERN (full frames; overlays removed by frame_filter.py crop):
 %   \begin{figure}[H]
 %   \centering
 %   \includegraphics[width=\textwidth]{figures/fig_xxx.png}
-%   \caption{描述\protect\footnotemark}
+%   \caption{描述\vtag}
 %   \end{figure}
-%   \footnotetext{视频画面时间区间：00:12:31--00:12:46。}
+%   \srcnote{00:12:31--00:12:46}
+%
+% UNITS: 1150\,\degC   20--50\,\um   14\,\nm   5.43\,\angstrom
 %
 % BOX RULES:
 %   - importantbox: core concepts, definitions, key mechanisms
