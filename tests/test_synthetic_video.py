@@ -40,11 +40,26 @@ def run_cli(module, argv):
 
 @unittest.skipUnless(HAS_FFMPEG and FONT, "needs ffmpeg/ffprobe and a CJK font")
 class SyntheticVideoTests(unittest.TestCase):
+    # Tolerances: band edges within a few rows of the measured subtitle ink; the
+    # navigation strip within the font-dependent slack of its 40 px nominal height.
+    BAND_SLACK = 6
+    NAV_SLACK = 16
+
     @classmethod
     def setUpClass(cls):
         cls.tmp = tempfile.TemporaryDirectory()
         cls.workdir = Path(cls.tmp.name)
         cls.assets = synthetic_video.build(cls.workdir)
+        cls.ink_top, cls.ink_bottom = synthetic_video.subtitle_ink_bounds(cls.assets["font"])
+
+    def assert_band_covers_subtitle(self, bands):
+        self.assertIsNotNone(bands["subtitle_band"], bands)
+        y0, y1 = bands["subtitle_band"]
+        self.assertLessEqual(y0, self.ink_top + self.BAND_SLACK, bands)
+        self.assertGreaterEqual(y1, self.ink_bottom - self.BAND_SLACK, bands)
+        self.assertGreaterEqual(bands["nav_strip"], synthetic_video.NAV_STRIP - self.NAV_SLACK, bands)
+        self.assertLessEqual(bands["nav_strip"], synthetic_video.NAV_STRIP + 12, bands)
+        self.assertGreaterEqual(bands["crop_bottom"], synthetic_video.HEIGHT - self.ink_top - self.BAND_SLACK, bands)
 
     @classmethod
     def tearDownClass(cls):
@@ -57,13 +72,7 @@ class SyntheticVideoTests(unittest.TestCase):
     def test_frame_filter_bands_from_rendered_frames(self):
         import frame_filter
         frames = [frame_filter.load_gray(str(p)) for p in self.assets["frames"][::2]]
-        bands = frame_filter.detect_bands(frames)
-        self.assertGreaterEqual(bands["nav_strip"], synthetic_video.NAV_STRIP - 12, bands)
-        self.assertLessEqual(bands["nav_strip"], synthetic_video.NAV_STRIP + 12, bands)
-        self.assertIsNotNone(bands["subtitle_band"], bands)
-        y0, y1 = bands["subtitle_band"]
-        self.assertLessEqual(y0, synthetic_video.SUBTITLE_Y + 4, bands)
-        self.assertGreaterEqual(y1, synthetic_video.SUBTITLE_Y + 30, bands)
+        self.assert_band_covers_subtitle(frame_filter.detect_bands(frames))
 
     def test_frame_filter_scores_separate_diagram_and_presenter(self):
         import frame_filter
@@ -80,13 +89,7 @@ class SyntheticVideoTests(unittest.TestCase):
         self.assertEqual(code, 0, out)
         verdict = json.loads(out.strip().splitlines()[-1])
         self.assertTrue(verdict["has_hardsubs"], verdict)
-        geometry = json.loads(bands.read_text(encoding="utf-8"))
-        self.assertGreaterEqual(geometry["nav_strip"], synthetic_video.NAV_STRIP - 12, geometry)
-        self.assertIsNotNone(geometry["subtitle_band"], geometry)
-        y0, y1 = geometry["subtitle_band"]
-        self.assertLessEqual(y0, synthetic_video.SUBTITLE_Y + 4, geometry)
-        self.assertGreaterEqual(y1, synthetic_video.SUBTITLE_Y + 30, geometry)
-        self.assertGreaterEqual(geometry["crop_bottom"], synthetic_video.HEIGHT - synthetic_video.SUBTITLE_Y - 4, geometry)
+        self.assert_band_covers_subtitle(json.loads(bands.read_text(encoding="utf-8")))
 
     @unittest.skipUnless(HAS_OCR, "needs rapidocr-onnxruntime")
     def test_extract_then_glossary_learns_homophone_fixes(self):

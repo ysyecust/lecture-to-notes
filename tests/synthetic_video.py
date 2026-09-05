@@ -3,7 +3,7 @@ Deterministic synthetic lecture video for OCR and frame-filter checks.
 
 Renders frames with Pillow (no ffmpeg drawtext dependency), then encodes them with
 ffmpeg. The picture imitates a Bilibili lecture: dark background, a burned-in white
-subtitle line with a dark outline near the bottom, a static navigation strip at the
+subtitle line near the bottom, a static navigation strip at the
 very bottom, a small watermark in the top-right corner, and two content regimes —
 side diagrams for the first half, a presenter-like torso in the centre for the second.
 
@@ -80,6 +80,27 @@ def find_cjk_font() -> str | None:
         if Path(candidate).exists():
             return candidate
     return None
+
+
+def subtitle_ink_bounds(font_path: str) -> tuple[int, int]:
+    """
+    Rows actually covered by subtitle ink for this font.
+
+    Fonts place glyph ink differently inside the em box (Noto Sans CJK starts ~10 px
+    lower than STHeiti at 60 px), so band assertions compare against measured ink,
+    not the nominal draw position.
+    """
+    font = ImageFont.truetype(font_path, SUBTITLE_FONT_PX)
+    image = Image.new("L", (WIDTH, HEIGHT), 0)
+    draw = ImageDraw.Draw(image)
+    longest = max((text for _, _, text in SUBTITLES), key=len)
+    width = draw.textlength(longest, font=font)
+    draw.text((int((WIDTH - width) / 2), SUBTITLE_Y), longest, font=font, fill=255)
+    import numpy as np
+    rows = np.flatnonzero((np.asarray(image) > 128).any(axis=1))
+    if rows.size == 0:
+        raise RuntimeError("subtitle rendered no ink")
+    return int(rows[0]), int(rows[-1]) + 1
 
 
 def subtitle_at(second: float) -> str:
