@@ -27,9 +27,11 @@ on:
 permissions:
   contents: read
 
+# Superseded pull-request runs are cancelled; runs on main (push, dispatch, schedule)
+# never cancel each other — a dispatched run must not cancel the merge gate.
 concurrency:
-  group: tests-${{ github.ref }}
-  cancel-in-progress: true
+  group: tests-${{ github.event_name }}-${{ github.head_ref || github.ref }}-${{ github.event_name == 'pull_request' && 'pr' || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   unit:
