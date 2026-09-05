@@ -1,5 +1,4 @@
 import json
-import re
 import subprocess
 import tempfile
 import unittest
@@ -65,16 +64,15 @@ class ReaderFirstWritingTests(unittest.TestCase):
         self.assertIn("without transcript or quota filler", self.openai)
 
     def test_conceptual_talk_gate_does_not_require_invented_visuals_or_math(self):
-        match = re.search(
-            r"```bash\npython3 - <<'PY'\n(.*?)\nPY\n",
-            self.skill,
-            re.DOTALL,
-        )
-        self.assertIsNotNone(match, "pre-delivery Python gate must remain executable")
+        self.assertIn('verify_notes.py" --workdir . --overfull-pt 10', self.skill)
+        gate = ROOT / "scripts/verify_notes.py"
+        self.assertTrue(gate.is_file(), "pre-delivery gate must ship as a helper")
 
         with tempfile.TemporaryDirectory() as temporary_directory:
             workdir = Path(temporary_directory)
             (workdir / "figures").mkdir()
+            for name in ("figure_manifest.tsv", "figure_verification.txt", "audio.srt"):
+                (workdir / name).write_text("x\n", encoding="utf-8")
             sections = "\n".join(f"\\section{{问题{i}}}" for i in range(5))
             (workdir / "notes.tex").write_text(
                 sections + "\n" + "讲" * 3000,
@@ -107,7 +105,7 @@ class ReaderFirstWritingTests(unittest.TestCase):
             )
 
             completed = subprocess.run(
-                ["python3", "-c", match.group(1)],
+                ["python3", str(gate), "--workdir", str(workdir), "--skip-log", "--skip-pdf"],
                 cwd=workdir,
                 capture_output=True,
                 text=True,

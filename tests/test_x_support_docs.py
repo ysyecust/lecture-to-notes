@@ -208,7 +208,7 @@ class XSupportDocumentationTests(unittest.TestCase):
 
     def test_skill_documents_four_stage_full_frame_workflow(self):
         self.assertIn(
-            "Four-Stage Fallback: Manual CC → Automatic Captions → Local ASR → Visual-Only",
+            "Five-Stage Fallback: Manual CC → Automatic Captions → Burned-in Subtitle OCR → Local ASR → Visual-Only",
             self.skill,
         )
         self.assertNotIn("Three-Level Fallback", self.skill)
