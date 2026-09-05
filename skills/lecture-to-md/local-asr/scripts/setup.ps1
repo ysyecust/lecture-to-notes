@@ -16,7 +16,7 @@
     环境变量（可选）：
       PYTHON_EXE  / PIP_EXE     指定 python.exe 绝对路径
       X_ASR_RELEASE_URL         自定义 release URL
-      X_ASR_SHA256              覆盖默认 SHA-256（设空字符串跳过校验，不推荐）
+      X_ASR_SHA256              覆盖默认 SHA-256（自定义下载 URL 时需同步提供）
       ASR_MODEL_DIR             模型目录（默认 %USERPROFILE%\.cache\sherpa-onnx-models\<...>）
       GITHUB_PROXY              GitHub 镜像前缀（如 https://gh-proxy.com/）
       SKIP_PIP=1                跳过 pip install
@@ -201,8 +201,7 @@ if ($env:SKIP_MODEL -eq "1") {
             if ($Actual -ne $XASRSHA256.ToLower()) {
                 Remove-Item -LiteralPath $TarFile -Force
                 Stop-Setup ("SHA-256 不匹配，已删除下载文件。`n" +
-                            "      设 `$env:X_ASR_SHA256='' 可跳过校验（不推荐）；`n" +
-                            "      或用 `$env:X_ASR_RELEASE_URL= 指向你信任的镜像后重跑。")
+                            "      若使用自定义 X_ASR_RELEASE_URL，请同步设置对应的 X_ASR_SHA256 后重跑。")
             }
             Write-Ok "SHA-256 匹配"
         }

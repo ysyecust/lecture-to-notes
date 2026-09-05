@@ -16,7 +16,7 @@
 #   SKIP_PIP            设为 1 跳过 pip install sherpa-onnx
 #   SKIP_MODEL          设为 1 跳过模型下载（仅装包）
 
-set -uo pipefail
+set -euo pipefail
 
 X_ASR_RELEASE_NAME="sherpa-onnx-x-asr-zipformer-transducer-zh-en-punct-int8-2026-06-03"
 X_ASR_RELEASE_URL="${X_ASR_RELEASE_URL:-https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/${X_ASR_RELEASE_NAME}.tar.bz2}"
@@ -94,7 +94,7 @@ else
         ACTUAL_SHA="$(python3 -c 'import hashlib,sys; h=hashlib.sha256(); b=open(sys.argv[1],"rb").read(); h.update(b); print(h.hexdigest())' "$TAR_FILE")"
       else
         echo "✗ 找不到 shasum / sha256sum / python3，无法校验，停止（拒绝解压）"
-        echo "  安装任一工具后重跑，或设为 X_ASR_SHA256= 显式跳过校验（不推荐）"
+        echo "  安装任一工具后重跑；模型在解压前必须通过 SHA-256 校验"
         rm -f "$TAR_FILE"
         exit 1
       fi
@@ -102,8 +102,7 @@ else
       echo "    actual:   $ACTUAL_SHA"
       if [[ "$ACTUAL_SHA" != "$X_ASR_SHA256" ]]; then
         echo "✗ SHA-256 不匹配，删除下载文件并退出"
-        echo "  设为 X_ASR_SHA256= 可跳过校验（不推荐）"
-        echo "  或者用 X_ASR_RELEASE_URL= 下载你信任的镜像，重跑本脚本"
+        echo "  若使用自定义 X_ASR_RELEASE_URL，请同时提供对应的 X_ASR_SHA256 后重跑"
         rm -f "$TAR_FILE"
         exit 1
       fi

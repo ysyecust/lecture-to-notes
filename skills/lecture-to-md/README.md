@@ -16,8 +16,7 @@ skills/lecture-to-md/
 │   │   ├── subagent-workflow.md     ← 子代理派发与汇总
 │   │   └── structure-reorder.md     ← Phase 6 标题重排
 │   └── scripts/
-│       ├── clean_subs.py            ← YouTube 自动字幕去重
-│       └── correct_srt.py           ← 词典级同音字修正
+│       └── clean_subs.py            ← YouTube 自动字幕去重
 │
 ├── local-asr/                ← 默认 ASR 子 skill（sherpa-onnx X-ASR，已在 macOS Apple Silicon + Linux ARM64 + Windows 验证）
 │   ├── SKILL.md

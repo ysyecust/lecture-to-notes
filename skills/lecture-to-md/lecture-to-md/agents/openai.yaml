@@ -1,4 +1,4 @@
 interface:
   display_name: "Lecture to Notes (Markdown)"
   short_description: "视频/文字稿/课件转中文 Markdown 课堂笔记，默认本地 ASR。"
-  default_prompt: "Use $lecture-to-md to turn a lecture video (local file or Bilibili/YouTube URL), transcript, and/or slide deck into detailed Chinese Markdown notes. Auto-detects the platform, extracts 5s-spaced frames, selects figures per ### heading with slide screenshots prioritized over video frames, verifies transcripts against official subtitles or the bundled $local-asr backend, and outputs a title-named Markdown file ({title_name}.md, first line is the document title) with relative-path images under assets/{title_name}/. When local ASR is needed, pass --timestamps by default so the transcript includes an SRT time axis. The local ASR backend bundles its own transcribe_x_asr.py with 30s chunking and timestamp stitching. macOS Apple Silicon + Linux ARM64 + Windows have been verified end-to-end."
+  default_prompt: "Use $lecture-to-md to turn a lecture video, transcript, or slide deck into detailed Chinese Markdown notes with relative-path images, using $local-asr when subtitles are unavailable."

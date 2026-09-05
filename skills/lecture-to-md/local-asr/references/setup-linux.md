@@ -235,26 +235,26 @@ python3 scripts/transcribe.py input.mp4 --num-threads 8
 
 ```bash
 # 在 Linux VM 里查挂载点
-mount | grep -i howen
-# 例：vmhgfs-fuse on /mnt/hgfs/howen type fuse.vmhgfs-fuse (rw,...)
+mount | grep -Ei 'hgfs|psf|virtiofs'
+# 例：vmhgfs-fuse on /mnt/hgfs/shared type fuse.vmhgfs-fuse (rw,...)
 
 # 或直接尝试常见路径：
 ls /mnt/hgfs/                   # VMware
 ls /media/psf/Home/             # Parallels
 ls /mnt/host/                   # WSL 2（实际为 /mnt/c, /mnt/d）
-ls /howen/howen/                # 用户自定义挂载点
+ls /mnt/shared/                 # 用户自定义挂载点示例
 ```
 
 然后跑：
 
 ```bash
-# 例：vmhgfs-fuse 挂到 /mnt/hgfs/howen
-python3 /mnt/hgfs/howen/CodePlace/lecture-to-notes/skills/lecture-to-md/local-asr/scripts/transcribe.py \
-  /mnt/hgfs/howen/Downloads/课程.mp4
+# 例：vmhgfs-fuse 挂到 /mnt/hgfs/shared
+python3 /mnt/hgfs/shared/lecture-to-notes/skills/lecture-to-md/local-asr/scripts/transcribe.py \
+  /mnt/hgfs/shared/课程.mp4
 
-# 例：用户自定义挂载点 /howen/howen
-python3 /howen/howen/CodePlace/lecture-to-notes/skills/lecture-to-md/local-asr/scripts/transcribe.py \
-  /howen/howen/Downloads/课程.mp4
+# 例：用户自定义挂载点 /mnt/shared
+python3 /mnt/shared/lecture-to-notes/skills/lecture-to-md/local-asr/scripts/transcribe.py \
+  /mnt/shared/课程.mp4
 ```
 
 **Docker（推荐基于 Debian bookworm 的镜像）：**

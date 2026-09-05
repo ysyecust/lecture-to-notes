@@ -7,7 +7,7 @@ description: Transcribe local audio or video with Volcengine Doubao file ASR, in
 
 Use the deterministic scripts in `scripts/`; do not reproduce API requests manually.
 
-> 本 skill 是 [`lecture-to-md`](../SKILL.md) 的**云端 ASR 子 skill**。日常请走 [`local-asr/`](../local-asr/SKILL.md)（sherpa-onnx X-ASR，免费、跨平台、隐私友好）；只有当用户明确要求云端准确率，或本地模型不足以应对时，才启用本 skill。
+> 本 skill 是 [`lecture-to-md`](../lecture-to-md/SKILL.md) 的**云端 ASR 子 skill**。日常请走 [`local-asr/`](../local-asr/SKILL.md)（sherpa-onnx X-ASR，免费、跨平台、隐私友好）；只有当用户明确要求云端准确率，或本地模型不足以应对时，才启用本 skill。
 
 ## Choose a mode
 
