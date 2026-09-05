@@ -74,11 +74,14 @@ def detect_platform() -> tuple[str, str]:
 def available_backends() -> dict[str, list[str] | None]:
     """Map backend name to the argv prefix that launches it, or None if absent."""
     found: dict[str, list[str] | None] = {"mlx": None, "faster": None, "openai": None}
-    mlx_cli = shutil.which("mlx_whisper")
+    # A venv's console script sits next to the interpreter even when the venv is not on PATH.
+    venv_bin = Path(sys.executable).parent
+    mlx_cli = shutil.which("mlx_whisper") or next(
+        (str(p) for p in (venv_bin / "mlx_whisper", venv_bin / "mlx_whisper.exe") if p.exists()), None)
     if mlx_cli:
         found["mlx"] = [mlx_cli]
     elif importlib.util.find_spec("mlx_whisper") is not None:
-        found["mlx"] = [sys.executable, "-m", "mlx_whisper.cli"]
+        found["mlx"] = [sys.executable, "-c", "import sys; from mlx_whisper.cli import main; sys.exit(main())"]
     if importlib.util.find_spec("faster_whisper") is not None:
         found["faster"] = [sys.executable, "-c", FASTER_RUNNER]
     whisper_cli = shutil.which("whisper")

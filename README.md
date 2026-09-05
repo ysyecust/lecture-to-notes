@@ -224,6 +224,14 @@ pip install faster-whisper rapidocr-onnxruntime Pillow numpy
   调 `claude -p` 做多模态校准。能修语境级错误（"PASSNAME" → "PATHNAME" 这类同音错），
   但耗时长，一般只对要发布的讲义跑。
 
+## 测试与 CI
+
+```bash
+PYTHONPATH=. python3 -m unittest discover -s tests -v   # 与 CI 完全相同的命令
+```
+
+`.github/workflows/tests.yml` 在 PR 和 `main` 推送时运行两个门禁 job：`unit`（全部 Python 测试，需要 zsh、numpy、Pillow）和 `template`（在带 CJK 支持的 TeX Live 里编译 `notes-template.tex`，覆盖所有模板宏）。两个慢 job 只在手动触发或每周一定时运行：`synthetic-video` 用 Pillow 渲染一段带烧录字幕、静态导航条和讲者色块的合成视频，真实跑一遍 `ocr_hardsubs.py` 与 `frame_filter.py`；`macos-smoke` 在 Apple silicon runner 上跑全部测试并确认 `transcribe_whisper.py` 选中 mlx 后端。缺少可选依赖（xelatex、ffmpeg、rapidocr、CJK 字体）时对应测试自动跳过，本地不会因此报错。`main` 分支要求 `unit` 和 `template` 通过后才能合并。
+
 ## 相比现有工具的改进
 
 | 特性 | [llm-note-generator](https://github.com/Stefan0219/llm-note-generator) | [wdkns-skills](https://github.com/wdkns/wdkns-skills) | **lecture-to-notes** |

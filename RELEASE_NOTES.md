@@ -1,5 +1,17 @@
 # Release notes
 
+## 2026-09-05 — PR-time CI
+
+- `tests.yml` runs `unit` (all Python tests) and `template` (XeLaTeX compile of
+  `notes-template.tex` with every macro) on pull requests and pushes to `main`; both are
+  required status checks on `main`.
+- Weekly / manual jobs: `synthetic-video` renders a deterministic lecture video with
+  burned-in subtitles, a static navigation strip, and a presenter block, then runs the
+  real `ocr_hardsubs.py` and `frame_filter.py` pipeline against it; `macos-smoke` runs the
+  suite on Apple silicon and checks that `transcribe_whisper.py` selects mlx-whisper.
+- Tests that need optional tools (xelatex, ffmpeg, rapidocr, a CJK font, numpy/Pillow)
+  skip instead of failing when the tool is absent.
+
 ## 2026-09-04 — Hard-sub OCR, budgeted transcription, overlay-aware figures, one-shot gate
 
 Driven by a 160-minute DeepSeek Harness run on a 61-minute Bilibili lecture (session
