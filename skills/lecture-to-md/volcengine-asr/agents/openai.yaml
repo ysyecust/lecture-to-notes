@@ -1,0 +1,4 @@
+interface:
+  display_name: "Volcengine ASR (sub-skill of lecture-to-md)"
+  short_description: "Cloud ASR via Volcengine Doubao/BigASR, alt to local ASR."
+  default_prompt: "Use $volcengine-asr to transcribe a local audio or video file with Volcengine BigASR when cloud ASR is explicitly requested."

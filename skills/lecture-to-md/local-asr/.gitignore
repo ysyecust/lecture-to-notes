@@ -1,0 +1,14 @@
+# sherpa-onnx 模型缓存（setup.sh 下载到 ~/.cache/sherpa-onnx-models/）
+# 用户可能把模型放在 repo 子目录里，这种情况再单独 gitignore
+.sherpa-onnx-models/
+models/
+
+# Python 产物
+__pycache__/
+*.pyc
+.venv/
+
+# 下载中临时文件
+*.tar.bz2
+*.tar.gz
+*.zip

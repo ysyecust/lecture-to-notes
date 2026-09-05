@@ -1,0 +1,20 @@
+# sub-skill: local-asr 的 sherpa-onnx 模型缓存
+local-asr/models/
+local-asr/.sherpa-onnx-models/
+local-asr/scripts/*.tar.bz2
+local-asr/scripts/*.tar.gz
+local-asr/scripts/*.zip
+
+# sub-skill: volcengine-asr 的凭据文件与工作目录
+volcengine-asr/.secret
+volcengine-asr/_volcengine_transcripts/
+volcengine-asr/job.json
+volcengine-asr/.venv/
+volcengine-asr/scripts/__pycache__/
+
+# 通用 Python 产物
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lecture to Notes (Markdown)"
+  short_description: "视频/文字稿/课件转中文 Markdown 课堂笔记，默认本地 ASR。"
+  default_prompt: "Use $lecture-to-md to turn a lecture video, transcript, or slide deck into detailed Chinese Markdown notes with relative-path images, using $local-asr when subtitles are unavailable."
