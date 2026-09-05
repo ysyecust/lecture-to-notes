@@ -1,0 +1,112 @@
+name: Tests
+
+on:
+  pull_request:
+    paths:
+      - "scripts/**"
+      - "tests/**"
+      - "skills/**"
+      - "README.md"
+      - "RELEASE_NOTES.md"
+      - ".github/workflows/tests.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/**"
+      - "tests/**"
+      - "skills/**"
+      - "README.md"
+      - "RELEASE_NOTES.md"
+      - ".github/workflows/tests.yml"
+  workflow_dispatch:
+  schedule:
+    # Weekly run of the slow jobs (synthetic video OCR, macOS smoke) on Monday 03:17 UTC.
+    - cron: "17 3 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit:
+    name: unit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
+        with:
+          persist-credentials: false
+
+      - name: Install test dependencies (zsh smoke tests, frame_filter.py)
+        run: sudo apt-get update && sudo apt-get install --yes zsh python3-numpy python3-pil
+
+      - name: Run Python tests
+        run: PYTHONPATH=. python3 -m unittest discover -s tests -v
+
+  template:
+    name: template
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
+        with:
+          persist-credentials: false
+
+      - name: Install XeLaTeX with CJK support
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends \
+            texlive-xetex texlive-lang-chinese texlive-latex-extra texlive-latex-recommended \
+            texlive-fonts-recommended texlive-pictures fonts-noto-cjk
+
+      - name: Compile notes-template.tex with a smoke body
+        run: PYTHONPATH=. python3 -m unittest tests.test_template_compile -v
+
+  synthetic-video:
+    name: synthetic-video
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
+        with:
+          persist-credentials: false
+
+      - name: Install ffmpeg, a CJK font, and the OCR runtime
+        run: |
+          sudo apt-get update && sudo apt-get install --yes ffmpeg fonts-noto-cjk python3-venv
+          python3 -m venv .venv
+          .venv/bin/pip install --quiet --upgrade pip
+          .venv/bin/pip install --quiet "rapidocr-onnxruntime==1.2.3"
+
+      - name: OCR and frame-filter checks on a synthetic lecture video
+        run: PYTHONPATH=. .venv/bin/python -m unittest tests.test_synthetic_video -v
+
+  macos-smoke:
+    name: macos-smoke
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+    runs-on: macos-14
+    steps:
+      - name: Check out
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
+        with:
+          persist-credentials: false
+
+      - name: Install Python test dependencies and the Apple-silicon Whisper backend
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install --quiet --upgrade pip
+          .venv/bin/pip install --quiet Pillow numpy mlx-whisper
+
+      - name: Run Python tests
+        run: PYTHONPATH=. .venv/bin/python -m unittest discover -s tests -v
+
+      - name: Whisper backend selection prefers mlx on Apple silicon
+        run: |
+          : > audio.wav
+          .venv/bin/python scripts/transcribe_whisper.py audio.wav --workdir "$PWD/tw" --dry-run | tee dry-run.txt
+          grep -q "backend=mlx" dry-run.txt

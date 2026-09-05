@@ -67,14 +67,20 @@ def detect_bands(
     spatial = stack.std(axis=2).mean(axis=0)                   # (H,)
     lower_limit = int(height * (1 - bottom_frac))
     baseline = float(np.median(temporal_std[lower_limit:]))
-    static_rows = (temporal_std < max(static_ratio * baseline, 1.0)) & (spatial > spatial_std)
+    static_rows = temporal_std < max(static_ratio * baseline, 1.0)
 
-    # Navigation strip: contiguous static rows ending at the bottom edge.
+    # Navigation strip: the maximal run of static rows ending at the bottom edge,
+    # trimmed to its topmost row that carries spatial structure (icons, text). A
+    # plain static bottom (black letterbox) has no structured row and yields 0.
     nav = 0
     y = height - 1
     while y >= 0 and static_rows[y]:
-        nav += 1
         y -= 1
+    run_top = y + 1
+    structured = np.flatnonzero(spatial[run_top:height] > spatial_std)
+    if structured.size:
+        nav_top = max(run_top, run_top + int(structured[0]) - 4)
+        nav = height - nav_top
     if nav < 4:
         nav = 0
 
