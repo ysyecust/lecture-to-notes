@@ -7,43 +7,43 @@
   <meta name="description" content="通过 Fork 和 Pull Request 向 Lecture to Notes 提交课程 PDF。">
   <title>提交 PDF · Lecture to Notes</title>
   <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/bauhaus.css">
 </head>
-<body class="contribute-page">
+<body class="contribute-page bauhaus-page">
   <a class="skip-link" href="#main">跳到正文</a>
   <header class="site-header">
     <nav class="nav-shell" aria-label="主导航">
       <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">L/N</span><span>lecture to notes</span></a>
-      <div class="nav-links"><a href="index.html">课程资料</a><a aria-current="page" href="contribute.html">提交 PDF</a><a href="https://github.com/ysyecust/lecture-to-notes">GitHub ↗</a></div>
+      <div class="nav-links"><a href="index.html">课程资料</a><a href="index.html#papers-title">论文解读</a><a aria-current="page" href="contribute.html">提交 PDF</a><a href="https://github.com/ysyecust/lecture-to-notes">GitHub ↗</a></div>
     </nav>
   </header>
   <main id="main" class="contribute-main">
     <section class="contribute-hero" aria-labelledby="contribute-title">
-      <p class="eyebrow">PDF 投稿</p>
-      <h1 id="contribute-title">通过 Pull Request<br><span>提交课程 PDF。</span></h1>
-      <p>普通贡献者不能直接修改这个仓库的 <code>main</code> 分支。请先 Fork 仓库，在自己的 Fork 中上传并 commit，然后向我们提交 Pull Request。只有维护者合并后，资料才会发布。</p>
-      <div class="contribute-actions">
-        <a class="button button-primary button-large" href="https://github.com/ysyecust/lecture-to-notes/fork">第一步：Fork 仓库</a>
-        <a class="button button-secondary button-large" href="https://github.com/ysyecust/lecture-to-notes/blob/main/CONTRIBUTING.md">查看完整说明</a>
+      <div class="contribute-copy">
+        <p class="hero-intro"><span aria-hidden="true"></span> 课程资料 · 社区共建</p>
+        <h1 id="contribute-title">把你的讲义，<br>放进课程库。</h1>
+        <p class="contribute-lede">分享你整理的课程 PDF，让更多人可以阅读和学习。<br>通过 GitHub 提交，维护者审核合并后发布。</p>
+        <div class="contribute-actions">
+          <a class="button button-primary button-large" href="https://github.com/ysyecust/lecture-to-notes/fork">第一步：Fork 仓库 <span aria-hidden="true">↗</span></a>
+          <a class="contribute-guide-link" href="#flow-title">查看提交步骤 <span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="contribute-pr-note">需要 GitHub 账号。文件先保存在你自己的仓库副本中。</p>
       </div>
+      <aside class="submission-brief" aria-label="投稿准备清单">
+        <div class="brief-top"><span>一份 PDF，一次分享。</span><span class="brief-shapes" aria-hidden="true">● ▲ ■</span></div>
+        <div class="brief-title"><span class="brief-document" aria-hidden="true">PDF</span><h2>准备好，<br>就可以开始。</h2></div>
+        <ul>
+          <li><strong>课程讲义 PDF</strong><span>可打开、可阅读的 .pdf 文件</span></li>
+          <li><strong>课程信息与来源</strong><span>课程、讲次、讲师和原始链接</span></li>
+          <li><strong>有权分享的资料</strong><span>在投稿模板中确认分享权利</span></li>
+        </ul>
+        <a href="https://github.com/ysyecust/lecture-to-notes/blob/main/CONTRIBUTING.md">阅读完整投稿说明 <span aria-hidden="true">↗</span></a>
+      </aside>
     </section>
 
-    <section class="permission-section" aria-labelledby="permission-title">
-      <div class="section-heading">
-        <div><p class="eyebrow">权限说明</p><h2 id="permission-title">谁能向仓库写入？</h2></div>
-        <p>Commit 和 Pull Request 是两件事。贡献者在自己的仓库里 commit，再请求你合并。</p>
-      </div>
-      <div class="permission-flow" role="list" aria-label="PDF 从贡献者到本站的流程">
-        <article role="listitem"><p>贡献者的 Fork</p><h3>贡献者在这里 commit</h3><span>这是原仓库的个人副本，不会直接改变本站。</span></article>
-        <span class="permission-arrow" aria-hidden="true">→</span>
-        <article role="listitem"><p>Pull Request</p><h3>请求维护者合并</h3><span>PR 只提交变更和说明，不会获得原仓库写入权限。</span></article>
-        <span class="permission-arrow" aria-hidden="true">→</span>
-        <article role="listitem"><p>本仓库 main</p><h3>维护者决定是否发布</h3><span>检查通过并合并后，网站才会更新。</span></article>
-      </div>
-      <p class="permission-summary">你是仓库所有者，可以直接 commit。普通访客不能直接 push；除非你主动把某人添加为有写权限的协作者，否则他只能通过 Fork 和 PR 投稿。</p>
-    </section>
-
+    <div class="submission-workspace">
     <section class="contribution-flow" aria-labelledby="flow-title">
-      <div class="section-heading"><div><p class="eyebrow">网页操作</p><h2 id="flow-title">按这五步提交</h2></div><p>第一次使用 GitHub，也可以按下面的顺序完成。</p></div>
+      <div class="section-heading"><div><p class="eyebrow">How to contribute</p><h2 id="flow-title">按这五步提交</h2></div><p>第一次使用 GitHub，也可以按下面的顺序完成。</p></div>
       <ol class="flow-list">
         <li><span>01</span><div><h3>Fork 仓库</h3><p>点击上方按钮，在你的 GitHub 账号下创建 <code>lecture-to-notes</code> 副本。</p></div></li>
         <li><span>02</span><div><h3>在自己的 Fork 中上传 PDF</h3><p>打开 <code>content/inbox/</code>，选择 <strong>Add file → Upload files</strong>。只上传小写扩展名的 <code>.pdf</code> 文件。</p></div></li>
@@ -55,7 +55,7 @@
 
     <section class="contribution-rules" aria-labelledby="rules-title">
       <div>
-        <p class="eyebrow">文件要求</p>
+        <p class="eyebrow">Before you submit</p>
         <h2 id="rules-title">提交前检查</h2>
         <p>每个 PR 只添加 PDF，不要同时修改代码、课程目录或现有文件。</p>
       </div>
@@ -70,7 +70,23 @@
         <p>请只提交你有权分享的资料。PR 模板还会询问课程、机构、学期、讲次、讲师和原始来源，方便维护者整理课程目录。</p>
       </div>
     </section>
+    </div>
+    <section class="permission-section" aria-labelledby="permission-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">权限说明</p><h2 id="permission-title">谁能向仓库写入？</h2></div>
+        <p>Commit 和 Pull Request 是两件事。贡献者在自己的仓库里保存 commit，再请求维护者合并。</p>
+      </div>
+      <div class="permission-flow" role="list" aria-label="PDF 从贡献者到本站的流程">
+        <article role="listitem"><p>贡献者的 Fork</p><h3>贡献者在这里 commit</h3><span>这是原仓库的个人副本，不会直接改变本站。</span></article>
+        <span class="permission-arrow" aria-hidden="true">→</span>
+        <article role="listitem"><p>Pull Request</p><h3>请求维护者合并</h3><span>PR 只提交变更和说明，不会获得原仓库写入权限。</span></article>
+        <span class="permission-arrow" aria-hidden="true">→</span>
+        <article role="listitem"><p>本仓库 main</p><h3>维护者决定是否发布</h3><span>检查通过并合并后，网站才会更新。</span></article>
+      </div>
+      <p class="permission-summary">普通贡献者不能直接修改这个仓库的 <code>main</code> 分支。你的 commit 保存在自己的 Fork 中，只有维护者合并 PR 后，资料才会发布到本站。</p>
+    </section>
+
   </main>
-  <footer class="site-footer"><p>命令行操作和完整审核流程见 <a href="https://github.com/ysyecust/lecture-to-notes/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>。</p><p>提交 PR 不会获得仓库写入权限。</p></footer>
+  <footer class="site-footer"><p class="footer-brand">lecture to notes <span aria-hidden="true">● ▲ ■</span></p><p>命令行操作见 <a href="https://github.com/ysyecust/lecture-to-notes/blob/main/CONTRIBUTING.md">完整投稿说明</a>。</p></footer>
 </body>
 </html>
