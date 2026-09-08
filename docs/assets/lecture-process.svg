@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="520" viewBox="0 0 560 520" fill="none">
+  <title>从视频到经过核验的中文讲义</title>
+  <desc>视频提取字幕与画面，编排并编译讲义，核验图文、数值与版式。通过后交付 PDF，未通过返回修订。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path fill="none" d="m1 1 5 3-5 3" stroke="#20201e" stroke-width="1.5"/></marker>
+    <marker id="red-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path fill="none" d="m1 1 5 3-5 3" stroke="#d93625" stroke-width="1.5"/></marker>
+  </defs>
+  <path fill="#e9e6dc" stroke="#20201e" stroke-width="2" d="M1 1h558v518H1z"/>
+  <path fill="none" d="M1 62h558" stroke="#20201e" stroke-width="2"/>
+  <g font-family="Avenir Next, Helvetica Neue, PingFang SC, Microsoft YaHei, sans-serif" fill="#20201e">
+    <text x="28" y="40" font-size="23" font-weight="800" letter-spacing="-1">lecture</text>
+    <path fill="none" d="M244 31h69m-9-7 9 7-9 7" stroke="#20201e" stroke-width="2"/>
+    <text x="532" y="40" font-size="23" font-weight="800" letter-spacing="-1" text-anchor="end">notes</text>
+
+    <!-- A left-to-right first row turns down into a right-to-left delivery row. -->
+    <g stroke="#20201e" stroke-width="2" marker-end="url(#arrow)">
+      <path fill="none" d="M145 157h48"/>
+      <path fill="none" d="M312 157h55"/>
+      <path fill="none" d="M431 249v58"/>
+      <path fill="none" d="M365 365H222"/>
+    </g>
+
+    <!-- Source video: the Bauhaus circle carries the familiar play triangle. -->
+    <circle cx="88" cy="157" r="56" fill="#d93625"/>
+    <path d="m77 134 35 23-35 23z" fill="#f4f2eb"/>
+    <text x="88" y="244" text-anchor="middle" font-size="18" font-weight="700">01 视频</text>
+    <text x="88" y="266" text-anchor="middle" font-size="12" fill="#65645e">一堂课的起点</text>
+
+    <!-- Paired evidence: transcript above, selected frames below. -->
+    <path d="M202 98h110v116H202z" fill="#f4c434" stroke="#20201e" stroke-width="2"/>
+    <path fill="none" d="M202 156h110" stroke="#20201e" stroke-width="2"/>
+    <path fill="none" d="M215 114h24m-24 9h32m-32 9h19" stroke="#20201e" stroke-width="2"/>
+    <text x="277" y="130" text-anchor="middle" font-size="16" font-weight="650">字幕</text>
+    <path fill="none" d="M215 170h29v28h-29z" stroke="#20201e" stroke-width="1.5"/>
+    <circle cx="237" cy="177" r="3" fill="#d93625"/>
+    <path d="m218 194 8-12 7 9 4-5 5 8z" fill="#20201e"/>
+    <text x="277" y="190" text-anchor="middle" font-size="16" font-weight="650">画面</text>
+    <text x="257" y="244" text-anchor="middle" font-size="18" font-weight="700">02 提取素材</text>
+    <text x="257" y="266" text-anchor="middle" font-size="12" fill="#65645e">保留时间与出处</text>
+
+    <!-- Composition: structure, prose and mathematics become a document. -->
+    <path d="M377 98h108v116H377z" fill="#234bc4" stroke="#20201e" stroke-width="2"/>
+    <path d="M392 117h31v31h-31z" fill="#f4c434"/>
+    <path fill="none" d="M434 118h35m-35 10h35m-35 10h24M392 165h77m-77 12h77m-77 12h51" stroke="#f4f2eb" stroke-width="2"/>
+    <text x="431" y="244" text-anchor="middle" font-size="18" font-weight="700">03 编排讲义</text>
+    <text x="382" y="290" text-anchor="end" font-size="12" fill="#65645e">写作与编译</text>
+
+    <!-- Verification is a real decision, including a revision path. -->
+    <path d="m431 307 58 58-58 58-58-58z" fill="#f4c434" stroke="#20201e" stroke-width="2"/>
+    <path fill="none" d="m411 365 14 14 26-30" stroke="#20201e" stroke-width="4"/>
+    <text x="431" y="451" text-anchor="middle" font-size="18" font-weight="700">04 核验</text>
+    <text x="431" y="473" text-anchor="middle" font-size="12" fill="#65645e">图文 · 数值 · 版式</text>
+    <path fill="none" d="M489 365h31V157h-28" stroke="#d93625" stroke-width="1.7" stroke-dasharray="5 5" marker-end="url(#red-arrow)"/>
+    <path d="M510 237h20v76h-20z" fill="#e9e6dc"/>
+    <text x="520" y="252" text-anchor="middle" font-size="12" fill="#d93625"><tspan x="520">返</tspan><tspan x="520" dy="17">回</tspan><tspan x="520" dy="17">修</tspan><tspan x="520" dy="17">订</tspan></text>
+    <text x="291" y="352" text-anchor="middle" font-size="13" font-weight="600">通过</text>
+
+    <!-- The output remains the book-shaped visual anchor. -->
+    <path d="M39 312h53q27 0 39 18 12-18 39-18h44v103h-48q-23 0-35 12-12-12-36-12H39z" fill="#234bc4" stroke="#20201e" stroke-width="2"/>
+    <path fill="none" d="M131 330v97" stroke="#20201e" stroke-width="2"/>
+    <path fill="none" d="M55 337h47m-47 12h52m-52 12h39m54-24h47m-47 12h47m-47 12h32" stroke="#f4f2eb" stroke-width="2"/>
+    <text x="57" y="396" font-size="24" font-weight="800" fill="#f4f2eb">PDF</text>
+    <circle cx="194" cy="405" r="18" fill="#d93625"/>
+    <path fill="none" d="M194 395v17m-6-6 6 6 6-6" stroke="#f4f2eb" stroke-width="2"/>
+    <text x="127" y="451" text-anchor="middle" font-size="18" font-weight="700">05 交付讲义</text>
+    <text x="127" y="473" text-anchor="middle" font-size="12" fill="#65645e">可阅读 · 可下载 · 可回溯</text>
+
+    <path fill="none" d="M28 492h504" stroke="#20201e"/>
+    <text x="28" y="510" font-size="10" fill="#65645e">从原始讲解，到有据可查的每一页。</text>
+    <text x="532" y="510" text-anchor="end" font-size="15" font-weight="800" letter-spacing="-1">L/N</text>
+  </g>
+</svg>

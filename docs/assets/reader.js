@@ -16,6 +16,8 @@ function showError(message) {
   stage.hidden = true;
   error.hidden = false;
   title.textContent = '无法打开 PDF';
+  courseLabel.textContent = '阅读暂不可用';
+  document.querySelector('#course-nav-title').textContent = '请重新选择课程';
   meta.textContent = message;
   document.querySelector('.reader-actions').hidden = true;
   selector.closest('.mobile-selector').hidden = true;
@@ -42,11 +44,14 @@ function render(catalog, item) {
   document.title = `${item.title} · Lecture to Notes`;
   courseLabel.textContent = `${course.institution} / ${course.title}`;
   title.textContent = item.title;
+  document.querySelector('#course-nav-title').textContent = course.title;
+  document.querySelector('.reader-rail .back-link').href = `index.html#course=${encodeURIComponent(course.id)}`;
   meta.textContent = `${item.pages} 页 · ${item.kind === 'bundle' ? '课程合集' : `第 ${item.order} 讲`}`;
   frame.src = `${item.pdf}#view=FitH`;
   openLink.href = item.pdf;
   downloadLink.href = item.pdf;
   downloadLink.download = item.pdf.split('/').pop();
+  document.querySelector('.reader-actions').hidden = false;
   if (item.source_url || course.source_url) {
     sourceLink.href = item.source_url || course.source_url;
     sourceLink.hidden = false;

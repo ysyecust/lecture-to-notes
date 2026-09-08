@@ -91,6 +91,13 @@ function route() {
   const match = location.hash.match(/^#course=(.+)$/);
   if (!match) {
     renderCourses(search.value);
+    // The fetched catalog changes the page height after the browser's initial
+    // fragment jump. Restore the requested section once that content exists.
+    if (['#library-title', '#papers-title'].includes(location.hash)) {
+      requestAnimationFrame(() => {
+        document.querySelector(location.hash)?.scrollIntoView({behavior: 'instant', block: 'start'});
+      });
+    }
     return;
   }
   try {

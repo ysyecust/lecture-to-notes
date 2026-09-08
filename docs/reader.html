@@ -7,13 +7,14 @@
   <meta name="description" content="打开课程 PDF，并在同一门课程的资料之间切换。">
   <title>打开 PDF · Lecture to Notes</title>
   <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/bauhaus.css">
 </head>
-<body class="reader-page">
+<body class="reader-page bauhaus-page">
   <a class="skip-link" href="#reader-main">跳到阅读器</a>
   <header class="site-header reader-header">
     <nav class="nav-shell" aria-label="主导航">
       <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">L/N</span><span>lecture to notes</span></a>
-      <div class="nav-links"><a href="index.html">课程资料</a><a href="contribute.html">提交 PDF</a></div>
+      <div class="nav-links"><a href="index.html">课程资料</a><a href="index.html#papers-title">论文解读</a><a href="contribute.html">提交 PDF</a><a href="https://github.com/ysyecust/lecture-to-notes">GitHub ↗</a></div>
     </nav>
   </header>
   <main id="reader-main" class="reader-layout">
@@ -30,7 +31,7 @@
           <h1 id="reader-title">正在加载 PDF…</h1>
           <p id="reader-meta" class="reader-meta" role="status" aria-live="polite"></p>
         </div>
-        <div class="reader-actions">
+        <div class="reader-actions" hidden>
           <a id="open-pdf" class="button button-primary" href="#">直接打开 PDF</a>
           <a id="download-pdf" class="button button-secondary" href="#" download>下载 PDF</a>
           <a id="source-link" class="button button-quiet" href="#" hidden>查看来源 ↗</a>
@@ -40,10 +41,11 @@
         <select id="mobile-item-select"></select>
       </label>
       <div id="pdf-stage" class="pdf-stage">
+        <p class="pdf-fallback">预览没有显示？可使用上方的“直接打开 PDF”或“下载 PDF”。</p>
         <iframe id="pdf-frame" title="PDF 阅读器"></iframe>
       </div>
       <div id="reader-error" class="empty-state reader-error" hidden>
-        <p class="empty-code">NOTE NOT FOUND</p>
+        <p class="empty-code">资料暂时不可用</p>
         <h2>无法打开这份 PDF</h2>
         <p>链接无效，或者这份资料已经调整。请返回课程资料页重新选择。</p>
         <a class="button button-primary" href="index.html">返回课程资料</a>
