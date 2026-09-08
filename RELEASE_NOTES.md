@@ -1,5 +1,12 @@
 # Release notes
 
+## 2026-09-08 — NJU software repository management lecture
+
+- Added Lecture 3, Software Repository Management, to the NJU Generative Software
+  Engineering 2026 course, with its source video link and 31-page PDF.
+- Corrected the cover's lecture number from 26 to 3 against the video title and
+  official course list. The contents and chapter pagination are unchanged.
+
 ## 2026-09-05 — PR-time CI
 
 - `tests.yml` runs `unit` (all Python tests) and `template` (XeLaTeX compile of
