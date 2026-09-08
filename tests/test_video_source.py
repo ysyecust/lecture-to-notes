@@ -204,3 +204,85 @@ class ProbeTests(unittest.TestCase):
     def test_probe_reports_missing_ytdlp(self, run):
         with self.assertRaisesRegex(video_source.ProbeError, "yt-dlp"):
             video_source.probe_source(self.URL)
+
+
+class CookieArgumentTests(unittest.TestCase):
+    def test_no_cookie_source_adds_no_flags(self):
+        self.assertEqual(video_source.cookie_arguments(), [])
+
+    def test_browser_and_file_map_to_their_flags(self):
+        self.assertEqual(
+            video_source.cookie_arguments(cookies_from_browser="chrome"),
+            ["--cookies-from-browser", "chrome"],
+        )
+        self.assertEqual(
+            video_source.cookie_arguments(cookies_file="/tmp/cookies.txt"),
+            ["--cookies", "/tmp/cookies.txt"],
+        )
+
+    def test_two_cookie_sources_are_rejected(self):
+        with self.assertRaises(ValueError):
+            video_source.cookie_arguments(
+                cookies_from_browser="chrome", cookies_file="/tmp/cookies.txt"
+            )
+
+
+class ProbeCookieTests(unittest.TestCase):
+    PAYLOAD = {
+        "id": "BV1xx411c7mD",
+        "title": "lecture",
+        "duration": 60,
+        "uploader": "teacher",
+    }
+
+    def _run(self, returncode=0, stderr="", stdout=None):
+        completed = subprocess.CompletedProcess(
+            args=[],
+            returncode=returncode,
+            stdout=json.dumps(stdout if stdout is not None else self.PAYLOAD),
+            stderr=stderr,
+        )
+        return mock.patch.object(subprocess, "run", return_value=completed)
+
+    def test_browser_cookies_reach_the_yt_dlp_command(self):
+        with self._run() as runner:
+            video_source.probe_source(
+                "https://www.bilibili.com/video/BV1xx411c7mD",
+                cookies_from_browser="chrome",
+            )
+        command = runner.call_args[0][0]
+        self.assertIn("--cookies-from-browser", command)
+        self.assertEqual(command[command.index("--cookies-from-browser") + 1], "chrome")
+        self.assertEqual(command[-1], "https://www.bilibili.com/video/BV1xx411c7mD")
+
+    def test_probe_without_cookies_keeps_the_original_command(self):
+        with self._run() as runner:
+            video_source.probe_source("https://www.bilibili.com/video/BV1xx411c7mD")
+        command = runner.call_args[0][0]
+        self.assertNotIn("--cookies-from-browser", command)
+        self.assertNotIn("--cookies", command)
+
+    def test_http_412_suggests_retrying_with_cookies(self):
+        with self._run(returncode=1, stderr="ERROR: unable to download: HTTP Error 412"):
+            with self.assertRaises(video_source.ProbeError) as caught:
+                video_source.probe_source(
+                    "https://www.bilibili.com/video/BV1xx411c7mD"
+                )
+        self.assertIn("--cookies-from-browser", str(caught.exception))
+
+    def test_hint_is_omitted_once_cookies_were_supplied(self):
+        with self._run(returncode=1, stderr="ERROR: unable to download: HTTP Error 412"):
+            with self.assertRaises(video_source.ProbeError) as caught:
+                video_source.probe_source(
+                    "https://www.bilibili.com/video/BV1xx411c7mD",
+                    cookies_from_browser="chrome",
+                )
+        self.assertNotIn("retry with", str(caught.exception))
+
+    def test_unrelated_failures_do_not_get_the_cookie_hint(self):
+        with self._run(returncode=1, stderr="ERROR: video unavailable"):
+            with self.assertRaises(video_source.ProbeError) as caught:
+                video_source.probe_source(
+                    "https://www.bilibili.com/video/BV1xx411c7mD"
+                )
+        self.assertNotIn("--cookies-from-browser", str(caught.exception))
