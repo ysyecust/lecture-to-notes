@@ -111,13 +111,54 @@ def _compact_metadata(platform: str, payload: dict) -> dict:
     }
 
 
-def probe_source(url: str) -> dict:
+# Extractor failures that authentication usually fixes. Bilibili answers an
+# unauthenticated probe with HTTP 412; YouTube asks the caller to sign in.
+_AUTH_HINT_MARKERS = (
+    "http error 412",
+    "sign in to confirm",
+    "confirm you're not a bot",
+    "login required",
+    "account cookies",
+)
+
+_AUTH_HINT = (
+    "the extractor rejected an unauthenticated request; retry with "
+    "--cookies-from-browser chrome (or safari/firefox/edge), or --cookies FILE"
+)
+
+
+def _needs_auth(stderr: str) -> bool:
+    lowered = stderr.lower()
+    return any(marker in lowered for marker in _AUTH_HINT_MARKERS)
+
+
+def cookie_arguments(
+    cookies_from_browser: str | None = None, cookies_file: str | None = None
+) -> list[str]:
+    """Build the yt-dlp cookie flags shared by probing and downloading."""
+    if cookies_from_browser and cookies_file:
+        raise ValueError(
+            "pass either cookies_from_browser or cookies_file, not both"
+        )
+    if cookies_from_browser:
+        return ["--cookies-from-browser", cookies_from_browser]
+    if cookies_file:
+        return ["--cookies", cookies_file]
+    return []
+
+
+def probe_source(
+    url: str,
+    cookies_from_browser: str | None = None,
+    cookies_file: str | None = None,
+) -> dict:
     platform = detect_platform(url)
     command = [
         "yt-dlp",
         "--dump-single-json",
         "--no-playlist",
         "--skip-download",
+        *cookie_arguments(cookies_from_browser, cookies_file),
         url,
     ]
 
@@ -130,6 +171,10 @@ def probe_source(url: str) -> dict:
 
     if completed.returncode != 0:
         detail = completed.stderr.strip() or "unknown extractor failure"
+        if _needs_auth(completed.stderr) and not (
+            cookies_from_browser or cookies_file
+        ):
+            detail = f"{detail}\n{_AUTH_HINT}"
         raise ProbeError(f"yt-dlp probe failed: {detail}")
 
     try:
@@ -149,6 +194,18 @@ def main() -> int:
 
     probe_parser = subparsers.add_parser("probe")
     probe_parser.add_argument("url")
+    cookie_group = probe_parser.add_mutually_exclusive_group()
+    cookie_group.add_argument(
+        "--cookies-from-browser",
+        metavar="BROWSER",
+        help="read cookies from a local browser profile, e.g. chrome",
+    )
+    cookie_group.add_argument(
+        "--cookies",
+        dest="cookies_file",
+        metavar="FILE",
+        help="read cookies from a Netscape-format cookie file",
+    )
 
     args = parser.parse_args()
 
@@ -156,7 +213,12 @@ def main() -> int:
         if args.command == "detect":
             print(detect_platform(args.url))
         else:
-            print(json.dumps(probe_source(args.url), ensure_ascii=False, indent=2))
+            metadata = probe_source(
+                args.url,
+                cookies_from_browser=args.cookies_from_browser,
+                cookies_file=args.cookies_file,
+            )
+            print(json.dumps(metadata, ensure_ascii=False, indent=2))
     except UnsupportedSourceError as error:
         print(error, file=sys.stderr)
         return 2

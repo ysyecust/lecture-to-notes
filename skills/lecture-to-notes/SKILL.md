@@ -13,7 +13,7 @@ Check before starting (use `which`). Prompt the user to install any missing tool
 
 | Tool | Required | Purpose |
 |------|----------|---------|
-| `yt-dlp` | Always | Video/subtitle/metadata download (supports YouTube + Bilibili + X/Twitter) |
+| `yt-dlp` | Always | Video/subtitle/metadata download (supports YouTube + Bilibili + X/Twitter). Check `yt-dlp --version`: a build older than ~90 days fails on current Bilibili and YouTube pages |
 | `ffmpeg` | Always | Frame extraction, audio extraction |
 | `xelatex` | Always | LaTeX compilation (TeX Live + CTeX for Chinese) |
 | `magick` | Always | Frame montage and contact sheets |
@@ -61,9 +61,46 @@ If `ctex` cannot be installed (e.g. due to `l3kernel` version conflicts on minim
 the `notes-template.tex` includes a fallback that uses XeTeX's built-in CJK line breaking
 (`\XeTeXlinebreaklocale "zh"`) with system fonts — no `ctex` or `xeCJK` needed.
 
-## YouTube Cookie Notice
+## Cookies and yt-dlp freshness
 
-YouTube may require authentication to avoid bot detection. When `yt-dlp` fails with "Sign in to confirm you're not a bot", add `--cookies-from-browser chrome` (or `safari`/`firefox`/`edge`) to all `yt-dlp` commands.
+Every supported platform can reject an unauthenticated download, and the two failures look
+different:
+
+| Symptom | Platform | Meaning |
+|---------|----------|---------|
+| `Sign in to confirm you're not a bot` | YouTube | bot detection |
+| `HTTP Error 412` on probe or download | Bilibili | anti-scraping check |
+| `WARNING: Your yt-dlp version (...) is older than 90 days` | any | extractors predate the site's current markup |
+
+Fix the version first, because a stale extractor produces the same errors that cookies fix:
+`brew upgrade yt-dlp`, `pipx upgrade yt-dlp`, or `pip install -U yt-dlp`, then confirm with
+`yt-dlp --version`. Homebrew disables the self-updater, so `yt-dlp -U` reports success without
+changing anything.
+
+Then supply cookies. `video_source.py probe` takes them directly:
+
+```bash
+python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/video_source.py" probe \
+  --cookies-from-browser chrome "<URL>" > metadata.json
+```
+
+Use `--cookies FILE` instead when the browser profile is unavailable, for example on a headless
+host. A probe that fails for an authentication reason now names the flag to retry with, so treat
+that message as the next action rather than a dead end.
+
+The rest of the workflow calls `yt-dlp` directly. Rather than editing every command, write a
+yt-dlp config file once and point `XDG_CONFIG_HOME` at it, so downloads, subtitle fetches, and
+thumbnail fetches all pick the cookies up:
+
+```bash
+mkdir -p "$WORKDIR/.xdg/yt-dlp"
+printf -- '--cookies-from-browser chrome\n' > "$WORKDIR/.xdg/yt-dlp/config"
+# then prefix every later yt-dlp call in this lecture's workdir:
+XDG_CONFIG_HOME="$WORKDIR/.xdg" yt-dlp --no-playlist ... "<URL>"
+```
+
+Browser cookies also unlock Bilibili 1080P+ for logged-in accounts, so the same setup improves
+frame quality.
 
 ## Goal
 
@@ -354,6 +391,9 @@ the metadata probe. Process multiple selected parts as separate runs.
 
 ```bash
 python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/video_source.py" probe "<URL>" > metadata.json
+# Bilibili answers an unauthenticated probe with HTTP 412; add
+#   --cookies-from-browser chrome
+# before the URL. See "Cookies and yt-dlp freshness" above.
 ```
 
 Extract: platform, title, uploader, duration, thumbnail availability, and subtitle
