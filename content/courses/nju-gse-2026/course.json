@@ -34,6 +34,17 @@
       "source_url": "https://www.bilibili.com/video/BV1CQt365EzW/",
       "source_label": "B站",
       "meta": "蒋炎岩 · 98min · 28页"
+    },
+    {
+      "file": "nju_gse_2026_03_repository_management_zh.pdf",
+      "title": "第 3 讲：软件仓库管理",
+      "order": 3,
+      "expected_pages": 31,
+      "duration_minutes": 100,
+      "instructor": "蒋炎岩",
+      "source_url": "https://www.bilibili.com/video/BV1kybV6DE47/",
+      "source_label": "B站",
+      "meta": "蒋炎岩 · Git 与仓库管理 · 100min · 31页"
     }
   ]
 }
