@@ -72,8 +72,8 @@ class SiteContractTests(unittest.TestCase):
 
     def test_public_copy_is_direct_and_avoids_slogan_language(self):
         for fragment in (
-            "按课程查找、阅读",
-            "每门课程列出讲次、页数和可打开的 PDF",
+            "按课程查找、在线阅读或下载 PDF",
+            "按讲次进入讲义，在线阅读或下载 PDF",
             "普通贡献者不能直接修改这个仓库",
         ):
             self.assertIn(fragment, self.index + self.contribute)
