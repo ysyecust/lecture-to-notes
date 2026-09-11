@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="description" content="论文和技术资料的中文解读，涵盖人工智能、数值求解与过程系统工程。">
+  <title>Lecture to Notes · 论文解读</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/bauhaus.css">
+</head>
+<body class="papers-page bauhaus-page">
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="主导航">
+      <a class="brand" href="index.html" aria-label="Lecture to Notes 首页">
+        <span class="brand-mark" aria-hidden="true">L/N</span>
+        <span>lecture to notes</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">课程资料</a>
+        <a aria-current="page" href="papers.html">论文解读</a>
+        <a href="contribute.html">提交 PDF</a>
+        <a href="https://github.com/ysyecust/lecture-to-notes">GitHub ↗</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="papers-section" aria-labelledby="papers-title">
+      <div class="section-heading">
+        <div>
+          <h1 id="papers-title">论文解读</h1>
+          <p class="papers-lede">论文和技术资料的中文整理。</p>
+        </div>
+        <p id="papers-status" role="status" aria-live="polite">正在加载论文目录…</p>
+      </div>
+      <div id="paper-grid" class="paper-grid" aria-label="论文列表"></div>
+      <div id="papers-error" class="empty-state error-state" hidden>
+        <h2>论文目录没有加载成功</h2>
+        <p>请检查网络后重试。</p>
+        <button id="papers-retry" class="button button-primary" type="button">重新加载</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-brand">lecture to notes <span aria-hidden="true">● ▲ ■</span></p>
+    <p>讲义版权归原作者，本站材料仅用于学习与研究。</p>
+  </footer>
+  <script type="module" src="assets/papers.js"></script>
+</body>
+</html>

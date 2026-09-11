@@ -43,7 +43,7 @@
 .catalog-ledger { display: grid; grid-template-columns: 1fr 1.9fr; align-items: center; border-block: 2px solid var(--bauhaus-black); padding: 26px 0; gap: 35px; }
 .ledger-heading { margin: 0; font-size: 18px; font-weight: 700; }
 .ledger-heading span { display: block; font-size: 12px; font-weight: 400; color: var(--muted-ink); margin-top: 7px; }
-.catalog-ledger dl { margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+.catalog-ledger dl { margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); }
 .catalog-ledger dl div { border-left: 1px solid var(--grid-line); padding-left: 28px; }
 .catalog-ledger dd { margin: 0; font: 700 38px/1.2 var(--display); letter-spacing: -2px; font-variant-numeric: tabular-nums; }
 .catalog-ledger dt { font-size: 11px; color: var(--muted-ink); margin-top: 5px; }
@@ -82,6 +82,9 @@
 .bauhaus-page .course-detail { box-shadow: none; }
 .bauhaus-page .course-detail-heading h2 { line-height: 1.25; letter-spacing: -.03em; }
 .bauhaus-page .papers-section { border-top: 2px solid var(--bauhaus-black); }
+.papers-page .papers-section { border-top: 0; min-height: 65vh; }
+.papers-page .section-heading h1 { font-size: clamp(36px, 5vw, 56px); line-height: 1.2; letter-spacing: -.03em; }
+.papers-page .papers-lede { color: var(--muted-ink); margin: 16px 0 0; font-size: 14px; }
 .bauhaus-page .paper-grid { gap: 0 28px; }
 .bauhaus-page .paper-card { grid-template-columns: 1fr; min-height: 185px; border: 0; border-top: 1px solid var(--grid-line); padding: 24px 0; background: transparent; }
 .bauhaus-page .paper-icon { display: none; }
@@ -174,7 +177,7 @@
 @media (max-width: 560px) {
   .reader-page .reader-header .nav-links { display: flex; }
   .reader-page .nav-shell { min-height: 68px; }
-  .reader-page .nav-links a[href="index.html#papers-title"] { display: none; }
+  .reader-page .nav-links a[href="papers.html"] { display: none; }
   .reader-page .reader-toolbar { padding: 20px 18px; }
   .reader-page .reader-toolbar h1 { font-size: 24px; }
   .reader-page .reader-actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }

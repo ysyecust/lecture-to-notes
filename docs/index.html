@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
-  <meta name="description" content="按课程查找、阅读和下载 Lecture to Notes 整理的 PDF 与论文资料。">
+  <meta name="description" content="按课程查找 Lecture to Notes 整理的中文讲义，在线阅读或下载 PDF。">
   <title>Lecture to Notes · 课程资料</title>
   <link rel="stylesheet" href="assets/styles.css">
   <link rel="stylesheet" href="assets/bauhaus.css">
@@ -20,7 +20,7 @@
       </a>
       <div class="nav-links">
         <a aria-current="page" href="index.html">课程资料</a>
-        <a href="#papers-title">论文解读</a>
+        <a href="papers.html">论文解读</a>
         <a href="contribute.html">提交 PDF</a>
         <a href="https://github.com/ysyecust/lecture-to-notes">GitHub ↗</a>
       </div>
@@ -32,7 +32,7 @@
       <div class="hero-copy">
         <p class="hero-intro"><span aria-hidden="true"></span> 开放课程 · 中文讲义</p>
         <h1 id="hero-title">把一堂课，<br>变成一本书。</h1>
-        <p class="hero-lede">从视频里的讲解，到可以翻阅的中文讲义。<br>按课程查找、阅读和下载 PDF，让学习有迹可循。</p>
+        <p class="hero-lede">从视频里的讲解，到可以翻阅的中文讲义。<br>按课程查找、在线阅读或下载 PDF，让学习有迹可循。</p>
         <div class="hero-actions">
           <a class="hero-button" href="#library-title">浏览课程 <span aria-hidden="true">↘</span></a>
           <a class="hero-secondary" href="https://github.com/ysyecust/lecture-to-notes#快速开始">制作我的讲义 <span aria-hidden="true">↗</span></a>
@@ -50,7 +50,6 @@
         <div><dd id="stat-courses">—</dd><dt>门课程</dt></div>
         <div><dd id="stat-lectures">—</dd><dt>份 PDF</dt></div>
         <div><dd id="stat-pages">—</dd><dt>页讲义</dt></div>
-        <div><dd id="stat-papers">—</dd><dt>篇论文解读</dt></div>
       </dl>
     </section>
 
@@ -60,7 +59,7 @@
           <p class="eyebrow">Course library</p>
           <h2 id="library-title">课程资料</h2>
         </div>
-        <p>每门课程列出讲次、页数和可打开的 PDF。</p>
+        <p>按讲次进入讲义，在线阅读或下载 PDF。</p>
       </div>
       <div class="search-panel">
         <label for="course-search">搜索课程、讲次或主题</label>
@@ -86,16 +85,6 @@
       </div>
     </section>
 
-    <section class="papers-section" aria-labelledby="papers-title">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Paper readings</p>
-          <h2 id="papers-title">论文解读</h2>
-        </div>
-        <p>论文和技术资料的中文整理。</p>
-      </div>
-      <div id="paper-grid" class="paper-grid"></div>
-    </section>
   </main>
 
   <footer class="site-footer">
