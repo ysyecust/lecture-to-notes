@@ -49,7 +49,7 @@ class SiteContractTests(unittest.TestCase):
             'id="download-pdf"',
             'id="source-link"',
             'id="reader-error"',
-            'type="module" src="assets/reader.js"',
+            'type="module" src="assets/reader.js?v=2"',
         ):
             self.assertIn(fragment, self.reader)
         self.assertIn(".get('id')", self.reader_js)

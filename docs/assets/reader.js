@@ -1,5 +1,5 @@
 import {itemMap, loadCatalog, readerUrl} from './catalog.js';
-import {createPdfReader} from './pdf-reader.js';
+import {createPdfReader} from './pdf-reader.js?v=2';
 
 const $ = selector => document.querySelector(selector);
 const body = document.body;
