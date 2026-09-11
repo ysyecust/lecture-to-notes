@@ -131,7 +131,7 @@ test('catalog failure can recover and reader failure stops loading', async ({pag
 });
 
 test('all three pilot lectures expose complete web documents', async ({page,request}) => {
-  const data=await catalog(request);const items=data.items.filter(i=>i.course_id==='nju-gse-2026');
+  const data=await catalog(request);const items=data.items.filter(i=>i.course_id==='nju-gse-2026' && i.kind==='lecture' && i.order>=1 && i.order<=3);
   expect(items).toHaveLength(3);
   for(const item of items){
     expect(item.web).toBeTruthy();const report=await (await request.get('/'+item.web.report)).json();
