@@ -41,12 +41,15 @@ class SiteContractTests(unittest.TestCase):
             'id="mobile-item-select"',
             'id="reader-title"',
             'id="reader-meta"',
-            'id="pdf-frame" title="PDF 阅读器"',
+            'id="pdf-container"',
+            'id="pdf-viewer"',
+            'id="pdf-zoom"',
+            'id="html-container"',
             'id="open-pdf"',
             'id="download-pdf"',
             'id="source-link"',
             'id="reader-error"',
-            'type="module" src="assets/reader.js"',
+            'type="module" src="assets/reader.js?v=2"',
         ):
             self.assertIn(fragment, self.reader)
         self.assertIn(".get('id')", self.reader_js)

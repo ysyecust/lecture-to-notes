@@ -6,5 +6,8 @@
   },
   "devDependencies": {
     "@playwright/test": "1.61.1"
+  },
+  "dependencies": {
+    "pdfjs-dist": "6.3.289"
   }
 }

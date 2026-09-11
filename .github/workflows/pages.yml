@@ -28,7 +28,7 @@ jobs:
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b
 
       - name: Install test dependencies (zsh smoke tests, frame_filter.py)
-        run: sudo apt-get update && sudo apt-get install --yes zsh python3-numpy python3-pil
+        run: sudo apt-get update && sudo apt-get install --yes zsh python3-numpy python3-pil python3-bs4 pandoc imagemagick
 
       - name: Run Python tests
         run: PYTHONPATH=. python3 -m unittest discover -s tests -v
@@ -36,7 +36,7 @@ jobs:
       - name: Install browser test dependencies
         run: |
           npm ci
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps chromium webkit
 
       - name: Build trusted static site
         run: ./scripts/build_site_container.sh
