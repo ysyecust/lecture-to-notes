@@ -107,12 +107,40 @@ test('every paper has site navigation and a readable viewport', async ({page, re
   for (const paper of data.papers) {
     await page.goto(`/${paper.url}`, {waitUntil: 'domcontentloaded'});
     await expect(page.getByRole('navigation', {name: '主导航'})).toBeVisible();
-    await expect(page.locator('.paper-back')).toHaveAttribute('href', '../index.html#papers-title');
+    await expect(page.locator('.paper-back')).toHaveAttribute('href', '../papers.html');
     await expect(page.locator('.paper-document h1')).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
   }
   await page.locator('.paper-back').click();
   await expect(page.getByRole('heading', {name: '论文解读', exact: true})).toBeInViewport();
+});
+
+test('course and paper libraries have separate navigation and recover old paper links', async ({page, request}, testInfo) => {
+  const data = await catalog(request);
+  const course = data.courses.find(course => course.id === 'cmu-ai-agents');
+  await page.goto(`/index.html#course=${course.id}`);
+  await expect(page.locator('#course-detail .item-row')).toHaveCount(course.item_count);
+  await expect(page.locator('#course-detail').getByRole('link', {name: '进入讲义', exact: true})).toHaveCount(course.item_count);
+  await expect(page.locator('.paper-grid')).toHaveCount(0);
+  await page.locator('#course-detail').getByRole('link', {name: '进入讲义', exact: true}).first().click();
+  await expect(page.locator('.web-document')).toBeVisible();
+  await page.goto('/index.html');
+  await page.getByRole('navigation').getByRole('link', {name: '论文解读', exact: true}).click();
+  await expect(page).toHaveURL(/\/papers.html$/);
+  await expect(page.locator('.paper-card')).toHaveCount(data.papers.length);
+  await expect(page.locator('#course-grid')).toHaveCount(0);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
+  await page.screenshot({path: `${REVIEW_DIR}/${testInfo.project.name}-papers.png`, fullPage: true});
+  await page.goto('/index.html#papers-title');
+  await expect(page).toHaveURL(/\/papers.html$/);
+  await expect(page.locator('.paper-card')).toHaveCount(data.papers.length);
+  await page.route('**/data/catalog.json', route => route.fulfill({status: 503, body: 'Unavailable'}));
+  await page.reload();
+  await expect(page.locator('#papers-error')).toBeVisible();
+  await page.unroute('**/data/catalog.json');
+  await page.getByRole('button', {name: '重新加载'}).click();
+  await expect(page.locator('.paper-card')).toHaveCount(data.papers.length);
+  await expect(page.locator('#papers-error')).toBeHidden();
 });
 
 test('catalog failure can recover and reader failure stops loading', async ({page}) => {

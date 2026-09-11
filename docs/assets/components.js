@@ -50,7 +50,7 @@ export function createItemRow(item) {
   copy.append(element('h3', '', item.title));
   const meta = element('p', 'item-meta', `${item.pages} 页${item.instructor ? ` · ${item.instructor}` : ''}`);
   copy.append(meta);
-  const link = element('a', 'button button-primary', '打开 PDF');
+  const link = element('a', 'button button-primary', '进入讲义');
   link.href = readerUrl(item.id);
   row.append(copy, link);
   return row;

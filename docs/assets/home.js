@@ -1,5 +1,5 @@
 import {itemMap, loadCatalog, searchCourses} from './catalog.js';
-import {createCourseCard, createItemRow, createPaperCard} from './components.js';
+import {createCourseCard, createItemRow} from './components.js';
 
 const grid = document.querySelector('#course-grid');
 const detail = document.querySelector('#course-detail');
@@ -7,7 +7,6 @@ const empty = document.querySelector('#empty-state');
 const status = document.querySelector('#library-status');
 const search = document.querySelector('#course-search');
 const error = document.querySelector('#catalog-error');
-const paperGrid = document.querySelector('#paper-grid');
 let catalog;
 let items;
 let focusReturn;
@@ -21,11 +20,6 @@ function renderStats() {
   document.querySelector('#stat-courses').textContent = catalog.stats.course_count;
   document.querySelector('#stat-lectures').textContent = catalog.stats.lecture_count;
   document.querySelector('#stat-pages').textContent = catalog.stats.page_count;
-  document.querySelector('#stat-papers').textContent = catalog.stats.paper_count;
-}
-
-function renderPapers() {
-  replaceChildren(paperGrid, catalog.papers.map(createPaperCard));
 }
 
 function renderCourses(query = '') {
@@ -88,12 +82,16 @@ function renderDetail(courseId) {
 }
 
 function route() {
+  if (location.hash === '#papers-title') {
+    location.replace('papers.html');
+    return;
+  }
   const match = location.hash.match(/^#course=(.+)$/);
   if (!match) {
     renderCourses(search.value);
     // The fetched catalog changes the page height after the browser's initial
     // fragment jump. Restore the requested section once that content exists.
-    if (['#library-title', '#papers-title'].includes(location.hash)) {
+    if (location.hash === '#library-title') {
       requestAnimationFrame(() => {
         document.querySelector(location.hash)?.scrollIntoView({behavior: 'instant', block: 'start'});
       });
@@ -128,7 +126,6 @@ async function start() {
     catalog = await loadCatalog();
     items = itemMap(catalog);
     renderStats();
-    renderPapers();
     bindControls();
     route();
   } catch (cause) {
@@ -140,4 +137,5 @@ async function start() {
 }
 
 document.querySelector('#catalog-retry').addEventListener('click', () => location.reload());
-start();
+if (location.hash === '#papers-title') location.replace('papers.html');
+else start();
