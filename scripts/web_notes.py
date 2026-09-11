@@ -116,6 +116,8 @@ def prepare_tex(source: str):
                 notes[key] = srcnote_template.replace("#1", argument)
             else:
                 notes[key] = argument
+            if "\\" in notes[key]:
+                raise ConversionError("figure source notes require plain text; formatting macros need an adapter")
             output.append("\n\n" + key + "\n\n")
         else:
             key = f"LTNWEBBOX{len(boxes):04d}"

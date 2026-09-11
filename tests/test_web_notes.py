@@ -19,6 +19,11 @@ class WebNotesTests(unittest.TestCase):
         _, _, notes, _ = prepare_tex(source)
         self.assertEqual(list(notes.values()), ["视频时间：00:00:00--00:00:15。完整画面。"])
 
+    def test_unknown_formatting_inside_source_notes_is_not_silently_rendered(self):
+        source = r"\begin{document}图注\protect\footnotemark\footnotetext{00:00:00--00:00:15 \UnknownMacro{内容}}\end{document}"
+        with self.assertRaisesRegex(ConversionError, "plain text"):
+            prepare_tex(source)
+
     def test_blocks_path_escape_and_symlinks(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);(root/'ok.tex').write_text('ok');(root/'link.tex').symlink_to(root/'ok.tex')
