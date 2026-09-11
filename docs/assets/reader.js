@@ -88,7 +88,7 @@ async function loadHtml() {
     }
   }
   const header = document.createElement('header'); header.className='web-document-header';
-  header.append(textElement('p',`${course.institution} · ${course.term}`),textElement('h2',item.title),textElement('p',`网页阅读 · 原版 PDF ${item.pages} 页`));
+  header.append(textElement('p',`${course.institution} · ${item.instructor || ""} · ${course.term}`),textElement('h2',item.title),textElement('p',`网页阅读 · 原版 PDF ${item.pages} 页`));
   article.prepend(header); htmlContainer.replaceChildren(document.importNode(article,true)); webDocument = model;
   for (const image of htmlContainer.querySelectorAll('figure img')) {
     const button = document.createElement('button');button.className='figure-zoom';button.type='button';button.setAttribute('aria-label','放大图片');image.replaceWith(button);button.append(image);

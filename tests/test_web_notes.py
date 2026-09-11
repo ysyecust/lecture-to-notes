@@ -14,6 +14,11 @@ class WebNotesTests(unittest.TestCase):
         for body in (r'\input{/etc/passwd}', r'\include{../secret}',r'\write18{touch file}',r'\srcnote{00:00:00--00:00:15}'):
             with self.assertRaises(ConversionError): prepare_tex(r'\begin{document}'+body+r'\end{document}')
 
+    def test_srcnote_preserves_the_defined_note_text(self):
+        source = r"\newcommand{\srcnote}[1]{\footnotetext{视频时间：#1。完整画面。}}\begin{document}图注\vtag\srcnote{00:00:00--00:00:15}\end{document}"
+        _, _, notes, _ = prepare_tex(source)
+        self.assertEqual(list(notes.values()), ["视频时间：00:00:00--00:00:15。完整画面。"])
+
     def test_blocks_path_escape_and_symlinks(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);(root/'ok.tex').write_text('ok');(root/'link.tex').symlink_to(root/'ok.tex')

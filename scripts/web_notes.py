@@ -91,6 +91,15 @@ def prepare_tex(source: str):
     # ordinary article content in order to make a conversion pass.
     body = re.sub(r"\\begin\{titlepage\}.*?\\end\{titlepage\}", "", body, flags=re.S)
     notes, boxes = {}, {}
+    srcnote_template = None
+    definition = re.search(r"\\newcommand\{\\srcnote\}\[1\]", preamble)
+    if definition:
+        macro, _ = group(preamble, definition.end())
+        inner = re.match(r"\\footnotetext", macro.strip())
+        if inner:
+            srcnote_template, tail = group(macro.strip(), inner.end())
+            if macro.strip()[tail:].strip(): srcnote_template = None
+
     pattern = re.compile(r"\\(footnotetext|srcnote)\b|\\begin\{(" + "|".join(BOXES) + r")\}")
     output, end = [], 0
     for match in pattern.finditer(body):
@@ -101,7 +110,12 @@ def prepare_tex(source: str):
             if len(TIME.findall(argument)) != 2:
                 raise ConversionError("figure source note must contain a time interval")
             key = f"LTNWEBNOTE{len(notes):04d}"
-            notes[key] = argument
+            if match.group(1) == "srcnote":
+                if srcnote_template is None:
+                    raise ConversionError("srcnote requires a supported, explicit footnote definition")
+                notes[key] = srcnote_template.replace("#1", argument)
+            else:
+                notes[key] = argument
             output.append("\n\n" + key + "\n\n")
         else:
             key = f"LTNWEBBOX{len(boxes):04d}"
@@ -119,10 +133,13 @@ def prepare_tex(source: str):
 
 
 def pandoc(args: list[str], text: str) -> str:
-    # Empty working directory and Pandoc's sandbox prevent implicit source reads.
+    # The TeX reader stays sandboxed. The HTML writer consumes the checked AST
+    # (no filters or executable raw nodes) and needs its installed translations;
+    # distro Pandoc packages do not embed these data files in sandbox mode.
     with tempfile.TemporaryDirectory() as tmp:
         try:
-            run = subprocess.run(["pandoc", "--sandbox", *args], input=text,
+            sandbox = [] if args[args.index("-f") + 1] == "json" else ["--sandbox"]
+            run = subprocess.run(["pandoc", *sandbox, *args], input=text,
                 text=True, capture_output=True, check=True, timeout=90, cwd=tmp)
         except (OSError, subprocess.SubprocessError) as exc:
             raise ConversionError("Pandoc conversion failed or unavailable") from exc
