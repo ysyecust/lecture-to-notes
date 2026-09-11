@@ -3,6 +3,8 @@ name: Tests
 on:
   pull_request:
     paths:
+      - "content/**"
+      - "ci/**"
       - "docs/**"
       - "e2e/**"
       - "package.json"
@@ -18,6 +20,8 @@ on:
     branches:
       - main
     paths:
+      - "content/**"
+      - "ci/**"
       - "docs/**"
       - "e2e/**"
       - "package.json"
@@ -54,7 +58,7 @@ jobs:
           persist-credentials: false
 
       - name: Install test dependencies (zsh smoke tests, frame_filter.py)
-        run: sudo apt-get update && sudo apt-get install --yes zsh python3-numpy python3-pil
+        run: sudo apt-get update && sudo apt-get install --yes zsh python3-numpy python3-pil python3-bs4 pandoc imagemagick
 
       - name: Run Python tests
         run: PYTHONPATH=. python3 -m unittest discover -s tests -v
@@ -122,3 +126,20 @@ jobs:
           : > audio.wav
           .venv/bin/python scripts/transcribe_whisper.py audio.wav --workdir "$PWD/tw" --dry-run | tee dry-run.txt
           grep -q "backend=mlx" dry-run.txt
+
+  web-reader:
+    name: web-reader
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
+        with:
+          persist-credentials: false
+      - name: Install browser test dependencies
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+      - name: Build PDF and checked HTML formats in the isolated container
+        run: ./scripts/build_site_container.sh
+      - name: Test both reading modes
+        run: npm run test:e2e

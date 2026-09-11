@@ -1,5 +1,16 @@
 # Release notes
 
+## 2026-09-11 — Web and PDF reading
+
+- Added a compact dual-format reader with a collapsible outline, focus mode, font
+  controls, image enlargement, and local reading-position recovery.
+- PDF.js now controls PDF rendering, search, page navigation, fit-width and zoom
+  through 800%, replacing browser-dependent embedded PDF scaling.
+- NJU GSE Lectures 1–3 have checked HTML versions with their original figures,
+  formulas, tables, callouts and video time intervals. PDF downloads remain available.
+- Version-bound source profiles, component checks and conversion reports gate HTML
+  publication; unsupported or changed inputs retain PDF-only catalog entries.
+
 ## 2026-09-08 — NJU software repository management lecture
 
 - Added Lecture 3, Software Repository Management, to the NJU Generative Software

@@ -1,57 +1,49 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
-  <meta name="description" content="打开课程 PDF，并在同一门课程的资料之间切换。">
-  <title>打开 PDF · Lecture to Notes</title>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data: blob:; worker-src 'self' blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="description" content="网页正文与原版 PDF 双模式阅读，支持章节目录、缩放、搜索和阅读位置恢复。">
+  <title>阅读讲义 · Lecture to Notes</title>
   <link rel="stylesheet" href="assets/styles.css">
-  <link rel="stylesheet" href="assets/bauhaus.css">
+  <link rel="stylesheet" href="assets/vendor/pdfjs/web/pdf_viewer.css">
+  <link rel="stylesheet" href="assets/reader.css">
 </head>
-<body class="reader-page bauhaus-page">
-  <a class="skip-link" href="#reader-main">跳到阅读器</a>
-  <header class="site-header reader-header">
-    <nav class="nav-shell" aria-label="主导航">
-      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">L/N</span><span>lecture to notes</span></a>
-      <div class="nav-links"><a href="index.html">课程资料</a><a href="index.html#papers-title">论文解读</a><a href="contribute.html">提交 PDF</a><a href="https://github.com/ysyecust/lecture-to-notes">GitHub ↗</a></div>
-    </nav>
-  </header>
-  <main id="reader-main" class="reader-layout">
-    <aside class="reader-rail" aria-labelledby="course-nav-title">
-      <a class="back-link" href="index.html">← 返回课程资料</a>
-      <p class="eyebrow">当前课程</p>
-      <h2 id="course-nav-title">本课程的 PDF</h2>
-      <nav id="course-nav" aria-label="课程讲义导航"></nav>
-    </aside>
-    <section class="reader-workspace" aria-labelledby="reader-title">
-      <div class="reader-toolbar">
-        <div>
-          <p id="reader-course" class="eyebrow">正在加载课程</p>
-          <h1 id="reader-title">正在加载 PDF…</h1>
-          <p id="reader-meta" class="reader-meta" role="status" aria-live="polite"></p>
-        </div>
-        <div class="reader-actions" hidden>
-          <a id="open-pdf" class="button button-primary" href="#">直接打开 PDF</a>
-          <a id="download-pdf" class="button button-secondary" href="#" download>下载 PDF</a>
-          <a id="source-link" class="button button-quiet" href="#" hidden>查看来源 ↗</a>
-        </div>
-      </div>
-      <label class="mobile-selector" for="mobile-item-select">切换讲义
-        <select id="mobile-item-select"></select>
-      </label>
-      <div id="pdf-stage" class="pdf-stage">
-        <p class="pdf-fallback">预览没有显示？可使用上方的“直接打开 PDF”或“下载 PDF”。</p>
-        <iframe id="pdf-frame" title="PDF 阅读器"></iframe>
-      </div>
-      <div id="reader-error" class="empty-state reader-error" hidden>
-        <p class="empty-code">资料暂时不可用</p>
-        <h2>无法打开这份 PDF</h2>
-        <p>链接无效，或者这份资料已经调整。请返回课程资料页重新选择。</p>
-        <a class="button button-primary" href="index.html">返回课程资料</a>
-      </div>
-    </section>
-  </main>
-  <script type="module" src="assets/reader.js"></script>
-</body>
-</html>
+<body class="reader-page">
+<a class="skip-link" href="#reader-main">跳到阅读器</a>
+<header class="reader-bar" aria-label="阅读工具栏">
+  <button id="toggle-rail" type="button" aria-controls="reader-rail" aria-expanded="true">☰ 目录</button>
+  <a class="reader-logo" href="index.html" aria-label="返回课程库">L/N</a>
+  <h1 id="reader-title">正在加载讲义…</h1>
+  <div class="format-controls" aria-label="阅读格式"><button id="format-html" type="button" aria-pressed="false" hidden>网页阅读</button><button id="format-pdf" type="button" aria-pressed="false">原版 PDF</button></div>
+  <div id="pdf-controls" class="pdf-controls" hidden>
+    <button id="previous-page" type="button" aria-label="上一页">‹</button>
+    <label class="page-input"><span class="sr-only">PDF 页码</span><input id="page-number" type="number" min="1" value="1" aria-label="PDF 页码"></label><span id="page-count">/ —</span>
+    <button id="next-page" type="button" aria-label="下一页">›</button>
+    <button id="zoom-out" type="button" aria-label="缩小 PDF">−</button>
+    <select id="pdf-zoom" aria-label="PDF 缩放比例"><option value="page-width">适合宽度</option><option value="page-fit">整页</option><option value="0.5">50%</option><option value="1">100%</option><option value="1.5">150%</option><option value="2">200%</option><option value="3">300%</option><option value="4">400%</option><option value="8">800%</option></select>
+    <button id="zoom-in" type="button" aria-label="放大 PDF">＋</button>
+    <details class="pdf-search"><summary>查找</summary><div><input id="pdf-search" type="search" placeholder="在 PDF 中查找" aria-label="在 PDF 中查找"><button id="find-next" type="button">下一处</button><span id="find-count" role="status"></span></div></details>
+  </div>
+  <div id="html-controls" class="html-controls" hidden><button id="font-smaller" type="button" aria-label="缩小正文字号">A−</button><button id="font-larger" type="button" aria-label="放大正文字号">A＋</button><select id="text-width" aria-label="正文行宽"><option value="comfortable">舒适行宽</option><option value="wide">宽行</option></select></div>
+  <button id="focus-mode" type="button" aria-pressed="false">专注阅读</button>
+  <div class="reader-actions" hidden><a id="download-pdf" href="#" download>下载 PDF</a><details class="reader-more"><summary>更多</summary><div><a id="open-pdf" href="#" target="_blank" rel="noopener">直接打开 PDF</a><a id="source-link" href="#" target="_blank" rel="noopener" hidden>查看来源 ↗</a></div></details></div>
+</header>
+<aside id="reader-rail" class="reader-rail">
+  <a class="back-link" href="index.html">← 返回课程资料</a>
+  <p id="reader-course">正在加载课程</p><p id="reader-meta" role="status" aria-live="polite"></p>
+  <div class="rail-tabs"><button id="tab-outline" type="button" aria-pressed="true">本讲目录</button><button id="tab-course" type="button" aria-pressed="false">课程讲义</button></div>
+  <nav id="outline-nav" aria-label="章节目录"></nav>
+  <section id="course-panel" hidden><h2 id="course-nav-title">本课程的讲义</h2><nav id="course-nav" aria-label="课程讲义导航"></nav></section>
+  <label class="mobile-selector" for="mobile-item-select">切换讲义<select id="mobile-item-select"></select></label>
+  <p class="reader-help">网页可调整字号，图片可点击放大。PDF 支持适宽与 25%–800% 缩放。阅读位置保存在本机浏览器。</p>
+</aside>
+<main id="reader-main" tabindex="-1">
+  <p id="loading-status" role="status">正在准备讲义…</p>
+  <div id="html-container" hidden></div>
+  <div id="pdf-container" hidden tabindex="0" aria-label="PDF 阅读区域"><div id="pdf-viewer" class="pdfViewer"></div></div>
+  <div id="reader-error" hidden role="alert"><h2>无法打开这份讲义</h2><p id="reader-error-message"></p><button id="fallback-pdf" type="button" hidden>切换到原版 PDF</button><a href="index.html">返回课程资料</a></div>
+</main>
+<dialog id="figure-dialog" aria-label="放大图片"><button id="close-figure" type="button">关闭 ×</button><img alt=""><p></p></dialog>
+<script type="module" src="assets/reader.js"></script>
+</body></html>

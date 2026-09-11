@@ -3,7 +3,7 @@ import {defineConfig, devices} from '@playwright/test';
 export default defineConfig({
   testDir: './e2e',
   outputDir: 'test-results',
-  timeout: 30_000,
+  timeout: 60_000,
   expect: {timeout: 5_000},
   fullyParallel: false,
   workers: 1,
@@ -18,6 +18,7 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
   },
   projects: [
+    {name: 'desktop-webkit', use: {browserName: 'webkit', viewport: {width: 1440, height: 1000}}},
     {
       name: 'desktop-chromium',
       use: {...devices['Desktop Chrome'], viewport: {width: 1440, height: 1000}},
