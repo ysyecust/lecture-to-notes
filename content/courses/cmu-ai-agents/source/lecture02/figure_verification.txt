@@ -1,0 +1,231 @@
+=== 00:00:45 @ 0:45 (45s) ===
+  >>> [0:46] machine. But this enables you to do you know many many different things. So you
+  >>> [0:42] fundamentally a token predicting machine. But this enables you to do you
+  >>> [0:48] know many many different things. So you know you can search, you can call a
+      [0:40] cannot do this on its own because it's fundamentally a token predicting
+      [0:50] know you can search, you can call a calculator, you can call a browser, um
+
+=== 00:01:45 @ 1:45 (105s) ===
+  >>> [1:45] the language model's um you know action space. The second thing is uh
+  >>> [1:47] space. The second thing is uh facilitating the language model. And so
+  >>> [1:42] information or actions that are outside the language model's um you know action
+  >>> [1:49] facilitating the language model. And so what I mean by this is this is something
+      [1:40] do. And so this could be like accessing information or actions that are outside
+
+=== 00:03:15 @ 3:15 (195s) ===
+  >>> [3:15] model itself. Um other things is uh access private
+  >>> [3:14] or and quickly than using the language model itself.
+  >>> [3:12] you the ability to execute more reliably or and quickly than using the language
+  >>> [3:18] Um other things is uh access private states. So giving the model access to
+      [3:20] states. So giving the model access to like information about the user so they
+
+=== 00:06:00 @ 6:00 (360s) ===
+  >>> [5:59] >> Interact >> uh interact with like Slack or something
+  >>> [6:01] >> uh interact with like Slack or something like that. So, that's another
+  >>> [6:02] like that. So, that's another specialized API. So all kinds of
+  >>> [5:57] tool. Okay. Very cool. Yeah. >> Interact
+  >>> [6:04] specialized API. So all kinds of different things. Um I I kind of
+
+=== 00:07:15 @ 7:15 (435s) ===
+  >>> [7:15] Another extremely common one. Um so all all of these are tools and so like
+  >>> [7:16] all of these are tools and so like theoretically all of them can be thought
+  >>> [7:18] theoretically all of them can be thought of as an API but uh just to break them
+  >>> [7:11] simple u you know most obvious one. Another extremely common one. Um so all
+      [7:20] of as an API but uh just to break them down a little bit more. Um another one
+
+=== 00:08:30 @ 8:30 (510s) ===
+  >>> [8:29] broadly and like any chat uh interface. Another one is code execution and so
+  >>> [8:32] Another one is code execution and so this is uh throwing in uh you know a set
+      [8:25] another tool that's provided very very broadly and like any chat uh interface.
+      [8:35] this is uh throwing in uh you know a set of code to do uh calculations or or
+      [8:23] these applications. Now so uh that's another tool that's provided very very
+
+=== 00:08:45 @ 8:45 (525s) ===
+  >>> [8:45] talked about. Another common one is uh having some sort of image generation and
+  >>> [8:42] computation all the other stuff we talked about. Another common one is uh
+  >>> [8:49] having some sort of image generation and uh this this is you know obviously
+      [8:40] something like this. very useful for uh computation all the other stuff we
+      [8:51] uh this this is you know obviously another very popular use case in chat
+
+=== 00:12:00 @ 12:00 (720s) ===
+  >>> [11:59] external libraries. So these are now the custom APIs that you pull into your uh
+  >>> [12:02] custom APIs that you pull into your uh pull into your system. So uh you know
+  >>> [11:56] tools. Um and so uh you can also pull in external libraries. So these are now the
+      [12:05] pull into your system. So uh you know now if you're calling pandas now you've
+      [12:07] now if you're calling pandas now you've opened up all of the like tools in
+
+=== 00:14:00 @ 14:00 (840s) ===
+  >>> [14:00] goes up and the average number of interaction turns goes down. And this is
+  >>> [13:58] paper are essentially the success rate goes up and the average number of
+  >>> [14:03] interaction turns goes down. And this is even for tasks that didn't traditionally
+  >>> [13:56] uh some of the core results from the paper are essentially the success rate
+      [13:55] called Kodak has a paper uh about it and uh some of the core results from the
+
+=== 00:15:30 @ 15:30 (930s) ===
+  >>> [15:30] Um they're also uh harder con to constrain because they have the broad
+  >>> [15:31] constrain because they have the broad action space. So uh it's you know harder
+  >>> [15:27] very careful about. Um they're also uh harder con to
+  >>> [15:34] action space. So uh it's you know harder to validate and uh get predictable
+      [15:25] something uh something you need to be very careful about.
+
+=== 00:16:30 @ 16:30 (990s) ===
+  >>> [16:28] on Tuesday as well. Um but basically tool calls are um expressed as tokens
+  >>> [16:32] tool calls are um expressed as tokens like this. And so um you know a text
+  >>> [16:26] for granted. I I think I mentioned this on Tuesday as well. Um but basically
+      [16:35] like this. And so um you know a text continuation is the weather is sunny. A
+      [16:24] tools but this was not you know taken for granted. I I think I mentioned this
+
+=== 00:20:45 @ 20:45 (1245s) ===
+  >>> [20:47] So um when the prompt uh contains something like this, you might have uh
+  >>> [20:49] something like this, you might have uh this included in the tools section of
+      [20:39] would use when calling openAI or something like this.
+      [20:51] this included in the tools section of the prompt and then the output uh ends
+      [20:37] chat completions function that you you would use when calling openAI or
+
+=== 00:21:15 @ 21:15 (1275s) ===
+  >>> [21:16] tool call format. The interesting thing is uh every model has a different tool
+  >>> [21:13] training the model to fit a particular tool call format. The interesting thing
+  >>> [21:17] is uh every model has a different tool call format. Maybe not everyone but many
+  >>> [21:12] mid-training and beyond you will be training the model to fit a particular
+      [21:10] not be pre-training but at least at mid-training and beyond you will be
+
+=== 00:23:45 @ 23:45 (1425s) ===
+  >>> [23:45] parsing in the next section. So um not immediately here but like let's assume
+  >>> [23:47] immediately here but like let's assume that if uh the language model outputs
+  >>> [23:42] going to talk about tool called kernel parsing in the next section. So um not
+      [23:40] do tool call parsing and actually I'm going to talk about tool called kernel
+      [23:51] that if uh the language model outputs this you have a way of parsing it into
+
+=== 00:25:15 @ 25:15 (1515s) ===
+  >>> [25:13] fails or not, then uh you get an observation out of it.
+  >>> [25:11] if it well whether it uh whether it fails or not, then uh you get an
+      [25:21] So this is another detail um that that's pretty helpful but also really annoying
+      [25:08] an execution error. And then if it does if it well whether it uh whether it
+      [25:06] might fail. So that that would be like an execution error. And then if it does
+
+=== 00:27:30 @ 27:30 (1650s) ===
+  >>> [27:30] calls. Um, and this is an example. Uh, you can see that this is JSON that's
+  >>> [27:32] you can see that this is JSON that's missing the uh, last closing bracket.
+  >>> [27:26] guaranteed to generate well-formed tool calls. Um, and this is an example. Uh,
+      [27:24] uh, language models are definitely not guaranteed to generate well-formed tool
+      [27:36] missing the uh, last closing bracket. So, this is poorly formed JSON. You put
+
+=== 00:28:15 @ 28:15 (1695s) ===
+  >>> [28:14] is uh shape. So make sure that if you have expected or required fields, you
+  >>> [28:17] have expected or required fields, you have the required fields. Um the third
+  >>> [28:11] it needs to parse. Um the second thing is uh shape. So make sure that if you
+  >>> [28:19] have the required fields. Um the third thing is types. So uh you know if you
+      [28:08] kind of like table stakes, right? So it it needs to parse. Um the second thing
+
+=== 00:29:15 @ 29:15 (1755s) ===
+  >>> [29:14] defining a grammar over uh over the schema. And how many people uh did like
+  >>> [29:12] schema is valid or invalid is by defining a grammar over uh over the
+  >>> [29:18] schema. And how many people uh did like contextf free grammarss or like context
+      [29:09] one way that you can express whether the schema is valid or invalid is by
+      [29:22] contextf free grammarss or like context or those sorts of things? Regular
+
+=== 00:32:00 @ 32:00 (1920s) ===
+  >>> [32:01] state automaton cannot parse a um a contextf free grammar but there's
+  >>> [31:58] go into a lot of details but a finite state automaton cannot parse a um a
+  >>> [32:02] contextf free grammar but there's something called a push down automaton
+  >>> [31:56] uh you can do this and I'm not going to go into a lot of details but a finite
+  >>> [32:04] something called a push down automaton that can allow you to do this. So
+
+=== 00:33:15 @ 33:15 (1995s) ===
+  >>> [33:15] you set all of the invalid next tokens to negative infinity. um for the output
+  >>> [33:13] next token, you get a score of zero. And you set all of the invalid next tokens
+  >>> [33:18] to negative infinity. um for the output logits and then you renormalize so that
+      [33:10] score of one and if you have an invalid next token, you get a score of zero. And
+      [33:21] logits and then you renormalize so that you get probability only on the valid
+
+=== 00:35:00 @ 35:00 (2100s) ===
+  >>> [35:00] Uh I I think that's close enough to what I I wanted to say. So basically um when
+  >>> [35:02] I I wanted to say. So basically um when you run out of tokens, so models can
+  >>> [35:04] you run out of tokens, so models can only generate so many tokens and you
+      [35:06] only generate so many tokens and you might run into a place where you're
+      [35:08] might run into a place where you're still on a valid path through the
+
+=== 00:36:45 @ 36:45 (2205s) ===
+  >>> [36:47] that you use um that you use when you uh implement this uh not through
+  >>> [36:41] the like standard method of tool calling that you use um that you use when you
+  >>> [36:49] uh implement this uh not through non-programmatic tool calling.
+      [36:39] remotely and it's also not callable from the like standard method of tool calling
+      [36:52] non-programmatic tool calling. So there's a way to turn this into uh
+
+=== 00:40:30 @ 40:30 (2430s) ===
+  >>> [40:32] the reason why I didn't think this was necessary originally was because like
+  >>> [40:34] necessary originally was because like why do you need to run a program to call
+      [40:36] why do you need to run a program to call an API, right? We already have good ways
+      [40:23] what the weather is what the weather is and push it to your GitHub. Um uh and
+      [40:38] an API, right? We already have good ways to call APIs. We just, you know, send it
+
+=== 00:41:30 @ 41:30 (2490s) ===
+  >>> [41:28] But here here's the main reason why you might want to use MCP uh as opposed to
+  >>> [41:32] might want to use MCP uh as opposed to an API. Uh, and the reason why is
+      [41:25] turn it in into an MCP as well. But here here's the main reason why you
+      [41:36] an API. Uh, and the reason why is because it gives you an extra layer of
+      [41:38] because it gives you an extra layer of security. And so MCPs have an MCP
+
+=== 00:43:00 @ 43:00 (2580s) ===
+  >>> [43:00] all give you the ability to add a set of APIs into uh into your agent. Like you
+  >>> [42:58] So um just to go into a summary, they all give you the ability to add a set of
+  >>> [43:04] APIs into uh into your agent. Like you could do that through a regular JSON
+      [43:05] could do that through a regular JSON schema or through an MCP. Um
+      [42:51] get preserved and so that was basically the reasoning behind it.
+
+=== 00:45:30 @ 45:30 (2730s) ===
+  >>> [45:29] solve is the same problem that I talked about when I talked about like the codec
+  >>> [45:31] about when I talked about like the codec and the programmatic tool calling which
+  >>> [45:28] Um the the basic problem we want to solve is the same problem that I talked
+  >>> [45:33] and the programmatic tool calling which is if you call tools one at a time. Um
+      [45:25] tool calling. in parallel tool calling. Um the the basic problem we want to
+
+=== 00:45:45 @ 45:45 (2745s) ===
+  >>> [45:43] might do a weather and then do a calendar and then do a flight. Um, but
+  >>> [45:47] calendar and then do a flight. Um, but if tool calls are independent, you can
+  >>> [45:42] even a simple operation because you might do a weather and then do a
+  >>> [45:41] the uh it it could become very long for even a simple operation because you
+  >>> [45:49] if tool calls are independent, you can actually call them at the same time. And
+
+=== 00:46:00 @ 46:00 (2760s) ===
+  >>> [45:59] like add add multiple tool call blocks to a single agent response.
+      [45:54] this is done pretty simply. You just like add add multiple tool call
+      [46:07] The um there's a few nuances about this. The first one is um you can only
+      [45:51] actually call them at the same time. And this is done pretty simply. You just
+      [46:09] The first one is um you can only paralyze tool calls if they don't have
+
+=== 00:49:30 @ 49:30 (2970s) ===
+  >>> [49:31] versions. Uh it started out with version one which was basically um single turn
+  >>> [49:28] calling leaderboard and this has four versions. Uh it started out with version
+      [49:25] famous one is the Berkeley function calling leaderboard and this has four
+      [49:35] one which was basically um single turn uh tool calling. Um it's then evolved
+      [49:24] bunch of data sets for this. The most famous one is the Berkeley function
+
+=== 00:50:30 @ 50:30 (3030s) ===
+  >>> [50:30] you to do that uh the task at all. Um the other thing is arguments uh which is
+  >>> [50:27] inappropriate tool that can't uh allow you to do that uh the task at all. Um
+  >>> [50:33] the other thing is arguments uh which is uh you know whether you you add the
+      [50:35] uh you know whether you you add the right values. Um if you're talking about
+      [50:24] might have picked like a an inappropriate tool that can't uh allow
+
+=== 00:51:15 @ 51:15 (3075s) ===
+  >>> [51:15] order, can it choose a a different one? And also um safety. So if you have
+  >>> [51:17] And also um safety. So if you have adversarial outputs where you ask it to
+  >>> [51:12] appropriately? If a tool is out of order, can it choose a a different one?
+      [51:10] a tool call times out uh does it retry appropriately? If a tool is out of
+      [51:20] adversarial outputs where you ask it to use a tool in an inappropriate way, uh
+
+=== 00:52:30 @ 52:30 (3150s) ===
+  >>> [52:30] to 0.05%. Any idea uh why this might be?
+  >>> [52:28] between 15% and like 0.01 to 0.05%.
+      [52:24] it to me but actually the difference is between 15% and like 0.01
+      [52:22] be the same regardless of who provides it to me but actually the difference is
+      [52:20] this model maybe you know it's going to be the same regardless of who provides
+
+=== 00:56:30 @ 56:30 (3390s) ===
+  >>> [56:29] that could be parsed as Python. Um and there's a number of uh ways you can
+  >>> [56:31] there's a number of uh ways you can interface with them like direct rest
+  >>> [56:33] interface with them like direct rest calls and MCPS.
+  >>> [56:26] if you generated uh you know a string that could be parsed as Python. Um and
+      [56:35] calls and MCPS. Uh and then we have a lot of systems
+

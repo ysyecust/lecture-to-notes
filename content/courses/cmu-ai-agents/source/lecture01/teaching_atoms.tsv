@@ -1,0 +1,51 @@
+atom	status	evidence
+开场与课程定位：timely 的新课（CMU 11-768 AI Agents）	ok	§1.1（fig_01）
+16 个 agent 两周写出 10 万行 Rust C 编译器、可编译 Linux 内核（Carlini/Anthropic）	ok	§1.2（fig_02，转写 1:39--2:10）
+OpenClaw 清空收件箱事故与「我记得，但我违背了它」	ok	§1.2（fig_03，转写 2:15--3:30）
+context compaction 丢失指令导致越权执行（讲者的归因）	ok	§1.2 warningbox
+自主性三档：Never / Ask first / Autonomous，六任务现场投票	ok	§1.3（fig_04，转写 3:45--7:10）
+GUI agent 演示：VisualWebArena 泰餐检索任务与约束	ok	§1.4（fig_05，转写 7:45）
+编码 agent 演示：OpenHands 写 Todo 应用并在浏览器自测	ok	§1.4（fig_06，转写 8:30--11:45）
+agent 的定义（Russell & Norvig：感知环境并作用于环境）	ok	§2.1（fig_07，转写 15:30--17:30）
+环境的实例化（仓库/网站/应用/工作流）与观测（消息、文件、网页、截图、工具结果）	ok	§2.1（fig_07）
+动作（回复用户、改文件、跑 shell、调 API）与奖励	ok	§2.1 正文
+奖励三来源：测试用例 0/1、LLM-as-judge、用户反馈	ok	§2.2（转写 17:15--18:15）
+next-token prediction 回顾（逐步预测分布、拼接再预测）	ok	§2.2（fig_08，转写 18:30）
+chain of thought 是 scratchpad，不是动作	ok	§2.2（fig_08 knowledgebox）
+工具定义四要素：name、description、JSON Schema、chat template 渲染	ok	§3.1（fig_09，转写 21:00）
+tool call 的 JSON 形态与 tool_call/tool_response 模板	ok	§3.2（fig_10，转写 21:30--23:00）
+动作即 token：harness 解析、校验、执行（Toolformer, Schick et al. 2023）	ok	§3.3（fig_11，转写 23:00--24:00）
+工具接口的替代方案：直接写 bash/Python 代码（讲者：往往比 JSON 更有效，但有取舍）	ok	§3.4（转写 21:50--22:20）
+ReAct 循环：Task/History/Context/Tools 与 Reasoning→Call→Execute→Result	ok	§4.1（fig_12，转写 24:30--26:30）
+终止条件：用 send_message 之类的工具调用显式结束任务	ok	§4.1（fig_12 warningbox）
+最小实现 mini-swe-agent：run/step/query/execute_actions 四段	ok	§4.2（fig_13，转写 26:30--27:45）
+作业 1 要求实现并扩展同类控制器、自建工具	ok	§4.2（fig_13）
+真实轨迹阅读：system/user 消息、思维链、bash 调用与退出码（SWE-bench）	ok	§4.3（fig_14，转写 28:15--30:15）
+学生吐槽清单（慢、啰嗦、误解、越权、知识盲点、千行改动、忘记历史、不反驳、撒谎、隐含假设）	ok	§5.1（转写 31:15--33:00）
+六能力总表：准确工具调用、长上下文一致性、可定制性、复杂任务管理、环境理解、安全	ok	§5.2（fig_15，转写 35:00）
+两条建设路线：LLM training（pre-training/SFT/RL）与 harness engineering	ok	§6.1（fig_16，转写 35:30--39:30）
+讲者的判断：多数问题先在 harness 解决，再被模型训练吸收；他更看好训练的「根本解」	ok	§6.2（转写 37:00--38:30）
+长上下文为何是特例：既是准确性问题也是效率问题（n² 复杂度）	ok	§6.2（转写 38:30--39:15）
+小模型需要更多护栏（推理成本与泛化能力的权衡）	ok	§6.2（转写 40:30--41:15）
+训练栈三段：Pretraining → Mid-training/SFT → RL 与各自数据形态	ok	§6.3（fig_17，转写 41:30--43:00）
+能力 1：准确工具调用——Select/Arguments/Validate/Execute；文法约束解码与工具轨迹 SFT	ok	§7.1（fig_18，转写 43:30--44:00）
+能力 2：长上下文一致性——压缩/compaction、动态记忆检索、子 agent 委派	ok	§7.2（fig_19，转写 44:30--45:00）
+能力 3：可定制性——agent memory、skills、自定义工具、从用户反馈 RL	ok	§7.3（fig_20，转写 45:15--46:00）
+能力 4：复杂任务管理——planning/decomposition 工具、子 agent 委派、长时任务训练	ok	§7.4（fig_21，转写 46:00--47:00）
+plan mode 往往是「在 prompt 里加一句请先规划」	ok	§7.4 knowledgebox
+能力 5：环境理解——领域 skills、期望观测形状的 SFT、领域环境 RL（GUI/时序/显微图）	ok	§7.5（fig_22，转写 47:00--49:15）
+能力 6：安全——沙箱、限制凭证、监控轨迹、safety-aware RL	ok	§7.6（fig_23，转写 49:30--51:30）
+「安全就是能力」：讲者主张把 capability safety 当作模型能力的一部分	ok	§7.6 importantbox
+OpenAI 基准作弊事件的三重失效：沙箱/凭证/监控	ok	§7.6（转写 50:00--51:15）
+agents are systems：Harness/Sandbox/Inference/Model 四层	ok	§8.1（fig_24，转写 52:45）
+Harness 职责与代表软件（CC/Codex/OpenHands/OpenCode/Pi、LangChain/CrewAI）	ok	§8.2（fig_25，转写 53:15--55:00）
+Orchestrator 与 coding harness 的哲学差异（声明式工作流 vs 大动作空间）	ok	§8.2 表格
+Sandbox：隔离执行、限制算力/网络/文件；Docker/Apptainer 与可复现环境	ok	§8.2（fig_26，转写 55:15）
+LM inference：批处理、KV cache 复用、流式与并行；vLLM/SGLang、OpenRouter	ok	§8.2（fig_27，转写 56:15--57:30）
+Training systems：准备数据与 rollout、分布式 worker、checkpoint/评估/复现；SkyRL、Miles	ok	§8.2（fig_28，转写 57:45）
+Observability：trace/成本/延迟/质量，Laminar、MLFlow	ok	§8.2（fig_29，转写 58:00--59:00）
+学习目标：从零实现 agent、设计多步评测、训练改进、权衡安全与可靠	ok	§9.1（fig_30，转写 58:45）
+三次作业的能力递进：A1 harness、A2 evaluation、A3 training，最后是绑定任务的 project	ok	§9.2（fig_31，转写 59:45）
+成绩构成：作业 40%、highlights 10%、项目 50%（提案/check-in/展示/终稿）	ok	§9.2（fig_32，转写 63:15）
+课堂 AI 政策：默认允许用 agent，但 highlight 必须自己写、每个提交都要能被 quiz 追问	ok	§9.3（fig_33，转写 66:00--67:00）
+课程先修：认真训练过 4-7B 级别模型（pre-training 不覆盖）	ok	§9.2 正文（转写 61:30--63:00）

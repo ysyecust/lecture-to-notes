@@ -1,0 +1,36 @@
+claim	value	source_time	in_notes
+能力现状：16 个 agent 协作两周，用 Rust 写出无需依赖的 C 编译器	16 agents	1:50	yes
+该编译器规模约 10 万行，可编译启动 Linux 内核	100,000 lines	1:50	yes
+仓库页面显示 3,982 次提交（3,982 commits）	3,982	1:50	yes
+仓库获得 2.8k stars	2.8k	1:50	yes
+仓库有 243 个 fork	243	1:50	yes
+仓库有 14 个 pull request、49 个 issue	14	1:50	yes
+仓库由 Claude Opus 4.6 编写（演示页原文）	4.6	1:50	yes
+OpenClaw 事故：一次清空 200+ 封邮件后才被叫停	200+	3:00	yes
+事故帖子发布于 2026 年 2 月（X 平台）	2026	2:30	yes
+自主性矩阵中的任务：向 50,000 名客户发产品发布邮件	50,000	3:45	yes
+自主性矩阵中的任务：申报 2025 年度报税表	2025	3:45	yes
+VisualWebArena 任务约束：评论至少 200 条	200 reviews	7:45	yes
+VisualWebArena 任务约束：评分 4.3 星	4.3 stars	7:45	yes
+GUI 多模态 agent 演示时间为 2024 年（Jing Yu Koh）	2024	8:15	yes
+Toolformer 论文发表于 2023 年（NeurIPS）	2023	23:45	yes
+ReAct 论文发表于 2023 年（ICLR, Yao et al.）	2023	24:30	yes
+状态-of-the-art 编码 agent 至少需要 256k 的上下文	256k	52:45	yes
+此前通常只处理 16k 或 32k token 的上下文	16k	52:45	yes
+现场调查：做过 agent RL 的约占 10%	10%	43:00	yes
+课堂现场：80% 的学生没有做过 agent 强化学习	80%	43:00	yes
+课程先修要求：独立训练过 4-7B 规模的模型	4-7B	62:15	yes
+不接受的规模下限举例：1 亿参数（100 million）	100 million	62:15	yes
+作业 1-3 合计占总成绩 40%	40%	63:15	yes
+Lecture highlights 占 10%	10%	63:15	yes
+研究项目占 50%，团队规模 2-3 人	50%	63:15	yes
+项目提案占 5%	5%	64:18	yes
+项目 check-in 占 5%	5%	64:18	yes
+项目展示占 10%	10%	64:18	yes
+项目终稿占 30%	30%	64:23	yes
+每次作业含两个 24 小时的 slack day	24-hour	66:45	yes
+slack day 用完后每天扣该作业分的 5%	5%	66:45	yes
+作业 1 暂定 9 月 10 日截止	Sep 10	59:45	yes
+作业 2 暂定 9 月 24 日截止	Sep 24	59:45	yes
+作业 3 暂定 10 月 22 日截止	Oct 22	59:45	yes
+二进制奖励示例：测试通过得 1，否则得 0	0/1	17:15	yes

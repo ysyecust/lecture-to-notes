@@ -1,0 +1,10 @@
+{
+  "mode": "technical-slide",
+  "audience": "capable first-time reader（写过 agent loop、用过 LLM API，也听过大体上的 attention/Transformer，但没系统看过长上下文如何被服务系统与 harness 共同管理）",
+  "central_question": "当 agent 的历史随时间线性增长、注意力代价随时间二次增长时，架构、训练、缓存与压缩这四层分别做了什么，才能让百万级 token 的上下文既跑得动又不忘记？",
+  "reader_outcome": "能说清 agent 上下文为什么会二次膨胀（含 78k token 会话的构成）；能区分滑动窗口/线性注意力/DeltaNet/稀疏注意力/GQA-MQA-MLA 各自的机制与代价，并读懂主流混合架构的 3:1、4:1、5:1 配比；能解释 RoPE/NoPE/位置插值与上下文并行对长上下文训练的作用；能算一次 agent 调用的 KV cache 复用收益（cached 约 1/10 价格、命中率 90–95%）并说出 harness 侧不能破坏前缀缓存的三条纪律；能判断压缩（compaction）该保留什么、什么时候触发、为什么会失败。",
+  "visual_teaching_atoms": 24,
+  "formula_teaching_atoms": 20,
+  "vision": "no",
+  "notes": "英文讲座，官方自动字幕（clean_subs.py 去重后 1644 条，health coverage 0.992）；无烧录字幕，使用官方自动字幕。host 无图像输入：配图由 frame_filter score（0 个 talking_head）+ 全帧 rapidocr OCR 文本选定，图注按该帧 OCR 文本与同时刻字幕写。bands.json 仅裁掉 y>=840 的纯黑边（crop_bottom=120），不裁任何幻灯片内容。numerical_claims 由 extract_claims.py 抽取后剔除页码/界面噪声，并补入幻灯片上的教学数字。"
+}

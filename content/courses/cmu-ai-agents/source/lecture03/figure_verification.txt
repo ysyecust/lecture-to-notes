@@ -1,0 +1,287 @@
+=== 01:45 @ 1:45 (105s) ===
+  >>> [1:47] 11 16 uh 21 and 26. you know, this will increase and increase and increase. Um,
+  >>> [1:42] you'll get six tokens in the first call 11 16 uh 21 and 26. you know, this will
+      [1:40] initial system prompt of one token uh you'll get six tokens in the first call
+      [1:50] increase and increase and increase. Um, and so by the time you have gotten to
+      [1:38] let's say you start out with a an initial system prompt of one token uh
+
+=== 02:45 @ 2:45 (165s) ===
+  >>> [2:43] so quickly? I did a little bit of data analysis on uh the composition of
+  >>> [2:47] analysis on uh the composition of prompts that I used in um uh 1,500
+      [2:40] So why do agent prompts get so long uh so quickly? I did a little bit of data
+      [2:52] prompts that I used in um uh 1,500 sessions from our uh coding agent
+      [2:37] here. So why do agent prompts get so long uh
+
+=== 05:00 @ 5:00 (300s) ===
+  >>> [4:58] need uh things like architecture position encoding training data uh and
+  >>> [5:02] position encoding training data uh and uh you also need to be able to evaluate
+  >>> [4:57] um and so in order to manage this you need uh things like architecture
+  >>> [5:03] uh you also need to be able to evaluate whether you're doing a good job of this.
+      [5:05] whether you're doing a good job of this. And then the second thing is efficiency
+
+=== 06:15 @ 6:15 (375s) ===
+  >>> [6:15] you basically need to be able to um calculate uh prefill and decoding. So uh
+  >>> [6:11] so in order to make this happen uh the you basically need to be able to um
+  >>> [6:19] calculate uh prefill and decoding. So uh calculate your inputs and your outputs
+      [6:21] calculate your inputs and your outputs at each step. And this uh you know I'm
+      [6:06] Okay. So uh let's go into inference. And so in order to make this happen uh the
+
+=== 07:15 @ 7:15 (435s) ===
+  >>> [7:14] prefill. Um you could also call it encoding. Um but I think pre prefill is
+  >>> [7:17] encoding. Um but I think pre prefill is kind of the like preferred term of art
+  >>> [7:12] inference. The first one is called prefill. Um you could also call it
+  >>> [7:11] we have a few phrase uh phases in inference. The first one is called
+      [7:20] kind of the like preferred term of art nowadays. And so you take in all of your
+
+=== 07:45 @ 7:45 (465s) ===
+  >>> [7:46] get from the output. So um you do this kind of incrementally whereas this can
+  >>> [7:43] append uh the key value pair that you get from the output. So um you do this
+  >>> [7:48] kind of incrementally whereas this can be done in a batched sequence.
+  >>> [7:41] value pairs um generate an output and append uh the key value pair that you
+      [7:38] basically uh take the prompt uh and key value pairs um generate an output and
+
+=== 11:15 @ 11:15 (675s) ===
+  >>> [11:14] but you have uh the uh query key and value calculation in uh
+  >>> [11:18] uh query key and value calculation in uh typical attention and this is uh so you
+      [11:10] everybody should know this already. Um but you have uh the
+      [11:08] So as a refresher um I I hopefully everybody should know this already. Um
+      [11:22] typical attention and this is uh so you have this here and then you take the
+
+=== 13:00 @ 13:00 (780s) ===
+  >>> [13:00] longer and longer and longer and then they evaluate uh models with the longer
+  >>> [12:58] correctly. um and they made the context longer and longer and longer and then
+  >>> [13:03] they evaluate uh models with the longer context and eventually the weaker models
+      [12:55] language model has to answer that correctly. um and they made the context
+      [12:54] Francisco to eat a sandwich and then the language model has to answer that
+
+=== 16:30 @ 16:30 (990s) ===
+  >>> [16:30] at each time step. And that brings your uh n squared down to owl where I I wrote
+  >>> [16:27] number of comparisons that are made uh at each time step. And that brings your
+  >>> [16:34] uh n squared down to owl where I I wrote w for window but it doesn't necessarily
+      [16:24] some sort of constant limit on the number of comparisons that are made uh
+      [16:36] w for window but it doesn't necessarily need to be a window. It just needs to be
+
+=== 18:30 @ 18:30 (1110s) ===
+  >>> [18:31] It kind of has uh window windowed attention but then some uh sparsity uh
+  >>> [18:28] and deepseek's a little bit different. It kind of has uh window windowed
+  >>> [18:26] attention uh dense attention 5 to one and deepseek's a little bit different.
+  >>> [18:34] attention but then some uh sparsity uh sparse stuff with interle branches. So
+      [18:37] sparse stuff with interle branches. So um basically the the standard way of
+
+=== 19:45 @ 19:45 (1185s) ===
+  >>> [19:44] to attention, but you have something like this. But the nice thing about this
+  >>> [19:46] like this. But the nice thing about this is on the first layer you're passing
+  >>> [19:42] those. Um so pretty simple, no changes to attention, but you have something
+  >>> [19:49] is on the first layer you're passing information from the previous one or two
+      [19:51] information from the previous one or two chunks, but on the next layer the uh
+
+=== 22:00 @ 22:00 (1320s) ===
+  >>> [22:00] real numbers and normalizes them into probability like numbers that are
+  >>> [21:58] going from a thing that takes a bunch of real numbers and normalizes them into
+  >>> [22:02] probability like numbers that are between zero and one and add to one. Um,
+  >>> [21:56] bottom one adds up to one, but you're going from a thing that takes a bunch of
+      [21:54] Anyway, like pretend pretend that this bottom one adds up to one, but you're
+
+=== 27:45 @ 27:45 (1665s) ===
+  >>> [27:44] direction of uh the in the direction that will cause a query that looks like
+  >>> [27:48] that will cause a query that looks like the current key to output the value that
+      [27:40] basically nudge the matrix in the direction of uh the in the direction
+      [27:50] the current key to output the value that you want essentially. So it's it's
+      [27:37] if you do this, this allows you to basically nudge the matrix in the
+
+=== 28:45 @ 28:45 (1725s) ===
+  >>> [28:47] influence on your next predictions. And so if you have like a very weird key far
+  >>> [28:42] uh context from having a bad influence on your next predictions. And
+      [28:38] mechanism to prevent very far away cont uh context from having a bad
+      [28:52] so if you have like a very weird key far back in the future, it might have a very
+      [28:54] back in the future, it might have a very big influence on you in the f uh in the
+
+=== 30:15 @ 30:15 (1815s) ===
+  >>> [30:14] because each element decays at a different speed, you can have some uh
+  >>> [30:13] can decay at a different speed. And uh because each element decays at a
+  >>> [30:17] different speed, you can have some uh portions of the context that uh you know
+      [30:10] element uh decay term. So each element can decay at a different speed. And uh
+      [30:20] portions of the context that uh you know carry over very long time periods, some
+
+=== 31:45 @ 31:45 (1905s) ===
+  >>> [31:44] attention paper by OpenAI uh quite a while ago like 5 years ago or something
+  >>> [31:46] while ago like 5 years ago or something like this. Um and basically uh what they
+  >>> [31:41] it. Um originally in there was a sparse attention paper by OpenAI uh quite a
+      [31:50] like this. Um and basically uh what they did was they had sparse attention every
+      [31:37] context. There's a few ways you can do it. Um originally in there was a sparse
+
+=== 34:15 @ 34:15 (2055s) ===
+  >>> [34:16] and you have uh you have like a certain number of heads. Let's say that's H. Um
+  >>> [34:12] dimension, let's say they're dimension D and you have uh you have like a certain
+      [34:20] number of heads. Let's say that's H. Um so
+      [34:09] certain dimension. So they're like dimension, let's say they're dimension D
+      [34:08] values and keys and all of these are a certain dimension. So they're like
+
+=== 37:15 @ 37:15 (2235s) ===
+  >>> [37:14] Um I wrote packed sequences here. Um, but packed sequences are are useful can
+  >>> [37:17] but packed sequences are are useful can be useful for efficiency, but they're
+  >>> [37:19] be useful for efficiency, but they're not super useful for learning long
+      [37:10] adaptation. Um I wrote packed sequences here. Um,
+      [37:20] not super useful for learning long contexts because um every time you like
+
+=== 39:30 @ 39:30 (2370s) ===
+  >>> [39:30] two tokens would attend to each other. And so
+  >>> [39:27] position to have an effect on whether two tokens would attend to each other.
+  >>> [39:33] And so this is this has been quite effective
+      [39:25] uh they didn't want the absolute position to have an effect on whether
+      [39:36] this is this has been quite effective and a lot of uh a lot of models use
+
+=== 40:00 @ 40:00 (2400s) ===
+  >>> [40:00] uh nope. which is uh don't don't use positional
+  >>> [40:02] which is uh don't don't use positional encodings at all. Um and if you took
+  >>> [39:57] counterintuitive uh nope.
+      [39:55] Um but there's also this like super counterintuitive
+      [40:06] encodings at all. Um and if you took your uh class on transformers
+
+=== 42:30 @ 42:30 (2550s) ===
+  >>> [42:30] uh other things like this which causes each uh token to be different. So once
+  >>> [42:28] gated delta has like the decay term and uh other things like this which causes
+  >>> [42:33] each uh token to be different. So once we start having those sort of local
+  >>> [42:34] we start having those sort of local biases, we actually don't need
+      [42:25] talking about like gated delta because gated delta has like the decay term and
+
+=== 43:00 @ 43:00 (2580s) ===
+  >>> [42:59] encodings. Um the the fourth one uh relies entirely on implicit order and
+  >>> [43:02] relies entirely on implicit order and mamba and some of them in uh and inkling
+      [42:55] have nope uh no positional attend encodings. Um the the fourth one uh
+      [43:05] mamba and some of them in uh and inkling has relative positional encodings. So
+      [42:53] at least partial rope. The second two have nope uh no positional attend
+
+=== 45:30 @ 45:30 (2730s) ===
+  >>> [45:30] context. And there's also um a more sophisticated
+  >>> [45:28] to the position 5s in your uh extended context.
+  >>> [45:26] five would be 5s uh would be equivalent to the position 5s in your uh extended
+  >>> [45:34] And there's also um a more sophisticated way of doing this called yarn uh which
+      [45:37] way of doing this called yarn uh which basically is uh similar
+
+=== 47:30 @ 47:30 (2850s) ===
+  >>> [47:30] topical coherence between them. Um I've also seen people train on patents
+  >>> [47:28] topic and then at least you'll have topical coherence between them. Um I've
+  >>> [47:32] also seen people train on patents because patents have like there's lots
+  >>> [47:26] bunch of documents that are on the same topic and then at least you'll have
+  >>> [47:34] because patents have like there's lots of public data for them and you can kind
+
+=== 48:15 @ 48:15 (2895s) ===
+  >>> [48:14] number one the closed models like anthropic open AAI you know those places
+  >>> [48:13] like if they release their um well so number one the closed models like
+  >>> [48:18] anthropic open AAI you know those places uh uh Gemini they will not release even
+      [48:20] uh uh Gemini they will not release even their architectural details the open
+      [48:09] these details with you because this is like if they release their um well so
+
+=== 49:45 @ 49:45 (2985s) ===
+  >>> [49:44] or serving >> yes
+  >>> [49:42] parallelize models during model training or serving
+      [49:40] are two other ways uh that you can parallelize models during model training
+      [49:50] >> data parallelism >> yeah you you said a more specific
+      [49:38] wrote context parallelism up here what are two other ways uh that you can
+
+=== 54:00 @ 54:00 (3240s) ===
+  >>> [53:59] output this is going to be 50 times larger than the new input in the in the
+  >>> [54:02] larger than the new input in the in the output right so that's pretty
+  >>> [53:57] we haven't done anything tricky with our output this is going to be 50 times
+  >>> [54:04] output right so that's pretty significant savings if we can cache this
+      [53:55] 3 but by the time we get to step 50 if we haven't done anything tricky with our
+
+=== 54:30 @ 54:30 (3270s) ===
+  >>> [54:31] and no caching. And so the upper one of the same color is uh or the lower one
+  >>> [54:28] uh of compute that you need with caching and no caching. And so the upper one of
+  >>> [54:34] the same color is uh or the lower one with the same color is caching and the
+      [54:25] different GPUs and this is the amount of uh of compute that you need with caching
+      [54:36] with the same color is caching and the the upper one is no caching. So uh
+
+=== 55:00 @ 55:00 (3300s) ===
+  >>> [54:58] of these numbers from uh the official pricing. And basically you can see here
+  >>> [55:02] pricing. And basically you can see here that if you go through all of these uh
+  >>> [54:56] to run an agent. And so I I pulled all of these numbers from uh the official
+  >>> [55:04] that if you go through all of these uh all of these numbers including the
+      [55:05] all of these numbers including the commercial ones typically cashed tokens
+
+=== 58:30 @ 58:30 (3510s) ===
+  >>> [58:29] and when you finish generating um you can like evict that from your memory and
+  >>> [58:31] can like evict that from your memory and so you can uh evict whole blocks at once
+  >>> [58:26] in parallel many sequences in parallel and when you finish generating um you
+  >>> [58:34] so you can uh evict whole blocks at once and this makes the calculation more more
+      [58:36] and this makes the calculation more more efficient. So um this is uh one
+
+=== 59:15 @ 59:15 (3555s) ===
+  >>> [59:15] and they use this to look up prefixes that have been used already. And so this
+  >>> [59:13] a a tree basically uh it's a radics tree and they use this to look up prefixes
+  >>> [59:18] that have been used already. And so this uh when it first came out this was
+      [59:20] uh when it first came out this was specifically focused around uh chat bots
+      [59:08] inputs. And so what they do is they form a a tree basically uh it's a radics tree
+
+=== 59:45 @ 59:45 (3585s) ===
+  >>> [59:41] longer and much more frequent. So we need this uh looking up more frequently.
+      [59:50] Um so another uh another thing that you need to think about um which is handled
+      [59:39] because agent conversations are much longer and much more frequent. So we
+      [59:38] like much much more important for agents because agent conversations are much
+      [59:52] need to think about um which is handled in uh newer versions of sglang for
+
+=== 61:00 @ 61:00 (3660s) ===
+  >>> [60:58] lie but um you can see uh mistrol has the worst cache hit rate and then um you
+  >>> [61:02] the worst cache hit rate and then um you have other one other ones like Alibaba
+  >>> [61:04] have other one other ones like Alibaba cloud or dicard or silicon flow that
+      [60:54] I'm sorry mist the data the data doesn't lie but um you can see uh mistrol has
+      [61:06] cloud or dicard or silicon flow that have higher cash hit rates um this is
+
+=== 65:00 @ 65:00 (3900s) ===
+  >>> [65:00] like no caching essentially. uh you don't have a single message that you're
+  >>> [65:01] don't have a single message that you're able to cache. So one thing one very
+  >>> [64:58] uh you take a step because that means like no caching essentially. uh you
+  >>> [65:04] able to cache. So one thing one very logical thing that you might think of is
+      [64:55] change the system message every time you uh you take a step because that means
+
+=== 67:15 @ 67:15 (4035s) ===
+  >>> [67:17] and so the reason why people are like not excited about using this, uh,
+  >>> [67:12] the essence of the previous context. Um, and so the reason why people are
+  >>> [67:19] like not excited about using this, uh, perhaps obviously is if you do a bad job
+      [67:09] context and you crush it down into just the essence of the previous context. Um,
+      [67:21] perhaps obviously is if you do a bad job at this, your agent forgets things. It
+
+=== 67:45 @ 67:45 (4065s) ===
+  >>> [67:45] sequence um you take your history, you compact that, you get a working state
+  >>> [67:42] representation where your future action sequence um you take your history, you
+  >>> [67:48] compact that, you get a working state and you want your future action sequence
+      [67:50] and you want your future action sequence to be the same or you know similar or
+      [67:39] trying to come up with a previous representation where your future action
+
+=== 68:45 @ 68:45 (4125s) ===
+  >>> [68:44] so, uh, one of the answers to the things that I heard agents forget when I asked
+  >>> [68:47] that I heard agents forget when I asked the question, what do agents forget was
+  >>> [68:42] instance. Um, so, uh, one of the answers to the things
+      [68:50] the question, what do agents forget was sometimes they forget the things at the
+      [68:39] said when they started the session for instance. Um,
+
+=== 71:30 @ 71:30 (4290s) ===
+  >>> [71:30] summary. Sometimes it's just free text. Um there's also uh
+  >>> [71:27] this and this must be in the compaction summary. Sometimes it's just free text.
+  >>> [71:26] tool call uh that says this and this and this and this must be in the compaction
+  >>> [71:34] Um there's also uh I think this is only open AI uh
+      [71:36] I think this is only open AI uh possibly. But basically they um they
+
+=== 72:00 @ 72:00 (4320s) ===
+  >>> [71:59] keep on on working on that. Um
+  >>> [72:01] Um so
+  >>> [71:57] Um and then uh yeah, you can you can keep on on working on that.
+  >>> [72:03] so one of the risks here is uh sometimes
+      [72:06] one of the risks here is uh sometimes you can compact over and over and over
+
+=== 72:15 @ 72:15 (4335s) ===
+  >>> [72:14] as you walk through more um you uh you end up losing more and more. So again
+  >>> [72:16] end up losing more and more. So again this is one of the reasons why people
+  >>> [72:18] this is one of the reasons why people don't like compaction because it can
+  >>> [72:19] don't like compaction because it can cause the agent to go off the rails.
+      [72:10] again and the first time it works uh but as you walk through more um you uh you
+
+=== 75:00 @ 75:00 (4500s) ===
+  >>> [75:00] going to talk about sub aents later, so I didn't cover them this time. Yeah.
+  >>> [74:59] to manage context? And yes, but we're going to talk about sub aents later, so
+  >>> [74:57] was, do we consider sub agents as a way to manage context? And yes, but we're
+      [74:55] >> Yeah, great question. Um, the question was, do we consider sub agents as a way
+      [74:48] before we all uh all leave or >> Yeah.
+

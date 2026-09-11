@@ -1,0 +1,10 @@
+{
+  "mode": "technical-slide",
+  "audience": "capable first-time reader（有 LLM 基础、日常用编码 agent，但不了解 agent 系统全貌的读者）",
+  "central_question": "什么是 agent？它如何在「模型 + 工具 + 循环」里行动，而要让这套系统可靠工作，缺的能力该由训练模型补还是由工程化 harness 补？",
+  "reader_outcome": "能写出/读懂最小 ReAct 循环并解释 tool call 的 token 形态；能按六种能力盘点 agent 系统短板并判断问题该落在 harness engineering 还是模型训练；能说清 agent 系统的五个部件，以及这门课三次作业的能力递进",
+  "visual_teaching_atoms": 33,
+  "formula_teaching_atoms": 4,
+  "vision": "no",
+  "notes": "英文讲座，使用官方自动字幕（clean_subs.py 去重后 1614 条，health 覆盖 1.0，无烧录字幕因此未做 hardsub OCR）。host 无图像输入：配图由 frame_filter score（0 talking_head）+ 全帧 OCR 文本选定，33 张图全部通过 verify_figures 时间对齐。bands 仅裁掉 y840 以下纯黑边（120px），未裁任何幻灯片内容。numerical_claims.tsv 剔除浏览器/Zoom 界面噪声（2V、90%、234MB 等）与纯教务细节，保留教学相关数字；课表/截止日等行政信息在正文只做必要引用。"
+}

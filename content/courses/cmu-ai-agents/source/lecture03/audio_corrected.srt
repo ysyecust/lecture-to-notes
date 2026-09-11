@@ -1,0 +1,6575 @@
+1
+00:00:09,920 --> 00:00:11,830
+Okay. Uh hello everyone. Can you hear me in the back?
+
+2
+00:00:11,840 --> 00:00:15,589
+in the back? All good. Okay.
+
+3
+00:00:15,599 --> 00:00:20,070
+All good. Okay. So, uh well, welcome back everyone.
+
+4
+00:00:20,080 --> 00:00:24,790
+So, uh well, welcome back everyone. Am I uh echoing? All good. Okay. So, um,
+
+5
+00:00:24,800 --> 00:00:26,550
+Am I uh echoing? All good. Okay. So, um, today I'd like to talk about context
+
+6
+00:00:26,560 --> 00:00:30,710
+today I'd like to talk about context management for long context agents. And
+
+7
+00:00:30,720 --> 00:00:33,030
+management for long context agents. And I at first thought about titling this as
+
+8
+00:00:33,040 --> 00:00:35,030
+I at first thought about titling this as like context management for long context
+
+9
+00:00:35,040 --> 00:00:37,190
+like context management for long context LLMs because most of the stuff I'm going
+
+10
+00:00:37,200 --> 00:00:38,950
+LLMs because most of the stuff I'm going to be talking about today is kind of
+
+11
+00:00:38,960 --> 00:00:41,990
+to be talking about today is kind of more general LLM stuff, but long context
+
+12
+00:00:42,000 --> 00:00:44,069
+more general LLM stuff, but long context is super super important for when we're
+
+13
+00:00:44,079 --> 00:00:45,430
+is super super important for when we're working on agents and it's not
+
+14
+00:00:45,440 --> 00:00:47,590
+working on agents and it's not necessarily covered uh, very well in all
+
+15
+00:00:47,600 --> 00:00:49,510
+necessarily covered uh, very well in all of the LLM prerequisite classes. So, I'm
+
+16
+00:00:49,520 --> 00:00:51,430
+of the LLM prerequisite classes. So, I'm going to cover it in a fair amount of
+
+17
+00:00:51,440 --> 00:00:53,510
+going to cover it in a fair amount of detail today. I'm also going to try to
+
+18
+00:00:53,520 --> 00:00:55,270
+detail today. I'm also going to try to go through kind of the long context
+
+19
+00:00:55,280 --> 00:00:58,549
+go through kind of the long context architectures that are used in many of
+
+20
+00:00:58,559 --> 00:01:00,630
+architectures that are used in many of the kind of state-of-the-art open uh
+
+21
+00:01:00,640 --> 00:01:03,029
+the kind of state-of-the-art open uh models so you can kind of see the best
+
+22
+00:01:03,039 --> 00:01:05,429
+models so you can kind of see the best practices that everybody is using in
+
+23
+00:01:05,439 --> 00:01:10,390
+practices that everybody is using in order to handle a very long context.
+
+24
+00:01:12,640 --> 00:01:16,230
+So first I'd like to talk a little bit about um how long an agent context can
+
+25
+00:01:16,240 --> 00:01:17,830
+about um how long an agent context can grow.
+
+26
+00:01:17,840 --> 00:01:22,390
+grow. So basically the input is quadratic uh
+
+27
+00:01:22,400 --> 00:01:26,950
+So basically the input is quadratic uh from the uh or the number of token
+
+28
+00:01:26,960 --> 00:01:29,350
+from the uh or the number of token accesses that you do is quadratic uh
+
+29
+00:01:29,360 --> 00:01:31,749
+accesses that you do is quadratic uh based on the linear history growth. So
+
+30
+00:01:31,759 --> 00:01:35,109
+based on the linear history growth. So um if each call uh you make for an agent
+
+31
+00:01:35,119 --> 00:01:36,870
+um if each call uh you make for an agent takes about you know five tokens and
+
+32
+00:01:36,880 --> 00:01:38,310
+takes about you know five tokens and let's say you start out with a an
+
+33
+00:01:38,320 --> 00:01:40,630
+let's say you start out with a an initial system prompt of one token uh
+
+34
+00:01:40,640 --> 00:01:42,390
+initial system prompt of one token uh you'll get six tokens in the first call
+
+35
+00:01:42,400 --> 00:01:47,510
+you'll get six tokens in the first call 11 16 uh 21 and 26. you know, this will
+
+36
+00:01:47,520 --> 00:01:50,710
+11 16 uh 21 and 26. you know, this will increase and increase and increase. Um,
+
+37
+00:01:50,720 --> 00:01:53,350
+increase and increase and increase. Um, and so by the time you have gotten to
+
+38
+00:01:53,360 --> 00:01:55,990
+and so by the time you have gotten to the end, you will, if you do things
+
+39
+00:01:56,000 --> 00:01:59,270
+the end, you will, if you do things completely naively, you will have had to
+
+40
+00:01:59,280 --> 00:02:02,870
+completely naively, you will have had to process ADK tokens uh for these five
+
+41
+00:02:02,880 --> 00:02:06,230
+process ADK tokens uh for these five calls. And you know, this can continue
+
+42
+00:02:06,240 --> 00:02:08,150
+calls. And you know, this can continue for a very long time. I I don't know the
+
+43
+00:02:08,160 --> 00:02:10,229
+for a very long time. I I don't know the longest anybody has used a single coding
+
+44
+00:02:10,239 --> 00:02:11,750
+longest anybody has used a single coding agent session or something like that,
+
+45
+00:02:11,760 --> 00:02:13,670
+agent session or something like that, but I've certainly done them for like
+
+46
+00:02:13,680 --> 00:02:15,670
+but I've certainly done them for like multiple days uh where I've been working
+
+47
+00:02:15,680 --> 00:02:17,830
+multiple days uh where I've been working with it for almost the entire day. So
+
+48
+00:02:17,840 --> 00:02:19,589
+with it for almost the entire day. So you could imagine this could get uh very
+
+49
+00:02:19,599 --> 00:02:22,949
+you could imagine this could get uh very very large. Um the actual computational
+
+50
+00:02:22,959 --> 00:02:27,190
+very large. Um the actual computational complexity of this is uh is actually
+
+51
+00:02:27,200 --> 00:02:30,869
+complexity of this is uh is actually even larger than this. Um
+
+52
+00:02:30,879 --> 00:02:33,190
+even larger than this. Um well no sorry. So yeah the the
+
+53
+00:02:33,200 --> 00:02:35,350
+well no sorry. So yeah the the computational complexity is is quadratic
+
+54
+00:02:35,360 --> 00:02:37,350
+computational complexity is is quadratic here.
+
+55
+00:02:37,360 --> 00:02:40,869
+here. So why do agent prompts get so long uh
+
+56
+00:02:40,879 --> 00:02:43,670
+So why do agent prompts get so long uh so quickly? I did a little bit of data
+
+57
+00:02:43,680 --> 00:02:47,270
+so quickly? I did a little bit of data analysis on uh the composition of
+
+58
+00:02:47,280 --> 00:02:51,990
+analysis on uh the composition of prompts that I used in um uh 1,500
+
+59
+00:02:52,000 --> 00:02:54,309
+prompts that I used in um uh 1,500 sessions from our uh coding agent
+
+60
+00:02:54,319 --> 00:02:57,589
+sessions from our uh coding agent openhands. And
+
+61
+00:02:57,599 --> 00:02:59,990
+openhands. And each each session was relatively short.
+
+62
+00:03:00,000 --> 00:03:01,430
+each each session was relatively short. These are not like the long multi-day
+
+63
+00:03:01,440 --> 00:03:03,030
+These are not like the long multi-day sessions that you do. This is more like
+
+64
+00:03:03,040 --> 00:03:06,229
+sessions that you do. This is more like solving a single task. But uh each one
+
+65
+00:03:06,239 --> 00:03:10,149
+solving a single task. But uh each one used about 78,000 tokens on average. Um
+
+66
+00:03:10,159 --> 00:03:12,550
+used about 78,000 tokens on average. Um 23% of this was a system prompt in all
+
+67
+00:03:12,560 --> 00:03:14,710
+23% of this was a system prompt in all of the tool descriptions. Uh this is
+
+68
+00:03:14,720 --> 00:03:16,710
+of the tool descriptions. Uh this is relatively large for a coding agent. I
+
+69
+00:03:16,720 --> 00:03:18,790
+relatively large for a coding agent. I think our system prompt is somewhere on
+
+70
+00:03:18,800 --> 00:03:21,350
+think our system prompt is somewhere on the order of like 15,000 to 18,000
+
+71
+00:03:21,360 --> 00:03:23,750
+the order of like 15,000 to 18,000 tokens because we're very opinionated.
+
+72
+00:03:23,760 --> 00:03:25,670
+tokens because we're very opinionated. Uh the open ants agent is very
+
+73
+00:03:25,680 --> 00:03:27,910
+Uh the open ants agent is very opinionated about how people uh do work.
+
+74
+00:03:27,920 --> 00:03:30,390
+opinionated about how people uh do work. Um these tend to vary from like 8,000 to
+
+75
+00:03:30,400 --> 00:03:33,030
+Um these tend to vary from like 8,000 to uh 8,000 to 20,000 tokens depending on
+
+76
+00:03:33,040 --> 00:03:35,589
+uh 8,000 to 20,000 tokens depending on you know how many tools you uh you pull
+
+77
+00:03:35,599 --> 00:03:38,470
+you know how many tools you uh you pull in and stuff like this. Um separately
+
+78
+00:03:38,480 --> 00:03:41,270
+in and stuff like this. Um separately from this uh 9% were user messages. So
+
+79
+00:03:41,280 --> 00:03:42,949
+from this uh 9% were user messages. So this is the user either saying the
+
+80
+00:03:42,959 --> 00:03:45,509
+this is the user either saying the initial task or following up with uh
+
+81
+00:03:45,519 --> 00:03:48,630
+initial task or following up with uh additional information after that. 9%
+
+82
+00:03:48,640 --> 00:03:51,830
+additional information after that. 9% were reasoning traces um and you know
+
+83
+00:03:51,840 --> 00:03:53,190
+were reasoning traces um and you know where the model is thinking through
+
+84
+00:03:53,200 --> 00:03:56,630
+where the model is thinking through things. 2% were model replies. Sorry,
+
+85
+00:03:56,640 --> 00:03:58,390
+things. 2% were model replies. Sorry, this isn't showing on the slide, but 2%
+
+86
+00:03:58,400 --> 00:04:00,949
+this isn't showing on the slide, but 2% were um the model replying directly to
+
+87
+00:04:00,959 --> 00:04:03,030
+were um the model replying directly to the user. So, it's spending about um
+
+88
+00:04:03,040 --> 00:04:05,030
+the user. So, it's spending about um five times as many tokens freezing as it
+
+89
+00:04:05,040 --> 00:04:07,110
+five times as many tokens freezing as it is spending communicating uh with text
+
+90
+00:04:07,120 --> 00:04:10,869
+is spending communicating uh with text to the user. And 20% were tool calls. Uh
+
+91
+00:04:10,879 --> 00:04:14,390
+to the user. And 20% were tool calls. Uh so, you know, uh you know, writing code,
+
+92
+00:04:14,400 --> 00:04:16,469
+so, you know, uh you know, writing code, uh reading code, that sort of thing. And
+
+93
+00:04:16,479 --> 00:04:19,509
+uh reading code, that sort of thing. And 37% were tool results. So, this is uh
+
+94
+00:04:19,519 --> 00:04:21,030
+37% were tool results. So, this is uh you know, getting the result of, you
+
+95
+00:04:21,040 --> 00:04:22,469
+you know, getting the result of, you know, reading a file or something like
+
+96
+00:04:22,479 --> 00:04:23,830
+know, reading a file or something like this.
+
+97
+00:04:23,840 --> 00:04:27,350
+this. So you know each step can uh will
+
+98
+00:04:27,360 --> 00:04:29,189
+So you know each step can uh will consist of all of these and that tends
+
+99
+00:04:29,199 --> 00:04:34,070
+consist of all of these and that tends to add up uh very quickly.
+
+100
+00:04:36,000 --> 00:04:38,790
+So when you're handling this very long context uh there's two big challenges
+
+101
+00:04:38,800 --> 00:04:42,230
+context uh there's two big challenges here. Uh the first one is capacity and
+
+102
+00:04:42,240 --> 00:04:44,070
+here. Uh the first one is capacity and so whether your model is able to handle
+
+103
+00:04:44,080 --> 00:04:45,990
+so whether your model is able to handle this large amount of uh evidence in the
+
+104
+00:04:46,000 --> 00:04:49,030
+this large amount of uh evidence in the first place and this is a challenge uh
+
+105
+00:04:49,040 --> 00:04:50,950
+first place and this is a challenge uh because as I'll talk about in a little
+
+106
+00:04:50,960 --> 00:04:52,629
+because as I'll talk about in a little bit training models to handle very long
+
+107
+00:04:52,639 --> 00:04:54,790
+bit training models to handle very long context is hard
+
+108
+00:04:54,800 --> 00:04:57,110
+context is hard um and so in order to manage this you
+
+109
+00:04:57,120 --> 00:04:58,870
+um and so in order to manage this you need uh things like architecture
+
+110
+00:04:58,880 --> 00:05:01,990
+need uh things like architecture position encoding training data uh and
+
+111
+00:05:02,000 --> 00:05:03,670
+position encoding training data uh and uh you also need to be able to evaluate
+
+112
+00:05:03,680 --> 00:05:05,909
+uh you also need to be able to evaluate whether you're doing a good job of this.
+
+113
+00:05:05,919 --> 00:05:08,390
+whether you're doing a good job of this. And then the second thing is efficiency
+
+114
+00:05:08,400 --> 00:05:10,390
+And then the second thing is efficiency uh and whether the system can afford to
+
+115
+00:05:10,400 --> 00:05:12,469
+uh and whether the system can afford to serve it. And there's a bunch of
+
+116
+00:05:12,479 --> 00:05:16,469
+serve it. And there's a bunch of techniques to do that as well. And I I
+
+117
+00:05:16,479 --> 00:05:17,990
+techniques to do that as well. And I I think some people might be taking this
+
+118
+00:05:18,000 --> 00:05:19,350
+think some people might be taking this for granted if you're just using, you
+
+119
+00:05:19,360 --> 00:05:20,950
+for granted if you're just using, you know, cloud code or codeex or something
+
+120
+00:05:20,960 --> 00:05:23,110
+know, cloud code or codeex or something like this, but they're doing some pretty
+
+121
+00:05:23,120 --> 00:05:26,230
+like this, but they're doing some pretty monumental feats of engineering to take
+
+122
+00:05:26,240 --> 00:05:29,510
+monumental feats of engineering to take a, you know, multi- trillion parameter
+
+123
+00:05:29,520 --> 00:05:34,150
+a, you know, multi- trillion parameter model and serve it within seconds uh to
+
+124
+00:05:34,160 --> 00:05:36,870
+model and serve it within seconds uh to uh over and over and over again for mil
+
+125
+00:05:36,880 --> 00:05:38,629
+uh over and over and over again for mil I don't know codeex has 25 million
+
+126
+00:05:38,639 --> 00:05:41,189
+I don't know codeex has 25 million users. So you can imagine uh 25 million
+
+127
+00:05:41,199 --> 00:05:43,830
+users. So you can imagine uh 25 million daily users hitting it every few seconds
+
+128
+00:05:43,840 --> 00:05:46,310
+daily users hitting it every few seconds for this huge model. Uh if you want to
+
+129
+00:05:46,320 --> 00:05:48,230
+for this huge model. Uh if you want to you can calculate in your head how many
+
+130
+00:05:48,240 --> 00:05:51,110
+you can calculate in your head how many flops per uh per second that might be.
+
+131
+00:05:51,120 --> 00:05:55,029
+flops per uh per second that might be. It's a lot of flops.
+
+132
+00:05:59,840 --> 00:06:01,830
+Cool. Um so any questions or things? Probably pretty straightforward I guess.
+
+133
+00:06:01,840 --> 00:06:06,550
+Probably pretty straightforward I guess. Okay. So uh let's go into inference. And
+
+134
+00:06:06,560 --> 00:06:11,670
+Okay. So uh let's go into inference. And so in order to make this happen uh the
+
+135
+00:06:11,680 --> 00:06:15,749
+so in order to make this happen uh the you basically need to be able to um
+
+136
+00:06:15,759 --> 00:06:19,029
+you basically need to be able to um calculate uh prefill and decoding. So uh
+
+137
+00:06:19,039 --> 00:06:21,189
+calculate uh prefill and decoding. So uh calculate your inputs and your outputs
+
+138
+00:06:21,199 --> 00:06:26,390
+calculate your inputs and your outputs at each step. And this uh you know I'm
+
+139
+00:06:26,400 --> 00:06:28,309
+at each step. And this uh you know I'm sure everybody has done in your previous
+
+140
+00:06:28,319 --> 00:06:31,430
+sure everybody has done in your previous classes uh for generating from uh you
+
+141
+00:06:31,440 --> 00:06:33,510
+classes uh for generating from uh you know a language model. some things you
+
+142
+00:06:33,520 --> 00:06:34,950
+know a language model. some things you may or may not have thought about in
+
+143
+00:06:34,960 --> 00:06:36,629
+may or may not have thought about in your previous classes. If you took how
+
+144
+00:06:36,639 --> 00:06:39,350
+your previous classes. If you took how many people took like uh language model
+
+145
+00:06:39,360 --> 00:06:41,029
+many people took like uh language model systems or deep learning systems or
+
+146
+00:06:41,039 --> 00:06:43,189
+systems or deep learning systems or something like that actually more than I
+
+147
+00:06:43,199 --> 00:06:44,629
+something like that actually more than I thought. So if you took the systems
+
+148
+00:06:44,639 --> 00:06:47,189
+thought. So if you took the systems course you you probably handled this. Um
+
+149
+00:06:47,199 --> 00:06:48,710
+course you you probably handled this. Um but other things you need to think about
+
+150
+00:06:48,720 --> 00:06:51,110
+but other things you need to think about are how do you schedule uh multiple
+
+151
+00:06:51,120 --> 00:06:53,830
+are how do you schedule uh multiple concurrent queries? Um and also how do
+
+152
+00:06:53,840 --> 00:06:56,550
+concurrent queries? Um and also how do you save the results in the KV cache uh
+
+153
+00:06:56,560 --> 00:06:59,430
+you save the results in the KV cache uh so you can reuse them and not have to
+
+154
+00:06:59,440 --> 00:07:01,670
+so you can reuse them and not have to reuse them over and over again. uh not
+
+155
+00:07:01,680 --> 00:07:05,589
+reuse them over and over again. uh not have to calculate over and over again.
+
+156
+00:07:05,599 --> 00:07:08,390
+have to calculate over and over again. So going into a bit more detail here, um
+
+157
+00:07:08,400 --> 00:07:11,189
+So going into a bit more detail here, um we have a few phrase uh phases in
+
+158
+00:07:11,199 --> 00:07:12,550
+we have a few phrase uh phases in inference. The first one is called
+
+159
+00:07:12,560 --> 00:07:14,550
+inference. The first one is called prefill. Um you could also call it
+
+160
+00:07:14,560 --> 00:07:17,749
+prefill. Um you could also call it encoding. Um but I think pre prefill is
+
+161
+00:07:17,759 --> 00:07:20,710
+encoding. Um but I think pre prefill is kind of the like preferred term of art
+
+162
+00:07:20,720 --> 00:07:24,309
+kind of the like preferred term of art nowadays. And so you take in all of your
+
+163
+00:07:24,319 --> 00:07:26,390
+nowadays. And so you take in all of your input tokens uh that you don't need to
+
+164
+00:07:26,400 --> 00:07:29,510
+input tokens uh that you don't need to generate and uh you generate the key and
+
+165
+00:07:29,520 --> 00:07:33,110
+generate and uh you generate the key and value pairs uh from each of them. And
+
+166
+00:07:33,120 --> 00:07:35,350
+value pairs uh from each of them. And then uh when you're decoding you
+
+167
+00:07:35,360 --> 00:07:38,070
+then uh when you're decoding you basically uh take the prompt uh and key
+
+168
+00:07:38,080 --> 00:07:41,430
+basically uh take the prompt uh and key value pairs um generate an output and
+
+169
+00:07:41,440 --> 00:07:43,749
+value pairs um generate an output and append uh the key value pair that you
+
+170
+00:07:43,759 --> 00:07:46,950
+append uh the key value pair that you get from the output. So um you do this
+
+171
+00:07:46,960 --> 00:07:48,710
+get from the output. So um you do this kind of incrementally whereas this can
+
+172
+00:07:48,720 --> 00:07:53,510
+kind of incrementally whereas this can be done in a batched sequence.
+
+173
+00:07:55,759 --> 00:07:57,830
+And so uh when we think about this as a serving system, there's a bunch of ways
+
+174
+00:07:57,840 --> 00:08:01,189
+serving system, there's a bunch of ways we quantify how good a serving system
+
+175
+00:08:01,199 --> 00:08:04,150
+we quantify how good a serving system is. Uh the first one is time to first
+
+176
+00:08:04,160 --> 00:08:07,589
+is. Uh the first one is time to first token. So this is how long you need to
+
+177
+00:08:07,599 --> 00:08:10,629
+token. So this is how long you need to start um you need to wait between when
+
+178
+00:08:10,639 --> 00:08:13,510
+start um you need to wait between when you start uh
+
+179
+00:08:13,520 --> 00:08:15,029
+you start uh entering a query and when you start
+
+180
+00:08:15,039 --> 00:08:17,270
+entering a query and when you start seeing the first output. And so like I'm
+
+181
+00:08:17,280 --> 00:08:20,150
+seeing the first output. And so like I'm sure everybody you know who uses chat
+
+182
+00:08:20,160 --> 00:08:22,550
+sure everybody you know who uses chat GPT or something like that uh you put in
+
+183
+00:08:22,560 --> 00:08:24,230
+GPT or something like that uh you put in a long output you notice it takes longer
+
+184
+00:08:24,240 --> 00:08:25,749
+a long output you notice it takes longer to start getting a response than if you
+
+185
+00:08:25,759 --> 00:08:28,950
+to start getting a response than if you put in sorry put in a long input you see
+
+186
+00:08:28,960 --> 00:08:30,390
+put in sorry put in a long input you see it takes longer to start getting a
+
+187
+00:08:30,400 --> 00:08:31,749
+it takes longer to start getting a response than if you put in a short
+
+188
+00:08:31,759 --> 00:08:33,750
+response than if you put in a short input and that's like your TTFT is
+
+189
+00:08:33,760 --> 00:08:37,430
+input and that's like your TTFT is higher. Uh then uh your time per output
+
+190
+00:08:37,440 --> 00:08:41,190
+higher. Uh then uh your time per output token is the uh time like the amount of
+
+191
+00:08:41,200 --> 00:08:43,190
+token is the uh time like the amount of time it takes uh between generating each
+
+192
+00:08:43,200 --> 00:08:47,509
+time it takes uh between generating each token. And if you go to a website like
+
+193
+00:08:47,519 --> 00:08:51,030
+token. And if you go to a website like open router
+
+194
+00:08:52,959 --> 00:08:56,389
+um t typically uh here this will be your
+
+195
+00:08:56,399 --> 00:09:00,230
+t typically uh here this will be your time per output token there I am pretty
+
+196
+00:09:00,240 --> 00:09:02,230
+time per output token there I am pretty sure they're not counting prefill here
+
+197
+00:09:02,240 --> 00:09:04,550
+sure they're not counting prefill here and it's just like the time between uh
+
+198
+00:09:04,560 --> 00:09:05,990
+and it's just like the time between uh each of the tokens that might be a
+
+199
+00:09:06,000 --> 00:09:07,030
+each of the tokens that might be a little bit small with the black
+
+200
+00:09:07,040 --> 00:09:09,590
+little bit small with the black background but you can see that um for
+
+201
+00:09:09,600 --> 00:09:14,230
+background but you can see that um for GLM 5.2 to uh you have like 63, 48, uh
+
+202
+00:09:14,240 --> 00:09:17,750
+GLM 5.2 to uh you have like 63, 48, uh 24, uh that sort of thing. And you know,
+
+203
+00:09:17,760 --> 00:09:19,670
+24, uh that sort of thing. And you know, some providers are drastically better
+
+204
+00:09:19,680 --> 00:09:22,470
+some providers are drastically better than others. Like this provider,
+
+205
+00:09:22,480 --> 00:09:24,150
+than others. Like this provider, not to pick on Mistl, but they're
+
+206
+00:09:24,160 --> 00:09:26,230
+not to pick on Mistl, but they're getting, you know, three three tokens
+
+207
+00:09:26,240 --> 00:09:29,030
+getting, you know, three three tokens per second and then these other ones
+
+208
+00:09:29,040 --> 00:09:31,030
+per second and then these other ones like Parasel and Coreweave are getting,
+
+209
+00:09:31,040 --> 00:09:32,710
+like Parasel and Coreweave are getting, you know, hundreds of tokens per second.
+
+210
+00:09:32,720 --> 00:09:38,150
+you know, hundreds of tokens per second. So um so basically uh you know this
+
+211
+00:09:38,160 --> 00:09:39,990
+So um so basically uh you know this makes a huge difference in your
+
+212
+00:09:40,000 --> 00:09:44,870
+makes a huge difference in your experience using um uh using agents. Uh
+
+213
+00:09:44,880 --> 00:09:47,670
+experience using um uh using agents. Uh one other interesting thing is um
+
+214
+00:09:47,680 --> 00:09:49,110
+one other interesting thing is um there's different ways people can use
+
+215
+00:09:49,120 --> 00:09:52,550
+there's different ways people can use agents. And so in some cases you might
+
+216
+00:09:52,560 --> 00:09:54,070
+agents. And so in some cases you might really hear about this. So like let's
+
+217
+00:09:54,080 --> 00:09:58,630
+really hear about this. So like let's say you're working together um with a an
+
+218
+00:09:58,640 --> 00:10:01,030
+say you're working together um with a an agent on a interactive task in your
+
+219
+00:10:01,040 --> 00:10:02,949
+agent on a interactive task in your favorite coding CLI. you may really
+
+220
+00:10:02,959 --> 00:10:04,790
+favorite coding CLI. you may really really care about, you know, TTFT and
+
+221
+00:10:04,800 --> 00:10:08,870
+really care about, you know, TTFT and Tapot. Um, if you're running an agent in
+
+222
+00:10:08,880 --> 00:10:10,389
+Tapot. Um, if you're running an agent in the background to do some background
+
+223
+00:10:10,399 --> 00:10:12,310
+the background to do some background tasks that run overnight, you might not
+
+224
+00:10:12,320 --> 00:10:15,590
+tasks that run overnight, you might not care at all. Um, and there's trade-offs
+
+225
+00:10:15,600 --> 00:10:17,590
+care at all. Um, and there's trade-offs between them, between like throughput
+
+226
+00:10:17,600 --> 00:10:20,230
+between them, between like throughput and cost and how fast uh you can get the
+
+227
+00:10:20,240 --> 00:10:24,949
+and cost and how fast uh you can get the the tokens. And like I you know also um
+
+228
+00:10:24,959 --> 00:10:27,269
+the tokens. And like I you know also um serve coding agents uh with my company
+
+229
+00:10:27,279 --> 00:10:29,269
+serve coding agents uh with my company and when I talk to providers they'll
+
+230
+00:10:29,279 --> 00:10:31,190
+and when I talk to providers they'll often often ask which do you care about
+
+231
+00:10:31,200 --> 00:10:33,430
+often often ask which do you care about more so we can optimize the system uh
+
+232
+00:10:33,440 --> 00:10:35,910
+more so we can optimize the system uh for the one you care about more and so
+
+233
+00:10:35,920 --> 00:10:37,910
+for the one you care about more and so um there's uh there's ways you can do
+
+234
+00:10:37,920 --> 00:10:46,310
+um there's uh there's ways you can do that and I'll I'll talk about those too.
+
+235
+00:10:48,000 --> 00:10:50,630
+Cool. Um yeah so sorry just to finish the
+
+236
+00:10:50,640 --> 00:10:53,190
+Um yeah so sorry just to finish the slide. So throughput is um the completed
+
+237
+00:10:53,200 --> 00:10:54,870
+slide. So throughput is um the completed tokens or requests divided by the wall
+
+238
+00:10:54,880 --> 00:10:56,630
+tokens or requests divided by the wall clock time. So this is kind of seen
+
+239
+00:10:56,640 --> 00:10:58,310
+clock time. So this is kind of seen usually on a more holistic level over
+
+240
+00:10:58,320 --> 00:11:01,190
+usually on a more holistic level over the whole system. And then uh the cost
+
+241
+00:11:01,200 --> 00:11:04,790
+the whole system. And then uh the cost is you know how much it costs.
+
+242
+00:11:04,800 --> 00:11:08,389
+is you know how much it costs. So as a refresher um I I hopefully
+
+243
+00:11:08,399 --> 00:11:10,630
+So as a refresher um I I hopefully everybody should know this already. Um
+
+244
+00:11:10,640 --> 00:11:14,470
+everybody should know this already. Um but you have uh the
+
+245
+00:11:14,480 --> 00:11:18,630
+but you have uh the uh query key and value calculation in uh
+
+246
+00:11:18,640 --> 00:11:22,870
+uh query key and value calculation in uh typical attention and this is uh so you
+
+247
+00:11:22,880 --> 00:11:23,990
+typical attention and this is uh so you have this here and then you take the
+
+248
+00:11:24,000 --> 00:11:26,550
+have this here and then you take the softmax um divide it by this. You might
+
+249
+00:11:26,560 --> 00:11:29,269
+softmax um divide it by this. You might have some sort of uh you know positional
+
+250
+00:11:29,279 --> 00:11:31,590
+have some sort of uh you know positional uh bias and then you calculate your
+
+251
+00:11:31,600 --> 00:11:35,110
+uh bias and then you calculate your output and typical full attention uh
+
+252
+00:11:35,120 --> 00:11:37,750
+output and typical full attention uh looks uh like this. you mask all the
+
+253
+00:11:37,760 --> 00:11:40,150
+looks uh like this. you mask all the previous tokens and and or you consider
+
+254
+00:11:40,160 --> 00:11:41,750
+previous tokens and and or you consider all the current tokens and you mask all
+
+255
+00:11:41,760 --> 00:11:44,710
+all the current tokens and you mask all the um the future tokens.
+
+256
+00:11:44,720 --> 00:11:48,389
+the um the future tokens. Um so this is of course very expensive
+
+257
+00:11:48,399 --> 00:11:50,069
+Um so this is of course very expensive because it's quadratic in the sequence
+
+258
+00:11:50,079 --> 00:11:53,030
+because it's quadratic in the sequence length. Uh and so a lot of the stuff I'm
+
+259
+00:11:53,040 --> 00:11:54,470
+length. Uh and so a lot of the stuff I'm going to be talking about today is about
+
+260
+00:11:54,480 --> 00:11:56,630
+going to be talking about today is about how to fix that.
+
+261
+00:11:56,640 --> 00:11:59,990
+how to fix that. Um so this is on the efficiency side and
+
+262
+00:12:00,000 --> 00:12:02,150
+Um so this is on the efficiency side and then on the effectiveness side just
+
+263
+00:12:02,160 --> 00:12:05,030
+then on the effectiveness side just because you have a model or just because
+
+264
+00:12:05,040 --> 00:12:06,629
+because you have a model or just because you have a serving system that can take
+
+265
+00:12:06,639 --> 00:12:09,509
+you have a serving system that can take in you know a million tokens doesn't
+
+266
+00:12:09,519 --> 00:12:12,230
+in you know a million tokens doesn't necessarily mean that you can use that a
+
+267
+00:12:12,240 --> 00:12:15,910
+necessarily mean that you can use that a million tokens effectively and
+
+268
+00:12:15,920 --> 00:12:19,750
+million tokens effectively and um this is a very like old school
+
+269
+00:12:19,760 --> 00:12:21,430
+um this is a very like old school example of this I guess this is a needle
+
+270
+00:12:21,440 --> 00:12:23,030
+example of this I guess this is a needle in the haststack evaluation how many
+
+271
+00:12:23,040 --> 00:12:25,829
+in the haststack evaluation how many people have seen this figure for
+
+272
+00:12:25,839 --> 00:12:28,870
+people have seen this figure for maybe some but not not that many. Okay,
+
+273
+00:12:28,880 --> 00:12:30,949
+maybe some but not not that many. Okay, so to explain what this looks like,
+
+274
+00:12:30,959 --> 00:12:34,389
+so to explain what this looks like, basically what this is saying is um it's
+
+275
+00:12:34,399 --> 00:12:36,949
+basically what this is saying is um it's a very weird evaluation. Basically, they
+
+276
+00:12:36,959 --> 00:12:38,310
+a very weird evaluation. Basically, they um they took a whole bunch of Paul
+
+277
+00:12:38,320 --> 00:12:40,710
+um they took a whole bunch of Paul Graham essays uh by the like famous
+
+278
+00:12:40,720 --> 00:12:42,790
+Graham essays uh by the like famous entrepreneur and head of Y Combinator
+
+279
+00:12:42,800 --> 00:12:45,350
+entrepreneur and head of Y Combinator Paul Graham and they stuck in uh
+
+280
+00:12:45,360 --> 00:12:46,870
+Paul Graham and they stuck in uh something about like the best place in
+
+281
+00:12:46,880 --> 00:12:48,550
+something about like the best place in San Francisco to eat a sandwich is
+
+282
+00:12:48,560 --> 00:12:50,790
+San Francisco to eat a sandwich is something or other and then they ask a
+
+283
+00:12:50,800 --> 00:12:52,629
+something or other and then they ask a question where's the best place in San
+
+284
+00:12:52,639 --> 00:12:54,389
+question where's the best place in San Francisco to eat a sandwich and then the
+
+285
+00:12:54,399 --> 00:12:55,670
+Francisco to eat a sandwich and then the language model has to answer that
+
+286
+00:12:55,680 --> 00:12:58,790
+language model has to answer that correctly. um and they made the context
+
+287
+00:12:58,800 --> 00:13:00,949
+correctly. um and they made the context longer and longer and longer and then
+
+288
+00:13:00,959 --> 00:13:03,829
+longer and longer and longer and then they evaluate uh models with the longer
+
+289
+00:13:03,839 --> 00:13:06,230
+they evaluate uh models with the longer context and eventually the weaker models
+
+290
+00:13:06,240 --> 00:13:08,310
+context and eventually the weaker models start getting worse at these very very
+
+291
+00:13:08,320 --> 00:13:10,310
+start getting worse at these very very long contexts and there's a bunch of
+
+292
+00:13:10,320 --> 00:13:13,190
+long contexts and there's a bunch of examples of things like this. Um ruler
+
+293
+00:13:13,200 --> 00:13:15,430
+examples of things like this. Um ruler and helmet are kind of the the common
+
+294
+00:13:15,440 --> 00:13:18,790
+and helmet are kind of the the common benchmarks that people use here. Um but
+
+295
+00:13:18,800 --> 00:13:21,430
+benchmarks that people use here. Um but basically uh the long the summary is
+
+296
+00:13:21,440 --> 00:13:24,069
+basically uh the long the summary is that if you have very long context your
+
+297
+00:13:24,079 --> 00:13:25,750
+that if you have very long context your models might start getting worse at
+
+298
+00:13:25,760 --> 00:13:28,069
+models might start getting worse at processing them.
+
+299
+00:13:28,079 --> 00:13:29,829
+processing them. So has anybody noticed this when you've
+
+300
+00:13:29,839 --> 00:13:31,910
+So has anybody noticed this when you've used a coding agent for a long time like
+
+301
+00:13:31,920 --> 00:13:34,470
+used a coding agent for a long time like are there common
+
+302
+00:13:34,480 --> 00:13:36,470
+are there common or used any agent for a long time are
+
+303
+00:13:36,480 --> 00:13:38,310
+or used any agent for a long time are there common like failure cases that you
+
+304
+00:13:38,320 --> 00:13:40,790
+there common like failure cases that you see?
+
+305
+00:13:40,800 --> 00:13:42,629
+see? What what kind of things what kind of
+
+306
+00:13:42,639 --> 00:13:45,269
+What what kind of things what kind of things have bothered you?
+
+307
+00:13:45,279 --> 00:13:48,470
+things have bothered you? Anybody?
+
+308
+00:13:49,040 --> 00:13:51,350
+>> Yeah. >> Forget the previous context.
+
+309
+00:13:51,360 --> 00:13:53,030
+>> Forget the previous context. >> Yeah. Forgets the previous context. Did
+
+310
+00:13:53,040 --> 00:13:58,150
+>> Yeah. Forgets the previous context. Did that cause any like problems for you?
+
+311
+00:14:08,480 --> 00:14:09,829
+with me telling it not to do something in the middle of the conversation and
+
+312
+00:14:09,839 --> 00:14:13,269
+in the middle of the conversation and then it goes and does it. Um there there
+
+313
+00:14:13,279 --> 00:14:16,150
+then it goes and does it. Um there there was a really bad example uh where I
+
+314
+00:14:16,160 --> 00:14:17,670
+was a really bad example uh where I think actually Daniel talked about it
+
+315
+00:14:17,680 --> 00:14:19,670
+think actually Daniel talked about it here where the person had said do not
+
+316
+00:14:19,680 --> 00:14:21,269
+here where the person had said do not delete this and then it went and deleted
+
+317
+00:14:21,279 --> 00:14:22,949
+delete this and then it went and deleted it anyway because it had forgotten the
+
+318
+00:14:22,959 --> 00:14:25,670
+it anyway because it had forgotten the context. So yeah, this can be a really
+
+319
+00:14:25,680 --> 00:14:28,230
+context. So yeah, this can be a really big problem in agentic settings because
+
+320
+00:14:28,240 --> 00:14:29,990
+big problem in agentic settings because you know the user is giving these
+
+321
+00:14:30,000 --> 00:14:33,590
+you know the user is giving these incremental instructions. So
+
+322
+00:14:33,600 --> 00:14:35,189
+incremental instructions. So so I'm going to be talking about several
+
+323
+00:14:35,199 --> 00:14:36,069
+so I'm going to be talking about several different things. I'm going to be
+
+324
+00:14:36,079 --> 00:14:37,590
+different things. I'm going to be talking about architecture. I'm going to
+
+325
+00:14:37,600 --> 00:14:40,629
+talking about architecture. I'm going to be talking about training inference and
+
+326
+00:14:40,639 --> 00:14:43,030
+be talking about training inference and compaction. So going first into
+
+327
+00:14:43,040 --> 00:14:46,790
+compaction. So going first into architecture. Um this is both about
+
+328
+00:14:46,800 --> 00:14:49,110
+architecture. Um this is both about efficiency and accuracy.
+
+329
+00:14:49,120 --> 00:14:51,910
+efficiency and accuracy. And so as I mentioned standard attention
+
+330
+00:14:51,920 --> 00:14:53,670
+And so as I mentioned standard attention is global. So it makes pairwise
+
+331
+00:14:53,680 --> 00:14:57,110
+is global. So it makes pairwise comparisons across uh all of the tokens
+
+332
+00:14:57,120 --> 00:15:02,629
+comparisons across uh all of the tokens here. And um the problem with this is uh
+
+333
+00:15:02,639 --> 00:15:07,350
+here. And um the problem with this is uh like this is quadratic obviously. And
+
+334
+00:15:07,360 --> 00:15:09,829
+like this is quadratic obviously. And does anyone know the like standard
+
+335
+00:15:09,839 --> 00:15:13,590
+does anyone know the like standard length of the of models nowadays of
+
+336
+00:15:13,600 --> 00:15:15,590
+length of the of models nowadays of these uh of like state-of-the-art
+
+337
+00:15:15,600 --> 00:15:17,750
+these uh of like state-of-the-art language models?
+
+338
+00:15:17,760 --> 00:15:19,269
+language models? >> 256 to a million.
+
+339
+00:15:19,279 --> 00:15:21,590
+>> 256 to a million. >> 256 to a million. Yeah. And I I'd say
+
+340
+00:15:21,600 --> 00:15:23,189
+>> 256 to a million. Yeah. And I I'd say most people are aiming for a million now
+
+341
+00:15:23,199 --> 00:15:24,710
+most people are aiming for a million now because they don't want to be the, you
+
+342
+00:15:24,720 --> 00:15:27,030
+because they don't want to be the, you know, the model that has 256 when
+
+343
+00:15:27,040 --> 00:15:29,590
+know, the model that has 256 when everyone else has a million. So very
+
+344
+00:15:29,600 --> 00:15:30,870
+everyone else has a million. So very quick math in your head, how many
+
+345
+00:15:30,880 --> 00:15:34,230
+quick math in your head, how many pairwise comparisons is that?
+
+346
+00:15:34,240 --> 00:15:35,990
+pairwise comparisons is that? >> 10 12
+
+347
+00:15:36,000 --> 00:15:38,870
+>> 10 12 >> 10 10^ the 12 or in English.
+
+348
+00:15:38,880 --> 00:15:41,350
+>> 10 10^ the 12 or in English. >> A trillion. Yeah, that's a trillion.
+
+349
+00:15:41,360 --> 00:15:43,030
+>> A trillion. Yeah, that's a trillion. That's a trillion comparisons every
+
+350
+00:15:43,040 --> 00:15:45,829
+That's a trillion comparisons every time. uh like when you're uh generating
+
+351
+00:15:45,839 --> 00:15:49,430
+time. uh like when you're uh generating a sequence of a million long and each
+
+352
+00:15:49,440 --> 00:15:53,590
+a sequence of a million long and each comparison uh requires you to multiply
+
+353
+00:15:53,600 --> 00:15:55,590
+comparison uh requires you to multiply large vectors by each other over and
+
+354
+00:15:55,600 --> 00:15:56,870
+large vectors by each other over and over and over again. So you're starting
+
+355
+00:15:56,880 --> 00:16:01,189
+over and over again. So you're starting to get up into the you know 10 to the
+
+356
+00:16:01,199 --> 00:16:06,069
+to get up into the you know 10 to the I guess it'd probably be 10 to the 20ish
+
+357
+00:16:06,079 --> 00:16:08,550
+I guess it'd probably be 10 to the 20ish uh which is a lot that that's a lot of
+
+358
+00:16:08,560 --> 00:16:12,790
+uh which is a lot that that's a lot of compute um for a single sequence.
+
+359
+00:16:12,800 --> 00:16:16,550
+compute um for a single sequence. So um there there's ways that people
+
+360
+00:16:16,560 --> 00:16:19,189
+So um there there's ways that people solve this and basically almost all of
+
+361
+00:16:19,199 --> 00:16:20,710
+solve this and basically almost all of them fall into the category of taking
+
+362
+00:16:20,720 --> 00:16:23,110
+them fall into the category of taking this quadratic computation and putting
+
+363
+00:16:23,120 --> 00:16:24,790
+this quadratic computation and putting some sort of constant limit on the
+
+364
+00:16:24,800 --> 00:16:27,189
+some sort of constant limit on the number of comparisons that are made uh
+
+365
+00:16:27,199 --> 00:16:30,629
+number of comparisons that are made uh at each time step. And that brings your
+
+366
+00:16:30,639 --> 00:16:34,710
+at each time step. And that brings your uh n squared down to owl where I I wrote
+
+367
+00:16:34,720 --> 00:16:36,870
+uh n squared down to owl where I I wrote w for window but it doesn't necessarily
+
+368
+00:16:36,880 --> 00:16:38,310
+w for window but it doesn't necessarily need to be a window. It just needs to be
+
+369
+00:16:38,320 --> 00:16:39,670
+need to be a window. It just needs to be the cap on the number of comparisons
+
+370
+00:16:39,680 --> 00:16:43,189
+the cap on the number of comparisons that you're making.
+
+371
+00:16:47,120 --> 00:16:49,110
+Um so there's the idea of local models and global models. And so local models
+
+372
+00:16:49,120 --> 00:16:51,350
+and global models. And so local models are are basically models where this cap
+
+373
+00:16:51,360 --> 00:16:54,949
+are are basically models where this cap on computation happens within a local
+
+374
+00:16:54,959 --> 00:16:57,990
+on computation happens within a local window. And then global models you have
+
+375
+00:16:58,000 --> 00:16:59,990
+window. And then global models you have a cap on you might or might not have a
+
+376
+00:17:00,000 --> 00:17:01,829
+a cap on you might or might not have a cap on computation but that cap on
+
+377
+00:17:01,839 --> 00:17:03,509
+cap on computation but that cap on computation is not localized. So you can
+
+378
+00:17:03,519 --> 00:17:05,510
+computation is not localized. So you can pass information uh throughout the
+
+379
+00:17:05,520 --> 00:17:09,669
+pass information uh throughout the entire sequence. And the I'd say almost
+
+380
+00:17:09,679 --> 00:17:12,549
+entire sequence. And the I'd say almost all of the models uh that exist nowadays
+
+381
+00:17:12,559 --> 00:17:14,710
+all of the models uh that exist nowadays or are widely popular nowadays are some
+
+382
+00:17:14,720 --> 00:17:17,990
+or are widely popular nowadays are some variety of hybrid model where they have
+
+383
+00:17:18,000 --> 00:17:20,150
+variety of hybrid model where they have many local computations and then one
+
+384
+00:17:20,160 --> 00:17:21,669
+many local computations and then one global computation then many local
+
+385
+00:17:21,679 --> 00:17:25,350
+global computation then many local computations one global computation
+
+386
+00:17:25,360 --> 00:17:27,669
+computations one global computation and specifically I'm going to talk about
+
+387
+00:17:27,679 --> 00:17:31,270
+and specifically I'm going to talk about six uh models that we have here. So uh
+
+388
+00:17:31,280 --> 00:17:34,710
+six uh models that we have here. So uh the most recent Quen model uh has uh
+
+389
+00:17:34,720 --> 00:17:37,190
+the most recent Quen model uh has uh local computation of uh gated delta net.
+
+390
+00:17:37,200 --> 00:17:39,510
+local computation of uh gated delta net. I'll explain all of these uh or most of
+
+391
+00:17:39,520 --> 00:17:41,990
+I'll explain all of these uh or most of these in a bit. And then um sparse
+
+392
+00:17:42,000 --> 00:17:44,390
+these in a bit. And then um sparse retrieval uh for the global computation
+
+393
+00:17:44,400 --> 00:17:46,950
+retrieval uh for the global computation and the ratio is 3:1.
+
+394
+00:17:46,960 --> 00:17:51,590
+and the ratio is 3:1. Uh GLM 5.3 is uh also a variety of delta
+
+395
+00:17:51,600 --> 00:17:56,150
+Uh GLM 5.3 is uh also a variety of delta um and sparse attention uh with 3:1.
+
+396
+00:17:56,160 --> 00:17:58,630
+um and sparse attention uh with 3:1. Um
+
+397
+00:17:58,640 --> 00:18:03,590
+Um uh Kim K3 is uh a variety of Delta and
+
+398
+00:18:03,600 --> 00:18:07,029
+uh Kim K3 is uh a variety of Delta and um this is a dense uh dense attention
+
+399
+00:18:07,039 --> 00:18:08,950
+um this is a dense uh dense attention 3:1.
+
+400
+00:18:08,960 --> 00:18:12,310
+3:1. Uh Neimotron is Mamba uh which is uh
+
+401
+00:18:12,320 --> 00:18:15,190
+Uh Neimotron is Mamba uh which is uh kind of like recurrent style model
+
+402
+00:18:15,200 --> 00:18:19,029
+kind of like recurrent style model and uh dense attention 4:1.
+
+403
+00:18:19,039 --> 00:18:22,230
+and uh dense attention 4:1. um to uh window uh sliding window
+
+404
+00:18:22,240 --> 00:18:25,990
+um to uh window uh sliding window attention uh dense attention 5 to one
+
+405
+00:18:26,000 --> 00:18:28,070
+attention uh dense attention 5 to one and deepseek's a little bit different.
+
+406
+00:18:28,080 --> 00:18:31,430
+and deepseek's a little bit different. It kind of has uh window windowed
+
+407
+00:18:31,440 --> 00:18:34,310
+It kind of has uh window windowed attention but then some uh sparsity uh
+
+408
+00:18:34,320 --> 00:18:37,350
+attention but then some uh sparsity uh sparse stuff with interle branches. So
+
+409
+00:18:37,360 --> 00:18:40,470
+sparse stuff with interle branches. So um basically the the standard way of
+
+410
+00:18:40,480 --> 00:18:43,029
+um basically the the standard way of doing things is hybrid model uh with
+
+411
+00:18:43,039 --> 00:18:45,510
+doing things is hybrid model uh with some sort of local thing and uh either
+
+412
+00:18:45,520 --> 00:18:49,990
+some sort of local thing and uh either sparse or dense uh global attention.
+
+413
+00:18:50,000 --> 00:18:51,750
+sparse or dense uh global attention. So I'm I'm going to be talking about
+
+414
+00:18:51,760 --> 00:18:53,270
+So I'm I'm going to be talking about this. I'm not going to go into like a
+
+415
+00:18:53,280 --> 00:18:55,110
+this. I'm not going to go into like a ton of details for all of them, but uh
+
+416
+00:18:55,120 --> 00:18:56,630
+ton of details for all of them, but uh it should be enough that you could be
+
+417
+00:18:56,640 --> 00:19:00,390
+it should be enough that you could be able to look them up later.
+
+418
+00:19:02,720 --> 00:19:05,350
+So the first one is uh sliding window attention. And this is maybe the the
+
+419
+00:19:05,360 --> 00:19:08,470
+attention. And this is maybe the the simplest conceptually. And what you do
+
+420
+00:19:08,480 --> 00:19:12,150
+simplest conceptually. And what you do is you take chunks or uh you take chunks
+
+421
+00:19:12,160 --> 00:19:15,590
+is you take chunks or uh you take chunks of the output and basically you're able
+
+422
+00:19:15,600 --> 00:19:19,190
+of the output and basically you're able to attend to your current chunk and um
+
+423
+00:19:19,200 --> 00:19:24,150
+to attend to your current chunk and um all of the previous chunks and uh
+
+424
+00:19:24,160 --> 00:19:25,830
+all of the previous chunks and uh or not all of the previous chunks, a
+
+425
+00:19:25,840 --> 00:19:27,909
+or not all of the previous chunks, a fixed number of previous chunks. So if
+
+426
+00:19:27,919 --> 00:19:30,630
+fixed number of previous chunks. So if this is your current chunk, um it might
+
+427
+00:19:30,640 --> 00:19:32,630
+this is your current chunk, um it might be a chunk of like 512 tokens or
+
+428
+00:19:32,640 --> 00:19:34,310
+be a chunk of like 512 tokens or something like this. You would have an
+
+429
+00:19:34,320 --> 00:19:36,789
+something like this. You would have an additional 512 and 512 tokens in the
+
+430
+00:19:36,799 --> 00:19:38,310
+additional 512 and 512 tokens in the previous chunks and you would attend to
+
+431
+00:19:38,320 --> 00:19:42,390
+previous chunks and you would attend to those. Um so pretty simple, no changes
+
+432
+00:19:42,400 --> 00:19:44,390
+those. Um so pretty simple, no changes to attention, but you have something
+
+433
+00:19:44,400 --> 00:19:46,789
+to attention, but you have something like this. But the nice thing about this
+
+434
+00:19:46,799 --> 00:19:49,430
+like this. But the nice thing about this is on the first layer you're passing
+
+435
+00:19:49,440 --> 00:19:51,029
+is on the first layer you're passing information from the previous one or two
+
+436
+00:19:51,039 --> 00:19:54,070
+information from the previous one or two chunks, but on the next layer the uh
+
+437
+00:19:54,080 --> 00:19:55,750
+chunks, but on the next layer the uh previous chunks also have information
+
+438
+00:19:55,760 --> 00:19:57,510
+previous chunks also have information from their previous chunks. And so you
+
+439
+00:19:57,520 --> 00:19:59,590
+from their previous chunks. And so you kind of get this gradually expanding
+
+440
+00:19:59,600 --> 00:20:02,710
+kind of get this gradually expanding window. Um
+
+441
+00:20:02,720 --> 00:20:05,830
+window. Um so uh this uh this is pretty widely
+
+442
+00:20:05,840 --> 00:20:08,870
+so uh this uh this is pretty widely used.
+
+443
+00:20:11,840 --> 00:20:14,310
+Um but the more popular way of doing things nowadays is using some variety of
+
+444
+00:20:14,320 --> 00:20:16,230
+things nowadays is using some variety of linear attention.
+
+445
+00:20:16,240 --> 00:20:19,510
+linear attention. And so the way uh linear attention works
+
+446
+00:20:19,520 --> 00:20:23,190
+And so the way uh linear attention works is basically we take our uh standard
+
+447
+00:20:23,200 --> 00:20:25,830
+is basically we take our uh standard attention and standard attention has
+
+448
+00:20:25,840 --> 00:20:28,710
+attention and standard attention has this um softmax operation included in
+
+449
+00:20:28,720 --> 00:20:31,430
+this um softmax operation included in it. And this is the reason why it's hard
+
+450
+00:20:31,440 --> 00:20:32,870
+it. And this is the reason why it's hard to compute because you're taking the
+
+451
+00:20:32,880 --> 00:20:36,070
+to compute because you're taking the exponent and um and dividing. And
+
+452
+00:20:36,080 --> 00:20:38,230
+exponent and um and dividing. And because you do this there's you
+
+453
+00:20:38,240 --> 00:20:41,909
+because you do this there's you basically have no choice but to expand
+
+454
+00:20:41,919 --> 00:20:47,669
+basically have no choice but to expand all of the uh key and query computations
+
+455
+00:20:47,679 --> 00:20:49,830
+all of the uh key and query computations uh like key query multiplication
+
+456
+00:20:49,840 --> 00:20:53,990
+uh like key query multiplication computations in and be uh quadratic uh
+
+457
+00:20:54,000 --> 00:20:55,830
+computations in and be uh quadratic uh quadratic
+
+458
+00:20:55,840 --> 00:20:57,510
+quadratic complexity.
+
+459
+00:20:57,520 --> 00:20:59,830
+complexity. What linear attention does is you
+
+460
+00:20:59,840 --> 00:21:03,990
+What linear attention does is you basically start from this uh kind of
+
+461
+00:21:04,000 --> 00:21:06,789
+basically start from this uh kind of standard attention formulation but you
+
+462
+00:21:06,799 --> 00:21:09,510
+standard attention formulation but you take you remove the softmax and the
+
+463
+00:21:09,520 --> 00:21:11,909
+take you remove the softmax and the normalization here or I mean the
+
+464
+00:21:11,919 --> 00:21:13,430
+normalization here or I mean the normalization doesn't really matter but
+
+465
+00:21:13,440 --> 00:21:16,549
+normalization doesn't really matter but you remove the softmax and you get just
+
+466
+00:21:16,559 --> 00:21:19,110
+you remove the softmax and you get just the key query multiplication
+
+467
+00:21:19,120 --> 00:21:21,190
+the key query multiplication and [clears throat]
+
+468
+00:21:21,200 --> 00:21:24,070
+and [clears throat] this is definitely less expressive
+
+469
+00:21:24,080 --> 00:21:25,990
+this is definitely less expressive because basically what you're doing is
+
+470
+00:21:26,000 --> 00:21:27,270
+because basically what you're doing is you're moving
+
+471
+00:21:27,280 --> 00:21:29,909
+you're moving from something that
+
+472
+00:21:29,919 --> 00:21:52,470
+from something that takes in a bunch of uh like numbers.
+
+473
+00:21:54,960 --> 00:21:56,789
+Anyway, like pretend pretend that this bottom one adds up to one, but you're
+
+474
+00:21:56,799 --> 00:21:58,230
+bottom one adds up to one, but you're going from a thing that takes a bunch of
+
+475
+00:21:58,240 --> 00:22:00,789
+going from a thing that takes a bunch of real numbers and normalizes them into
+
+476
+00:22:00,799 --> 00:22:02,710
+real numbers and normalizes them into probability like numbers that are
+
+477
+00:22:02,720 --> 00:22:06,149
+probability like numbers that are between zero and one and add to one. Um,
+
+478
+00:22:06,159 --> 00:22:08,710
+between zero and one and add to one. Um, so this nonlinearity allows you to focus
+
+479
+00:22:08,720 --> 00:22:12,070
+so this nonlinearity allows you to focus on like only some of the previous uh
+
+480
+00:22:12,080 --> 00:22:14,230
+on like only some of the previous uh like tokens. And this is kind of the
+
+481
+00:22:14,240 --> 00:22:15,590
+like tokens. And this is kind of the good point of attention. That's the
+
+482
+00:22:15,600 --> 00:22:16,950
+good point of attention. That's the selling point of attention that allows
+
+483
+00:22:16,960 --> 00:22:19,350
+selling point of attention that allows you to focus on the relevant previous
+
+484
+00:22:19,360 --> 00:22:21,190
+you to focus on the relevant previous context. And you're basically taking
+
+485
+00:22:21,200 --> 00:22:24,390
+context. And you're basically taking away that ability, right? You're you're
+
+486
+00:22:24,400 --> 00:22:26,310
+away that ability, right? You're you're removing the relative comparisons and
+
+487
+00:22:26,320 --> 00:22:28,549
+removing the relative comparisons and just getting um the the dotproduct
+
+488
+00:22:28,559 --> 00:22:31,190
+just getting um the the dotproduct between the queries and keys. But it
+
+489
+00:22:31,200 --> 00:22:33,190
+between the queries and keys. But it allows you to do something really uh
+
+490
+00:22:33,200 --> 00:22:37,350
+allows you to do something really uh nice which is that you can use uh the
+
+491
+00:22:37,360 --> 00:22:38,870
+nice which is that you can use uh the associative
+
+492
+00:22:38,880 --> 00:22:41,909
+associative uh you can use associivity and basically
+
+493
+00:22:41,919 --> 00:22:43,430
+uh you can use associivity and basically rearrange
+
+494
+00:22:43,440 --> 00:22:49,830
+rearrange so that um you can convert the sum of
+
+495
+00:22:49,840 --> 00:22:53,190
+so that um you can convert the sum of all the key and value uh multiplications
+
+496
+00:22:53,200 --> 00:22:56,789
+all the key and value uh multiplications before into a single uh state matrix.
+
+497
+00:22:56,799 --> 00:22:59,669
+before into a single uh state matrix. And so this state matrix is essentially
+
+498
+00:22:59,679 --> 00:23:02,710
+And so this state matrix is essentially a function that map it's a linear
+
+499
+00:23:02,720 --> 00:23:05,029
+a function that map it's a linear function that maps from a query to a
+
+500
+00:23:05,039 --> 00:23:08,390
+function that maps from a query to a value. So attention is also a linear
+
+501
+00:23:08,400 --> 00:23:10,070
+value. So attention is also a linear function that maps from a query to a
+
+502
+00:23:10,080 --> 00:23:12,230
+function that maps from a query to a value. So if I go back to this here
+
+503
+00:23:12,240 --> 00:23:14,310
+value. So if I go back to this here you're basically calculating you're
+
+504
+00:23:14,320 --> 00:23:16,470
+you're basically calculating you're taking the query you're calculating the
+
+505
+00:23:16,480 --> 00:23:18,549
+taking the query you're calculating the attention over all the keys you're
+
+506
+00:23:18,559 --> 00:23:20,230
+attention over all the keys you're multiplying it by the values and you're
+
+507
+00:23:20,240 --> 00:23:24,789
+multiplying it by the values and you're getting a value here. Um and this state
+
+508
+00:23:24,799 --> 00:23:27,270
+getting a value here. Um and this state matrix is also that. But the nice part
+
+509
+00:23:27,280 --> 00:23:29,909
+matrix is also that. But the nice part about it is this state matrix can be
+
+510
+00:23:29,919 --> 00:23:32,230
+about it is this state matrix can be decomposed. So you can update it. You
+
+511
+00:23:32,240 --> 00:23:34,070
+decomposed. So you can update it. You can keep this state matrix around and
+
+512
+00:23:34,080 --> 00:23:36,390
+can keep this state matrix around and update it in constant time every time
+
+513
+00:23:36,400 --> 00:23:38,789
+update it in constant time every time you get a new value. So this essentially
+
+514
+00:23:38,799 --> 00:23:40,789
+you get a new value. So this essentially becomes like a recurrent neural network.
+
+515
+00:23:40,799 --> 00:23:43,510
+becomes like a recurrent neural network. So it it allows you to update the state
+
+516
+00:23:43,520 --> 00:23:47,669
+So it it allows you to update the state matrix um in linear time without having
+
+517
+00:23:47,679 --> 00:23:49,190
+matrix um in linear time without having uh without requiring the quadratic
+
+518
+00:23:49,200 --> 00:23:50,870
+uh without requiring the quadratic computation.
+
+519
+00:23:50,880 --> 00:23:52,390
+computation. So
+
+520
+00:23:52,400 --> 00:23:54,230
+So this basically solves your quadratic
+
+521
+00:23:54,240 --> 00:23:57,830
+this basically solves your quadratic problem and it solves it so much
+
+522
+00:23:57,840 --> 00:24:00,789
+problem and it solves it so much that um O of N squ becomes O of N.
+
+523
+00:24:00,799 --> 00:24:03,590
+that um O of N squ becomes O of N. There's no like there's no even W term
+
+524
+00:24:03,600 --> 00:24:06,390
+There's no like there's no even W term in this because uh each time you're uh
+
+525
+00:24:06,400 --> 00:24:08,230
+in this because uh each time you're uh you're updating based entirely on the
+
+526
+00:24:08,240 --> 00:24:11,590
+you're updating based entirely on the previous state. Um but there's there's
+
+527
+00:24:11,600 --> 00:24:14,789
+previous state. Um but there's there's caveats here. So um is this clear though
+
+528
+00:24:14,799 --> 00:24:17,190
+caveats here. So um is this clear though uh so far?
+
+529
+00:24:17,200 --> 00:24:19,029
+uh so far? Okay, cool.
+
+530
+00:24:19,039 --> 00:24:21,269
+Okay, cool. Um, so the big caveat is exactly the
+
+531
+00:24:21,279 --> 00:24:23,110
+Um, so the big caveat is exactly the caveat I mentioned before. Like this is
+
+532
+00:24:23,120 --> 00:24:26,549
+caveat I mentioned before. Like this is just a less expressive function. Um, and
+
+533
+00:24:26,559 --> 00:24:27,990
+just a less expressive function. Um, and it doesn't allow you to make like
+
+534
+00:24:28,000 --> 00:24:29,350
+it doesn't allow you to make like relative comparisons between the
+
+535
+00:24:29,360 --> 00:24:32,470
+relative comparisons between the previous tokens, that sort of thing. So
+
+536
+00:24:32,480 --> 00:24:35,909
+previous tokens, that sort of thing. So there's a bunch of uh workarounds around
+
+537
+00:24:35,919 --> 00:24:39,669
+there's a bunch of uh workarounds around this to try to make a more expressive
+
+538
+00:24:39,679 --> 00:24:41,990
+this to try to make a more expressive function that nonetheless is useful in
+
+539
+00:24:42,000 --> 00:24:44,630
+function that nonetheless is useful in um in kind of uh doing attention-like
+
+540
+00:24:44,640 --> 00:24:49,190
+um in kind of uh doing attention-like calculations. And so um most of these
+
+541
+00:24:49,200 --> 00:24:50,950
+calculations. And so um most of these are
+
+542
+00:24:50,960 --> 00:24:53,029
+are if you dig deep into the math in them,
+
+543
+00:24:53,039 --> 00:24:54,630
+if you dig deep into the math in them, they're basically trying to become
+
+544
+00:24:54,640 --> 00:24:56,549
+they're basically trying to become better predictors of the final value
+
+545
+00:24:56,559 --> 00:24:59,750
+better predictors of the final value that you would get from attention. Um
+
+546
+00:24:59,760 --> 00:25:01,669
+that you would get from attention. Um and you you can dig into the papers to
+
+547
+00:25:01,679 --> 00:25:02,870
+and you you can dig into the papers to see how that works, but I'm going to
+
+548
+00:25:02,880 --> 00:25:05,029
+see how that works, but I'm going to explain them mostly uh mechanistically
+
+549
+00:25:05,039 --> 00:25:07,510
+explain them mostly uh mechanistically here. And so um the first thing is
+
+550
+00:25:07,520 --> 00:25:11,750
+here. And so um the first thing is Delta. And the idea behind deltaNet is
+
+551
+00:25:11,760 --> 00:25:16,870
+Delta. And the idea behind deltaNet is um you can predict what
+
+552
+00:25:16,880 --> 00:25:18,789
+um you can predict what um
+
+553
+00:25:18,799 --> 00:25:21,830
+um you can essentially predict what value
+
+554
+00:25:21,840 --> 00:25:25,990
+you can essentially predict what value you would want to be getting from the uh
+
+555
+00:25:26,000 --> 00:25:30,310
+you would want to be getting from the uh from the calculation of uh KT
+
+556
+00:25:30,320 --> 00:25:36,070
+from the calculation of uh KT um and S. And so you know KT here is uh
+
+557
+00:25:36,080 --> 00:25:40,310
+um and S. And so you know KT here is uh the key at time step t and you are
+
+558
+00:25:40,320 --> 00:25:42,390
+the key at time step t and you are comparing it with the matrix at time
+
+559
+00:25:42,400 --> 00:25:46,710
+comparing it with the matrix at time step t uh t minus one and uh you're
+
+560
+00:25:46,720 --> 00:25:51,990
+step t uh t minus one and uh you're calculating this v hat t and
+
+561
+00:25:52,000 --> 00:25:57,350
+calculating this v hat t and on the other hand you um so basically
+
+562
+00:25:57,360 --> 00:25:59,190
+on the other hand you um so basically this this is the prediction that you
+
+563
+00:25:59,200 --> 00:26:02,710
+this this is the prediction that you would get of kt But on the other hand,
+
+564
+00:26:02,720 --> 00:26:07,269
+would get of kt But on the other hand, you know what the uh output VT should be
+
+565
+00:26:07,279 --> 00:26:13,110
+you know what the uh output VT should be uh based on um what the query times uh
+
+566
+00:26:13,120 --> 00:26:17,510
+uh based on um what the query times uh or based on uh what the
+
+567
+00:26:17,520 --> 00:26:19,990
+or based on uh what the Hang on one second. [laughter]
+
+568
+00:26:20,000 --> 00:26:21,430
+Hang on one second. [laughter] I don't want to I don't want to get this
+
+569
+00:26:21,440 --> 00:26:26,870
+I don't want to I don't want to get this wrong. So
+
+570
+00:26:29,919 --> 00:26:32,390
+you calculate KT with respect to the matrix. And you can view this matrix as
+
+571
+00:26:32,400 --> 00:26:38,710
+matrix. And you can view this matrix as a way of uh calculating the uh the way
+
+572
+00:26:38,720 --> 00:26:42,470
+a way of uh calculating the uh the way of calculating the mapping from a query
+
+573
+00:26:42,480 --> 00:26:45,990
+of calculating the mapping from a query to a value. And you can also get the the
+
+574
+00:26:46,000 --> 00:26:50,149
+to a value. And you can also get the the actual value and subtract out uh what
+
+575
+00:26:50,159 --> 00:26:53,029
+actual value and subtract out uh what the value you get when multiplying it
+
+576
+00:26:53,039 --> 00:26:54,710
+the value you get when multiplying it from the previous uh together with the
+
+577
+00:26:54,720 --> 00:26:57,430
+from the previous uh together with the previous matrix is. And this is
+
+578
+00:26:57,440 --> 00:26:59,590
+previous matrix is. And this is essentially the error uh that you get
+
+579
+00:26:59,600 --> 00:27:01,750
+essentially the error uh that you get here. And then you want to reduce the
+
+580
+00:27:01,760 --> 00:27:04,390
+here. And then you want to reduce the error. And so in order to reduce this
+
+581
+00:27:04,400 --> 00:27:07,430
+error. And so in order to reduce this error, what you do is you um essentially
+
+582
+00:27:07,440 --> 00:27:12,310
+error, what you do is you um essentially add in this uh this term which is KT uh
+
+583
+00:27:12,320 --> 00:27:15,029
+add in this uh this term which is KT uh times the error term. And after you do
+
+584
+00:27:15,039 --> 00:27:17,830
+times the error term. And after you do this, if you multiply in KT to the new
+
+585
+00:27:17,840 --> 00:27:20,230
+this, if you multiply in KT to the new matrix, you will no longer have any
+
+586
+00:27:20,240 --> 00:27:23,190
+matrix, you will no longer have any error. But you don't want to make an
+
+587
+00:27:23,200 --> 00:27:25,510
+error. But you don't want to make an update that is too big. So you add this
+
+588
+00:27:25,520 --> 00:27:27,110
+update that is too big. So you add this beta term. This is essentially a
+
+589
+00:27:27,120 --> 00:27:28,630
+beta term. This is essentially a learning, it's similar to a learning
+
+590
+00:27:28,640 --> 00:27:31,110
+learning, it's similar to a learning rate. And this learning rate will make
+
+591
+00:27:31,120 --> 00:27:34,310
+rate. And this learning rate will make the updates uh smaller. And so uh if you
+
+592
+00:27:34,320 --> 00:27:37,110
+the updates uh smaller. And so uh if you if you do this, this allows you to
+
+593
+00:27:37,120 --> 00:27:40,549
+if you do this, this allows you to basically nudge the matrix in the
+
+594
+00:27:40,559 --> 00:27:44,870
+basically nudge the matrix in the direction of uh the in the direction
+
+595
+00:27:44,880 --> 00:27:48,470
+direction of uh the in the direction that will cause a query that looks like
+
+596
+00:27:48,480 --> 00:27:50,870
+that will cause a query that looks like the current key to output the value that
+
+597
+00:27:50,880 --> 00:27:53,590
+the current key to output the value that you want essentially. So it's it's
+
+598
+00:27:53,600 --> 00:27:55,909
+you want essentially. So it's it's reducing the error uh reducing the error
+
+599
+00:27:55,919 --> 00:27:57,269
+reducing the error uh reducing the error in the prediction of the value that you
+
+600
+00:27:57,279 --> 00:28:00,630
+in the prediction of the value that you want.
+
+601
+00:28:03,919 --> 00:28:05,990
+So um as I said this is going to be a little bit high level. Um the the papers
+
+602
+00:28:06,000 --> 00:28:08,070
+little bit high level. Um the the papers are are pretty good uh descriptions of
+
+603
+00:28:08,080 --> 00:28:09,990
+are are pretty good uh descriptions of this.
+
+604
+00:28:10,000 --> 00:28:14,310
+this. Um so after this um this basically what
+
+605
+00:28:14,320 --> 00:28:15,990
+Um so after this um this basically what this is doing is this is pushing you in
+
+606
+00:28:16,000 --> 00:28:20,310
+this is doing is this is pushing you in the direction of the uh of making the
+
+607
+00:28:20,320 --> 00:28:23,990
+the direction of the uh of making the the matrix a better predictor of the uh
+
+608
+00:28:24,000 --> 00:28:27,669
+the matrix a better predictor of the uh the value. But one problem with this is
+
+609
+00:28:27,679 --> 00:28:29,269
+the value. But one problem with this is you can build up lots and lots of
+
+610
+00:28:29,279 --> 00:28:32,870
+you can build up lots and lots of context uh from the previous uh spots
+
+611
+00:28:32,880 --> 00:28:35,350
+context uh from the previous uh spots and linear attention doesn't have any
+
+612
+00:28:35,360 --> 00:28:38,549
+and linear attention doesn't have any mechanism to prevent very far away cont
+
+613
+00:28:38,559 --> 00:28:42,950
+mechanism to prevent very far away cont uh context from having a bad
+
+614
+00:28:42,960 --> 00:28:47,269
+uh context from having a bad influence on your next predictions. And
+
+615
+00:28:47,279 --> 00:28:52,070
+influence on your next predictions. And so if you have like a very weird key far
+
+616
+00:28:52,080 --> 00:28:54,630
+so if you have like a very weird key far back in the future, it might have a very
+
+617
+00:28:54,640 --> 00:28:57,990
+back in the future, it might have a very big influence on you in the f uh in the
+
+618
+00:28:58,000 --> 00:29:01,909
+big influence on you in the f uh in the future. And so the way they fix this is
+
+619
+00:29:01,919 --> 00:29:04,630
+future. And so the way they fix this is basically they have a decay term to make
+
+620
+00:29:04,640 --> 00:29:07,990
+basically they have a decay term to make uh to make the
+
+621
+00:29:08,000 --> 00:29:10,389
+uh to make the matrix decay
+
+622
+00:29:10,399 --> 00:29:14,470
+matrix decay a little bit at every time step. And by
+
+623
+00:29:14,480 --> 00:29:16,149
+a little bit at every time step. And by decaying the matrix a little bit at
+
+624
+00:29:16,159 --> 00:29:17,510
+decaying the matrix a little bit at every time step, they're basically
+
+625
+00:29:17,520 --> 00:29:20,149
+every time step, they're basically discounting the the far in the past
+
+626
+00:29:20,159 --> 00:29:23,909
+discounting the the far in the past context. And so you multiply um the
+
+627
+00:29:23,919 --> 00:29:27,590
+context. And so you multiply um the matrix by alpha t and then you add this
+
+628
+00:29:27,600 --> 00:29:31,590
+matrix by alpha t and then you add this uh st tilda into uh into your
+
+629
+00:29:31,600 --> 00:29:33,750
+uh st tilda into uh into your calculation here and update the matrix.
+
+630
+00:29:33,760 --> 00:29:35,990
+calculation here and update the matrix. And so the stronger you make this decay
+
+631
+00:29:36,000 --> 00:29:38,789
+And so the stronger you make this decay basically the the more quickly uh it
+
+632
+00:29:38,799 --> 00:29:41,350
+basically the the more quickly uh it will forget the previous context. And so
+
+633
+00:29:41,360 --> 00:29:43,510
+will forget the previous context. And so you can make this more local or or less
+
+634
+00:29:43,520 --> 00:29:47,350
+you can make this more local or or less local.
+
+635
+00:29:50,880 --> 00:29:53,350
+And so this is uh gated delta is used in the Quen models. So it's one of the more
+
+636
+00:29:53,360 --> 00:29:56,470
+the Quen models. So it's one of the more uh the more popular methods now. Um but
+
+637
+00:29:56,480 --> 00:30:00,310
+uh the more popular methods now. Um but both uh GLM and uh KI which are kind of
+
+638
+00:30:00,320 --> 00:30:02,549
+both uh GLM and uh KI which are kind of two of the state-of-the-art models use a
+
+639
+00:30:02,559 --> 00:30:05,590
+two of the state-of-the-art models use a slightly more expressive version of this
+
+640
+00:30:05,600 --> 00:30:07,190
+slightly more expressive version of this uh where they basically have a per
+
+641
+00:30:07,200 --> 00:30:10,310
+uh where they basically have a per element uh decay term. So each element
+
+642
+00:30:10,320 --> 00:30:13,350
+element uh decay term. So each element can decay at a different speed. And uh
+
+643
+00:30:13,360 --> 00:30:14,870
+can decay at a different speed. And uh because each element decays at a
+
+644
+00:30:14,880 --> 00:30:17,110
+because each element decays at a different speed, you can have some uh
+
+645
+00:30:17,120 --> 00:30:20,870
+different speed, you can have some uh portions of the context that uh you know
+
+646
+00:30:20,880 --> 00:30:22,950
+portions of the context that uh you know carry over very long time periods, some
+
+647
+00:30:22,960 --> 00:30:24,549
+carry over very long time periods, some portions of the context that carry over
+
+648
+00:30:24,559 --> 00:30:28,549
+portions of the context that carry over very short time periods.
+
+649
+00:30:33,679 --> 00:30:37,029
+Cool. So hopefully this was more or less uh more or less legible. Um
+
+650
+00:30:37,039 --> 00:30:39,590
+uh more or less legible. Um any any questions here?
+
+651
+00:30:39,600 --> 00:30:41,590
+any any questions here? Long long story short, it's basically a
+
+652
+00:30:41,600 --> 00:30:44,230
+Long long story short, it's basically a way to turn uh into
+
+653
+00:30:44,240 --> 00:30:48,070
+way to turn uh into um it's a way to turn
+
+654
+00:30:48,080 --> 00:30:50,630
+um it's a way to turn the idea of attention to something that
+
+655
+00:30:50,640 --> 00:30:54,710
+the idea of attention to something that you can calculate um in context. Mamba
+
+656
+00:30:54,720 --> 00:30:57,990
+you can calculate um in context. Mamba is uh something that's very similar um
+
+657
+00:30:58,000 --> 00:30:59,029
+is uh something that's very similar um but it's a little bit more
+
+658
+00:30:59,039 --> 00:31:02,710
+but it's a little bit more mathematically involved um uh and I I
+
+659
+00:31:02,720 --> 00:31:04,789
+mathematically involved um uh and I I decided to skip over it. uh I covered it
+
+660
+00:31:04,799 --> 00:31:07,029
+decided to skip over it. uh I covered it more in the uh language model uh
+
+661
+00:31:07,039 --> 00:31:09,990
+more in the uh language model uh description course but similar idea but
+
+662
+00:31:10,000 --> 00:31:14,310
+description course but similar idea but just a bit more complex uh in the math.
+
+663
+00:31:14,320 --> 00:31:15,750
+just a bit more complex uh in the math. So the next thing I'd like to talk about
+
+664
+00:31:15,760 --> 00:31:18,630
+So the next thing I'd like to talk about is sparse attention. And so sparse
+
+665
+00:31:18,640 --> 00:31:25,750
+is sparse attention. And so sparse attention is uh basically looking up a
+
+666
+00:31:25,760 --> 00:31:27,750
+attention is uh basically looking up a not attending to everything in the
+
+667
+00:31:27,760 --> 00:31:30,310
+not attending to everything in the previous context but only attending to
+
+668
+00:31:30,320 --> 00:31:32,149
+previous context but only attending to some things in the previous context. And
+
+669
+00:31:32,159 --> 00:31:33,990
+some things in the previous context. And essentially you limit the number of
+
+670
+00:31:34,000 --> 00:31:35,430
+essentially you limit the number of things that you look up in the previous
+
+671
+00:31:35,440 --> 00:31:37,750
+things that you look up in the previous context. There's a few ways you can do
+
+672
+00:31:37,760 --> 00:31:41,430
+context. There's a few ways you can do it. Um originally in there was a sparse
+
+673
+00:31:41,440 --> 00:31:44,789
+it. Um originally in there was a sparse attention paper by OpenAI uh quite a
+
+674
+00:31:44,799 --> 00:31:46,389
+attention paper by OpenAI uh quite a while ago like 5 years ago or something
+
+675
+00:31:46,399 --> 00:31:50,230
+while ago like 5 years ago or something like this. Um and basically uh what they
+
+676
+00:31:50,240 --> 00:31:53,350
+like this. Um and basically uh what they did was they had sparse attention every
+
+677
+00:31:53,360 --> 00:31:57,029
+did was they had sparse attention every you know uh 512 tokens or something like
+
+678
+00:31:57,039 --> 00:31:58,470
+you know uh 512 tokens or something like this. And what this does is it means
+
+679
+00:31:58,480 --> 00:32:01,750
+this. And what this does is it means that you still have a fixed it's still
+
+680
+00:32:01,760 --> 00:32:03,269
+that you still have a fixed it's still quadratic in the sequence length but
+
+681
+00:32:03,279 --> 00:32:06,630
+quadratic in the sequence length but it's 512 times less than if you attended
+
+682
+00:32:06,640 --> 00:32:08,710
+it's 512 times less than if you attended to every token and that's like good
+
+683
+00:32:08,720 --> 00:32:10,950
+to every token and that's like good enough uh that you can manage to
+
+684
+00:32:10,960 --> 00:32:12,310
+enough uh that you can manage to calculate it over the context that
+
+685
+00:32:12,320 --> 00:32:14,389
+calculate it over the context that you're interested in.
+
+686
+00:32:14,399 --> 00:32:17,509
+you're interested in. Another option is to do um content
+
+687
+00:32:17,519 --> 00:32:19,750
+Another option is to do um content dependent sparse attention. And
+
+688
+00:32:19,760 --> 00:32:21,509
+dependent sparse attention. And basically what this does is you have a
+
+689
+00:32:21,519 --> 00:32:23,909
+basically what this does is you have a very cheap way of calculating attention.
+
+690
+00:32:23,919 --> 00:32:25,750
+very cheap way of calculating attention. Like for example, you can down project
+
+691
+00:32:25,760 --> 00:32:27,590
+Like for example, you can down project the attention vectors to be very very
+
+692
+00:32:27,600 --> 00:32:30,070
+the attention vectors to be very very small and then you do attention over
+
+693
+00:32:30,080 --> 00:32:33,029
+small and then you do attention over these very very small uh attention
+
+694
+00:32:33,039 --> 00:32:35,430
+these very very small uh attention vectors. You pick the top k ones and
+
+695
+00:32:35,440 --> 00:32:36,950
+vectors. You pick the top k ones and then you do full attention over the top
+
+696
+00:32:36,960 --> 00:32:40,310
+then you do full attention over the top k. So uh that's uh another way that you
+
+697
+00:32:40,320 --> 00:32:42,070
+k. So uh that's uh another way that you can do this
+
+698
+00:32:42,080 --> 00:32:43,590
+can do this and this is what's used in deepseek.
+
+699
+00:32:43,600 --> 00:32:43,830
+and this is what's used in deepseek. Yeah.
+
+700
+00:32:43,840 --> 00:32:46,549
+Yeah. >> How do we define the metric for which we
+
+701
+00:32:46,559 --> 00:32:50,230
+>> How do we define the metric for which we do the top similarity compared in this
+
+702
+00:32:50,240 --> 00:32:53,269
+do the top similarity compared in this in the shrine space we just do like
+
+703
+00:32:53,279 --> 00:32:55,350
+in the shrine space we just do like coine distance.
+
+704
+00:32:55,360 --> 00:32:57,029
+coine distance. >> Yeah.
+
+705
+00:32:57,039 --> 00:32:59,190
+>> Yeah. >> Yeah. I I think it's typically not
+
+706
+00:32:59,200 --> 00:33:03,669
+>> Yeah. I I think it's typically not cosine but it's just product but yeah
+
+707
+00:33:03,679 --> 00:33:05,750
+cosine but it's just product but yeah >> I I I think although maybe maybe they're
+
+708
+00:33:05,760 --> 00:33:07,110
+>> I I I think although maybe maybe they're normalizing beforehand. They actually
+
+709
+00:33:07,120 --> 00:33:10,070
+normalizing beforehand. They actually don't know that detail.
+
+710
+00:33:10,080 --> 00:33:13,509
+don't know that detail. Any other questions?
+
+711
+00:33:13,519 --> 00:33:17,430
+Any other questions? So basically um these
+
+712
+00:33:17,440 --> 00:33:21,029
+So basically um these th this is a very very cheap way to
+
+713
+00:33:21,039 --> 00:33:23,509
+th this is a very very cheap way to achieve global attention because you can
+
+714
+00:33:23,519 --> 00:33:26,470
+achieve global attention because you can just uh write a kernel that will do this
+
+715
+00:33:26,480 --> 00:33:30,630
+just uh write a kernel that will do this for you. Um this over here will uh
+
+716
+00:33:30,640 --> 00:33:32,710
+for you. Um this over here will uh require you to have two passes, but you
+
+717
+00:33:32,720 --> 00:33:35,029
+require you to have two passes, but you know it's potentially uh more accurate.
+
+718
+00:33:35,039 --> 00:33:37,509
+know it's potentially uh more accurate. So um I I've seen both of these used
+
+719
+00:33:37,519 --> 00:33:41,909
+So um I I've seen both of these used pretty widely.
+
+720
+00:33:44,720 --> 00:33:46,470
+So a final um a final thing is KV compression. How many people saw this in
+
+721
+00:33:46,480 --> 00:33:49,830
+compression. How many people saw this in a language modeling course?
+
+722
+00:33:49,840 --> 00:33:53,990
+a language modeling course? Maybe some people. Okay. Um so I will uh
+
+723
+00:33:54,000 --> 00:33:57,029
+Maybe some people. Okay. Um so I will uh I'll explain this. So basically um this
+
+724
+00:33:57,039 --> 00:34:00,070
+I'll explain this. So basically um this is standard multi head attention. And so
+
+725
+00:34:00,080 --> 00:34:01,750
+is standard multi head attention. And so in standard multi-head attention, you
+
+726
+00:34:01,760 --> 00:34:04,630
+in standard multi-head attention, you have a bunch of heads and each one has
+
+727
+00:34:04,640 --> 00:34:08,389
+have a bunch of heads and each one has values and keys and all of these are a
+
+728
+00:34:08,399 --> 00:34:09,750
+values and keys and all of these are a certain dimension. So they're like
+
+729
+00:34:09,760 --> 00:34:12,470
+certain dimension. So they're like dimension, let's say they're dimension D
+
+730
+00:34:12,480 --> 00:34:16,149
+dimension, let's say they're dimension D and you have uh you have like a certain
+
+731
+00:34:16,159 --> 00:34:20,149
+and you have uh you have like a certain number of heads. Let's say that's H. Um
+
+732
+00:34:20,159 --> 00:34:23,669
+number of heads. Let's say that's H. Um so
+
+733
+00:34:26,240 --> 00:34:29,270
+the two main ways that people solve uh or help uh this problem of having very
+
+734
+00:34:29,280 --> 00:34:33,109
+or help uh this problem of having very uh large and expensive KV caches is uh
+
+735
+00:34:33,119 --> 00:34:35,270
+uh large and expensive KV caches is uh grouped query attention. And grouped
+
+736
+00:34:35,280 --> 00:34:38,470
+grouped query attention. And grouped query attention basically uh just uses a
+
+737
+00:34:38,480 --> 00:34:42,710
+query attention basically uh just uses a smaller number than h um you usually h
+
+738
+00:34:42,720 --> 00:34:46,550
+smaller number than h um you usually h divided by some uh power of two uh
+
+739
+00:34:46,560 --> 00:34:50,230
+divided by some uh power of two uh number of uh keys and values. And
+
+740
+00:34:50,240 --> 00:34:52,149
+number of uh keys and values. And because it's the KV cache, it's not the
+
+741
+00:34:52,159 --> 00:34:55,430
+because it's the KV cache, it's not the KVQ cache. Um
+
+742
+00:34:55,440 --> 00:34:57,910
+KVQ cache. Um if you reduce the number of uh keys and
+
+743
+00:34:57,920 --> 00:34:59,670
+if you reduce the number of uh keys and values that are used, you reduce the
+
+744
+00:34:59,680 --> 00:35:01,030
+values that are used, you reduce the amount of memory that you need to hold
+
+745
+00:35:01,040 --> 00:35:02,870
+amount of memory that you need to hold the KV cache. This is really important
+
+746
+00:35:02,880 --> 00:35:06,150
+the KV cache. This is really important because if it gets very large then um it
+
+747
+00:35:06,160 --> 00:35:08,790
+because if it gets very large then um it limits the number you can fit on one GPU
+
+748
+00:35:08,800 --> 00:35:11,589
+limits the number you can fit on one GPU and so this can usually be reduced by
+
+749
+00:35:11,599 --> 00:35:13,430
+and so this can usually be reduced by like four or by eight or something like
+
+750
+00:35:13,440 --> 00:35:17,030
+like four or by eight or something like that. Um multiquery attention is just
+
+751
+00:35:17,040 --> 00:35:19,190
+that. Um multiquery attention is just like grouped query attention with a
+
+752
+00:35:19,200 --> 00:35:21,030
+like grouped query attention with a single one. So you can kind of almost
+
+753
+00:35:21,040 --> 00:35:22,470
+single one. So you can kind of almost skip over that. You already know what it
+
+754
+00:35:22,480 --> 00:35:26,230
+skip over that. You already know what it means. Um multi head latent attention
+
+755
+00:35:26,240 --> 00:35:30,870
+means. Um multi head latent attention the the um
+
+756
+00:35:30,880 --> 00:35:35,670
+the the um is essentially down projecting uh the
+
+757
+00:35:35,680 --> 00:35:39,109
+is essentially down projecting uh the size of the keys and values. So it's not
+
+758
+00:35:39,119 --> 00:35:40,870
+size of the keys and values. So it's not reducing the number of heads, it's
+
+759
+00:35:40,880 --> 00:35:43,829
+reducing the number of heads, it's making each head smaller. And so this is
+
+760
+00:35:43,839 --> 00:35:45,190
+making each head smaller. And so this is similar to what I talked about with the
+
+761
+00:35:45,200 --> 00:35:47,510
+similar to what I talked about with the top K attention. Um and of course you
+
+762
+00:35:47,520 --> 00:35:48,950
+top K attention. Um and of course you can combine both of these together as
+
+763
+00:35:48,960 --> 00:35:50,069
+can combine both of these together as well. You could have group query
+
+764
+00:35:50,079 --> 00:35:52,790
+well. You could have group query attention with um you know smaller uh
+
+765
+00:35:52,800 --> 00:35:57,270
+attention with um you know smaller uh keys of values.
+
+766
+00:36:05,040 --> 00:36:07,430
+Okay, cool. Um so the these are the method the
+
+767
+00:36:07,440 --> 00:36:09,670
+Um so the these are the method the architectural methods that people use to
+
+768
+00:36:09,680 --> 00:36:13,190
+architectural methods that people use to handle very long contexts and with these
+
+769
+00:36:13,200 --> 00:36:16,310
+handle very long contexts and with these um you can handle up to a million uh
+
+770
+00:36:16,320 --> 00:36:19,910
+um you can handle up to a million uh tokens. So like this is uh you know this
+
+771
+00:36:19,920 --> 00:36:22,710
+tokens. So like this is uh you know this makes the efficiency possible.
+
+772
+00:36:22,720 --> 00:36:25,510
+makes the efficiency possible. The next thing is uh training long
+
+773
+00:36:25,520 --> 00:36:29,750
+The next thing is uh training long context models. And this is actually uh
+
+774
+00:36:29,760 --> 00:36:32,550
+context models. And this is actually uh pretty hard. And the reason why is
+
+775
+00:36:32,560 --> 00:36:36,390
+pretty hard. And the reason why is because um if we want something to
+
+776
+00:36:36,400 --> 00:36:41,670
+because um if we want something to handle 128k tokens or even more, there's
+
+777
+00:36:41,680 --> 00:36:44,470
+handle 128k tokens or even more, there's actually not that much data on the
+
+778
+00:36:44,480 --> 00:36:48,710
+actually not that much data on the internet that is 128k coherent tokens.
+
+779
+00:36:48,720 --> 00:36:51,109
+internet that is 128k coherent tokens. Um it's actually a lot of a lot of data.
+
+780
+00:36:51,119 --> 00:36:53,109
+Um it's actually a lot of a lot of data. it's more than most Wikipedia articles,
+
+781
+00:36:53,119 --> 00:36:55,510
+it's more than most Wikipedia articles, you know, um you're starting to get in
+
+782
+00:36:55,520 --> 00:36:57,670
+you know, um you're starting to get in the in the order of like having a book
+
+783
+00:36:57,680 --> 00:36:59,030
+the in the order of like having a book uh that you need to have and there's not
+
+784
+00:36:59,040 --> 00:37:00,870
+uh that you need to have and there's not that many books on the internet. So,
+
+785
+00:37:00,880 --> 00:37:02,310
+that many books on the internet. So, typically what you do is you start out
+
+786
+00:37:02,320 --> 00:37:05,109
+typically what you do is you start out with like short pre-training. Um you do
+
+787
+00:37:05,119 --> 00:37:07,109
+with like short pre-training. Um you do more continued training with longer
+
+788
+00:37:07,119 --> 00:37:08,950
+more continued training with longer documents and then you do long
+
+789
+00:37:08,960 --> 00:37:10,630
+documents and then you do long adaptation.
+
+790
+00:37:10,640 --> 00:37:14,470
+adaptation. Um I wrote packed sequences here. Um,
+
+791
+00:37:14,480 --> 00:37:17,750
+Um I wrote packed sequences here. Um, but packed sequences are are useful can
+
+792
+00:37:17,760 --> 00:37:19,270
+but packed sequences are are useful can be useful for efficiency, but they're
+
+793
+00:37:19,280 --> 00:37:20,710
+be useful for efficiency, but they're not super useful for learning long
+
+794
+00:37:20,720 --> 00:37:24,470
+not super useful for learning long contexts because um every time you like
+
+795
+00:37:24,480 --> 00:37:26,470
+contexts because um every time you like let's say you pack 10 documents into a
+
+796
+00:37:26,480 --> 00:37:28,550
+let's say you pack 10 documents into a sequence, you're not learning to attend
+
+797
+00:37:28,560 --> 00:37:30,390
+sequence, you're not learning to attend across the documents and in fact you
+
+798
+00:37:30,400 --> 00:37:33,430
+across the documents and in fact you probably should not be. So um you really
+
+799
+00:37:33,440 --> 00:37:36,950
+probably should not be. So um you really need coherent uh long sets of data to do
+
+800
+00:37:36,960 --> 00:37:41,430
+need coherent uh long sets of data to do adaptation to very long contexts.
+
+801
+00:37:43,599 --> 00:37:45,829
+Um so I'm going to talk about a few things that we do here. Um the first
+
+802
+00:37:45,839 --> 00:37:47,670
+things that we do here. Um the first thing I'm going to talk about is uh
+
+803
+00:37:47,680 --> 00:37:51,430
+thing I'm going to talk about is uh handling positional encodings. Um so
+
+804
+00:37:51,440 --> 00:37:54,870
+handling positional encodings. Um so absolute positional encodings uh I I
+
+805
+00:37:54,880 --> 00:37:56,870
+absolute positional encodings uh I I hope everybody has seen in their
+
+806
+00:37:56,880 --> 00:37:59,829
+hope everybody has seen in their language modeling class. Um but
+
+807
+00:37:59,839 --> 00:38:03,990
+language modeling class. Um but basically uh each individual
+
+808
+00:38:04,000 --> 00:38:07,589
+basically uh each individual entry in the uh
+
+809
+00:38:07,599 --> 00:38:10,069
+entry in the uh each individual word embedding uh gets a
+
+810
+00:38:10,079 --> 00:38:12,390
+each individual word embedding uh gets a position vector and that position vector
+
+811
+00:38:12,400 --> 00:38:15,270
+position vector and that position vector is typically calculated by uh some sort
+
+812
+00:38:15,280 --> 00:38:17,109
+is typically calculated by uh some sort of function like using signs and
+
+813
+00:38:17,119 --> 00:38:19,190
+of function like using signs and cosiness and other stuff like this. So
+
+814
+00:38:19,200 --> 00:38:20,950
+cosiness and other stuff like this. So hopefully you know most people have seen
+
+815
+00:38:20,960 --> 00:38:23,430
+hopefully you know most people have seen this. So I'll I'll kind of skip over
+
+816
+00:38:23,440 --> 00:38:25,910
+this. So I'll I'll kind of skip over that. Also maybe most people have seen
+
+817
+00:38:25,920 --> 00:38:28,470
+that. Also maybe most people have seen rope. Are people generally familiar with
+
+818
+00:38:28,480 --> 00:38:32,069
+rope. Are people generally familiar with rope? Okay, I see a fair number of
+
+819
+00:38:32,079 --> 00:38:34,150
+rope? Okay, I see a fair number of people. I see actually less people uh
+
+820
+00:38:34,160 --> 00:38:36,550
+people. I see actually less people uh than I would have expected, but um uh
+
+821
+00:38:36,560 --> 00:38:39,109
+than I would have expected, but um uh maybe people are just uh not interested
+
+822
+00:38:39,119 --> 00:38:42,390
+maybe people are just uh not interested in raising your hand. Um [laughter] but
+
+823
+00:38:42,400 --> 00:38:46,069
+in raising your hand. Um [laughter] but uh but basically um rope rope is pretty
+
+824
+00:38:46,079 --> 00:38:48,870
+uh but basically um rope rope is pretty elegant mathematically in my opinion. Uh
+
+825
+00:38:48,880 --> 00:38:50,470
+elegant mathematically in my opinion. Uh basically the problem they were trying
+
+826
+00:38:50,480 --> 00:38:53,750
+basically the problem they were trying to solve is they wanted to have a
+
+827
+00:38:53,760 --> 00:38:58,550
+to solve is they wanted to have a positional embedding. um where the
+
+828
+00:38:58,560 --> 00:39:01,270
+positional embedding. um where the positional uh or positional encoding
+
+829
+00:39:01,280 --> 00:39:03,510
+positional uh or positional encoding where the positional encoding is
+
+830
+00:39:03,520 --> 00:39:05,030
+where the positional encoding is entirely
+
+831
+00:39:05,040 --> 00:39:08,550
+entirely determined by the relative distance uh
+
+832
+00:39:08,560 --> 00:39:10,950
+determined by the relative distance uh between two tokens.
+
+833
+00:39:10,960 --> 00:39:13,990
+between two tokens. And the
+
+834
+00:39:14,000 --> 00:39:16,470
+And the reason why they wanted to do this is
+
+835
+00:39:16,480 --> 00:39:19,030
+reason why they wanted to do this is they didn't they didn't want the
+
+836
+00:39:19,040 --> 00:39:23,349
+they didn't they didn't want the absolute position to have an effect on
+
+837
+00:39:23,359 --> 00:39:25,270
+absolute position to have an effect on uh they didn't want the absolute
+
+838
+00:39:25,280 --> 00:39:27,349
+uh they didn't want the absolute position to have an effect on whether
+
+839
+00:39:27,359 --> 00:39:29,990
+position to have an effect on whether two tokens would attend to each other.
+
+840
+00:39:30,000 --> 00:39:33,670
+two tokens would attend to each other. And so
+
+841
+00:39:33,680 --> 00:39:36,630
+And so this is this has been quite effective
+
+842
+00:39:36,640 --> 00:39:41,349
+this is this has been quite effective and a lot of uh a lot of models use
+
+843
+00:39:41,359 --> 00:39:44,310
+and a lot of uh a lot of models use rope. Um the the math I'm not going to
+
+844
+00:39:44,320 --> 00:39:45,750
+rope. Um the the math I'm not going to go through here because it's kind of not
+
+845
+00:39:45,760 --> 00:39:47,349
+go through here because it's kind of not the main point, but they do some
+
+846
+00:39:47,359 --> 00:39:49,030
+the main point, but they do some interesting stuff with rotations and
+
+847
+00:39:49,040 --> 00:39:51,750
+interesting stuff with rotations and imaginary numbers and stuff like this.
+
+848
+00:39:51,760 --> 00:39:55,589
+imaginary numbers and stuff like this. Um but there's also this like super
+
+849
+00:39:55,599 --> 00:39:57,190
+Um but there's also this like super counterintuitive
+
+850
+00:39:57,200 --> 00:39:59,990
+counterintuitive uh nope.
+
+851
+00:40:00,000 --> 00:40:02,390
+uh nope. which is uh don't don't use positional
+
+852
+00:40:02,400 --> 00:40:06,390
+which is uh don't don't use positional encodings at all. Um and if you took
+
+853
+00:40:06,400 --> 00:40:09,910
+encodings at all. Um and if you took your uh class on transformers
+
+854
+00:40:09,920 --> 00:40:12,870
+your uh class on transformers uh you might have heard this scary stuff
+
+855
+00:40:12,880 --> 00:40:14,870
+uh you might have heard this scary stuff which is like you need positional
+
+856
+00:40:14,880 --> 00:40:17,190
+which is like you need positional encodings for transformers because
+
+857
+00:40:17,200 --> 00:40:21,190
+encodings for transformers because otherwise something in position one in
+
+858
+00:40:21,200 --> 00:40:24,150
+otherwise something in position one in position five will have exactly the same
+
+859
+00:40:24,160 --> 00:40:27,750
+position five will have exactly the same representation. So if you have like this
+
+860
+00:40:27,760 --> 00:40:30,150
+representation. So if you have like this this is a cat but this is not a cat it
+
+861
+00:40:30,160 --> 00:40:31,750
+this is a cat but this is not a cat it will attend to both of the cats the same
+
+862
+00:40:31,760 --> 00:40:36,870
+will attend to both of the cats the same amount or something like this. Um
+
+863
+00:40:39,040 --> 00:40:41,750
+theoretically when the transformers were originally created um this might have
+
+864
+00:40:41,760 --> 00:40:43,910
+originally created um this might have been true but now actually it's it's not
+
+865
+00:40:43,920 --> 00:40:45,750
+been true but now actually it's it's not true anymore based on the transformers
+
+866
+00:40:45,760 --> 00:40:50,150
+true anymore based on the transformers we use now. Um anybody have an idea
+
+867
+00:40:50,160 --> 00:40:51,990
+we use now. Um anybody have an idea why this is the case? I've kind of given
+
+868
+00:40:52,000 --> 00:40:55,190
+why this is the case? I've kind of given a hint in the slide but
+
+869
+00:40:55,200 --> 00:40:56,710
+a hint in the slide but you might also need to know a little bit
+
+870
+00:40:56,720 --> 00:40:59,030
+you might also need to know a little bit of the history of transformers uh which
+
+871
+00:40:59,040 --> 00:41:00,950
+of the history of transformers uh which is uh before we were using encoder
+
+872
+00:41:00,960 --> 00:41:03,430
+is uh before we were using encoder decoder models uh where the encoders
+
+873
+00:41:03,440 --> 00:41:04,950
+decoder models uh where the encoders encoded all of the input and then the
+
+874
+00:41:04,960 --> 00:41:08,550
+encoded all of the input and then the decoders uh generated the output any
+
+875
+00:41:08,560 --> 00:41:11,430
+decoders uh generated the output any idea
+
+876
+00:41:11,440 --> 00:41:13,030
+idea >> because we're doing causal masking
+
+877
+00:41:13,040 --> 00:41:16,150
+>> because we're doing causal masking exactly so um to elaborate on that a
+
+878
+00:41:16,160 --> 00:41:18,150
+exactly so um to elaborate on that a little bit if I go back to our
+
+879
+00:41:18,160 --> 00:41:21,190
+little bit if I go back to our transformer equation
+
+880
+00:41:25,920 --> 00:41:30,150
+Um, we have the keys um, and the queries. And if we look at the queries,
+
+881
+00:41:30,160 --> 00:41:32,230
+queries. And if we look at the queries, even if you have cat at position two and
+
+882
+00:41:32,240 --> 00:41:35,109
+even if you have cat at position two and cat at position five, the cat at
+
+883
+00:41:35,119 --> 00:41:36,790
+cat at position five, the cat at position two is only attending to the
+
+884
+00:41:36,800 --> 00:41:39,910
+position two is only attending to the previous token where the cat at position
+
+885
+00:41:39,920 --> 00:41:41,589
+previous token where the cat at position five is attending to the previous four
+
+886
+00:41:41,599 --> 00:41:45,670
+five is attending to the previous four tokens. Um, and so both of them are like
+
+887
+00:41:45,680 --> 00:41:47,910
+tokens. Um, and so both of them are like actually different. um starting at least
+
+888
+00:41:47,920 --> 00:41:49,990
+actually different. um starting at least in the first layer of attention. And so
+
+889
+00:41:50,000 --> 00:41:52,710
+in the first layer of attention. And so you can tell like even if they are
+
+890
+00:41:52,720 --> 00:41:55,109
+you can tell like even if they are exactly the same word, the embeddings
+
+891
+00:41:55,119 --> 00:41:56,630
+exactly the same word, the embeddings starting in the first layer of attention
+
+892
+00:41:56,640 --> 00:41:58,870
+starting in the first layer of attention will will not be different. And there's
+
+893
+00:41:58,880 --> 00:42:01,270
+will will not be different. And there's kind of uh this counterintuitive paper
+
+894
+00:42:01,280 --> 00:42:03,510
+kind of uh this counterintuitive paper that demonstrates that you don't need uh
+
+895
+00:42:03,520 --> 00:42:06,470
+that demonstrates that you don't need uh positional encodings at all. And this is
+
+896
+00:42:06,480 --> 00:42:10,230
+positional encodings at all. And this is especially true um this is in auto
+
+897
+00:42:10,240 --> 00:42:12,630
+especially true um this is in auto reggressive uh transformers. In non-auto
+
+898
+00:42:12,640 --> 00:42:14,390
+reggressive uh transformers. In non-auto reggressive transformers where you're
+
+899
+00:42:14,400 --> 00:42:15,910
+reggressive transformers where you're attending all the tokens are attending
+
+900
+00:42:15,920 --> 00:42:17,670
+attending all the tokens are attending to each other. You still do need
+
+901
+00:42:17,680 --> 00:42:21,109
+to each other. You still do need positional encodings. Um
+
+902
+00:42:21,119 --> 00:42:22,870
+positional encodings. Um this is especially true when we start
+
+903
+00:42:22,880 --> 00:42:25,109
+this is especially true when we start talking about like gated delta because
+
+904
+00:42:25,119 --> 00:42:28,390
+talking about like gated delta because gated delta has like the decay term and
+
+905
+00:42:28,400 --> 00:42:30,150
+gated delta has like the decay term and uh other things like this which causes
+
+906
+00:42:30,160 --> 00:42:33,190
+uh other things like this which causes each uh token to be different. So once
+
+907
+00:42:33,200 --> 00:42:34,630
+each uh token to be different. So once we start having those sort of local
+
+908
+00:42:34,640 --> 00:42:35,829
+we start having those sort of local biases, we actually don't need
+
+909
+00:42:35,839 --> 00:42:39,190
+biases, we actually don't need positional uh encodings anymore.
+
+910
+00:42:39,200 --> 00:42:41,030
+positional uh encodings anymore. Um
+
+911
+00:42:41,040 --> 00:42:42,630
+Um and
+
+912
+00:42:42,640 --> 00:42:46,710
+and if you uh if you look um
+
+913
+00:42:46,720 --> 00:42:51,349
+if you uh if you look um we uh the first two here have rope uh or
+
+914
+00:42:51,359 --> 00:42:53,349
+we uh the first two here have rope uh or at least partial rope. The second two
+
+915
+00:42:53,359 --> 00:42:55,430
+at least partial rope. The second two have nope uh no positional attend
+
+916
+00:42:55,440 --> 00:42:59,670
+have nope uh no positional attend encodings. Um the the fourth one uh
+
+917
+00:42:59,680 --> 00:43:02,069
+encodings. Um the the fourth one uh relies entirely on implicit order and
+
+918
+00:43:02,079 --> 00:43:05,910
+relies entirely on implicit order and mamba and some of them in uh and inkling
+
+919
+00:43:05,920 --> 00:43:08,150
+mamba and some of them in uh and inkling has relative positional encodings. So
+
+920
+00:43:08,160 --> 00:43:09,990
+has relative positional encodings. So you can see that it's kind of like half
+
+921
+00:43:10,000 --> 00:43:11,589
+you can see that it's kind of like half split between having relative positional
+
+922
+00:43:11,599 --> 00:43:14,390
+split between having relative positional encodings and not at all. But like let's
+
+923
+00:43:14,400 --> 00:43:16,309
+encodings and not at all. But like let's say we did have positional encodings. Uh
+
+924
+00:43:16,319 --> 00:43:17,670
+say we did have positional encodings. Uh one thing you need to worry about for
+
+925
+00:43:17,680 --> 00:43:20,390
+one thing you need to worry about for long context is uh position
+
+926
+00:43:20,400 --> 00:43:24,069
+long context is uh position interpolation or position extension. And
+
+927
+00:43:24,079 --> 00:43:25,270
+interpolation or position extension. And what this means is if you have a
+
+928
+00:43:25,280 --> 00:43:29,349
+what this means is if you have a pre-training range, um, you need to
+
+929
+00:43:29,359 --> 00:43:31,589
+pre-training range, um, you need to essentially extend your model so that
+
+930
+00:43:31,599 --> 00:43:33,990
+essentially extend your model so that it's able to handle longer sequences.
+
+931
+00:43:34,000 --> 00:43:38,950
+it's able to handle longer sequences. And so the the promise of rope was that
+
+932
+00:43:38,960 --> 00:43:41,829
+And so the the promise of rope was that rope relied only on the relative
+
+933
+00:43:41,839 --> 00:43:46,069
+rope relied only on the relative position uh between the different tokens
+
+934
+00:43:46,079 --> 00:43:49,910
+position uh between the different tokens in the output. But
+
+935
+00:43:49,920 --> 00:43:52,150
+in the output. But that that's fine as long as the relative
+
+936
+00:43:52,160 --> 00:43:56,710
+that that's fine as long as the relative position is only um well okay there
+
+937
+00:43:56,720 --> 00:43:58,230
+position is only um well okay there there's two reasons why this is not
+
+938
+00:43:58,240 --> 00:44:00,710
+there's two reasons why this is not fine. So number one if you're training
+
+939
+00:44:00,720 --> 00:44:02,630
+fine. So number one if you're training on
+
+940
+00:44:02,640 --> 00:44:05,190
+on sequences of length L and then you
+
+941
+00:44:05,200 --> 00:44:09,670
+sequences of length L and then you extend to sequences uh of length SL then
+
+942
+00:44:09,680 --> 00:44:12,309
+extend to sequences uh of length SL then it's never seen two tokens attend to
+
+943
+00:44:12,319 --> 00:44:14,710
+it's never seen two tokens attend to each other over a distance of more than
+
+944
+00:44:14,720 --> 00:44:17,829
+each other over a distance of more than L. So the tokens that are more than L
+
+945
+00:44:17,839 --> 00:44:19,109
+L. So the tokens that are more than L away from each other are going to have
+
+946
+00:44:19,119 --> 00:44:20,390
+away from each other are going to have problems attending to each other and
+
+947
+00:44:20,400 --> 00:44:22,710
+problems attending to each other and you're not going to be able to uh manage
+
+948
+00:44:22,720 --> 00:44:26,550
+you're not going to be able to uh manage that very well. Um the other problem is
+
+949
+00:44:26,560 --> 00:44:28,390
+that very well. Um the other problem is that actually relative positional
+
+950
+00:44:28,400 --> 00:44:31,030
+that actually relative positional encodings are only one part of the story
+
+951
+00:44:31,040 --> 00:44:32,950
+encodings are only one part of the story and like actually the auto reggressive
+
+952
+00:44:32,960 --> 00:44:34,550
+and like actually the auto reggressive mask has an effect in all these other
+
+953
+00:44:34,560 --> 00:44:37,270
+mask has an effect in all these other things. So you can't just take rope and
+
+954
+00:44:37,280 --> 00:44:39,109
+things. So you can't just take rope and expect it to work uh really well on
+
+955
+00:44:39,119 --> 00:44:41,030
+expect it to work uh really well on longer sequences.
+
+956
+00:44:41,040 --> 00:44:45,109
+longer sequences. And so the typical way you fix this is
+
+957
+00:44:45,119 --> 00:44:46,870
+And so the typical way you fix this is there's a parameter in rope that
+
+958
+00:44:46,880 --> 00:44:48,390
+there's a parameter in rope that basically
+
+959
+00:44:48,400 --> 00:44:51,349
+basically uh
+
+960
+00:44:51,359 --> 00:44:55,270
+uh let me see if I have it in my slide.
+
+961
+00:44:55,280 --> 00:44:57,030
+let me see if I have it in my slide. So I I don't I don't really have it in
+
+962
+00:44:57,040 --> 00:44:59,030
+So I I don't I don't really have it in my slide, but there's basically a um a
+
+963
+00:44:59,040 --> 00:45:01,990
+my slide, but there's basically a um a parameter in rope theta that uh tells
+
+964
+00:45:02,000 --> 00:45:03,829
+parameter in rope theta that uh tells you how much you rotate at each time
+
+965
+00:45:03,839 --> 00:45:08,390
+you how much you rotate at each time step. and you divide this theta by the
+
+966
+00:45:08,400 --> 00:45:10,950
+step. and you divide this theta by the uh multiplier by which you extended the
+
+967
+00:45:10,960 --> 00:45:12,870
+uh multiplier by which you extended the sequence. And so basically you're
+
+968
+00:45:12,880 --> 00:45:16,069
+sequence. And so basically you're stretching the rope position so that the
+
+969
+00:45:16,079 --> 00:45:19,910
+stretching the rope position so that the rope uh position at position zero would
+
+970
+00:45:19,920 --> 00:45:22,950
+rope uh position at position zero would um or the rope position at position like
+
+971
+00:45:22,960 --> 00:45:26,069
+um or the rope position at position like five would be 5s uh would be equivalent
+
+972
+00:45:26,079 --> 00:45:28,870
+five would be 5s uh would be equivalent to the position 5s in your uh extended
+
+973
+00:45:28,880 --> 00:45:30,550
+to the position 5s in your uh extended context.
+
+974
+00:45:30,560 --> 00:45:34,790
+context. And there's also um a more sophisticated
+
+975
+00:45:34,800 --> 00:45:37,109
+And there's also um a more sophisticated way of doing this called yarn uh which
+
+976
+00:45:37,119 --> 00:45:41,670
+way of doing this called yarn uh which basically is uh similar
+
+977
+00:45:41,680 --> 00:45:47,190
+basically is uh similar in spirit uh to like the delta uh the ki
+
+978
+00:45:47,200 --> 00:45:49,589
+in spirit uh to like the delta uh the ki delta attention
+
+979
+00:45:49,599 --> 00:45:51,910
+delta attention um which
+
+980
+00:45:51,920 --> 00:45:54,230
+um which basically said that we want some of them
+
+981
+00:45:54,240 --> 00:45:55,990
+basically said that we want some of them to be very long distance and some of
+
+982
+00:45:56,000 --> 00:45:57,990
+to be very long distance and some of them to not be very long distance. In
+
+983
+00:45:58,000 --> 00:46:00,790
+them to not be very long distance. In yarn essentially you have some of them
+
+984
+00:46:00,800 --> 00:46:03,030
+yarn essentially you have some of them be uh extended more and some of them be
+
+985
+00:46:03,040 --> 00:46:06,870
+be uh extended more and some of them be extended less and so you don't um you
+
+986
+00:46:06,880 --> 00:46:08,470
+extended less and so you don't um you don't necessarily interpolate all of
+
+987
+00:46:08,480 --> 00:46:13,990
+don't necessarily interpolate all of them at the same frequency.
+
+988
+00:46:16,880 --> 00:46:18,150
+So um yeah in the interest of time I'm not going to go into like a lot of
+
+989
+00:46:18,160 --> 00:46:19,750
+not going to go into like a lot of detail about this but basically these
+
+990
+00:46:19,760 --> 00:46:22,710
+detail about this but basically these are um uh these are the various methods
+
+991
+00:46:22,720 --> 00:46:27,030
+are um uh these are the various methods that you can use here.
+
+992
+00:46:29,440 --> 00:46:31,829
+So, um, I'd like to talk a little bit now, um,
+
+993
+00:46:31,839 --> 00:46:33,430
+I'd like to talk a little bit now, um, taking a step back from the detailed
+
+994
+00:46:33,440 --> 00:46:35,670
+taking a step back from the detailed modeling stuff and going into the data
+
+995
+00:46:35,680 --> 00:46:39,030
+modeling stuff and going into the data that you can use to train this. So, um,
+
+996
+00:46:39,040 --> 00:46:40,950
+that you can use to train this. So, um, as I mentioned before, packed examples,
+
+997
+00:46:40,960 --> 00:46:42,790
+as I mentioned before, packed examples, you can just pack a whole bunch of stuff
+
+998
+00:46:42,800 --> 00:46:45,750
+you can just pack a whole bunch of stuff in there, um, a whole bunch of documents
+
+999
+00:46:45,760 --> 00:46:48,550
+in there, um, a whole bunch of documents in into your context length. And this
+
+1000
+00:46:48,560 --> 00:46:50,309
+in into your context length. And this will work at training models to be able
+
+1001
+00:46:50,319 --> 00:46:52,550
+will work at training models to be able to process things near the end of your
+
+1002
+00:46:52,560 --> 00:46:54,630
+to process things near the end of your context window. But what it won't work
+
+1003
+00:46:54,640 --> 00:46:58,230
+context window. But what it won't work for is the kind of global coherence. And
+
+1004
+00:46:58,240 --> 00:47:01,190
+for is the kind of global coherence. And um so there's a number of different ways
+
+1005
+00:47:01,200 --> 00:47:03,589
+um so there's a number of different ways that people do this. One way is just to
+
+1006
+00:47:03,599 --> 00:47:07,190
+that people do this. One way is just to find um very long documents uh like
+
+1007
+00:47:07,200 --> 00:47:09,430
+find um very long documents uh like books or something like this. There
+
+1008
+00:47:09,440 --> 00:47:11,750
+books or something like this. There aren't a lot of these uh but there are
+
+1009
+00:47:11,760 --> 00:47:14,309
+aren't a lot of these uh but there are books. There are code bases and code
+
+1010
+00:47:14,319 --> 00:47:15,829
+books. There are code bases and code bases tend to be coherent. So you can
+
+1011
+00:47:15,839 --> 00:47:17,270
+bases tend to be coherent. So you can just download a big codebase and that
+
+1012
+00:47:17,280 --> 00:47:20,390
+just download a big codebase and that will definitely have more tokens. Um
+
+1013
+00:47:20,400 --> 00:47:23,030
+will definitely have more tokens. Um multi-document corpora of some kind. So,
+
+1014
+00:47:23,040 --> 00:47:25,109
+multi-document corpora of some kind. So, you know, like uh you can get a whole
+
+1015
+00:47:25,119 --> 00:47:26,470
+you know, like uh you can get a whole bunch of documents that are on the same
+
+1016
+00:47:26,480 --> 00:47:27,990
+bunch of documents that are on the same topic and then at least you'll have
+
+1017
+00:47:28,000 --> 00:47:30,470
+topic and then at least you'll have topical coherence between them. Um I've
+
+1018
+00:47:30,480 --> 00:47:32,069
+topical coherence between them. Um I've also seen people train on patents
+
+1019
+00:47:32,079 --> 00:47:34,790
+also seen people train on patents because patents have like there's lots
+
+1020
+00:47:34,800 --> 00:47:37,109
+because patents have like there's lots of public data for them and you can kind
+
+1021
+00:47:37,119 --> 00:47:39,750
+of public data for them and you can kind of link link them together.
+
+1022
+00:47:39,760 --> 00:47:41,589
+of link link them together. A big source nowadays is agent
+
+1023
+00:47:41,599 --> 00:47:45,349
+A big source nowadays is agent trajectories because you know agents can
+
+1024
+00:47:45,359 --> 00:47:47,430
+trajectories because you know agents can make very very long trajectories if you
+
+1025
+00:47:47,440 --> 00:47:48,630
+make very very long trajectories if you just interact with them for a little
+
+1026
+00:47:48,640 --> 00:47:51,510
+just interact with them for a little while. So that's another one. And then
+
+1027
+00:47:51,520 --> 00:47:53,349
+while. So that's another one. And then you can also create synthetic tasks and
+
+1028
+00:47:53,359 --> 00:47:55,030
+you can also create synthetic tasks and a lot of the evaluations are synthetic
+
+1029
+00:47:55,040 --> 00:47:59,589
+a lot of the evaluations are synthetic tasks. So you can do that as well.
+
+1030
+00:48:03,680 --> 00:48:05,990
+Um and I I have some examples of how the models do this. Um a lot of the model
+
+1031
+00:48:06,000 --> 00:48:07,430
+models do this. Um a lot of the model training companies don't like to share
+
+1032
+00:48:07,440 --> 00:48:09,750
+training companies don't like to share these details with you because this is
+
+1033
+00:48:09,760 --> 00:48:13,430
+these details with you because this is like if they release their um well so
+
+1034
+00:48:13,440 --> 00:48:14,790
+like if they release their um well so number one the closed models like
+
+1035
+00:48:14,800 --> 00:48:18,069
+number one the closed models like anthropic open AAI you know those places
+
+1036
+00:48:18,079 --> 00:48:20,390
+anthropic open AAI you know those places uh uh Gemini they will not release even
+
+1037
+00:48:20,400 --> 00:48:22,470
+uh uh Gemini they will not release even their architectural details the open
+
+1038
+00:48:22,480 --> 00:48:23,910
+their architectural details the open model companies have to release their
+
+1039
+00:48:23,920 --> 00:48:25,430
+model companies have to release their architectural details otherwise you
+
+1040
+00:48:25,440 --> 00:48:27,750
+architectural details otherwise you can't run their model so what do they
+
+1041
+00:48:27,760 --> 00:48:29,270
+can't run their model so what do they keep secret they keep their data mixes
+
+1042
+00:48:29,280 --> 00:48:31,190
+keep secret they keep their data mixes and their their training strategy secret
+
+1043
+00:48:31,200 --> 00:48:34,790
+and their their training strategy secret so um this there's a lot less detailed
+
+1044
+00:48:34,800 --> 00:48:38,309
+so um this there's a lot less detailed stuff that we can say. Um, but there's
+
+1045
+00:48:38,319 --> 00:48:41,109
+stuff that we can say. Um, but there's uh all of them explain all of the ones
+
+1046
+00:48:41,119 --> 00:48:42,630
+uh all of them explain all of the ones in here explain a little bit about their
+
+1047
+00:48:42,640 --> 00:48:45,349
+in here explain a little bit about their data mixtures and they are things like
+
+1048
+00:48:45,359 --> 00:48:47,430
+data mixtures and they are things like uh cleaned up sampled documents and
+
+1049
+00:48:47,440 --> 00:48:50,630
+uh cleaned up sampled documents and video um documents, repository files,
+
+1050
+00:48:50,640 --> 00:48:53,910
+video um documents, repository files, issue, PRs, uh long document QA,
+
+1051
+00:48:53,920 --> 00:48:56,309
+issue, PRs, uh long document QA, scientific papers and technical reports.
+
+1052
+00:48:56,319 --> 00:48:58,150
+scientific papers and technical reports. And then uh they also create a bunch of
+
+1053
+00:48:58,160 --> 00:49:00,390
+And then uh they also create a bunch of synthetic tasks. And typically they have
+
+1054
+00:49:00,400 --> 00:49:03,910
+synthetic tasks. And typically they have a scaling strategy of like 8 64 256 1
+
+1055
+00:49:03,920 --> 00:49:05,910
+a scaling strategy of like 8 64 256 1 million uh that that sort of stuff as
+
+1056
+00:49:05,920 --> 00:49:10,630
+million uh that that sort of stuff as well.
+
+1057
+00:49:12,640 --> 00:49:14,950
+Oh yes. Um [clears throat] one other
+
+1058
+00:49:14,960 --> 00:49:17,030
+one other logistical detail that you might need to
+
+1059
+00:49:17,040 --> 00:49:19,589
+logistical detail that you might need to deal with um or might not need to deal
+
+1060
+00:49:19,599 --> 00:49:20,950
+deal with um or might not need to deal with depending on the size of the model
+
+1061
+00:49:20,960 --> 00:49:22,549
+with depending on the size of the model you're training. like for example for
+
+1062
+00:49:22,559 --> 00:49:23,910
+you're training. like for example for your project if you want to start
+
+1063
+00:49:23,920 --> 00:49:27,510
+your project if you want to start dealing with um uh larger models is
+
+1064
+00:49:27,520 --> 00:49:30,710
+dealing with um uh larger models is context parallelism and basically what
+
+1065
+00:49:30,720 --> 00:49:34,230
+context parallelism and basically what this means is there's a bunch of uh ways
+
+1066
+00:49:34,240 --> 00:49:36,309
+this means is there's a bunch of uh ways to do parallelism when training models I
+
+1067
+00:49:36,319 --> 00:49:38,470
+to do parallelism when training models I wrote context parallelism up here what
+
+1068
+00:49:38,480 --> 00:49:40,470
+wrote context parallelism up here what are two other ways uh that you can
+
+1069
+00:49:40,480 --> 00:49:41,990
+are two other ways uh that you can parallelize models during model training
+
+1070
+00:49:42,000 --> 00:49:44,150
+parallelize models during model training or serving
+
+1071
+00:49:44,160 --> 00:49:47,829
+or serving >> yes
+
+1072
+00:49:50,640 --> 00:49:52,390
+>> data parallelism >> yeah you you said a more specific
+
+1073
+00:49:52,400 --> 00:49:53,990
+>> yeah you you said a more specific example of the second one but data
+
+1074
+00:49:54,000 --> 00:49:55,510
+example of the second one but data parallelism and I would say model
+
+1075
+00:49:55,520 --> 00:49:57,510
+parallelism and I would say model parallelism in general and model
+
+1076
+00:49:57,520 --> 00:49:59,589
+parallelism in general and model parallelism can have lots of varieties.
+
+1077
+00:49:59,599 --> 00:50:02,630
+parallelism can have lots of varieties. It can have uh expert parallelism where
+
+1078
+00:50:02,640 --> 00:50:03,990
+It can have uh expert parallelism where you have different experts on different
+
+1079
+00:50:04,000 --> 00:50:06,710
+you have different experts on different machines uh tensor more generally tensor
+
+1080
+00:50:06,720 --> 00:50:10,069
+machines uh tensor more generally tensor parallelism where you split um uh the uh
+
+1081
+00:50:10,079 --> 00:50:11,510
+parallelism where you split um uh the uh the parameters and you can also have
+
+1082
+00:50:11,520 --> 00:50:12,870
+the parameters and you can also have pipeline parallelism where you have
+
+1083
+00:50:12,880 --> 00:50:14,790
+pipeline parallelism where you have different layers on different uh
+
+1084
+00:50:14,800 --> 00:50:16,710
+different layers on different uh different devices. But context
+
+1085
+00:50:16,720 --> 00:50:18,710
+different devices. But context parallelism starts becoming import more
+
+1086
+00:50:18,720 --> 00:50:20,870
+parallelism starts becoming import more important for agents because when you
+
+1087
+00:50:20,880 --> 00:50:22,309
+important for agents because when you train agents you want to train them on
+
+1088
+00:50:22,319 --> 00:50:25,349
+train agents you want to train them on very long contexts. And so uh the way
+
+1089
+00:50:25,359 --> 00:50:28,710
+very long contexts. And so uh the way this works is you will compute like one
+
+1090
+00:50:28,720 --> 00:50:31,030
+this works is you will compute like one part of the context uh the keys and
+
+1091
+00:50:31,040 --> 00:50:32,630
+part of the context uh the keys and values. So you send it to the next
+
+1092
+00:50:32,640 --> 00:50:35,030
+values. So you send it to the next device calculate the keys and values for
+
+1093
+00:50:35,040 --> 00:50:37,109
+device calculate the keys and values for the next for that part send it to the
+
+1094
+00:50:37,119 --> 00:50:42,470
+the next for that part send it to the next device uh and etc etc. So um this
+
+1095
+00:50:42,480 --> 00:50:44,549
+next device uh and etc etc. So um this is uh very useful. It's really important
+
+1096
+00:50:44,559 --> 00:50:47,670
+is uh very useful. It's really important if you start getting above like 32k
+
+1097
+00:50:47,680 --> 00:50:51,349
+if you start getting above like 32k 32k context or so. Um, but it's also a
+
+1098
+00:50:51,359 --> 00:50:54,470
+32k context or so. Um, but it's also a pain because
+
+1099
+00:50:54,480 --> 00:50:58,309
+pain because you have the
+
+1100
+00:51:00,640 --> 00:51:02,390
+um you have all the modeling people saying
+
+1101
+00:51:02,400 --> 00:51:05,510
+you have all the modeling people saying I want my I want my KI delta attention
+
+1102
+00:51:05,520 --> 00:51:06,950
+I want my I want my KI delta attention and then you have all the info people
+
+1103
+00:51:06,960 --> 00:51:08,630
+and then you have all the info people saying but wait I need to implement a
+
+1104
+00:51:08,640 --> 00:51:10,870
+saying but wait I need to implement a context parallel kernel for KI delta
+
+1105
+00:51:10,880 --> 00:51:12,630
+context parallel kernel for KI delta attention and make sure it actually
+
+1106
+00:51:12,640 --> 00:51:14,390
+attention and make sure it actually works and you can back prop through it
+
+1107
+00:51:14,400 --> 00:51:19,190
+works and you can back prop through it and all of these other things. So um I I
+
+1108
+00:51:19,200 --> 00:51:20,950
+and all of these other things. So um I I personally had an experience where I was
+
+1109
+00:51:20,960 --> 00:51:24,870
+personally had an experience where I was trying to train uh Quen uh for uh like a
+
+1110
+00:51:24,880 --> 00:51:29,589
+trying to train uh Quen uh for uh like a smaller quen model like 135 uh 35b and
+
+1111
+00:51:29,599 --> 00:51:32,230
+smaller quen model like 135 uh 35b and uh I I wanted to go do use context
+
+1112
+00:51:32,240 --> 00:51:33,670
+uh I I wanted to go do use context parallelism on it and it's like there's
+
+1113
+00:51:33,680 --> 00:51:35,349
+parallelism on it and it's like there's no kernel for gated delta net anywhere
+
+1114
+00:51:35,359 --> 00:51:38,470
+no kernel for gated delta net anywhere on the internet and so um you need to uh
+
+1115
+00:51:38,480 --> 00:51:39,910
+on the internet and so um you need to uh you need to either go in and implement
+
+1116
+00:51:39,920 --> 00:51:41,510
+you need to either go in and implement that kernel or decide to do something
+
+1117
+00:51:41,520 --> 00:51:44,230
+that kernel or decide to do something else. So um th those two can conflict
+
+1118
+00:51:44,240 --> 00:51:46,950
+else. So um th those two can conflict some of the times. So be be aware I
+
+1119
+00:51:46,960 --> 00:51:51,589
+some of the times. So be be aware I guess
+
+1120
+00:51:53,520 --> 00:51:55,030
+um the the good news is for like standard attention and sliding window
+
+1121
+00:51:55,040 --> 00:51:56,390
+standard attention and sliding window attention and stuff like that all of
+
+1122
+00:51:56,400 --> 00:51:59,270
+attention and stuff like that all of those will have uh kernels more easily
+
+1123
+00:51:59,280 --> 00:52:00,790
+those will have uh kernels more easily implemented. The hard parts are where
+
+1124
+00:52:00,800 --> 00:52:02,230
+implemented. The hard parts are where you're like not doing a standard
+
+1125
+00:52:02,240 --> 00:52:06,230
+you're like not doing a standard attention operation.
+
+1126
+00:52:11,200 --> 00:52:14,630
+Okay. So the next part I'd like to talk about is prompt and KV caching. This is
+
+1127
+00:52:14,640 --> 00:52:16,470
+about is prompt and KV caching. This is uh very important even if you're not the
+
+1128
+00:52:16,480 --> 00:52:18,069
+uh very important even if you're not the person who's implementing the language
+
+1129
+00:52:18,079 --> 00:52:19,589
+person who's implementing the language model, but also if you're just a person
+
+1130
+00:52:19,599 --> 00:52:22,390
+model, but also if you're just a person who's um
+
+1131
+00:52:22,400 --> 00:52:26,230
+who's um like running agents uh yourself, but I'm
+
+1132
+00:52:26,240 --> 00:52:28,230
+like running agents uh yourself, but I'm going to talk about uh the the technical
+
+1133
+00:52:28,240 --> 00:52:30,309
+going to talk about uh the the technical details of how it's implemented. So, you
+
+1134
+00:52:30,319 --> 00:52:32,549
+details of how it's implemented. So, you know, at least you you have a good uh
+
+1135
+00:52:32,559 --> 00:52:35,670
+know, at least you you have a good uh idea about how that works. So um
+
+1136
+00:52:35,680 --> 00:52:37,829
+idea about how that works. So um basically
+
+1137
+00:52:37,839 --> 00:52:40,790
+basically when we I I simplified this a little bit
+
+1138
+00:52:40,800 --> 00:52:42,710
+when we I I simplified this a little bit but when we're generating an agent call
+
+1139
+00:52:42,720 --> 00:52:46,230
+but when we're generating an agent call we have an input uh we have an output uh
+
+1140
+00:52:46,240 --> 00:52:47,990
+we have an input uh we have an output uh so this could be like the the messages
+
+1141
+00:52:48,000 --> 00:52:49,589
+so this could be like the the messages and tool calls and then we have the tool
+
+1142
+00:52:49,599 --> 00:52:55,589
+and tool calls and then we have the tool result and so so
+
+1143
+00:52:59,200 --> 00:53:02,630
+as we calculate the input we do prefill and as we calculate the output uh we do
+
+1144
+00:53:02,640 --> 00:53:04,950
+and as we calculate the output uh we do uh basically decoding Right? And so
+
+1145
+00:53:04,960 --> 00:53:06,790
+uh basically decoding Right? And so during prefill and decoding, we have to
+
+1146
+00:53:06,800 --> 00:53:08,549
+during prefill and decoding, we have to calculate the KV cache. This is all done
+
+1147
+00:53:08,559 --> 00:53:11,349
+calculate the KV cache. This is all done in a batch. Uh this is done every time
+
+1148
+00:53:11,359 --> 00:53:13,750
+in a batch. Uh this is done every time we generate a token. But after we have
+
+1149
+00:53:13,760 --> 00:53:16,549
+we generate a token. But after we have that, we have the uh key and value uh
+
+1150
+00:53:16,559 --> 00:53:18,309
+that, we have the uh key and value uh for each of the positions up until the
+
+1151
+00:53:18,319 --> 00:53:20,309
+for each of the positions up until the end of the output. And so what we can do
+
+1152
+00:53:20,319 --> 00:53:22,069
+end of the output. And so what we can do is we can throw that in a cache and then
+
+1153
+00:53:22,079 --> 00:53:24,710
+is we can throw that in a cache and then we don't need to calculate it anymore.
+
+1154
+00:53:24,720 --> 00:53:27,589
+we don't need to calculate it anymore. The tool result is new uh because you
+
+1155
+00:53:27,599 --> 00:53:29,349
+The tool result is new uh because you know we don't calculate over the tool
+
+1156
+00:53:29,359 --> 00:53:31,990
+know we don't calculate over the tool result. So this becomes a new input and
+
+1157
+00:53:32,000 --> 00:53:33,829
+result. So this becomes a new input and we generate an output and we get another
+
+1158
+00:53:33,839 --> 00:53:37,109
+we generate an output and we get another tool result. And so in step two we need
+
+1159
+00:53:37,119 --> 00:53:38,870
+tool result. And so in step two we need to calculate the KV cache over the new
+
+1160
+00:53:38,880 --> 00:53:41,430
+to calculate the KV cache over the new input and we uh during prefill and the
+
+1161
+00:53:41,440 --> 00:53:44,309
+input and we uh during prefill and the output but we can reuse the cache
+
+1162
+00:53:44,319 --> 00:53:45,829
+output but we can reuse the cache and then we do that over and over and
+
+1163
+00:53:45,839 --> 00:53:49,270
+and then we do that over and over and over again. And so as you imagine um as
+
+1164
+00:53:49,280 --> 00:53:52,390
+over again. And so as you imagine um as you can imagine I just showed steps 1 2
+
+1165
+00:53:52,400 --> 00:53:55,750
+you can imagine I just showed steps 1 2 3 but by the time we get to step 50 if
+
+1166
+00:53:55,760 --> 00:53:57,510
+3 but by the time we get to step 50 if we haven't done anything tricky with our
+
+1167
+00:53:57,520 --> 00:53:59,750
+we haven't done anything tricky with our output this is going to be 50 times
+
+1168
+00:53:59,760 --> 00:54:02,710
+output this is going to be 50 times larger than the new input in the in the
+
+1169
+00:54:02,720 --> 00:54:04,790
+larger than the new input in the in the output right so that's pretty
+
+1170
+00:54:04,800 --> 00:54:06,630
+output right so that's pretty significant savings if we can cache this
+
+1171
+00:54:06,640 --> 00:54:09,990
+significant savings if we can cache this properly
+
+1172
+00:54:12,160 --> 00:54:15,349
+and here are some examples from actual papers uh that you know examine this and
+
+1173
+00:54:15,359 --> 00:54:18,230
+papers uh that you know examine this and basically What we can see is this is
+
+1174
+00:54:18,240 --> 00:54:20,790
+basically What we can see is this is like the the token length on uh
+
+1175
+00:54:20,800 --> 00:54:25,670
+like the the token length on uh different GPUs and this is the amount of
+
+1176
+00:54:25,680 --> 00:54:28,870
+different GPUs and this is the amount of uh of compute that you need with caching
+
+1177
+00:54:28,880 --> 00:54:31,670
+uh of compute that you need with caching and no caching. And so the upper one of
+
+1178
+00:54:31,680 --> 00:54:34,790
+and no caching. And so the upper one of the same color is uh or the lower one
+
+1179
+00:54:34,800 --> 00:54:36,470
+the same color is uh or the lower one with the same color is caching and the
+
+1180
+00:54:36,480 --> 00:54:40,710
+with the same color is caching and the the upper one is no caching. So uh
+
+1181
+00:54:40,720 --> 00:54:42,309
+the upper one is no caching. So uh basically as the sequence gets longer
+
+1182
+00:54:42,319 --> 00:54:44,309
+basically as the sequence gets longer the non-cashed one becomes quadratic and
+
+1183
+00:54:44,319 --> 00:54:50,790
+the non-cashed one becomes quadratic and the cache one is is mostly linear.
+
+1184
+00:54:53,440 --> 00:54:56,309
+This also shows up in how much you pay to run an agent. And so I I pulled all
+
+1185
+00:54:56,319 --> 00:54:58,950
+to run an agent. And so I I pulled all of these numbers from uh the official
+
+1186
+00:54:58,960 --> 00:55:01,990
+of these numbers from uh the official pricing. And basically you can see here
+
+1187
+00:55:02,000 --> 00:55:04,309
+pricing. And basically you can see here that if you go through all of these uh
+
+1188
+00:55:04,319 --> 00:55:05,670
+that if you go through all of these uh all of these numbers including the
+
+1189
+00:55:05,680 --> 00:55:08,150
+all of these numbers including the commercial ones typically cashed tokens
+
+1190
+00:55:08,160 --> 00:55:10,710
+commercial ones typically cashed tokens are onetenth of the price of uncashed
+
+1191
+00:55:10,720 --> 00:55:13,750
+are onetenth of the price of uncashed tokens. And so what this means is you
+
+1192
+00:55:13,760 --> 00:55:16,549
+tokens. And so what this means is you need to be very aware of uh whether your
+
+1193
+00:55:16,559 --> 00:55:18,470
+need to be very aware of uh whether your tokens are being cached or not. Uh
+
+1194
+00:55:18,480 --> 00:55:20,950
+tokens are being cached or not. Uh because if they're not being cached uh
+
+1195
+00:55:20,960 --> 00:55:22,069
+because if they're not being cached uh you're going to be paying a lot of money
+
+1196
+00:55:22,079 --> 00:55:26,230
+you're going to be paying a lot of money to be running your agents. Um,
+
+1197
+00:55:26,240 --> 00:55:28,630
+to be running your agents. Um, so does anyone have an idea of what a
+
+1198
+00:55:28,640 --> 00:55:31,829
+so does anyone have an idea of what a good uh cash hit rate is
+
+1199
+00:55:31,839 --> 00:55:33,430
+good uh cash hit rate is if you're running an agent? Yeah.
+
+1200
+00:55:33,440 --> 00:55:34,870
+if you're running an agent? Yeah. >> 80 to 90%.
+
+1201
+00:55:34,880 --> 00:55:37,349
+>> 80 to 90%. >> 80 to 90%.
+
+1202
+00:55:37,359 --> 00:55:44,950
+>> 80 to 90%. >> Yeah.
+
+1203
+00:55:49,680 --> 00:55:53,349
+>> Um, yeah. So I I heard 80 to 90% I heard like more than 95%. I my my impression
+
+1204
+00:55:53,359 --> 00:55:56,390
+like more than 95%. I my my impression is 90 to 95 is everything is fine. Like
+
+1205
+00:55:56,400 --> 00:55:59,349
+is 90 to 95 is everything is fine. Like I'm I'm good with 90 to 95. If it's less
+
+1206
+00:55:59,359 --> 00:56:01,430
+I'm I'm good with 90 to 95. If it's less than that, you might be fine, but you
+
+1207
+00:56:01,440 --> 00:56:03,589
+than that, you might be fine, but you might be might be losing out somewhere.
+
+1208
+00:56:03,599 --> 00:56:08,549
+might be might be losing out somewhere. Um so, uh yeah, so basically you can you
+
+1209
+00:56:08,559 --> 00:56:11,270
+Um so, uh yeah, so basically you can you can cache most of your tokens. Um one
+
+1210
+00:56:11,280 --> 00:56:12,710
+can cache most of your tokens. Um one other interesting thing is the output
+
+1211
+00:56:12,720 --> 00:56:14,230
+other interesting thing is the output also tends to be five times more than
+
+1212
+00:56:14,240 --> 00:56:17,670
+also tends to be five times more than the input. So um this is uh there's a
+
+1213
+00:56:17,680 --> 00:56:19,829
+the input. So um this is uh there's a 50x difference between output and cached
+
+1214
+00:56:19,839 --> 00:56:22,230
+50x difference between output and cached input which just reflects the amount of
+
+1215
+00:56:22,240 --> 00:56:25,430
+input which just reflects the amount of uh uh the amount of cost uh savings that
+
+1216
+00:56:25,440 --> 00:56:28,870
+uh uh the amount of cost uh savings that you can get from serving it.
+
+1217
+00:56:28,880 --> 00:56:34,309
+you can get from serving it. So why why is caching um so much cheaper
+
+1218
+00:56:34,319 --> 00:56:36,549
+So why why is caching um so much cheaper is maybe kind of obvious. You just need
+
+1219
+00:56:36,559 --> 00:56:42,470
+is maybe kind of obvious. You just need to look up um you need to look up the
+
+1220
+00:56:42,480 --> 00:56:44,630
+to look up um you need to look up the outputs. uh you just need to look these
+
+1221
+00:56:44,640 --> 00:56:46,309
+outputs. uh you just need to look these up instead of like actually uh
+
+1222
+00:56:46,319 --> 00:56:49,190
+up instead of like actually uh performing the calculation over them. Uh
+
+1223
+00:56:49,200 --> 00:56:50,950
+performing the calculation over them. Uh especially the feed forward network
+
+1224
+00:56:50,960 --> 00:56:52,549
+especially the feed forward network calculation is pretty expensive in
+
+1225
+00:56:52,559 --> 00:56:54,309
+calculation is pretty expensive in transformers and so being able to skip
+
+1226
+00:56:54,319 --> 00:56:58,870
+transformers and so being able to skip that is is uh particularly a win. Um but
+
+1227
+00:56:58,880 --> 00:57:02,069
+that is is uh particularly a win. Um but how do we actually manage that? So
+
+1228
+00:57:02,079 --> 00:57:06,230
+how do we actually manage that? So um the first thing is uh how do you hold
+
+1229
+00:57:06,240 --> 00:57:09,990
+um the first thing is uh how do you hold it in memory? And there's two like most
+
+1230
+00:57:10,000 --> 00:57:12,309
+it in memory? And there's two like most popular open-source
+
+1231
+00:57:12,319 --> 00:57:15,910
+popular open-source uh two most popular open-source
+
+1232
+00:57:15,920 --> 00:57:18,950
+uh two most popular open-source LLM serving libraries VLM and SGLANG and
+
+1233
+00:57:18,960 --> 00:57:22,630
+LLM serving libraries VLM and SGLANG and both of them are based on an innovation
+
+1234
+00:57:22,640 --> 00:57:26,630
+both of them are based on an innovation around the how you manage KV caching. Um
+
+1235
+00:57:26,640 --> 00:57:30,309
+around the how you manage KV caching. Um so VLM's main technical in innovation
+
+1236
+00:57:30,319 --> 00:57:32,390
+so VLM's main technical in innovation and like of course they have a lot more
+
+1237
+00:57:32,400 --> 00:57:33,829
+and like of course they have a lot more stuff in there now. They're like general
+
+1238
+00:57:33,839 --> 00:57:35,990
+stuff in there now. They're like general purpose serving libraries, but like the
+
+1239
+00:57:36,000 --> 00:57:38,069
+purpose serving libraries, but like the main technical innovation that led to
+
+1240
+00:57:38,079 --> 00:57:41,190
+main technical innovation that led to VLM was something called page detention.
+
+1241
+00:57:41,200 --> 00:57:43,349
+VLM was something called page detention. And basically the way it works is you
+
+1242
+00:57:43,359 --> 00:57:46,630
+And basically the way it works is you have physical GPU memory blocks and you
+
+1243
+00:57:46,640 --> 00:57:49,510
+have physical GPU memory blocks and you rear you arrange them like kind of
+
+1244
+00:57:49,520 --> 00:57:53,829
+rear you arrange them like kind of memory blocks or or disk blocks on uh
+
+1245
+00:57:53,839 --> 00:57:57,270
+memory blocks or or disk blocks on uh like more typical uh like CPUbased
+
+1246
+00:57:57,280 --> 00:58:01,190
+like more typical uh like CPUbased machines. And so you might have uh block
+
+1247
+00:58:01,200 --> 00:58:04,549
+machines. And so you might have uh block zero uh block one block two that you
+
+1248
+00:58:04,559 --> 00:58:07,990
+zero uh block one block two that you actually need to calculate and they put
+
+1249
+00:58:08,000 --> 00:58:10,549
+actually need to calculate and they put that you know in like block one and then
+
+1250
+00:58:10,559 --> 00:58:13,109
+that you know in like block one and then block seven and then block three or
+
+1251
+00:58:13,119 --> 00:58:14,789
+block seven and then block three or sorry uh block seven block one block
+
+1252
+00:58:14,799 --> 00:58:18,150
+sorry uh block seven block one block three and then you have an index to each
+
+1253
+00:58:18,160 --> 00:58:20,950
+three and then you have an index to each one of these uh as you're generating.
+
+1254
+00:58:20,960 --> 00:58:22,230
+one of these uh as you're generating. And the reason why they wanted to do
+
+1255
+00:58:22,240 --> 00:58:23,750
+And the reason why they wanted to do this is they want to be able to generate
+
+1256
+00:58:23,760 --> 00:58:26,470
+this is they want to be able to generate in parallel many sequences in parallel
+
+1257
+00:58:26,480 --> 00:58:29,190
+in parallel many sequences in parallel and when you finish generating um you
+
+1258
+00:58:29,200 --> 00:58:31,349
+and when you finish generating um you can like evict that from your memory and
+
+1259
+00:58:31,359 --> 00:58:34,230
+can like evict that from your memory and so you can uh evict whole blocks at once
+
+1260
+00:58:34,240 --> 00:58:36,069
+so you can uh evict whole blocks at once and this makes the calculation more more
+
+1261
+00:58:36,079 --> 00:58:39,430
+and this makes the calculation more more efficient. So um this is uh one
+
+1262
+00:58:39,440 --> 00:58:40,950
+efficient. So um this is uh one technical trick that they used to make
+
+1263
+00:58:40,960 --> 00:58:43,990
+technical trick that they used to make this uh you know make parallel serving
+
+1264
+00:58:44,000 --> 00:58:46,630
+this uh you know make parallel serving work.
+
+1265
+00:58:46,640 --> 00:58:48,150
+work. Um
+
+1266
+00:58:48,160 --> 00:58:50,309
+Um the technical innovation that kind of
+
+1267
+00:58:50,319 --> 00:58:53,510
+the technical innovation that kind of led to SG lang in particular uh was
+
+1268
+00:58:53,520 --> 00:58:55,910
+led to SG lang in particular uh was something called RAIX attention and this
+
+1269
+00:58:55,920 --> 00:59:00,950
+something called RAIX attention and this is specifically focused around uh like
+
+1270
+00:59:00,960 --> 00:59:04,870
+is specifically focused around uh like re reusing already cached uh out uh
+
+1271
+00:59:04,880 --> 00:59:08,710
+re reusing already cached uh out uh inputs. And so what they do is they form
+
+1272
+00:59:08,720 --> 00:59:13,349
+inputs. And so what they do is they form a a tree basically uh it's a radics tree
+
+1273
+00:59:13,359 --> 00:59:15,670
+a a tree basically uh it's a radics tree and they use this to look up prefixes
+
+1274
+00:59:15,680 --> 00:59:18,549
+and they use this to look up prefixes that have been used already. And so this
+
+1275
+00:59:18,559 --> 00:59:20,069
+that have been used already. And so this uh when it first came out this was
+
+1276
+00:59:20,079 --> 00:59:22,390
+uh when it first came out this was specifically focused around uh chat bots
+
+1277
+00:59:22,400 --> 00:59:24,150
+specifically focused around uh chat bots like chatgpt
+
+1278
+00:59:24,160 --> 00:59:25,990
+like chatgpt uh because you know you can have
+
+1279
+00:59:26,000 --> 00:59:27,750
+uh because you know you can have somebody start a conversation and then
+
+1280
+00:59:27,760 --> 00:59:29,430
+somebody start a conversation and then continue the conversation and so you'll
+
+1281
+00:59:29,440 --> 00:59:31,510
+continue the conversation and so you'll be caching some portion of the already
+
+1282
+00:59:31,520 --> 00:59:36,309
+be caching some portion of the already done conversation. But for uh now it's
+
+1283
+00:59:36,319 --> 00:59:38,150
+done conversation. But for uh now it's like much much more important for agents
+
+1284
+00:59:38,160 --> 00:59:39,829
+like much much more important for agents because agent conversations are much
+
+1285
+00:59:39,839 --> 00:59:41,349
+because agent conversations are much longer and much more frequent. So we
+
+1286
+00:59:41,359 --> 00:59:46,710
+longer and much more frequent. So we need this uh looking up more frequently.
+
+1287
+00:59:50,480 --> 00:59:52,549
+Um so another uh another thing that you need to think about um which is handled
+
+1288
+00:59:52,559 --> 00:59:55,030
+need to think about um which is handled in uh newer versions of sglang for
+
+1289
+00:59:55,040 --> 00:59:57,510
+in uh newer versions of sglang for instance is let's say you're doing
+
+1290
+00:59:57,520 --> 01:00:00,549
+instance is let's say you're doing multi-achine serving. So you're serving
+
+1291
+01:00:00,559 --> 01:00:05,670
+multi-achine serving. So you're serving on um you know different machines uh you
+
+1292
+01:00:05,680 --> 01:00:07,190
+on um you know different machines uh you know maybe you have a data center with
+
+1293
+01:00:07,200 --> 01:00:09,829
+know maybe you have a data center with like 64 nodes or 128 nodes or something
+
+1294
+01:00:09,839 --> 01:00:12,789
+like 64 nodes or 128 nodes or something like this. um every time a request comes
+
+1295
+01:00:12,799 --> 01:00:14,710
+like this. um every time a request comes in, you want to route it to the machine
+
+1296
+01:00:14,720 --> 01:00:17,430
+in, you want to route it to the machine that has your KV cache that has the best
+
+1297
+01:00:17,440 --> 01:00:21,349
+that has your KV cache that has the best KV cache for you um to be accessing and
+
+1298
+01:00:21,359 --> 01:00:23,349
+KV cache for you um to be accessing and so that you actually have cache aware
+
+1299
+01:00:23,359 --> 01:00:25,670
+so that you actually have cache aware routing uh route it to the appropriate
+
+1300
+01:00:25,680 --> 01:00:27,270
+routing uh route it to the appropriate place and then have the worker with the
+
+1301
+01:00:27,280 --> 01:00:31,990
+place and then have the worker with the best uh KV cache match uh process set.
+
+1302
+01:00:32,000 --> 01:00:33,990
+best uh KV cache match uh process set. And so
+
+1303
+01:00:34,000 --> 01:00:36,470
+And so I love getting all my uh my serving
+
+1304
+01:00:36,480 --> 01:00:39,750
+I love getting all my uh my serving statistics from Open Router um because
+
+1305
+01:00:39,760 --> 01:00:42,390
+statistics from Open Router um because they have so much data and uh they cover
+
+1306
+01:00:42,400 --> 01:00:44,150
+they have so much data and uh they cover all of the things I want to talk about,
+
+1307
+01:00:44,160 --> 01:00:47,430
+all of the things I want to talk about, but I believe they even have
+
+1308
+01:00:47,440 --> 01:00:50,347
+but I believe they even have a ranking of providers by cash hit rate.
+
+1309
+01:00:50,357 --> 01:00:51,670
+a ranking of providers by cash hit rate. [laughter]
+
+1310
+01:00:51,680 --> 01:00:54,950
+[laughter] I'm sorry mist the data the data doesn't
+
+1311
+01:00:54,960 --> 01:00:58,069
+I'm sorry mist the data the data doesn't lie but um you can see uh mistrol has
+
+1312
+01:00:58,079 --> 01:01:02,069
+lie but um you can see uh mistrol has the worst cache hit rate and then um you
+
+1313
+01:01:02,079 --> 01:01:04,710
+the worst cache hit rate and then um you have other one other ones like Alibaba
+
+1314
+01:01:04,720 --> 01:01:06,549
+have other one other ones like Alibaba cloud or dicard or silicon flow that
+
+1315
+01:01:06,559 --> 01:01:09,349
+cloud or dicard or silicon flow that have higher cash hit rates um this is
+
+1316
+01:01:09,359 --> 01:01:12,309
+have higher cash hit rates um this is not entirely reflective of the provider
+
+1317
+01:01:12,319 --> 01:01:13,670
+not entirely reflective of the provider being bad or something like that it
+
+1318
+01:01:13,680 --> 01:01:15,109
+being bad or something like that it could be just the workloads that they're
+
+1319
+01:01:15,119 --> 01:01:17,589
+could be just the workloads that they're running but there's a number of things
+
+1320
+01:01:17,599 --> 01:01:20,630
+running but there's a number of things that like actually factor into
+
+1321
+01:01:20,640 --> 01:01:24,470
+that like actually factor into into this cache hit rate and um one of
+
+1322
+01:01:24,480 --> 01:01:28,230
+into this cache hit rate and um one of them one of them is how good is the cash
+
+1323
+01:01:28,240 --> 01:01:30,950
+them one of them is how good is the cash routing. The other one is how fast is
+
+1324
+01:01:30,960 --> 01:01:35,510
+routing. The other one is how fast is the cash eviction. Um so the providers
+
+1325
+01:01:35,520 --> 01:01:38,069
+the cash eviction. Um so the providers will not hold your cash for you forever.
+
+1326
+01:01:38,079 --> 01:01:42,069
+will not hold your cash for you forever. Um they will uh you know evict your cash
+
+1327
+01:01:42,079 --> 01:01:44,309
+Um they will uh you know evict your cash after a certain amount of time. Does
+
+1328
+01:01:44,319 --> 01:01:47,510
+after a certain amount of time. Does anyone know how long this is for like
+
+1329
+01:01:47,520 --> 01:01:49,109
+anyone know how long this is for like popular providers? Have you ever taken a
+
+1330
+01:01:49,119 --> 01:01:49,990
+popular providers? Have you ever taken a look at that
+
+1331
+01:01:50,000 --> 01:01:52,630
+look at that >> yet?
+
+1332
+01:01:52,640 --> 01:01:53,910
+>> yet? Close to an hour.
+
+1333
+01:01:53,920 --> 01:01:56,950
+Close to an hour. >> Close to an hour. I I think the long
+
+1334
+01:01:56,960 --> 01:01:59,510
+>> Close to an hour. I I think the long like I'm not I'm not like super up to
+
+1335
+01:01:59,520 --> 01:02:01,270
+like I'm not I'm not like super up to date on this, but I know anthropic used
+
+1336
+01:02:01,280 --> 01:02:03,349
+date on this, but I know anthropic used to be five minutes. And so it's
+
+1337
+01:02:03,359 --> 01:02:05,190
+to be five minutes. And so it's basically if you have a an active
+
+1338
+01:02:05,200 --> 01:02:07,190
+basically if you have a an active conversation going on with them and you
+
+1339
+01:02:07,200 --> 01:02:08,549
+conversation going on with them and you don't pause your conversation, you'll
+
+1340
+01:02:08,559 --> 01:02:10,390
+don't pause your conversation, you'll stay in the cache. Otherwise, if you
+
+1341
+01:02:10,400 --> 01:02:11,750
+stay in the cache. Otherwise, if you like stop the conversation, you get
+
+1342
+01:02:11,760 --> 01:02:14,710
+like stop the conversation, you get evicted from the cache. I think you at
+
+1343
+01:02:14,720 --> 01:02:16,630
+evicted from the cache. I think you at least have an option to go up to an hour
+
+1344
+01:02:16,640 --> 01:02:19,430
+least have an option to go up to an hour now. Um but I don't know if you um but
+
+1345
+01:02:19,440 --> 01:02:20,789
+now. Um but I don't know if you um but like it costs a little bit more if you
+
+1346
+01:02:20,799 --> 01:02:23,270
+like it costs a little bit more if you go up to an hour or something. Um but
+
+1347
+01:02:23,280 --> 01:02:24,789
+go up to an hour or something. Um but yeah, ba basically they don't want to
+
+1348
+01:02:24,799 --> 01:02:26,470
+yeah, ba basically they don't want to keep this around because there this is a
+
+1349
+01:02:26,480 --> 01:02:28,309
+keep this around because there this is a huge amount of memory uh that they're
+
+1350
+01:02:28,319 --> 01:02:30,150
+huge amount of memory uh that they're keeping in memory and so they want to
+
+1351
+01:02:30,160 --> 01:02:32,309
+keeping in memory and so they want to use it if it's working and and evict it
+
+1352
+01:02:32,319 --> 01:02:35,349
+use it if it's working and and evict it if it's not working. So um that that's
+
+1353
+01:02:35,359 --> 01:02:36,870
+if it's not working. So um that that's another policy that could change your
+
+1354
+01:02:36,880 --> 01:02:39,349
+another policy that could change your cash hit rate. The bad news for us as
+
+1355
+01:02:39,359 --> 01:02:41,109
+cash hit rate. The bad news for us as users is the pricing doesn't change no
+
+1356
+01:02:41,119 --> 01:02:42,789
+users is the pricing doesn't change no matter how good the provider is at
+
+1357
+01:02:42,799 --> 01:02:47,510
+matter how good the provider is at routing or um or cash eviction. So you
+
+1358
+01:02:47,520 --> 01:02:49,990
+routing or um or cash eviction. So you uh you might be paying just because they
+
+1359
+01:02:50,000 --> 01:02:52,309
+uh you might be paying just because they evict you uh evict you too quickly which
+
+1360
+01:02:52,319 --> 01:02:54,789
+evict you uh evict you too quickly which seems a little bit unfair.
+
+1361
+01:02:54,799 --> 01:02:57,030
+seems a little bit unfair. >> Um yeah
+
+1362
+01:02:57,040 --> 01:02:59,030
+>> Um yeah >> do they use like cash layering where you
+
+1363
+01:02:59,040 --> 01:03:02,150
+>> do they use like cash layering where you can store it on device in memory that's
+
+1364
+01:03:02,160 --> 01:03:04,710
+can store it on device in memory that's like adjusted to device and then on this
+
+1365
+01:03:04,720 --> 01:03:06,630
+like adjusted to device and then on this >> yeah so the that's a great question. So
+
+1366
+01:03:06,640 --> 01:03:08,789
+>> yeah so the that's a great question. So the question was, do they use a cache
+
+1367
+01:03:08,799 --> 01:03:10,069
+the question was, do they use a cache layering where you have like a fast
+
+1368
+01:03:10,079 --> 01:03:12,870
+layering where you have like a fast cache that's stored in the device and
+
+1369
+01:03:12,880 --> 01:03:14,950
+cache that's stored in the device and then uh a slower cache that's stored on
+
+1370
+01:03:14,960 --> 01:03:17,270
+then uh a slower cache that's stored on disk or something like that? I actually
+
+1371
+01:03:17,280 --> 01:03:18,630
+disk or something like that? I actually don't know the answer to that question.
+
+1372
+01:03:18,640 --> 01:03:20,870
+don't know the answer to that question. That'd be a great uh like a great
+
+1373
+01:03:20,880 --> 01:03:23,589
+That'd be a great uh like a great follow-up for us to do. Um the open
+
+1374
+01:03:23,599 --> 01:03:25,990
+follow-up for us to do. Um the open source libraries also are probably not
+
+1375
+01:03:26,000 --> 01:03:27,829
+source libraries also are probably not as sophisticated as the closed libraries
+
+1376
+01:03:27,839 --> 01:03:29,910
+as sophisticated as the closed libraries because um if you look at all the people
+
+1377
+01:03:29,920 --> 01:03:32,309
+because um if you look at all the people on open router their job is to be really
+
+1378
+01:03:32,319 --> 01:03:35,670
+on open router their job is to be really good at serving and so you know they're
+
+1379
+01:03:35,680 --> 01:03:37,349
+good at serving and so you know they're some of them might be using open source
+
+1380
+01:03:37,359 --> 01:03:38,710
+some of them might be using open source libraries but they'll be building stuff
+
+1381
+01:03:38,720 --> 01:03:40,470
+libraries but they'll be building stuff on top of them and that's kind of their
+
+1382
+01:03:40,480 --> 01:03:43,430
+on top of them and that's kind of their you know competitive differentiation. So
+
+1383
+01:03:43,440 --> 01:03:47,029
+you know competitive differentiation. So um like I I think
+
+1384
+01:03:47,039 --> 01:03:48,870
+um like I I think the internal solutions that inference
+
+1385
+01:03:48,880 --> 01:03:50,710
+the internal solutions that inference providers are likely to be you know a
+
+1386
+01:03:50,720 --> 01:03:51,829
+providers are likely to be you know a bit better than the ones that are
+
+1387
+01:03:51,839 --> 01:03:53,270
+bit better than the ones that are available in open source too with
+
+1388
+01:03:53,280 --> 01:03:54,309
+available in open source too with respect to that.
+
+1389
+01:03:54,319 --> 01:03:57,190
+respect to that. >> They usually offload to CPU from GPU.
+
+1390
+01:03:57,200 --> 01:03:59,670
+>> They usually offload to CPU from GPU. >> They usually offload to CPU from GPU.
+
+1391
+01:03:59,680 --> 01:04:00,710
+>> They usually offload to CPU from GPU. Yeah.
+
+1392
+01:04:00,720 --> 01:04:03,029
+Yeah. >> Yeah. Because your GPU memory is so
+
+1393
+01:04:03,039 --> 01:04:07,510
+>> Yeah. Because your GPU memory is so precious. So yeah. Yeah.
+
+1394
+01:04:12,400 --> 01:04:14,870
+>> Cool. Um so uh yeah. Oh, sorry. I skipped a important part. So, what does
+
+1395
+01:04:14,880 --> 01:04:16,710
+skipped a important part. So, what does this mean? If you're just designing a
+
+1396
+01:04:16,720 --> 01:04:18,710
+this mean? If you're just designing a harness and you're not deploying models
+
+1397
+01:04:18,720 --> 01:04:21,270
+harness and you're not deploying models or or anything like this, it means you
+
+1398
+01:04:21,280 --> 01:04:24,309
+or or anything like this, it means you need to be super super careful to not
+
+1399
+01:04:24,319 --> 01:04:27,029
+need to be super super careful to not break your cache unintentionally.
+
+1400
+01:04:27,039 --> 01:04:29,510
+break your cache unintentionally. So, remember that your cache only works
+
+1401
+01:04:29,520 --> 01:04:31,670
+So, remember that your cache only works if the entire prefix is exactly the
+
+1402
+01:04:31,680 --> 01:04:36,309
+if the entire prefix is exactly the same. And so there's a bunch of things
+
+1403
+01:04:36,319 --> 01:04:38,789
+same. And so there's a bunch of things that we've thought about
+
+1404
+01:04:38,799 --> 01:04:42,470
+that we've thought about uh doing but we decided are a very bad
+
+1405
+01:04:42,480 --> 01:04:44,950
+uh doing but we decided are a very bad idea because we don't want to break the
+
+1406
+01:04:44,960 --> 01:04:48,950
+idea because we don't want to break the cache. So one thing that's completely
+
+1407
+01:04:48,960 --> 01:04:51,510
+cache. So one thing that's completely forbidden you should not do is don't
+
+1408
+01:04:51,520 --> 01:04:55,430
+forbidden you should not do is don't change the system message every time you
+
+1409
+01:04:55,440 --> 01:04:58,069
+change the system message every time you uh you take a step because that means
+
+1410
+01:04:58,079 --> 01:05:00,309
+uh you take a step because that means like no caching essentially. uh you
+
+1411
+01:05:00,319 --> 01:05:01,670
+like no caching essentially. uh you don't have a single message that you're
+
+1412
+01:05:01,680 --> 01:05:04,789
+don't have a single message that you're able to cache. So one thing one very
+
+1413
+01:05:04,799 --> 01:05:06,470
+able to cache. So one thing one very logical thing that you might think of is
+
+1414
+01:05:06,480 --> 01:05:08,390
+logical thing that you might think of is okay I want to append the current time
+
+1415
+01:05:08,400 --> 01:05:11,349
+okay I want to append the current time and date to the system message uh so
+
+1416
+01:05:11,359 --> 01:05:13,990
+and date to the system message uh so that the agent knows what time it is. Do
+
+1417
+01:05:14,000 --> 01:05:15,910
+that the agent knows what time it is. Do not do this because the time and date
+
+1418
+01:05:15,920 --> 01:05:18,549
+not do this because the time and date changes every step and so that will
+
+1419
+01:05:18,559 --> 01:05:20,470
+changes every step and so that will break your cache. So if you do need to
+
+1420
+01:05:20,480 --> 01:05:22,710
+break your cache. So if you do need to append it, append it to the final user
+
+1421
+01:05:22,720 --> 01:05:25,430
+append it, append it to the final user message uh or the final uh tool call
+
+1422
+01:05:25,440 --> 01:05:31,430
+message uh or the final uh tool call result that you get. um and uh like
+
+1423
+01:05:31,440 --> 01:05:34,870
+result that you get. um and uh like changing your um changing your tools uh
+
+1424
+01:05:34,880 --> 01:05:36,069
+changing your um changing your tools uh dynamically in the middle of the
+
+1425
+01:05:36,079 --> 01:05:37,670
+dynamically in the middle of the conversation. You can do this. That's
+
+1426
+01:05:37,680 --> 01:05:41,510
+conversation. You can do this. That's okay. Um another thing is a very logical
+
+1427
+01:05:41,520 --> 01:05:43,190
+okay. Um another thing is a very logical thing that you might think of doing is
+
+1428
+01:05:43,200 --> 01:05:45,589
+thing that you might think of doing is routing to a different model every time
+
+1429
+01:05:45,599 --> 01:05:47,829
+routing to a different model every time you uh every time you take a step. So
+
+1430
+01:05:47,839 --> 01:05:49,270
+you uh every time you take a step. So it's like this step looks like a really
+
+1431
+01:05:49,280 --> 01:05:51,910
+it's like this step looks like a really good model for you know a really power a
+
+1432
+01:05:51,920 --> 01:05:53,430
+good model for you know a really power a really good step for a really powerful
+
+1433
+01:05:53,440 --> 01:05:57,589
+really good step for a really powerful model. um like uh like I want to do this
+
+1434
+01:05:57,599 --> 01:05:59,190
+model. um like uh like I want to do this step on Fable and then I want to do the
+
+1435
+01:05:59,200 --> 01:06:02,789
+step on Fable and then I want to do the ne next three steps on um on a cheaper
+
+1436
+01:06:02,799 --> 01:06:04,950
+ne next three steps on um on a cheaper model to save money. But the thing is
+
+1437
+01:06:04,960 --> 01:06:07,270
+model to save money. But the thing is you're still paying
+
+1438
+01:06:07,280 --> 01:06:09,750
+you're still paying you're still paying the you know 10x
+
+1439
+01:06:09,760 --> 01:06:12,630
+you're still paying the you know 10x cost for Fable the next time you use uh
+
+1440
+01:06:12,640 --> 01:06:16,549
+cost for Fable the next time you use uh Fable. So you really need to be very uh
+
+1441
+01:06:16,559 --> 01:06:18,150
+Fable. So you really need to be very uh frugal in the amount of switching you're
+
+1442
+01:06:18,160 --> 01:06:19,109
+frugal in the amount of switching you're going to be doing if you want to be
+
+1443
+01:06:19,119 --> 01:06:20,549
+going to be doing if you want to be doing switching to save cost for
+
+1444
+01:06:20,559 --> 01:06:23,750
+doing switching to save cost for instance.
+
+1445
+01:06:26,559 --> 01:06:28,309
+Cool. Um, so the final thing I'd like to talk
+
+1446
+01:06:28,319 --> 01:06:31,270
+so the final thing I'd like to talk about is context compaction. Um, how
+
+1447
+01:06:31,280 --> 01:06:33,510
+about is context compaction. Um, how many people know know about this? Use
+
+1448
+01:06:33,520 --> 01:06:37,349
+many people know know about this? Use this in your everyday coding agent use.
+
+1449
+01:06:37,359 --> 01:06:39,109
+this in your everyday coding agent use. How many people are really excited when
+
+1450
+01:06:39,119 --> 01:06:42,086
+How many people are really excited when it says compacting context?
+
+1451
+01:06:42,096 --> 01:06:43,589
+it says compacting context? [laughter]
+
+1452
+01:06:43,599 --> 01:06:48,630
+[laughter] That's nobody good. So um the the basic
+
+1453
+01:06:48,640 --> 01:06:51,750
+That's nobody good. So um the the basic idea behind context compaction is uh
+
+1454
+01:06:51,760 --> 01:06:55,829
+idea behind context compaction is uh that you have uh before
+
+1455
+01:06:55,839 --> 01:06:58,309
+that you have uh before and uh this is you know all your
+
+1456
+01:06:58,319 --> 01:06:59,910
+and uh this is you know all your observations and actions that you might
+
+1457
+01:06:59,920 --> 01:07:03,829
+observations and actions that you might have had. Um then after what you tend to
+
+1458
+01:07:03,839 --> 01:07:05,510
+have had. Um then after what you tend to do is you tend to take your previous
+
+1459
+01:07:05,520 --> 01:07:09,109
+do is you tend to take your previous context and you crush it down into just
+
+1460
+01:07:09,119 --> 01:07:12,950
+context and you crush it down into just the essence of the previous context. Um,
+
+1461
+01:07:12,960 --> 01:07:17,109
+the essence of the previous context. Um, and so the reason why people are
+
+1462
+01:07:17,119 --> 01:07:19,910
+and so the reason why people are like not excited about using this, uh,
+
+1463
+01:07:19,920 --> 01:07:21,910
+like not excited about using this, uh, perhaps obviously is if you do a bad job
+
+1464
+01:07:21,920 --> 01:07:24,230
+perhaps obviously is if you do a bad job at this, your agent forgets things. It
+
+1465
+01:07:24,240 --> 01:07:25,670
+at this, your agent forgets things. It starts doing something completely
+
+1466
+01:07:25,680 --> 01:07:28,950
+starts doing something completely different and, uh, maybe deletes your
+
+1467
+01:07:28,960 --> 01:07:30,870
+different and, uh, maybe deletes your file system.
+
+1468
+01:07:30,880 --> 01:07:33,029
+file system. So
+
+1469
+01:07:33,039 --> 01:07:36,549
+So um we can view compaction as essentially
+
+1470
+01:07:36,559 --> 01:07:39,510
+um we can view compaction as essentially trying to come up with a previous
+
+1471
+01:07:39,520 --> 01:07:42,549
+trying to come up with a previous representation where your future action
+
+1472
+01:07:42,559 --> 01:07:45,430
+representation where your future action sequence um you take your history, you
+
+1473
+01:07:45,440 --> 01:07:48,150
+sequence um you take your history, you compact that, you get a working state
+
+1474
+01:07:48,160 --> 01:07:50,150
+compact that, you get a working state and you want your future action sequence
+
+1475
+01:07:50,160 --> 01:07:53,990
+and you want your future action sequence to be the same or you know similar or
+
+1476
+01:07:54,000 --> 01:07:57,750
+to be the same or you know similar or possibly better um if uh after
+
+1477
+01:07:57,760 --> 01:08:01,510
+possibly better um if uh after compaction than it was before. Um
+
+1478
+01:08:01,520 --> 01:08:03,670
+compaction than it was before. Um at the same time you also have a
+
+1479
+01:08:03,680 --> 01:08:06,470
+at the same time you also have a constraint which your
+
+1480
+01:08:06,480 --> 01:08:08,630
+constraint which your state needs to be bounded. So it needs
+
+1481
+01:08:08,640 --> 01:08:10,789
+state needs to be bounded. So it needs to be small enough that you're happy to
+
+1482
+01:08:10,799 --> 01:08:13,750
+to be small enough that you're happy to continue work.
+
+1483
+01:08:13,760 --> 01:08:17,669
+continue work. Um so if we look at what survives uh
+
+1484
+01:08:17,679 --> 01:08:22,630
+Um so if we look at what survives uh compaction um there's different ways of
+
+1485
+01:08:22,640 --> 01:08:23,829
+compaction um there's different ways of doing this. I'm going to cover the
+
+1486
+01:08:23,839 --> 01:08:28,229
+doing this. I'm going to cover the different ways that people do this, but
+
+1487
+01:08:28,239 --> 01:08:32,070
+different ways that people do this, but a common strategy is to take some
+
+1488
+01:08:32,080 --> 01:08:35,590
+a common strategy is to take some anchors and these can be the very first
+
+1489
+01:08:35,600 --> 01:08:38,070
+anchors and these can be the very first um like the very first things the user
+
+1490
+01:08:38,080 --> 01:08:39,669
+um like the very first things the user said when they started the session for
+
+1491
+01:08:39,679 --> 01:08:42,470
+said when they started the session for instance. Um,
+
+1492
+01:08:42,480 --> 01:08:44,789
+instance. Um, so, uh, one of the answers to the things
+
+1493
+01:08:44,799 --> 01:08:47,590
+so, uh, one of the answers to the things that I heard agents forget when I asked
+
+1494
+01:08:47,600 --> 01:08:50,789
+that I heard agents forget when I asked the question, what do agents forget was
+
+1495
+01:08:50,799 --> 01:08:52,309
+the question, what do agents forget was sometimes they forget the things at the
+
+1496
+01:08:52,319 --> 01:08:55,829
+sometimes they forget the things at the very beginning of the session? And
+
+1497
+01:08:55,839 --> 01:08:57,990
+very beginning of the session? And that actually might be a design bug in
+
+1498
+01:08:58,000 --> 01:09:01,349
+that actually might be a design bug in the agent harness that you're using. Um,
+
+1499
+01:09:01,359 --> 01:09:03,749
+the agent harness that you're using. Um, because uh, some good agent harnesses
+
+1500
+01:09:03,759 --> 01:09:06,309
+because uh, some good agent harnesses uh, like kind of intentionally avoid
+
+1501
+01:09:06,319 --> 01:09:07,590
+uh, like kind of intentionally avoid deleting the stuff at the very beginning
+
+1502
+01:09:07,600 --> 01:09:08,870
+deleting the stuff at the very beginning of the session because they think it's
+
+1503
+01:09:08,880 --> 01:09:12,470
+of the session because they think it's more important. Um, but it could also
+
+1504
+01:09:12,480 --> 01:09:14,390
+more important. Um, but it could also be, you know, impossible to avoid
+
+1505
+01:09:14,400 --> 01:09:17,430
+be, you know, impossible to avoid depending on the situation. Um, also you
+
+1506
+01:09:17,440 --> 01:09:18,789
+depending on the situation. Um, also you want the stuff in the middle that's
+
+1507
+01:09:18,799 --> 01:09:21,669
+want the stuff in the middle that's encoded and put back into the context.
+
+1508
+01:09:21,679 --> 01:09:24,870
+encoded and put back into the context. And then the recent tail is often kept
+
+1509
+01:09:24,880 --> 01:09:26,950
+And then the recent tail is often kept around. So often people will keep around
+
+1510
+01:09:26,960 --> 01:09:29,910
+around. So often people will keep around the the most recent actions.
+
+1511
+01:09:29,920 --> 01:09:31,910
+the the most recent actions. Separately from this, I don't see this a
+
+1512
+01:09:31,920 --> 01:09:35,349
+Separately from this, I don't see this a whole lot, but um, you can also add the
+
+1513
+01:09:35,359 --> 01:09:37,349
+whole lot, but um, you can also add the evidence to an evidence store. Actually,
+
+1514
+01:09:37,359 --> 01:09:40,070
+evidence to an evidence store. Actually, no, sorry. I I'll correct this. Um, the
+
+1515
+01:09:40,080 --> 01:09:42,070
+no, sorry. I I'll correct this. Um, the evidence is typically added to an
+
+1516
+01:09:42,080 --> 01:09:45,189
+evidence is typically added to an evidence store. Um, and at the very
+
+1517
+01:09:45,199 --> 01:09:47,269
+evidence store. Um, and at the very least, if you're using a CLI coding
+
+1518
+01:09:47,279 --> 01:09:49,910
+least, if you're using a CLI coding agent, usually your full history is
+
+1519
+01:09:49,920 --> 01:09:52,789
+agent, usually your full history is saved on disk somewhere. And so, if you
+
+1520
+01:09:52,799 --> 01:09:54,950
+saved on disk somewhere. And so, if you know where on disk, your coding agent
+
+1521
+01:09:54,960 --> 01:09:57,270
+know where on disk, your coding agent has saved all of this history. Even if
+
+1522
+01:09:57,280 --> 01:09:58,709
+has saved all of this history. Even if you lose stuff through compaction, you
+
+1523
+01:09:58,719 --> 01:10:00,070
+you lose stuff through compaction, you can tell the coding agent to go back and
+
+1524
+01:10:00,080 --> 01:10:01,990
+can tell the coding agent to go back and read the history, and it can, you know,
+
+1525
+01:10:02,000 --> 01:10:03,430
+read the history, and it can, you know, uh, read the history for you and find
+
+1526
+01:10:03,440 --> 01:10:06,950
+uh, read the history for you and find the the previous results. Um but there
+
+1527
+01:10:06,960 --> 01:10:09,110
+the the previous results. Um but there there are also uh possibly more
+
+1528
+01:10:09,120 --> 01:10:11,990
+there are also uh possibly more structured ways of doing this and so
+
+1529
+01:10:12,000 --> 01:10:13,830
+structured ways of doing this and so then um you know other things can be
+
+1530
+01:10:13,840 --> 01:10:15,590
+then um you know other things can be discarded.
+
+1531
+01:10:15,600 --> 01:10:19,030
+discarded. Um so there's a few ways to decide uh
+
+1532
+01:10:19,040 --> 01:10:21,430
+Um so there's a few ways to decide uh compaction policy. Um the first one is
+
+1533
+01:10:21,440 --> 01:10:24,950
+compaction policy. Um the first one is the trigger and there's
+
+1534
+01:10:24,960 --> 01:10:27,189
+the trigger and there's um
+
+1535
+01:10:27,199 --> 01:10:29,990
+um essentially two ways of doing this. Um
+
+1536
+01:10:30,000 --> 01:10:35,030
+essentially two ways of doing this. Um one is a token threshold. So you limit
+
+1537
+01:10:35,040 --> 01:10:37,350
+one is a token threshold. So you limit uh the token threshold. Uh so you can
+
+1538
+01:10:37,360 --> 01:10:39,590
+uh the token threshold. Uh so you can say I'm I'm only going to use up to 200k
+
+1539
+01:10:39,600 --> 01:10:42,470
+say I'm I'm only going to use up to 200k tokens. Once I go over 200k tokens, I'm
+
+1540
+01:10:42,480 --> 01:10:45,030
+tokens. Once I go over 200k tokens, I'm I'm going to compact the context.
+
+1541
+01:10:45,040 --> 01:10:47,990
+I'm going to compact the context. Another thing is um like when you get
+
+1542
+01:10:48,000 --> 01:10:50,310
+Another thing is um like when you get forced to do that by the provider. Um so
+
+1543
+01:10:50,320 --> 01:10:51,830
+forced to do that by the provider. Um so that's kind of like a hard limit on the
+
+1544
+01:10:51,840 --> 01:10:53,830
+that's kind of like a hard limit on the number of tokens you can have. Um
+
+1545
+01:10:53,840 --> 01:10:55,350
+number of tokens you can have. Um finally, you can also have a manual
+
+1546
+01:10:55,360 --> 01:10:58,870
+finally, you can also have a manual request. And so uh a lot of uh kind of
+
+1547
+01:10:58,880 --> 01:11:00,870
+request. And so uh a lot of uh kind of coding agent toolkits for instance have
+
+1548
+01:11:00,880 --> 01:11:02,550
+coding agent toolkits for instance have a slashcompact
+
+1549
+01:11:02,560 --> 01:11:05,030
+a slashcompact uh like command that you can use to
+
+1550
+01:11:05,040 --> 01:11:08,709
+uh like command that you can use to compact the context.
+
+1551
+01:11:11,199 --> 01:11:12,630
+Um then based on that uh you'll select you might protect the beginning and keep
+
+1552
+01:11:12,640 --> 01:11:14,229
+you might protect the beginning and keep the recent tail and compact the older
+
+1553
+01:11:14,239 --> 01:11:17,910
+the recent tail and compact the older region. Um replace it with a summary. Um
+
+1554
+01:11:17,920 --> 01:11:19,430
+region. Um replace it with a summary. Um that summary can be a structured
+
+1555
+01:11:19,440 --> 01:11:23,270
+that summary can be a structured summary. So sometimes uh they require a
+
+1556
+01:11:23,280 --> 01:11:25,990
+summary. So sometimes uh they require a tool call uh that says this and this and
+
+1557
+01:11:26,000 --> 01:11:27,750
+tool call uh that says this and this and this and this must be in the compaction
+
+1558
+01:11:27,760 --> 01:11:30,550
+this and this must be in the compaction summary. Sometimes it's just free text.
+
+1559
+01:11:30,560 --> 01:11:34,149
+summary. Sometimes it's just free text. Um there's also uh
+
+1560
+01:11:34,159 --> 01:11:36,310
+Um there's also uh I think this is only open AI uh
+
+1561
+01:11:36,320 --> 01:11:38,950
+I think this is only open AI uh possibly. But basically they um they
+
+1562
+01:11:38,960 --> 01:11:41,110
+possibly. But basically they um they compact into
+
+1563
+01:11:41,120 --> 01:11:43,669
+compact into something encrypted uh that you cannot
+
+1564
+01:11:43,679 --> 01:11:45,030
+something encrypted uh that you cannot read. So you can't see how they're
+
+1565
+01:11:45,040 --> 01:11:46,310
+read. So you can't see how they're compacting because they don't want you
+
+1566
+01:11:46,320 --> 01:11:48,310
+compacting because they don't want you to steal their uh their precious
+
+1567
+01:11:48,320 --> 01:11:51,590
+to steal their uh their precious compaction algorithm. Uh so uh so
+
+1568
+01:11:51,600 --> 01:11:53,350
+compaction algorithm. Uh so uh so there's that.
+
+1569
+01:11:53,360 --> 01:11:57,110
+there's that. Um and then uh yeah, you can you can
+
+1570
+01:11:57,120 --> 01:11:59,750
+Um and then uh yeah, you can you can keep on on working on that.
+
+1571
+01:11:59,760 --> 01:12:01,350
+keep on on working on that. Um
+
+1572
+01:12:01,360 --> 01:12:03,430
+Um so
+
+1573
+01:12:03,440 --> 01:12:06,310
+so one of the risks here is uh sometimes
+
+1574
+01:12:06,320 --> 01:12:08,149
+one of the risks here is uh sometimes you can compact over and over and over
+
+1575
+01:12:08,159 --> 01:12:10,790
+you can compact over and over and over again and the first time it works uh but
+
+1576
+01:12:10,800 --> 01:12:14,310
+again and the first time it works uh but as you walk through more um you uh you
+
+1577
+01:12:14,320 --> 01:12:16,709
+as you walk through more um you uh you end up losing more and more. So again
+
+1578
+01:12:16,719 --> 01:12:18,229
+end up losing more and more. So again this is one of the reasons why people
+
+1579
+01:12:18,239 --> 01:12:19,669
+this is one of the reasons why people don't like compaction because it can
+
+1580
+01:12:19,679 --> 01:12:22,950
+don't like compaction because it can cause the agent to go off the rails.
+
+1581
+01:12:22,960 --> 01:12:26,470
+cause the agent to go off the rails. Um so uh ba basically the way we
+
+1582
+01:12:26,480 --> 01:12:28,709
+Um so uh ba basically the way we evaluate this is typically in a holistic
+
+1583
+01:12:28,719 --> 01:12:30,229
+evaluate this is typically in a holistic state. So you can vary the compaction
+
+1584
+01:12:30,239 --> 01:12:32,070
+state. So you can vary the compaction algorithm and evaluate it against
+
+1585
+01:12:32,080 --> 01:12:33,669
+algorithm and evaluate it against whatever benchmarks you're evaluating
+
+1586
+01:12:33,679 --> 01:12:37,350
+whatever benchmarks you're evaluating against. I would like to warn you uh
+
+1587
+01:12:37,360 --> 01:12:39,990
+against. I would like to warn you uh about this. I have a a kind of like
+
+1588
+01:12:40,000 --> 01:12:41,990
+about this. I have a a kind of like story from when we were first developing
+
+1589
+01:12:42,000 --> 01:12:45,350
+story from when we were first developing open hands which is um we actually I
+
+1590
+01:12:45,360 --> 01:12:48,870
+open hands which is um we actually I think made one of the first like
+
+1591
+01:12:48,880 --> 01:12:51,350
+think made one of the first like production grade uh compaction
+
+1592
+01:12:51,360 --> 01:12:53,030
+production grade uh compaction algorithms. We called it compression
+
+1593
+01:12:53,040 --> 01:12:56,149
+algorithms. We called it compression then um and we evaluated it against
+
+1594
+01:12:56,159 --> 01:12:58,149
+then um and we evaluated it against bbench which is a very common you know
+
+1595
+01:12:58,159 --> 01:13:01,830
+bbench which is a very common you know benchmark for for coding agents and we
+
+1596
+01:13:01,840 --> 01:13:03,350
+benchmark for for coding agents and we worked pretty hard on it like as a
+
+1597
+01:13:03,360 --> 01:13:04,870
+worked pretty hard on it like as a research project for about a month or
+
+1598
+01:13:04,880 --> 01:13:06,310
+research project for about a month or something like that and we were like we
+
+1599
+01:13:06,320 --> 01:13:08,070
+something like that and we were like we found this great compaction strategy. It
+
+1600
+01:13:08,080 --> 01:13:09,910
+found this great compaction strategy. It doesn't reduce our score at all. it's
+
+1601
+01:13:09,920 --> 01:13:12,470
+doesn't reduce our score at all. it's saving us a lot of tokens. And then we
+
+1602
+01:13:12,480 --> 01:13:15,750
+saving us a lot of tokens. And then we actually tried it in our um we tried it
+
+1603
+01:13:15,760 --> 01:13:18,470
+actually tried it in our um we tried it in our our system and it made these
+
+1604
+01:13:18,480 --> 01:13:21,030
+in our our system and it made these really silly mistakes like um sending a
+
+1605
+01:13:21,040 --> 01:13:24,149
+really silly mistakes like um sending a pull request every time it compacted. So
+
+1606
+01:13:24,159 --> 01:13:25,590
+pull request every time it compacted. So it forgot that it had sent a pull
+
+1607
+01:13:25,600 --> 01:13:29,350
+it forgot that it had sent a pull request to GitHub. And so uh you know we
+
+1608
+01:13:29,360 --> 01:13:30,950
+request to GitHub. And so uh you know we would get five pull requests for the
+
+1609
+01:13:30,960 --> 01:13:33,510
+would get five pull requests for the same functionality because it had
+
+1610
+01:13:33,520 --> 01:13:36,709
+same functionality because it had forgotten. Um or you know it would
+
+1611
+01:13:36,719 --> 01:13:38,870
+forgotten. Um or you know it would forget
+
+1612
+01:13:38,880 --> 01:13:42,550
+forget user instructions that were sent in the
+
+1613
+01:13:42,560 --> 01:13:44,310
+user instructions that were sent in the middle of the conversation because we
+
+1614
+01:13:44,320 --> 01:13:46,709
+middle of the conversation because we had only evaluated on single turn
+
+1615
+01:13:46,719 --> 01:13:48,390
+had only evaluated on single turn conversations that had a single user
+
+1616
+01:13:48,400 --> 01:13:50,470
+conversations that had a single user message and we were compacting away the
+
+1617
+01:13:50,480 --> 01:13:53,110
+message and we were compacting away the multiple user messages. So it's not just
+
+1618
+01:13:53,120 --> 01:13:55,750
+multiple user messages. So it's not just good enough to benchmark uh unless you
+
+1619
+01:13:55,760 --> 01:13:57,430
+good enough to benchmark uh unless you have really really robust benchmarks
+
+1620
+01:13:57,440 --> 01:13:59,189
+have really really robust benchmarks that represent every use case. You kind
+
+1621
+01:13:59,199 --> 01:14:00,630
+that represent every use case. You kind of need to test them in the wild as
+
+1622
+01:14:00,640 --> 01:14:03,510
+of need to test them in the wild as well.
+
+1623
+01:14:03,520 --> 01:14:05,990
+well. Cool. Um so we're we're getting close to
+
+1624
+01:14:06,000 --> 01:14:08,390
+Cool. Um so we're we're getting close to time. Uh but yeah, basically uh what I
+
+1625
+01:14:08,400 --> 01:14:10,870
+time. Uh but yeah, basically uh what I covered today is uh you know agent loops
+
+1626
+01:14:10,880 --> 01:14:13,830
+covered today is uh you know agent loops grow very quickly. Uh we have a lot of
+
+1627
+01:14:13,840 --> 01:14:16,390
+grow very quickly. Uh we have a lot of inference challenges in doing so. uh we
+
+1628
+01:14:16,400 --> 01:14:18,470
+inference challenges in doing so. uh we can handle uh efficiency problems
+
+1629
+01:14:18,480 --> 01:14:22,229
+can handle uh efficiency problems through architectures and um and caching
+
+1630
+01:14:22,239 --> 01:14:24,709
+through architectures and um and caching and uh compaction is kind of the way we
+
+1631
+01:14:24,719 --> 01:14:27,750
+and uh compaction is kind of the way we handle this uh once we expand beyond the
+
+1632
+01:14:27,760 --> 01:14:31,430
+handle this uh once we expand beyond the level that we can handle. So um that's
+
+1633
+01:14:31,440 --> 01:14:34,390
+level that we can handle. So um that's all I have. Uh if there is any questions
+
+1634
+01:14:34,400 --> 01:14:36,550
+all I have. Uh if there is any questions happy to happy to cover them and next
+
+1635
+01:14:36,560 --> 01:14:37,750
+happy to happy to cover them and next time we're going to be talking about
+
+1636
+01:14:37,760 --> 01:14:39,830
+time we're going to be talking about skills and memory. So this is like even
+
+1637
+01:14:39,840 --> 01:14:42,390
+skills and memory. So this is like even longer context over your entire uh your
+
+1638
+01:14:42,400 --> 01:14:44,790
+longer context over your entire uh your entire time. Um, are there any questions
+
+1639
+01:14:44,800 --> 01:14:48,070
+entire time. Um, are there any questions before we all uh all leave or
+
+1640
+01:14:48,080 --> 01:14:52,950
+before we all uh all leave or >> Yeah.
+
+1641
+01:14:55,040 --> 01:14:57,189
+>> Yeah, great question. Um, the question was, do we consider sub agents as a way
+
+1642
+01:14:57,199 --> 01:14:59,110
+was, do we consider sub agents as a way to manage context? And yes, but we're
+
+1643
+01:14:59,120 --> 01:15:00,550
+to manage context? And yes, but we're going to talk about sub aents later, so
+
+1644
+01:15:00,560 --> 01:15:04,760
+going to talk about sub aents later, so I didn't cover them this time. Yeah.

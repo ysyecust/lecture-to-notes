@@ -1,0 +1,9 @@
+{
+  "height": 960,
+  "width": 1920,
+  "nav_strip": 0,
+  "subtitle_band": null,
+  "crop_bottom": 120,
+  "frames": 271,
+  "note": "无烧录字幕（使用官方英文CC）。frame_filter 误把 y672-868 当字幕条，该区域实为幻灯片内容，故仅裁掉 y840以下的纯黑边（120px）；figures 保留完整宽度内容。"
+}
