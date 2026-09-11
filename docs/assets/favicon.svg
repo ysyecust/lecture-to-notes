@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Lecture to Notes</title>
+  <path fill="#d93625" d="M0 0h64v64H0z"/>
+  <g fill="#f4f2eb" transform="translate(10.9321 41.4839) scale(0.026791 -0.026791)">
+    <path transform="translate(0.0000 0)" d="M66 708H306V204H541V0H66Z"/>
+<path transform="translate(437.8889 0)" d="M-3 -11 300 767 458 719 154 -59Z"/>
+<path transform="translate(781.7778 0)" d="M66 708H303L505 349H509L499 708H725V0H482L286 338H282L292 0H66Z"/>
+  </g>
+</svg>
