@@ -146,6 +146,32 @@ test('all three pilot lectures expose complete web documents', async ({page,requ
   }
 });
 
+test('CMU lectures render complete HTML with YouTube interval links', async ({page, request}) => {
+  const data = await catalog(request);
+  const items = data.items.filter(item => item.course_id === 'cmu-ai-agents');
+  expect(items).toHaveLength(4);
+  for (const item of items) {
+    const report = await (await request.get('/' + item.web.report)).json();
+    expect(report.status).toBe('passed');
+    expect(report.pdf_sha256).toBe(item.sha256);
+    await page.goto(`/reader.html?id=${item.id}&format=html`);
+    await expect(page.locator('.web-document')).toBeVisible();
+    await expect(page.locator('.web-document figure')).toHaveCount(report.counts.figures);
+    await expect(page.locator('.web-document math')).toHaveCount(report.counts.math);
+    await expect(page.locator('.web-document .video-link')).toHaveCount(report.counts.figures);
+    const links = await page.locator('.web-document figure').evaluateAll(figures =>
+      figures.map(figure => ({time: figure.dataset.start, href: figure.querySelector('.video-link').href}))
+    );
+    for (const link of links) {
+      const expected = new URL(item.source_url);
+      const [h, m, s] = link.time.split(':').map(Number);
+      expected.searchParams.set('t', String(h * 3600 + m * 60 + s));
+      expect(link.href).toBe(expected.href);
+    }
+    await expect(page.locator('#reader-error')).toBeHidden();
+  }
+});
+
 test('PDF zoom changes actual page size through 800 percent and fit width', async ({page,request}) => {
   const data=await catalog(request);const item=data.items.find(i=>i.course_id==='nju-gse-2026'&&i.order===3);
   await page.goto(`/reader.html?id=${item.id}&format=pdf`);

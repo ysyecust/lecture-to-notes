@@ -1,0 +1,252 @@
+=== 03:30 @ 3:30 (210s) ===
+  >>> [3:31] So a lot of structure recurs and today is going to be about how can we
+  >>> [3:28] be more effective on future tasks. So a lot of structure recurs and today
+  >>> [3:32] is going to be about how can we represent this shared structure. So for
+      [3:35] represent this shared structure. So for example, is it best to just uh keep kind
+      [3:23] to reuse that knowledge in the future to be more effective on future tasks.
+
+=== 08:15 @ 8:15 (495s) ===
+  >>> [8:15] overinfer the what should be done and then when that's handed off to another
+  >>> [8:16] then when that's handed off to another model it will kind of follow it to the
+  >>> [8:18] model it will kind of follow it to the letter and do a lot more than you
+  >>> [8:11] in the skill like they'll kind of overinfer the what should be done and
+      [8:20] letter and do a lot more than you actually wanted it to.
+
+=== 11:15 @ 11:15 (675s) ===
+  >>> [11:15] So like in the example we looked at before, how do you search for products
+  >>> [11:14] abstracted from the details of the task. So like in the example we looked at
+  >>> [11:17] before, how do you search for products on a particular website without maybe
+  >>> [11:11] do part of a task um in a way that's abstracted from the details of the task.
+      [11:20] on a particular website without maybe retaining the details of searching, you
+
+=== 12:30 @ 12:30 (750s) ===
+  >>> [12:29] skills from the agents past experiences and store those um and then use those to
+  >>> [12:32] and store those um and then use those to hopefully do better in the future. So if
+  >>> [12:27] memory and skills. So we could induce skills from the agents past experiences
+  >>> [12:34] hopefully do better in the future. So if the agent searched successfully for a
+      [12:24] could also have um a combination of memory and skills. So we could induce
+
+=== 15:30 @ 15:30 (930s) ===
+  >>> [15:28] but the um general instruction is the same.
+  >>> [15:33] And the way that this is implemented in the current standard for skills um which
+      [15:25] interpret this specification in context, but the um general instruction is the
+      [15:36] the current standard for skills um which is called agent skills is just as a
+      [15:23] the agent's going to choose how to interpret this specification in context,
+
+=== 23:15 @ 23:15 (1395s) ===
+  >>> [23:14] that uh Daniel's going to talk about, there's basically two ways. There's
+  >>> [23:16] there's basically two ways. There's textual skills and programmatic skills
+  >>> [23:12] >> I think in the scientific literature that uh Daniel's going to talk about,
+  >>> [23:18] textual skills and programmatic skills and the textual skills appear in the
+      [23:10] interpret other formats. >> I think in the scientific literature
+
+=== 24:30 @ 24:30 (1470s) ===
+  >>> [24:30] systems do this too, but um yeah, I don't have any references off the top of
+  >>> [24:28] those skills. Yeah, I imagine production systems do this too, but um yeah, I
+  >>> [24:32] don't have any references off the top of my head for that. Cool. Okay, so we'll
+      [24:25] interacting with that site we'll load those skills. Yeah, I imagine production
+      [24:36] my head for that. Cool. Okay, so we'll uh just uh kind of quickly to show you
+
+=== 25:45 @ 25:45 (1545s) ===
+  >>> [25:45] seems relevant to you know the user asked for a review of some Python code
+  >>> [25:43] the Python review skill. um if that seems relevant to you know the user
+  >>> [25:48] asked for a review of some Python code and then it's going to like um you know
+  >>> [25:41] could choose to make a tool call to open the Python review skill. um if that
+      [25:51] and then it's going to like um you know get that markdown file insert it as a
+
+=== 27:00 @ 27:00 (1620s) ===
+  >>> [26:59] skills. Uh, and so they'll like get 400 tasks and um those are going to be
+  >>> [27:02] tasks and um those are going to be written independently from the skills,
+  >>> [26:56] which seem like they could benefit from skills. Uh, and so they'll like get 400
+  >>> [27:04] written independently from the skills, but they'll have the task annotators
+      [27:06] but they'll have the task annotators choose from this pool of skills ones
+
+=== 29:15 @ 29:15 (1755s) ===
+  >>> [29:15] And actually skills still hurt on a number of the tasks for particular model
+  >>> [29:17] number of the tasks for particular model types. Um so the model might be using
+  >>> [29:12] for that later on in the lecture. And actually skills still hurt on a
+      [29:20] types. Um so the model might be using the skill inappropriately which could
+      [29:08] skills. Um we'll see some more evidence for that later on in the lecture.
+
+=== 29:30 @ 29:30 (1770s) ===
+  >>> [29:29] importance of like checking to see if the skills that you wrote are actually
+  >>> [29:31] the skills that you wrote are actually making your outputs better.
+  >>> [29:27] specified. So this kind of motivates the importance of like checking to see if
+      [29:25] different than what the person specified. So this kind of motivates the
+      [29:24] actually make it do the task in a way different than what the person
+
+=== 32:00 @ 32:00 (1920s) ===
+  >>> [32:00] code that ignores the repo conventions. people did like incorporate those
+  >>> [31:58] it's not helpful to um you know produce code that ignores the repo conventions.
+  >>> [32:02] people did like incorporate those changes quite a bit. And then you could
+  >>> [32:04] changes quite a bit. And then you could like have the model propose some updates
+      [31:55] that to like for example identify that it's not helpful to um you know produce
+
+=== 34:45 @ 34:45 (2085s) ===
+  >>> [34:46] this storage for past mentions of six flags from its past interactions. It'll
+  >>> [34:43] produce a tool call that searches within this storage for past mentions of six
+  >>> [34:48] flags from its past interactions. It'll take those and it'll put them into this
+      [34:40] six flags and um the system could produce a tool call that searches within
+      [34:50] take those and it'll put them into this like working context. Um and then the
+
+=== 36:45 @ 36:45 (2205s) ===
+  >>> [36:44] for that with the new thing. If it negates something that's already there,
+  >>> [36:46] negates something that's already there, like for example, you say, "I work at
+  >>> [36:42] there, we should replace what's stored for that with the new thing. If it
+  >>> [36:48] like for example, you say, "I work at X," but then later on you say, "I got
+      [36:50] X," but then later on you say, "I got laid off," you might want to just delete
+
+=== 41:00 @ 41:00 (2460s) ===
+  >>> [41:00] tasks. Right? This is improving on the same task. But you could imagine um
+  >>> [40:59] agent improving as it does different tasks. Right? This is improving on the
+  >>> [40:56] So we can generalize this also to um the agent improving as it does different
+  >>> [41:04] same task. But you could imagine um feedback might be generally helpful to
+      [40:53] what went wrong can be really helpful. So we can generalize this also to um the
+
+=== 43:30 @ 43:30 (2610s) ===
+  >>> [43:30] model the description of a new task that it should carry out. So you have just
+  >>> [43:28] want the model to you're giving the model the description of a new task that
+  >>> [43:33] it should carry out. So you have just that text description and you'll embed
+  >>> [43:26] you could do retrieval? So typically you want the model to you're giving the
+      [43:35] that text description and you'll embed that um with an embedding model and
+
+=== 46:00 @ 46:00 (2760s) ===
+  >>> [46:02] that's right. Yeah. So, like if the element ids on the page change, the
+  >>> [45:57] just >> Yeah,
+  >>> [46:04] element ids on the page change, the skill will break. And you know, there's
+      [46:06] skill will break. And you know, there's a number of ways that that could happen.
+      [46:07] a number of ways that that could happen. Like, you know, maybe the elements are
+
+=== 48:00 @ 48:00 (2880s) ===
+  >>> [48:00] patterns that can be abstracted into functions and you do that repeatedly and
+  >>> [47:58] recurrent patterns in that you find patterns that can be abstracted into
+  >>> [48:02] functions and you do that repeatedly and you're sort of like compressing the
+  >>> [47:56] low-level functions and you search for recurrent patterns in that you find
+  >>> [48:04] you're sort of like compressing the programs that construct these objects.
+
+=== 49:45 @ 49:45 (2985s) ===
+  >>> [49:46] induced from the previous task and so on. So what we're interested in
+  >>> [49:43] that task given that we had this skill induced from the previous task
+  >>> [49:49] and so on. So what we're interested in is if we can measure success on each of
+      [49:39] product and hopefully we'll do better on that task given that we had this skill
+      [49:51] is if we can measure success on each of these tasks, is our success rate like
+
+=== 51:00 @ 51:00 (3060s) ===
+  >>> [51:00] we're getting too many skills, we might want to try to simplify those, like
+  >>> [51:01] want to try to simplify those, like delete the ones that aren't being used,
+  >>> [50:57] finally, we might want to, you know, if we're getting too many skills, we might
+  >>> [51:03] delete the ones that aren't being used, or if they're too specific, we might
+      [50:55] tasks that we're carrying out. And then finally, we might want to, you know, if
+
+=== 52:45 @ 52:45 (3165s) ===
+  >>> [52:45] we're having the model make this a little bit more general so that it could
+  >>> [52:46] little bit more general so that it could apply to like searching for other terms.
+  >>> [52:43] actions that you use to do that. And we're having the model make this a
+  >>> [52:49] apply to like searching for other terms. So we have it use like create a template
+      [52:40] And then um it'll have the sequence of actions that you use to do that. And
+
+=== 54:45 @ 54:45 (3285s) ===
+  >>> [54:45] tool and the blue line here is the baseline agent that doesn't have a
+  >>> [54:43] involving interacting with like a map tool and the blue line here is the
+  >>> [54:47] baseline agent that doesn't have a memory that sort of converges to around
+  >>> [54:41] fixed ordering from this benchmark involving interacting with like a map
+  >>> [54:49] memory that sort of converges to around you know like 10% accuracy on these
+
+=== 57:15 @ 57:15 (3435s) ===
+  >>> [57:14] from it. Um yes that's a main call that's a main like con to it but we also
+  >>> [57:17] that's a main like con to it but we also get a lot of the pros of using code
+  >>> [57:11] steps and there's no room to to deviate from it. Um yes that's a main call
+      [57:20] get a lot of the pros of using code right so like we can nest functions it
+      [57:09] this tool will do exactly these three steps and there's no room to to deviate
+
+=== 59:15 @ 59:15 (3555s) ===
+  >>> [59:15] examples and um we show that it also you know improves performance.
+  >>> [59:12] that the model's able to use on future examples and um we show that it also you
+      [59:10] a way of like building up a tool library that the model's able to use on future
+      [59:08] language model just as tools. So this is a way of like building up a tool library
+      [59:05] memory and they become usable to the language model just as tools. So this is
+
+=== 60:30 @ 60:30 (3630s) ===
+  >>> [60:29] arguments like you know the um the make of the pill the color but in the initial
+  >>> [60:31] of the pill the color but in the initial version of this skill that the agent
+  >>> [60:33] version of this skill that the agent wrote it actually didn't use all the
+  >>> [60:26] this uh function like takes a lot of arguments like you know the um the make
+      [60:35] wrote it actually didn't use all the parameters. So like it ignored this
+
+=== 62:15 @ 62:15 (3735s) ===
+  >>> [62:14] Um, and the agent is actually much faster because it doesn't need to
+  >>> [62:17] faster because it doesn't need to reobserve the website and then generate
+  >>> [62:12] two functions and um complete the task. Um, and the agent is actually much
+  >>> [62:19] reobserve the website and then generate the tool call, then reobserve the new
+      [62:21] the tool call, then reobserve the new website, generate the new tool call. Um,
+
+=== 62:45 @ 62:45 (3765s) ===
+  >>> [62:45] generated. So efficiency is really important here.
+  >>> [62:43] tokens too. All of those have to be generated. So efficiency is really
+  >>> [62:48] important here. And um in this work we did find so we
+  >>> [62:41] um, before each action takes up a lot of tokens too. All of those have to be
+      [62:50] And um in this work we did find so we did a controlled comparison between
+
+=== 63:45 @ 63:45 (3825s) ===
+  >>> [63:46] like the Target shopping site. So this skill um that was induced on a different
+  >>> [63:43] tried to apply them on a real website uh like the Target shopping site. So this
+  >>> [63:42] code skills on one site uh and then we tried to apply them on a real website uh
+  >>> [63:48] skill um that was induced on a different site worked on that site but like um
+      [63:39] across websites. And we induced um these code skills on one site uh and then we
+
+=== 64:15 @ 64:15 (3855s) ===
+  >>> [64:14] the environment as it's interacting with it.
+  >>> [64:12] edit the skill based on um feedback from the environment as it's interacting with
+      [64:09] have the model be able to like actually edit the skill based on um feedback from
+      [64:07] so it it fails there. And um you have to have the model be able to like actually
+      [64:23] But code has a solution to this, right? Uh so we have um abstract classes and
+
+=== 65:45 @ 65:45 (3945s) ===
+  >>> [65:45] helpful to know that, you know, the skills standard allows you to combine
+  >>> [65:44] types of representation, but it's helpful to know that, you know, the
+  >>> [65:47] skills standard allows you to combine both and um there's a lot of research to
+  >>> [65:42] the the pros and cons of each of these types of representation, but it's
+      [65:40] already. um you guys had a good sense of the the pros and cons of each of these
+
+=== 67:00 @ 67:00 (4020s) ===
+  >>> [67:00] all of these 5,000 results. it does, you know, it loses track of what the task is
+  >>> [67:02] know, it loses track of what the task is and it fails. But if we observe that um
+  >>> [66:57] on this like it has to pagionate through all of these 5,000 results. it does, you
+      [66:54] 5,000 results and the agent just breaks on this like it has to pagionate through
+      [67:06] and it fails. But if we observe that um failed trajectory sort of in the
+
+=== 68:00 @ 68:00 (4080s) ===
+  >>> [67:59] trajectories like full trajectories with all of the
+  >>> [67:58] types of memory. Um so synapse uses trajectories
+  >>> [68:02] like full trajectories with all of the actions and observations all the tool
+  >>> [68:04] actions and observations all the tool calls and messages. Um this is agent
+      [67:55] helpful. So these are different like types of memory. Um so synapse uses
+
+=== 69:15 @ 69:15 (4155s) ===
+  >>> [69:14] the final state of the trajectory, looks at the task that you were trying to
+  >>> [69:16] at the task that you were trying to solve and predicts does it seem like I
+  >>> [69:12] using a model as a judge that looks at the final state of the trajectory, looks
+  >>> [69:18] solve and predicts does it seem like I got it correct or not. So a really good
+      [69:10] or not. That's in most of this work using a model as a judge that looks at
+
+=== 70:30 @ 70:30 (4230s) ===
+  >>> [70:31] more skills than are necessary um potentially hurt performance? And we
+  >>> [70:28] had a question before about does having more skills than are necessary um
+  >>> [70:33] potentially hurt performance? And we also had a question about like um we're
+  >>> [70:26] minutes, um I want to come back to we had a question before about does having
+      [70:36] also had a question about like um we're if we're retrieving skills from a set um
+
+=== 72:00 @ 72:00 (4320s) ===
+  >>> [71:59] And um yeah, it can also potentially be useful to uh explicitly reduce the size
+  >>> [72:02] useful to uh explicitly reduce the size of your memory um so that there's less
+      [72:05] of your memory um so that there's less of a burden on the language model to
+      [72:08] of a burden on the language model to select from the things that are in it.
+      [71:51] reasoning about what's actually relevant.
+
+=== 74:45 @ 74:45 (4485s) ===
+  >>> [74:45] incentivizes reuse of the skills. So you could also imagine like introducing
+  >>> [74:47] could also imagine like introducing other sorts of reward terms that like
+  >>> [74:42] you also include this reward term that incentivizes reuse of the skills. So you
+  >>> [74:49] other sorts of reward terms that like minimize the size of the skill libraries
+      [74:40] that um it helps to improve success if you also include this reward term that
+

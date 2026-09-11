@@ -5,11 +5,28 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.web_notes import ConversionError, build_web_notes, convert, digest, prepare_tex, safe_file
+from scripts.web_notes import ConversionError, build_web_notes, convert, digest, prepare_tex, safe_file, video_time_url
 
 READY = all(shutil.which(x) for x in ('pandoc', 'identify'))
 
 class WebNotesTests(unittest.TestCase):
+    def test_video_links_preserve_video_and_replace_stale_start_times(self):
+        cases = {
+            'https://www.youtube.com/watch?v=UwfjzyLnvMg&t=9&start=2#t=5':
+                'https://www.youtube.com/watch?v=UwfjzyLnvMg&t=3723',
+            'https://youtu.be/UwfjzyLnvMg?si=share':
+                'https://youtu.be/UwfjzyLnvMg?si=share&t=3723',
+            'https://www.bilibili.com/video/BVtest/?p=2&t=9':
+                'https://www.bilibili.com/video/BVtest/?p=2&t=3723',
+        }
+        for source, expected in cases.items():
+            with self.subTest(source=source):
+                self.assertEqual(video_time_url(source, '01:02:03'), expected)
+        for source in ('https://www.youtube.com.evil.test/watch?v=a',
+                       'https://www.youtube.com@evil.test/watch?v=a',
+                       'javascript:alert(1)', 'https://example.com/video'):
+            self.assertIsNone(video_time_url(source, '01:02:03'))
+
     def test_blocks_source_file_access_and_unpaired_notes(self):
         for body in (r'\input{/etc/passwd}', r'\include{../secret}',r'\write18{touch file}',r'\srcnote{00:00:00--00:00:15}'):
             with self.assertRaises(ConversionError): prepare_tex(r'\begin{document}'+body+r'\end{document}')
@@ -49,6 +66,12 @@ class WebNotesTests(unittest.TestCase):
             html=(root/'out/article.html').read_text()
             self.assertEqual(result['status'],'passed');self.assertIn('00:00:15',html);self.assertIn('note-callout',html);self.assertIn('概念标题',html);self.assertIn('<math',html)
             self.assertEqual(result['counts']['figures'],1)
+            item['source_url']='https://www.youtube.com/watch?v=UwfjzyLnvMg'
+            convert(source,root,root/'youtube',spec,item)
+            from bs4 import BeautifulSoup
+            document=BeautifulSoup((root/'youtube/article.html').read_text(),'html.parser')
+            self.assertEqual(document.select_one('figure .video-link')['href'],
+                             'https://www.youtube.com/watch?v=UwfjzyLnvMg&t=0')
             source.write_text(text.replace('正文含有',r'\UnknownSemanticMacro{不应丢失}正文含有'))
             with self.assertRaises(ConversionError):convert(source,root,root/'bad',spec,item)
             source.write_text(text);Image.new('RGB',(10,10),'black').save(root/'figure.png')

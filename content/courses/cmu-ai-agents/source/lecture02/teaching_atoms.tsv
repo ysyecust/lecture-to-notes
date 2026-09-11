@@ -1,0 +1,51 @@
+atom	status	evidence
+工具的定义：模型调用外部程序的接口；模型提议、外部软件决定是否执行	ok	§1.1（fig_01）
+两类收益：extend（参数里没有的信息或动作）与 facilitate（能做但更慢更笨）	ok	§1.2（fig_02）
+典型工具场景表：当前信息/精确计算/私有状态/环境改动，benefit 必须盖过延迟与风险	ok	§1.2（fig_03，转写 2:45）
+从能力出发设计窄接口（ChatGPT 的例子）	ok	§1.2（转写 3:30--5:30）
+文本回复的两种实现：finish 工具或直接结束循环	ok	§1.3（fig_04）
+信息检索/search_web：RAG 已融入日常，所以有人说它“死了”	ok	§1.3（fig_05，转写 7:15）
+代码执行：隔离环境里跑程序，返回 34.0	ok	§1.3（fig_06）
+图像生成：模型会先扩写提示词再调用	ok	§1.3（fig_07）
+自定义函数：购物车与 Instacart 类 API	ok	§1.3（fig_08）
+代码是元工具：内建函数/外部库/工具函数层层放大可调用面	ok	§2.1（转写 11:00）
+两种范式：逐个 API 调用 vs programmatic（代码）工具调用	ok	§2.1（转写 10:15）
+程序化组合的例子：一次写出完整程序而不是十次串行调用	ok	§2.2（转写 12:30）
+CodeAct 结果：成功率上升、轮数下降，17 个模型上代码方案轮数最少	ok	§2.2（fig_09）
+代码的代价：表达力强但难约束、影响面大（文件/网络/进程）	ok	§2.3（fig_10）
+代码化调用的风险：死循环、被投毒的依赖库、资源占用 → 需要沙箱	ok	§2.3（转写 14:15--15:30）
+工具调用就是 token：文本续写 vs <tool_call> 工具续写	ok	§3.1（fig_11）
+ReAct 已成为一次生成：thinking token + 可见消息 + tool call	ok	§3.1（转写 17:00）
+工具调用 token 通常经 mid-training 引入，而非预训练词汇表	ok	§3.1（转写 18:15）
+聊天模板把 API 消息序列化为模型输入（Qwen 的例子）	ok	§3.2（转写 19:15）
+工具定义给请求加结构：type/function/name/parameters	ok	§3.2（fig_12）
+不同模型的工具调用协议不同：Qwen/Mistral/DeepSeek 三种表示	ok	§3.2（fig_13）
+微调时必须匹配既有协议；apply_chat_template 已标准化	ok	§3.2（转写 22:00--23:00）
+分发流程：初始化注册 name→definition、resolve、tools_map、执行	ok	§3.3（fig_14）
+校验失败与执行失败是两类错误：格式非法 vs 语义非法	ok	§3.3（转写 24:00）
+结果按 call ID 配对；缺配对的 history 会被某些模型直接拒绝	ok	§3.3（fig_15，转写 25:15--26:30）
+畸形调用示例：JSON 缺右括号，harness 无法解析	ok	§4.1（fig_16）
+四类调用约束：syntax/shape/types/values，只保形式不保真值	ok	§4.1（fig_17）
+JSON Schema 是描述 JSON 数据的词汇表（类型、必填、枚举）	ok	§4.1（转写 28:45）
+schema 合法与非法：在同一棵语法树上，非法分支无法归约	ok	§4.2（fig_18）
+正则→有限状态自动机；JSON Schema→上下文无关文法→下推自动机	ok	§4.2（fig_19）
+token masking 机制：非法 token 置 -inf 后重归一化	ok	§4.3（fig_20）
+XGrammar：预计算常合法/常非法 token，上下文相关部分在线计算	ok	§4.3（转写 33:00）
+XGrammar 案例：下推自动机 + 高效掩码 + 与推理引擎重叠	ok	§4.3（fig_21）
+约束解码的唯一失效场景：输出被 max tokens 截断在半路	ok	§4.4（转写 35:00）
+进程内库、REST（FastAPI/OpenAPI/curl）与 MCP 三种承载方式	ok	§5.1（fig_22，转写 36:00--39:00）
+MCP：host/client/server 结构，本地 stdio 与远程 HTTP	ok	§5.2（fig_23）
+MCP 的独立凭证设计：agent 只拿 MCP key，upstream secret 留在 server	ok	§5.2（fig_24）
+REST 与 MCP 对照：共享名字/描述/schema，差异在发现、传输、认证	ok	§5.2（fig_25）
+串行工具调用成本：一轮一调用约 6.4 秒	ok	§6.1（fig_26）
+并行工具调用：一次生成、一次等待，约 2.8 秒	ok	§6.1（fig_27）
+并行边界：只有独立且可安全并发的调用能并行	ok	§6.1（fig_28）
+并发实现：asyncio.gather 按 call ID 收回结果	ok	§6.1（转写 46:30）
+效率悖论：更贵的模型按任务算可能更便宜（更聪明 + 并行更好）	ok	§6.2（转写 47:00）
+并行能力是被 RL 的时间/简洁惩罚“逼”出来的	ok	§6.2（转写 48:00）
+BFCL V4 的四个维度：单轮/多轮/agentic/robustness	ok	§7.1（fig_29）
+评测整条栈：工具选择、参数、顺序、端到端成功率	ok	§7.1（fig_30）
+质量的运行维度：效率、可靠性、安全	ok	§7.2（fig_31）
+供应商差异：同一模型错误率从 0.01% 到 15.1%	ok	§7.3（fig_32）
+差异来源：量化（FP8/FP4）、投机解码、约束解码是否实现、服务稳定性	ok	§7.3（转写 53:00--55:00）
+总结：工具使用是分层系统（能力层 + 机制层）	ok	§8（fig_33）

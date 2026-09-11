@@ -1,0 +1,10 @@
+{
+  "mode": "technical-slide",
+  "audience": "capable first-time reader（会用 LLM API、写过简单 agent loop，但不清楚工具调用内部机制的读者）",
+  "central_question": "工具调用在模型与系统两侧分别是怎么实现的——token 是怎么变成动作的、调用为什么能保证格式合法、接口怎么选，以及并行调用与评测怎么做？",
+  "reader_outcome": "能说清一次工具调用从 schema 进提示到结果按 ID 回填的完整链路；能解释约束解码（JSON Schema→上下文无关文法→下推自动机→logits 掩码）为什么能消除畸形调用及其唯一失效场景；能判断何时用代码化工具调用、何时用 REST/MCP、哪些调用可以并行；能读懂工具调用评测的四个维度与供应商差异",
+  "visual_teaching_atoms": 33,
+  "formula_teaching_atoms": 4,
+  "vision": "no",
+  "notes": "英文讲座，官方自动字幕（clean_subs.py 去重后 1302 条，health 覆盖 1.0）；无烧录字幕。host 无图像输入：配图由 frame_filter 评分（0 talking_head）+ 全帧 OCR 选定，33 张图全部通过 verify_figures 时间对齐。bands 仅裁掉 y840 以下纯黑边。numerical_claims 由脚本抽取后剔除页面页码等界面噪声，并补入幻灯片上的教学数字。"
+}

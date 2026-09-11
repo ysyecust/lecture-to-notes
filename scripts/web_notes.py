@@ -13,7 +13,7 @@ import shutil
 import subprocess
 import tempfile
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 VERSION = "1"
 BOXES = ("knowledgebox", "importantbox", "warningbox", "practicebox", "boundarybox")
@@ -150,6 +150,26 @@ def pandoc(args: list[str], text: str) -> str:
     return run.stdout
 
 
+def video_time_url(url: str, timestamp: str) -> str | None:
+    """Link supported lecture sources to an interval's first second."""
+    parsed = urlparse(url)
+    if parsed.scheme != "https" or parsed.username or parsed.password:
+        return None
+    supported = (
+        parsed.netloc == "www.bilibili.com" and parsed.path.startswith("/video/")
+        or parsed.netloc in ("www.youtube.com", "youtube.com", "m.youtube.com")
+        and parsed.path == "/watch"
+        or parsed.netloc == "youtu.be" and bool(parsed.path.strip("/"))
+    )
+    if not supported:
+        return None
+    h, m, s = map(int, timestamp.split(":"))
+    query = [(k, v) for k, v in parse_qsl(parsed.query, keep_blank_values=True)
+             if k not in ("t", "start")]
+    query.append(("t", str(h * 3600 + m * 60 + s)))
+    return urlunparse(parsed._replace(query=urlencode(query), fragment=""))
+
+
 def convert(source: Path, source_root: Path, output: Path, spec: dict, item: dict, *, review: bool = False) -> dict:
     from bs4 import BeautifulSoup
     prepared, body, notes, boxes = prepare_tex(source.read_text())
@@ -192,9 +212,9 @@ def convert(source: Path, source_root: Path, output: Path, spec: dict, item: dic
         if len(times) != 2: raise ConversionError("figure must retain one source interval")
         figure["data-start"] = times[0]; figure["data-end"] = times[1]
         components.append({"kind": "figure", "id": figure["id"], "caption": caption.get_text(), "start": times[0], "end": times[1]})
-        url = item.get("source_url", "")
-        if url.startswith("https://www.bilibili.com/video/"):
-            h, m, s = map(int, times[0].split(":")); link = doc.new_tag("a", href=url + ("&" if "?" in url else "?") + f"t={h*3600+m*60+s}")
+        url = video_time_url(item.get("source_url", ""), times[0])
+        if url:
+            link = doc.new_tag("a", href=url)
             link["class"] = ["video-link"]; link.string = "回看这段讲解 ↗"; figure.append(link)
     for image in doc.find_all("img"):
         name = re.sub(r"^\\detokenize\{(.*)\}$", r"\1", image.get("src", ""))

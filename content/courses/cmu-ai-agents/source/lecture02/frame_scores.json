@@ -1,0 +1,1834 @@
+[
+ {
+  "info": 0.5904,
+  "edge": 0.0167,
+  "center_bottom": 1.0,
+  "bright_total": 0.5744,
+  "talking_head": false,
+  "frame": "frames/f_0001.png"
+ },
+ {
+  "info": 0.607,
+  "edge": 0.0038,
+  "center_bottom": 1.0,
+  "bright_total": 0.5848,
+  "talking_head": false,
+  "frame": "frames/f_0002.png"
+ },
+ {
+  "info": 0.595,
+  "edge": 0.0165,
+  "center_bottom": 1.0,
+  "bright_total": 0.5778,
+  "talking_head": false,
+  "frame": "frames/f_0003.png"
+ },
+ {
+  "info": 0.5987,
+  "edge": 0.0167,
+  "center_bottom": 1.0,
+  "bright_total": 0.58,
+  "talking_head": false,
+  "frame": "frames/f_0004.png"
+ },
+ {
+  "info": 0.5998,
+  "edge": 0.02,
+  "center_bottom": 1.0,
+  "bright_total": 0.5824,
+  "talking_head": false,
+  "frame": "frames/f_0005.png"
+ },
+ {
+  "info": 0.5996,
+  "edge": 0.0203,
+  "center_bottom": 1.0,
+  "bright_total": 0.5823,
+  "talking_head": false,
+  "frame": "frames/f_0006.png"
+ },
+ {
+  "info": 0.6005,
+  "edge": 0.0208,
+  "center_bottom": 1.0,
+  "bright_total": 0.5825,
+  "talking_head": false,
+  "frame": "frames/f_0007.png"
+ },
+ {
+  "info": 0.6,
+  "edge": 0.0216,
+  "center_bottom": 1.0,
+  "bright_total": 0.5819,
+  "talking_head": false,
+  "frame": "frames/f_0008.png"
+ },
+ {
+  "info": 0.6007,
+  "edge": 0.0216,
+  "center_bottom": 1.0,
+  "bright_total": 0.5822,
+  "talking_head": false,
+  "frame": "frames/f_0009.png"
+ },
+ {
+  "info": 0.5987,
+  "edge": 0.0215,
+  "center_bottom": 1.0,
+  "bright_total": 0.5811,
+  "talking_head": false,
+  "frame": "frames/f_0010.png"
+ },
+ {
+  "info": 0.5997,
+  "edge": 0.0216,
+  "center_bottom": 1.0,
+  "bright_total": 0.5817,
+  "talking_head": false,
+  "frame": "frames/f_0011.png"
+ },
+ {
+  "info": 0.5712,
+  "edge": 0.0112,
+  "center_bottom": 1.0,
+  "bright_total": 0.5487,
+  "talking_head": false,
+  "frame": "frames/f_0012.png"
+ },
+ {
+  "info": 0.5698,
+  "edge": 0.0133,
+  "center_bottom": 1.0,
+  "bright_total": 0.5477,
+  "talking_head": false,
+  "frame": "frames/f_0013.png"
+ },
+ {
+  "info": 0.5693,
+  "edge": 0.0146,
+  "center_bottom": 1.0,
+  "bright_total": 0.547,
+  "talking_head": false,
+  "frame": "frames/f_0014.png"
+ },
+ {
+  "info": 0.5963,
+  "edge": 0.0119,
+  "center_bottom": 1.0,
+  "bright_total": 0.5801,
+  "talking_head": false,
+  "frame": "frames/f_0015.png"
+ },
+ {
+  "info": 0.6014,
+  "edge": 0.012,
+  "center_bottom": 0.9999,
+  "bright_total": 0.5831,
+  "talking_head": false,
+  "frame": "frames/f_0016.png"
+ },
+ {
+  "info": 0.6019,
+  "edge": 0.0121,
+  "center_bottom": 1.0,
+  "bright_total": 0.5834,
+  "talking_head": false,
+  "frame": "frames/f_0017.png"
+ },
+ {
+  "info": 0.596,
+  "edge": 0.0121,
+  "center_bottom": 1.0,
+  "bright_total": 0.58,
+  "talking_head": false,
+  "frame": "frames/f_0018.png"
+ },
+ {
+  "info": 0.6045,
+  "edge": 0.0122,
+  "center_bottom": 1.0,
+  "bright_total": 0.5849,
+  "talking_head": false,
+  "frame": "frames/f_0019.png"
+ },
+ {
+  "info": 0.6034,
+  "edge": 0.012,
+  "center_bottom": 1.0,
+  "bright_total": 0.5843,
+  "talking_head": false,
+  "frame": "frames/f_0020.png"
+ },
+ {
+  "info": 0.6112,
+  "edge": 0.0116,
+  "center_bottom": 1.0,
+  "bright_total": 0.5888,
+  "talking_head": false,
+  "frame": "frames/f_0021.png"
+ },
+ {
+  "info": 0.604,
+  "edge": 0.0121,
+  "center_bottom": 1.0,
+  "bright_total": 0.5845,
+  "talking_head": false,
+  "frame": "frames/f_0022.png"
+ },
+ {
+  "info": 0.6103,
+  "edge": 0.0119,
+  "center_bottom": 1.0,
+  "bright_total": 0.5883,
+  "talking_head": false,
+  "frame": "frames/f_0023.png"
+ },
+ {
+  "info": 0.6119,
+  "edge": 0.012,
+  "center_bottom": 1.0,
+  "bright_total": 0.5892,
+  "talking_head": false,
+  "frame": "frames/f_0024.png"
+ },
+ {
+  "info": 0.6094,
+  "edge": 0.0131,
+  "center_bottom": 1.0,
+  "bright_total": 0.5875,
+  "talking_head": false,
+  "frame": "frames/f_0025.png"
+ },
+ {
+  "info": 0.6092,
+  "edge": 0.0132,
+  "center_bottom": 1.0,
+  "bright_total": 0.5874,
+  "talking_head": false,
+  "frame": "frames/f_0026.png"
+ },
+ {
+  "info": 0.6074,
+  "edge": 0.0131,
+  "center_bottom": 1.0,
+  "bright_total": 0.5863,
+  "talking_head": false,
+  "frame": "frames/f_0027.png"
+ },
+ {
+  "info": 0.6083,
+  "edge": 0.0131,
+  "center_bottom": 1.0,
+  "bright_total": 0.5868,
+  "talking_head": false,
+  "frame": "frames/f_0028.png"
+ },
+ {
+  "info": 0.6086,
+  "edge": 0.0131,
+  "center_bottom": 1.0,
+  "bright_total": 0.587,
+  "talking_head": false,
+  "frame": "frames/f_0029.png"
+ },
+ {
+  "info": 0.6035,
+  "edge": 0.0122,
+  "center_bottom": 0.9968,
+  "bright_total": 0.584,
+  "talking_head": false,
+  "frame": "frames/f_0030.png"
+ },
+ {
+  "info": 0.6068,
+  "edge": 0.0128,
+  "center_bottom": 0.9968,
+  "bright_total": 0.5859,
+  "talking_head": false,
+  "frame": "frames/f_0031.png"
+ },
+ {
+  "info": 0.6041,
+  "edge": 0.0124,
+  "center_bottom": 0.9968,
+  "bright_total": 0.5843,
+  "talking_head": false,
+  "frame": "frames/f_0032.png"
+ },
+ {
+  "info": 0.6022,
+  "edge": 0.0124,
+  "center_bottom": 0.9968,
+  "bright_total": 0.5832,
+  "talking_head": false,
+  "frame": "frames/f_0033.png"
+ },
+ {
+  "info": 0.607,
+  "edge": 0.0124,
+  "center_bottom": 0.9968,
+  "bright_total": 0.586,
+  "talking_head": false,
+  "frame": "frames/f_0034.png"
+ },
+ {
+  "info": 0.6084,
+  "edge": 0.0123,
+  "center_bottom": 1.0,
+  "bright_total": 0.5871,
+  "talking_head": false,
+  "frame": "frames/f_0035.png"
+ },
+ {
+  "info": 0.6062,
+  "edge": 0.0127,
+  "center_bottom": 0.9978,
+  "bright_total": 0.5855,
+  "talking_head": false,
+  "frame": "frames/f_0036.png"
+ },
+ {
+  "info": 0.606,
+  "edge": 0.0127,
+  "center_bottom": 0.9977,
+  "bright_total": 0.5854,
+  "talking_head": false,
+  "frame": "frames/f_0037.png"
+ },
+ {
+  "info": 0.6074,
+  "edge": 0.0126,
+  "center_bottom": 0.9978,
+  "bright_total": 0.5862,
+  "talking_head": false,
+  "frame": "frames/f_0038.png"
+ },
+ {
+  "info": 0.6062,
+  "edge": 0.0125,
+  "center_bottom": 0.9977,
+  "bright_total": 0.5855,
+  "talking_head": false,
+  "frame": "frames/f_0039.png"
+ },
+ {
+  "info": 0.6082,
+  "edge": 0.0139,
+  "center_bottom": 0.996,
+  "bright_total": 0.5866,
+  "talking_head": false,
+  "frame": "frames/f_0040.png"
+ },
+ {
+  "info": 0.6075,
+  "edge": 0.0138,
+  "center_bottom": 0.996,
+  "bright_total": 0.5862,
+  "talking_head": false,
+  "frame": "frames/f_0041.png"
+ },
+ {
+  "info": 0.6044,
+  "edge": 0.0056,
+  "center_bottom": 1.0,
+  "bright_total": 0.5803,
+  "talking_head": false,
+  "frame": "frames/f_0042.png"
+ },
+ {
+  "info": 0.6025,
+  "edge": 0.0062,
+  "center_bottom": 1.0,
+  "bright_total": 0.5791,
+  "talking_head": false,
+  "frame": "frames/f_0043.png"
+ },
+ {
+  "info": 0.6053,
+  "edge": 0.0057,
+  "center_bottom": 1.0,
+  "bright_total": 0.5808,
+  "talking_head": false,
+  "frame": "frames/f_0044.png"
+ },
+ {
+  "info": 0.6041,
+  "edge": 0.0325,
+  "center_bottom": 1.0,
+  "bright_total": 0.5835,
+  "talking_head": false,
+  "frame": "frames/f_0045.png"
+ },
+ {
+  "info": 0.6044,
+  "edge": 0.0325,
+  "center_bottom": 1.0,
+  "bright_total": 0.5836,
+  "talking_head": false,
+  "frame": "frames/f_0046.png"
+ },
+ {
+  "info": 0.603,
+  "edge": 0.033,
+  "center_bottom": 1.0,
+  "bright_total": 0.5829,
+  "talking_head": false,
+  "frame": "frames/f_0047.png"
+ },
+ {
+  "info": 0.6016,
+  "edge": 0.0326,
+  "center_bottom": 1.0,
+  "bright_total": 0.582,
+  "talking_head": false,
+  "frame": "frames/f_0048.png"
+ },
+ {
+  "info": 0.6028,
+  "edge": 0.0141,
+  "center_bottom": 0.9959,
+  "bright_total": 0.5835,
+  "talking_head": false,
+  "frame": "frames/f_0049.png"
+ },
+ {
+  "info": 0.6057,
+  "edge": 0.0326,
+  "center_bottom": 1.0,
+  "bright_total": 0.5845,
+  "talking_head": false,
+  "frame": "frames/f_0050.png"
+ },
+ {
+  "info": 0.6029,
+  "edge": 0.0273,
+  "center_bottom": 0.9967,
+  "bright_total": 0.5834,
+  "talking_head": false,
+  "frame": "frames/f_0051.png"
+ },
+ {
+  "info": 0.6041,
+  "edge": 0.0275,
+  "center_bottom": 0.9967,
+  "bright_total": 0.5841,
+  "talking_head": false,
+  "frame": "frames/f_0052.png"
+ },
+ {
+  "info": 0.6043,
+  "edge": 0.0274,
+  "center_bottom": 0.9966,
+  "bright_total": 0.5842,
+  "talking_head": false,
+  "frame": "frames/f_0053.png"
+ },
+ {
+  "info": 0.6072,
+  "edge": 0.0274,
+  "center_bottom": 0.9967,
+  "bright_total": 0.5859,
+  "talking_head": false,
+  "frame": "frames/f_0054.png"
+ },
+ {
+  "info": 0.6044,
+  "edge": 0.0274,
+  "center_bottom": 0.9966,
+  "bright_total": 0.5843,
+  "talking_head": false,
+  "frame": "frames/f_0055.png"
+ },
+ {
+  "info": 0.6085,
+  "edge": 0.0188,
+  "center_bottom": 1.0,
+  "bright_total": 0.5874,
+  "talking_head": false,
+  "frame": "frames/f_0056.png"
+ },
+ {
+  "info": 0.6087,
+  "edge": 0.0187,
+  "center_bottom": 1.0,
+  "bright_total": 0.5875,
+  "talking_head": false,
+  "frame": "frames/f_0057.png"
+ },
+ {
+  "info": 0.6065,
+  "edge": 0.0064,
+  "center_bottom": 1.0,
+  "bright_total": 0.5863,
+  "talking_head": false,
+  "frame": "frames/f_0058.png"
+ },
+ {
+  "info": 0.6056,
+  "edge": 0.011,
+  "center_bottom": 1.0,
+  "bright_total": 0.5858,
+  "talking_head": false,
+  "frame": "frames/f_0059.png"
+ },
+ {
+  "info": 0.6008,
+  "edge": 0.0113,
+  "center_bottom": 1.0,
+  "bright_total": 0.583,
+  "talking_head": false,
+  "frame": "frames/f_0060.png"
+ },
+ {
+  "info": 0.6004,
+  "edge": 0.011,
+  "center_bottom": 1.0,
+  "bright_total": 0.5828,
+  "talking_head": false,
+  "frame": "frames/f_0061.png"
+ },
+ {
+  "info": 0.6011,
+  "edge": 0.0111,
+  "center_bottom": 1.0,
+  "bright_total": 0.5832,
+  "talking_head": false,
+  "frame": "frames/f_0062.png"
+ },
+ {
+  "info": 0.6018,
+  "edge": 0.0149,
+  "center_bottom": 1.0,
+  "bright_total": 0.5825,
+  "talking_head": false,
+  "frame": "frames/f_0063.png"
+ },
+ {
+  "info": 0.6035,
+  "edge": 0.0154,
+  "center_bottom": 1.0,
+  "bright_total": 0.5835,
+  "talking_head": false,
+  "frame": "frames/f_0064.png"
+ },
+ {
+  "info": 0.6029,
+  "edge": 0.0058,
+  "center_bottom": 1.0,
+  "bright_total": 0.5788,
+  "talking_head": false,
+  "frame": "frames/f_0065.png"
+ },
+ {
+  "info": 0.6013,
+  "edge": 0.0059,
+  "center_bottom": 1.0,
+  "bright_total": 0.5779,
+  "talking_head": false,
+  "frame": "frames/f_0066.png"
+ },
+ {
+  "info": 0.6046,
+  "edge": 0.0108,
+  "center_bottom": 1.0,
+  "bright_total": 0.5842,
+  "talking_head": false,
+  "frame": "frames/f_0067.png"
+ },
+ {
+  "info": 0.6051,
+  "edge": 0.0108,
+  "center_bottom": 1.0,
+  "bright_total": 0.5845,
+  "talking_head": false,
+  "frame": "frames/f_0068.png"
+ },
+ {
+  "info": 0.5457,
+  "edge": 0.0118,
+  "center_bottom": 1.0,
+  "bright_total": 0.5501,
+  "talking_head": false,
+  "frame": "frames/f_0069.png"
+ },
+ {
+  "info": 0.5434,
+  "edge": 0.0117,
+  "center_bottom": 1.0,
+  "bright_total": 0.5487,
+  "talking_head": false,
+  "frame": "frames/f_0070.png"
+ },
+ {
+  "info": 0.5431,
+  "edge": 0.0096,
+  "center_bottom": 1.0,
+  "bright_total": 0.5486,
+  "talking_head": false,
+  "frame": "frames/f_0071.png"
+ },
+ {
+  "info": 0.5461,
+  "edge": 0.012,
+  "center_bottom": 1.0,
+  "bright_total": 0.5503,
+  "talking_head": false,
+  "frame": "frames/f_0072.png"
+ },
+ {
+  "info": 0.5979,
+  "edge": 0.0107,
+  "center_bottom": 1.0,
+  "bright_total": 0.5804,
+  "talking_head": false,
+  "frame": "frames/f_0073.png"
+ },
+ {
+  "info": 0.6129,
+  "edge": 0.0104,
+  "center_bottom": 1.0,
+  "bright_total": 0.589,
+  "talking_head": false,
+  "frame": "frames/f_0074.png"
+ },
+ {
+  "info": 0.6033,
+  "edge": 0.0107,
+  "center_bottom": 1.0,
+  "bright_total": 0.5835,
+  "talking_head": false,
+  "frame": "frames/f_0075.png"
+ },
+ {
+  "info": 0.6001,
+  "edge": 0.0109,
+  "center_bottom": 1.0,
+  "bright_total": 0.5816,
+  "talking_head": false,
+  "frame": "frames/f_0076.png"
+ },
+ {
+  "info": 0.6041,
+  "edge": 0.0111,
+  "center_bottom": 1.0,
+  "bright_total": 0.5839,
+  "talking_head": false,
+  "frame": "frames/f_0077.png"
+ },
+ {
+  "info": 0.6,
+  "edge": 0.0153,
+  "center_bottom": 0.9975,
+  "bright_total": 0.5774,
+  "talking_head": false,
+  "frame": "frames/f_0078.png"
+ },
+ {
+  "info": 0.6016,
+  "edge": 0.0153,
+  "center_bottom": 0.9975,
+  "bright_total": 0.5784,
+  "talking_head": false,
+  "frame": "frames/f_0079.png"
+ },
+ {
+  "info": 0.5994,
+  "edge": 0.0153,
+  "center_bottom": 0.9975,
+  "bright_total": 0.5771,
+  "talking_head": false,
+  "frame": "frames/f_0080.png"
+ },
+ {
+  "info": 0.5998,
+  "edge": 0.0178,
+  "center_bottom": 1.0,
+  "bright_total": 0.5793,
+  "talking_head": false,
+  "frame": "frames/f_0081.png"
+ },
+ {
+  "info": 0.6022,
+  "edge": 0.0179,
+  "center_bottom": 1.0,
+  "bright_total": 0.5807,
+  "talking_head": false,
+  "frame": "frames/f_0082.png"
+ },
+ {
+  "info": 0.5991,
+  "edge": 0.0179,
+  "center_bottom": 1.0,
+  "bright_total": 0.5789,
+  "talking_head": false,
+  "frame": "frames/f_0083.png"
+ },
+ {
+  "info": 0.5996,
+  "edge": 0.0133,
+  "center_bottom": 1.0,
+  "bright_total": 0.5807,
+  "talking_head": false,
+  "frame": "frames/f_0084.png"
+ },
+ {
+  "info": 0.5974,
+  "edge": 0.0222,
+  "center_bottom": 1.0,
+  "bright_total": 0.5765,
+  "talking_head": false,
+  "frame": "frames/f_0085.png"
+ },
+ {
+  "info": 0.5986,
+  "edge": 0.0224,
+  "center_bottom": 1.0,
+  "bright_total": 0.5772,
+  "talking_head": false,
+  "frame": "frames/f_0086.png"
+ },
+ {
+  "info": 0.5972,
+  "edge": 0.0225,
+  "center_bottom": 1.0,
+  "bright_total": 0.5764,
+  "talking_head": false,
+  "frame": "frames/f_0087.png"
+ },
+ {
+  "info": 0.5983,
+  "edge": 0.0224,
+  "center_bottom": 1.0,
+  "bright_total": 0.577,
+  "talking_head": false,
+  "frame": "frames/f_0088.png"
+ },
+ {
+  "info": 0.6004,
+  "edge": 0.0222,
+  "center_bottom": 1.0,
+  "bright_total": 0.5783,
+  "talking_head": false,
+  "frame": "frames/f_0089.png"
+ },
+ {
+  "info": 0.5776,
+  "edge": 0.0229,
+  "center_bottom": 1.0,
+  "bright_total": 0.565,
+  "talking_head": false,
+  "frame": "frames/f_0090.png"
+ },
+ {
+  "info": 0.5751,
+  "edge": 0.0245,
+  "center_bottom": 1.0,
+  "bright_total": 0.5636,
+  "talking_head": false,
+  "frame": "frames/f_0091.png"
+ },
+ {
+  "info": 0.5632,
+  "edge": 0.0214,
+  "center_bottom": 1.0,
+  "bright_total": 0.5567,
+  "talking_head": false,
+  "frame": "frames/f_0092.png"
+ },
+ {
+  "info": 0.5997,
+  "edge": 0.0225,
+  "center_bottom": 1.0,
+  "bright_total": 0.5779,
+  "talking_head": false,
+  "frame": "frames/f_0093.png"
+ },
+ {
+  "info": 0.5977,
+  "edge": 0.0225,
+  "center_bottom": 1.0,
+  "bright_total": 0.5767,
+  "talking_head": false,
+  "frame": "frames/f_0094.png"
+ },
+ {
+  "info": 0.597,
+  "edge": 0.0167,
+  "center_bottom": 0.9955,
+  "bright_total": 0.5792,
+  "talking_head": false,
+  "frame": "frames/f_0095.png"
+ },
+ {
+  "info": 0.5964,
+  "edge": 0.0167,
+  "center_bottom": 0.9957,
+  "bright_total": 0.579,
+  "talking_head": false,
+  "frame": "frames/f_0096.png"
+ },
+ {
+  "info": 0.5964,
+  "edge": 0.0167,
+  "center_bottom": 0.9956,
+  "bright_total": 0.579,
+  "talking_head": false,
+  "frame": "frames/f_0097.png"
+ },
+ {
+  "info": 0.5972,
+  "edge": 0.0167,
+  "center_bottom": 0.9956,
+  "bright_total": 0.5794,
+  "talking_head": false,
+  "frame": "frames/f_0098.png"
+ },
+ {
+  "info": 0.5967,
+  "edge": 0.0168,
+  "center_bottom": 0.9954,
+  "bright_total": 0.5792,
+  "talking_head": false,
+  "frame": "frames/f_0099.png"
+ },
+ {
+  "info": 0.5929,
+  "edge": 0.0167,
+  "center_bottom": 0.9956,
+  "bright_total": 0.5769,
+  "talking_head": false,
+  "frame": "frames/f_0100.png"
+ },
+ {
+  "info": 0.5964,
+  "edge": 0.0168,
+  "center_bottom": 0.9955,
+  "bright_total": 0.5789,
+  "talking_head": false,
+  "frame": "frames/f_0101.png"
+ },
+ {
+  "info": 0.6023,
+  "edge": 0.0138,
+  "center_bottom": 0.9999,
+  "bright_total": 0.5835,
+  "talking_head": false,
+  "frame": "frames/f_0102.png"
+ },
+ {
+  "info": 0.6013,
+  "edge": 0.0135,
+  "center_bottom": 0.9999,
+  "bright_total": 0.5829,
+  "talking_head": false,
+  "frame": "frames/f_0103.png"
+ },
+ {
+  "info": 0.5989,
+  "edge": 0.0134,
+  "center_bottom": 0.9999,
+  "bright_total": 0.5815,
+  "talking_head": false,
+  "frame": "frames/f_0104.png"
+ },
+ {
+  "info": 0.5987,
+  "edge": 0.0136,
+  "center_bottom": 0.9999,
+  "bright_total": 0.5814,
+  "talking_head": false,
+  "frame": "frames/f_0105.png"
+ },
+ {
+  "info": 0.602,
+  "edge": 0.0137,
+  "center_bottom": 0.9999,
+  "bright_total": 0.5833,
+  "talking_head": false,
+  "frame": "frames/f_0106.png"
+ },
+ {
+  "info": 0.603,
+  "edge": 0.0138,
+  "center_bottom": 0.9999,
+  "bright_total": 0.5839,
+  "talking_head": false,
+  "frame": "frames/f_0107.png"
+ },
+ {
+  "info": 0.6068,
+  "edge": 0.005,
+  "center_bottom": 1.0,
+  "bright_total": 0.5822,
+  "talking_head": false,
+  "frame": "frames/f_0108.png"
+ },
+ {
+  "info": 0.6062,
+  "edge": 0.0049,
+  "center_bottom": 1.0,
+  "bright_total": 0.5818,
+  "talking_head": false,
+  "frame": "frames/f_0109.png"
+ },
+ {
+  "info": 0.6074,
+  "edge": 0.0049,
+  "center_bottom": 1.0,
+  "bright_total": 0.5825,
+  "talking_head": false,
+  "frame": "frames/f_0110.png"
+ },
+ {
+  "info": 0.605,
+  "edge": 0.01,
+  "center_bottom": 1.0,
+  "bright_total": 0.5854,
+  "talking_head": false,
+  "frame": "frames/f_0111.png"
+ },
+ {
+  "info": 0.6069,
+  "edge": 0.01,
+  "center_bottom": 1.0,
+  "bright_total": 0.5865,
+  "talking_head": false,
+  "frame": "frames/f_0112.png"
+ },
+ {
+  "info": 0.608,
+  "edge": 0.0109,
+  "center_bottom": 1.0,
+  "bright_total": 0.5868,
+  "talking_head": false,
+  "frame": "frames/f_0113.png"
+ },
+ {
+  "info": 0.608,
+  "edge": 0.0109,
+  "center_bottom": 1.0,
+  "bright_total": 0.5868,
+  "talking_head": false,
+  "frame": "frames/f_0114.png"
+ },
+ {
+  "info": 0.6098,
+  "edge": 0.0078,
+  "center_bottom": 1.0,
+  "bright_total": 0.5882,
+  "talking_head": false,
+  "frame": "frames/f_0115.png"
+ },
+ {
+  "info": 0.6089,
+  "edge": 0.0105,
+  "center_bottom": 0.9999,
+  "bright_total": 0.5877,
+  "talking_head": false,
+  "frame": "frames/f_0116.png"
+ },
+ {
+  "info": 0.6059,
+  "edge": 0.0173,
+  "center_bottom": 0.9972,
+  "bright_total": 0.5824,
+  "talking_head": false,
+  "frame": "frames/f_0117.png"
+ },
+ {
+  "info": 0.6015,
+  "edge": 0.0181,
+  "center_bottom": 0.9968,
+  "bright_total": 0.5798,
+  "talking_head": false,
+  "frame": "frames/f_0118.png"
+ },
+ {
+  "info": 0.6025,
+  "edge": 0.0175,
+  "center_bottom": 0.9971,
+  "bright_total": 0.5804,
+  "talking_head": false,
+  "frame": "frames/f_0119.png"
+ },
+ {
+  "info": 0.5943,
+  "edge": 0.0166,
+  "center_bottom": 0.9967,
+  "bright_total": 0.5756,
+  "talking_head": false,
+  "frame": "frames/f_0120.png"
+ },
+ {
+  "info": 0.5462,
+  "edge": 0.0183,
+  "center_bottom": 0.9972,
+  "bright_total": 0.5477,
+  "talking_head": false,
+  "frame": "frames/f_0121.png"
+ },
+ {
+  "info": 0.5367,
+  "edge": 0.0192,
+  "center_bottom": 0.9972,
+  "bright_total": 0.5422,
+  "talking_head": false,
+  "frame": "frames/f_0122.png"
+ },
+ {
+  "info": 0.6056,
+  "edge": 0.0172,
+  "center_bottom": 0.9972,
+  "bright_total": 0.5822,
+  "talking_head": false,
+  "frame": "frames/f_0123.png"
+ },
+ {
+  "info": 0.6118,
+  "edge": 0.0158,
+  "center_bottom": 1.0,
+  "bright_total": 0.5894,
+  "talking_head": false,
+  "frame": "frames/f_0124.png"
+ },
+ {
+  "info": 0.609,
+  "edge": 0.0173,
+  "center_bottom": 0.9973,
+  "bright_total": 0.5842,
+  "talking_head": false,
+  "frame": "frames/f_0125.png"
+ },
+ {
+  "info": 0.6099,
+  "edge": 0.0173,
+  "center_bottom": 0.9973,
+  "bright_total": 0.5847,
+  "talking_head": false,
+  "frame": "frames/f_0126.png"
+ },
+ {
+  "info": 0.6128,
+  "edge": 0.0158,
+  "center_bottom": 1.0,
+  "bright_total": 0.59,
+  "talking_head": false,
+  "frame": "frames/f_0127.png"
+ },
+ {
+  "info": 0.6106,
+  "edge": 0.0186,
+  "center_bottom": 1.0,
+  "bright_total": 0.5859,
+  "talking_head": false,
+  "frame": "frames/f_0128.png"
+ },
+ {
+  "info": 0.6148,
+  "edge": 0.0186,
+  "center_bottom": 1.0,
+  "bright_total": 0.5883,
+  "talking_head": false,
+  "frame": "frames/f_0129.png"
+ },
+ {
+  "info": 0.6137,
+  "edge": 0.0186,
+  "center_bottom": 1.0,
+  "bright_total": 0.5876,
+  "talking_head": false,
+  "frame": "frames/f_0130.png"
+ },
+ {
+  "info": 0.6197,
+  "edge": 0.015,
+  "center_bottom": 1.0,
+  "bright_total": 0.5934,
+  "talking_head": false,
+  "frame": "frames/f_0131.png"
+ },
+ {
+  "info": 0.62,
+  "edge": 0.0151,
+  "center_bottom": 1.0,
+  "bright_total": 0.5936,
+  "talking_head": false,
+  "frame": "frames/f_0132.png"
+ },
+ {
+  "info": 0.6175,
+  "edge": 0.015,
+  "center_bottom": 1.0,
+  "bright_total": 0.5921,
+  "talking_head": false,
+  "frame": "frames/f_0133.png"
+ },
+ {
+  "info": 0.6145,
+  "edge": 0.0151,
+  "center_bottom": 1.0,
+  "bright_total": 0.5903,
+  "talking_head": false,
+  "frame": "frames/f_0134.png"
+ },
+ {
+  "info": 0.6165,
+  "edge": 0.0296,
+  "center_bottom": 0.9988,
+  "bright_total": 0.5882,
+  "talking_head": false,
+  "frame": "frames/f_0135.png"
+ },
+ {
+  "info": 0.6127,
+  "edge": 0.0294,
+  "center_bottom": 0.9988,
+  "bright_total": 0.586,
+  "talking_head": false,
+  "frame": "frames/f_0136.png"
+ },
+ {
+  "info": 0.6135,
+  "edge": 0.0297,
+  "center_bottom": 0.9987,
+  "bright_total": 0.5865,
+  "talking_head": false,
+  "frame": "frames/f_0137.png"
+ },
+ {
+  "info": 0.6141,
+  "edge": 0.0296,
+  "center_bottom": 0.9988,
+  "bright_total": 0.5869,
+  "talking_head": false,
+  "frame": "frames/f_0138.png"
+ },
+ {
+  "info": 0.6176,
+  "edge": 0.0295,
+  "center_bottom": 0.9988,
+  "bright_total": 0.5889,
+  "talking_head": false,
+  "frame": "frames/f_0139.png"
+ },
+ {
+  "info": 0.6167,
+  "edge": 0.0294,
+  "center_bottom": 0.9988,
+  "bright_total": 0.5884,
+  "talking_head": false,
+  "frame": "frames/f_0140.png"
+ },
+ {
+  "info": 0.6132,
+  "edge": 0.0298,
+  "center_bottom": 0.9989,
+  "bright_total": 0.5863,
+  "talking_head": false,
+  "frame": "frames/f_0141.png"
+ },
+ {
+  "info": 0.6136,
+  "edge": 0.0297,
+  "center_bottom": 0.9988,
+  "bright_total": 0.5866,
+  "talking_head": false,
+  "frame": "frames/f_0142.png"
+ },
+ {
+  "info": 0.6198,
+  "edge": 0.0037,
+  "center_bottom": 1.0,
+  "bright_total": 0.5909,
+  "talking_head": false,
+  "frame": "frames/f_0143.png"
+ },
+ {
+  "info": 0.6182,
+  "edge": 0.0042,
+  "center_bottom": 1.0,
+  "bright_total": 0.59,
+  "talking_head": false,
+  "frame": "frames/f_0144.png"
+ },
+ {
+  "info": 0.6149,
+  "edge": 0.0209,
+  "center_bottom": 1.0,
+  "bright_total": 0.5897,
+  "talking_head": false,
+  "frame": "frames/f_0145.png"
+ },
+ {
+  "info": 0.614,
+  "edge": 0.0212,
+  "center_bottom": 1.0,
+  "bright_total": 0.5892,
+  "talking_head": false,
+  "frame": "frames/f_0146.png"
+ },
+ {
+  "info": 0.6146,
+  "edge": 0.021,
+  "center_bottom": 0.9998,
+  "bright_total": 0.5895,
+  "talking_head": false,
+  "frame": "frames/f_0147.png"
+ },
+ {
+  "info": 0.6094,
+  "edge": 0.0319,
+  "center_bottom": 1.0,
+  "bright_total": 0.5848,
+  "talking_head": false,
+  "frame": "frames/f_0148.png"
+ },
+ {
+  "info": 0.6091,
+  "edge": 0.0322,
+  "center_bottom": 1.0,
+  "bright_total": 0.5846,
+  "talking_head": false,
+  "frame": "frames/f_0149.png"
+ },
+ {
+  "info": 0.6104,
+  "edge": 0.0322,
+  "center_bottom": 1.0,
+  "bright_total": 0.5854,
+  "talking_head": false,
+  "frame": "frames/f_0150.png"
+ },
+ {
+  "info": 0.61,
+  "edge": 0.0322,
+  "center_bottom": 1.0,
+  "bright_total": 0.5851,
+  "talking_head": false,
+  "frame": "frames/f_0151.png"
+ },
+ {
+  "info": 0.6092,
+  "edge": 0.0321,
+  "center_bottom": 1.0,
+  "bright_total": 0.5846,
+  "talking_head": false,
+  "frame": "frames/f_0152.png"
+ },
+ {
+  "info": 0.6117,
+  "edge": 0.0254,
+  "center_bottom": 1.0,
+  "bright_total": 0.5854,
+  "talking_head": false,
+  "frame": "frames/f_0153.png"
+ },
+ {
+  "info": 0.6115,
+  "edge": 0.0254,
+  "center_bottom": 1.0,
+  "bright_total": 0.5852,
+  "talking_head": false,
+  "frame": "frames/f_0154.png"
+ },
+ {
+  "info": 0.6109,
+  "edge": 0.0226,
+  "center_bottom": 1.0,
+  "bright_total": 0.5855,
+  "talking_head": false,
+  "frame": "frames/f_0155.png"
+ },
+ {
+  "info": 0.6108,
+  "edge": 0.0229,
+  "center_bottom": 1.0,
+  "bright_total": 0.5854,
+  "talking_head": false,
+  "frame": "frames/f_0156.png"
+ },
+ {
+  "info": 0.6205,
+  "edge": 0.0035,
+  "center_bottom": 1.0,
+  "bright_total": 0.5938,
+  "talking_head": false,
+  "frame": "frames/f_0157.png"
+ },
+ {
+  "info": 0.6199,
+  "edge": 0.0034,
+  "center_bottom": 1.0,
+  "bright_total": 0.5935,
+  "talking_head": false,
+  "frame": "frames/f_0158.png"
+ },
+ {
+  "info": 0.6138,
+  "edge": 0.0247,
+  "center_bottom": 1.0,
+  "bright_total": 0.5866,
+  "talking_head": false,
+  "frame": "frames/f_0159.png"
+ },
+ {
+  "info": 0.5835,
+  "edge": 0.0132,
+  "center_bottom": 1.0,
+  "bright_total": 0.5715,
+  "talking_head": false,
+  "frame": "frames/f_0160.png"
+ },
+ {
+  "info": 0.5851,
+  "edge": 0.0134,
+  "center_bottom": 1.0,
+  "bright_total": 0.5723,
+  "talking_head": false,
+  "frame": "frames/f_0161.png"
+ },
+ {
+  "info": 0.5865,
+  "edge": 0.0131,
+  "center_bottom": 1.0,
+  "bright_total": 0.5732,
+  "talking_head": false,
+  "frame": "frames/f_0162.png"
+ },
+ {
+  "info": 0.5869,
+  "edge": 0.013,
+  "center_bottom": 1.0,
+  "bright_total": 0.5734,
+  "talking_head": false,
+  "frame": "frames/f_0163.png"
+ },
+ {
+  "info": 0.6193,
+  "edge": 0.0225,
+  "center_bottom": 0.9912,
+  "bright_total": 0.5919,
+  "talking_head": false,
+  "frame": "frames/f_0164.png"
+ },
+ {
+  "info": 0.6172,
+  "edge": 0.0224,
+  "center_bottom": 0.9913,
+  "bright_total": 0.5908,
+  "talking_head": false,
+  "frame": "frames/f_0165.png"
+ },
+ {
+  "info": 0.6169,
+  "edge": 0.0226,
+  "center_bottom": 0.9913,
+  "bright_total": 0.5905,
+  "talking_head": false,
+  "frame": "frames/f_0166.png"
+ },
+ {
+  "info": 0.6185,
+  "edge": 0.0333,
+  "center_bottom": 1.0,
+  "bright_total": 0.5914,
+  "talking_head": false,
+  "frame": "frames/f_0167.png"
+ },
+ {
+  "info": 0.6177,
+  "edge": 0.0333,
+  "center_bottom": 1.0,
+  "bright_total": 0.5909,
+  "talking_head": false,
+  "frame": "frames/f_0168.png"
+ },
+ {
+  "info": 0.6179,
+  "edge": 0.0335,
+  "center_bottom": 1.0,
+  "bright_total": 0.591,
+  "talking_head": false,
+  "frame": "frames/f_0169.png"
+ },
+ {
+  "info": 0.6199,
+  "edge": 0.0333,
+  "center_bottom": 1.0,
+  "bright_total": 0.5922,
+  "talking_head": false,
+  "frame": "frames/f_0170.png"
+ },
+ {
+  "info": 0.6178,
+  "edge": 0.0333,
+  "center_bottom": 1.0,
+  "bright_total": 0.5909,
+  "talking_head": false,
+  "frame": "frames/f_0171.png"
+ },
+ {
+  "info": 0.6197,
+  "edge": 0.0226,
+  "center_bottom": 1.0,
+  "bright_total": 0.5917,
+  "talking_head": false,
+  "frame": "frames/f_0172.png"
+ },
+ {
+  "info": 0.591,
+  "edge": 0.0175,
+  "center_bottom": 1.0,
+  "bright_total": 0.5594,
+  "talking_head": false,
+  "frame": "frames/f_0173.png"
+ },
+ {
+  "info": 0.5902,
+  "edge": 0.0196,
+  "center_bottom": 1.0,
+  "bright_total": 0.5588,
+  "talking_head": false,
+  "frame": "frames/f_0174.png"
+ },
+ {
+  "info": 0.5898,
+  "edge": 0.0197,
+  "center_bottom": 1.0,
+  "bright_total": 0.5585,
+  "talking_head": false,
+  "frame": "frames/f_0175.png"
+ },
+ {
+  "info": 0.6178,
+  "edge": 0.0061,
+  "center_bottom": 1.0,
+  "bright_total": 0.5876,
+  "talking_head": false,
+  "frame": "frames/f_0176.png"
+ },
+ {
+  "info": 0.5398,
+  "edge": 0.0269,
+  "center_bottom": 0.9942,
+  "bright_total": 0.5065,
+  "talking_head": false,
+  "frame": "frames/f_0177.png"
+ },
+ {
+  "info": 0.4457,
+  "edge": 0.025,
+  "center_bottom": 0.4761,
+  "bright_total": 0.4004,
+  "talking_head": false,
+  "frame": "frames/f_0178.png"
+ },
+ {
+  "info": 0.4463,
+  "edge": 0.0232,
+  "center_bottom": 0.4757,
+  "bright_total": 0.4008,
+  "talking_head": false,
+  "frame": "frames/f_0179.png"
+ },
+ {
+  "info": 0.3161,
+  "edge": 0.0105,
+  "center_bottom": 0.415,
+  "bright_total": 0.2907,
+  "talking_head": false,
+  "frame": "frames/f_0180.png"
+ },
+ {
+  "info": 0.278,
+  "edge": 0.0066,
+  "center_bottom": 0.0227,
+  "bright_total": 0.1984,
+  "talking_head": false,
+  "frame": "frames/f_0181.png"
+ },
+ {
+  "info": 0.6169,
+  "edge": 0.0061,
+  "center_bottom": 1.0,
+  "bright_total": 0.587,
+  "talking_head": false,
+  "frame": "frames/f_0182.png"
+ },
+ {
+  "info": 0.6198,
+  "edge": 0.0091,
+  "center_bottom": 0.9999,
+  "bright_total": 0.5932,
+  "talking_head": false,
+  "frame": "frames/f_0183.png"
+ },
+ {
+  "info": 0.602,
+  "edge": 0.0144,
+  "center_bottom": 1.0,
+  "bright_total": 0.5832,
+  "talking_head": false,
+  "frame": "frames/f_0184.png"
+ },
+ {
+  "info": 0.6229,
+  "edge": 0.0101,
+  "center_bottom": 1.0,
+  "bright_total": 0.5934,
+  "talking_head": false,
+  "frame": "frames/f_0185.png"
+ },
+ {
+  "info": 0.6237,
+  "edge": 0.0137,
+  "center_bottom": 1.0,
+  "bright_total": 0.5935,
+  "talking_head": false,
+  "frame": "frames/f_0186.png"
+ },
+ {
+  "info": 0.6211,
+  "edge": 0.0199,
+  "center_bottom": 1.0,
+  "bright_total": 0.5947,
+  "talking_head": false,
+  "frame": "frames/f_0187.png"
+ },
+ {
+  "info": 0.6198,
+  "edge": 0.02,
+  "center_bottom": 1.0,
+  "bright_total": 0.594,
+  "talking_head": false,
+  "frame": "frames/f_0188.png"
+ },
+ {
+  "info": 0.6196,
+  "edge": 0.0198,
+  "center_bottom": 1.0,
+  "bright_total": 0.5939,
+  "talking_head": false,
+  "frame": "frames/f_0189.png"
+ },
+ {
+  "info": 0.6184,
+  "edge": 0.0198,
+  "center_bottom": 1.0,
+  "bright_total": 0.5932,
+  "talking_head": false,
+  "frame": "frames/f_0190.png"
+ },
+ {
+  "info": 0.6212,
+  "edge": 0.0198,
+  "center_bottom": 1.0,
+  "bright_total": 0.5948,
+  "talking_head": false,
+  "frame": "frames/f_0191.png"
+ },
+ {
+  "info": 0.6207,
+  "edge": 0.02,
+  "center_bottom": 1.0,
+  "bright_total": 0.5945,
+  "talking_head": false,
+  "frame": "frames/f_0192.png"
+ },
+ {
+  "info": 0.6216,
+  "edge": 0.0201,
+  "center_bottom": 1.0,
+  "bright_total": 0.5951,
+  "talking_head": false,
+  "frame": "frames/f_0193.png"
+ },
+ {
+  "info": 0.6211,
+  "edge": 0.0202,
+  "center_bottom": 1.0,
+  "bright_total": 0.5948,
+  "talking_head": false,
+  "frame": "frames/f_0194.png"
+ },
+ {
+  "info": 0.6168,
+  "edge": 0.0201,
+  "center_bottom": 1.0,
+  "bright_total": 0.5923,
+  "talking_head": false,
+  "frame": "frames/f_0195.png"
+ },
+ {
+  "info": 0.6164,
+  "edge": 0.0049,
+  "center_bottom": 1.0,
+  "bright_total": 0.5889,
+  "talking_head": false,
+  "frame": "frames/f_0196.png"
+ },
+ {
+  "info": 0.6154,
+  "edge": 0.0049,
+  "center_bottom": 1.0,
+  "bright_total": 0.5883,
+  "talking_head": false,
+  "frame": "frames/f_0197.png"
+ },
+ {
+  "info": 0.6159,
+  "edge": 0.0079,
+  "center_bottom": 1.0,
+  "bright_total": 0.5892,
+  "talking_head": false,
+  "frame": "frames/f_0198.png"
+ },
+ {
+  "info": 0.6165,
+  "edge": 0.011,
+  "center_bottom": 1.0,
+  "bright_total": 0.5893,
+  "talking_head": false,
+  "frame": "frames/f_0199.png"
+ },
+ {
+  "info": 0.616,
+  "edge": 0.0125,
+  "center_bottom": 0.9999,
+  "bright_total": 0.5886,
+  "talking_head": false,
+  "frame": "frames/f_0200.png"
+ },
+ {
+  "info": 0.5875,
+  "edge": 0.0094,
+  "center_bottom": 1.0,
+  "bright_total": 0.5606,
+  "talking_head": false,
+  "frame": "frames/f_0201.png"
+ },
+ {
+  "info": 0.5872,
+  "edge": 0.0095,
+  "center_bottom": 1.0,
+  "bright_total": 0.5603,
+  "talking_head": false,
+  "frame": "frames/f_0202.png"
+ },
+ {
+  "info": 0.5853,
+  "edge": 0.0134,
+  "center_bottom": 1.0,
+  "bright_total": 0.5586,
+  "talking_head": false,
+  "frame": "frames/f_0203.png"
+ },
+ {
+  "info": 0.6133,
+  "edge": 0.0113,
+  "center_bottom": 1.0,
+  "bright_total": 0.5885,
+  "talking_head": false,
+  "frame": "frames/f_0204.png"
+ },
+ {
+  "info": 0.6138,
+  "edge": 0.0149,
+  "center_bottom": 1.0,
+  "bright_total": 0.5886,
+  "talking_head": false,
+  "frame": "frames/f_0205.png"
+ },
+ {
+  "info": 0.6125,
+  "edge": 0.015,
+  "center_bottom": 1.0,
+  "bright_total": 0.5871,
+  "talking_head": false,
+  "frame": "frames/f_0206.png"
+ },
+ {
+  "info": 0.377,
+  "edge": 0.0119,
+  "center_bottom": 0.543,
+  "bright_total": 0.3296,
+  "talking_head": false,
+  "frame": "frames/f_0207.png"
+ },
+ {
+  "info": 0.3778,
+  "edge": 0.0118,
+  "center_bottom": 0.5431,
+  "bright_total": 0.3301,
+  "talking_head": false,
+  "frame": "frames/f_0208.png"
+ },
+ {
+  "info": 0.3785,
+  "edge": 0.0119,
+  "center_bottom": 0.5432,
+  "bright_total": 0.3305,
+  "talking_head": false,
+  "frame": "frames/f_0209.png"
+ },
+ {
+  "info": 0.3785,
+  "edge": 0.0119,
+  "center_bottom": 0.5433,
+  "bright_total": 0.3305,
+  "talking_head": false,
+  "frame": "frames/f_0210.png"
+ },
+ {
+  "info": 0.3782,
+  "edge": 0.0119,
+  "center_bottom": 0.5432,
+  "bright_total": 0.3303,
+  "talking_head": false,
+  "frame": "frames/f_0211.png"
+ },
+ {
+  "info": 0.3767,
+  "edge": 0.0119,
+  "center_bottom": 0.543,
+  "bright_total": 0.3294,
+  "talking_head": false,
+  "frame": "frames/f_0212.png"
+ },
+ {
+  "info": 0.3773,
+  "edge": 0.0122,
+  "center_bottom": 0.5432,
+  "bright_total": 0.3298,
+  "talking_head": false,
+  "frame": "frames/f_0213.png"
+ },
+ {
+  "info": 0.3783,
+  "edge": 0.0123,
+  "center_bottom": 0.5431,
+  "bright_total": 0.3304,
+  "talking_head": false,
+  "frame": "frames/f_0214.png"
+ },
+ {
+  "info": 0.379,
+  "edge": 0.0122,
+  "center_bottom": 0.5431,
+  "bright_total": 0.3308,
+  "talking_head": false,
+  "frame": "frames/f_0215.png"
+ },
+ {
+  "info": 0.3786,
+  "edge": 0.0121,
+  "center_bottom": 0.5432,
+  "bright_total": 0.3306,
+  "talking_head": false,
+  "frame": "frames/f_0216.png"
+ },
+ {
+  "info": 0.3795,
+  "edge": 0.0121,
+  "center_bottom": 0.5431,
+  "bright_total": 0.3311,
+  "talking_head": false,
+  "frame": "frames/f_0217.png"
+ },
+ {
+  "info": 0.3806,
+  "edge": 0.0119,
+  "center_bottom": 0.5432,
+  "bright_total": 0.3317,
+  "talking_head": false,
+  "frame": "frames/f_0218.png"
+ },
+ {
+  "info": 0.3804,
+  "edge": 0.0121,
+  "center_bottom": 0.5432,
+  "bright_total": 0.3316,
+  "talking_head": false,
+  "frame": "frames/f_0219.png"
+ },
+ {
+  "info": 0.3783,
+  "edge": 0.0119,
+  "center_bottom": 0.5432,
+  "bright_total": 0.3304,
+  "talking_head": false,
+  "frame": "frames/f_0220.png"
+ },
+ {
+  "info": 0.3799,
+  "edge": 0.012,
+  "center_bottom": 0.5431,
+  "bright_total": 0.3313,
+  "talking_head": false,
+  "frame": "frames/f_0221.png"
+ },
+ {
+  "info": 0.3784,
+  "edge": 0.012,
+  "center_bottom": 0.5432,
+  "bright_total": 0.3305,
+  "talking_head": false,
+  "frame": "frames/f_0222.png"
+ },
+ {
+  "info": 0.3782,
+  "edge": 0.012,
+  "center_bottom": 0.5431,
+  "bright_total": 0.3303,
+  "talking_head": false,
+  "frame": "frames/f_0223.png"
+ },
+ {
+  "info": 0.6171,
+  "edge": 0.0098,
+  "center_bottom": 1.0,
+  "bright_total": 0.5918,
+  "talking_head": false,
+  "frame": "frames/f_0224.png"
+ },
+ {
+  "info": 0.614,
+  "edge": 0.0147,
+  "center_bottom": 1.0,
+  "bright_total": 0.5893,
+  "talking_head": false,
+  "frame": "frames/f_0225.png"
+ },
+ {
+  "info": 0.6121,
+  "edge": 0.0178,
+  "center_bottom": 1.0,
+  "bright_total": 0.5876,
+  "talking_head": false,
+  "frame": "frames/f_0226.png"
+ },
+ {
+  "info": 0.6104,
+  "edge": 0.0273,
+  "center_bottom": 0.9893,
+  "bright_total": 0.5853,
+  "talking_head": false,
+  "frame": "frames/f_0227.png"
+ },
+ {
+  "info": 0.6159,
+  "edge": 0.0088,
+  "center_bottom": 1.0,
+  "bright_total": 0.587,
+  "talking_head": false,
+  "frame": "frames/f_0228.png"
+ },
+ {
+  "info": 0.6155,
+  "edge": 0.0088,
+  "center_bottom": 1.0,
+  "bright_total": 0.5868,
+  "talking_head": false,
+  "frame": "frames/f_0229.png"
+ }
+]

@@ -1,0 +1,9 @@
+{
+  "height": 960,
+  "width": 1920,
+  "nav_strip": 0,
+  "subtitle_band": null,
+  "crop_bottom": 120,
+  "frames": 229,
+  "note": "无烧录字幕（使用官方自动字幕）。frame_filter 检测的 y672-868 实为幻灯片内容，仅裁掉 y840 以下纯黑边（120px）。"
+}

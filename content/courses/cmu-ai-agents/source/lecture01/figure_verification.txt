@@ -1,0 +1,231 @@
+=== 00:00:00 @ 0:00 (0s) ===
+      [0:05] Okay. Um, hi everyone. Welcome to 11768, uh, AI agents. We're very excited to be
+      [0:07] uh, AI agents. We're very excited to be teaching this new course, uh, which is
+      [0:11] teaching this new course, uh, which is timely as, uh, a lot of people are
+      [0:13] timely as, uh, a lot of people are starting to use agents. Um, my name is
+      [0:16] starting to use agents. Um, my name is Graham Nubig. I'm an associate professor
+
+=== 00:01:45 @ 1:45 (105s) ===
+  >>> [1:45] piece of software using um a multi- aent uh configuration of a a recent coding
+  >>> [1:42] saw could we develop a really complex piece of software using um a multi- aent
+  >>> [1:48] uh configuration of a a recent coding model. And this was pretty successful.
+      [1:50] model. And this was pretty successful. So 16 agents collaborated together over
+      [1:39] at anthropic that saw could we develop a really complex
+
+=== 00:03:00 @ 3:00 (180s) ===
+  >>> [2:59] model goes on to delete a lot of this really valuable information. And at the
+  >>> [3:02] really valuable information. And at the end, it acknowledges uh that, you know,
+  >>> [2:57] you know, do not do that. Um, but the model goes on to delete a lot of this
+      [3:05] end, it acknowledges uh that, you know, I learned my lesson. I'm not going to do
+      [2:54] the user is trying to intervene, saying, you know, do not do that. Um, but the
+
+=== 00:07:00 @ 7:00 (420s) ===
+  >>> [7:00] you also have a sense that like trust is important and later on in the class when
+  >>> [6:59] where we might just not be sure. Um but you also have a sense that like trust is
+  >>> [7:03] important and later on in the class when we talk about like sandboxing and um
+  >>> [6:56] you know there's a lot of these tasks where we might just not be sure. Um but
+      [6:54] boundaries that agents have. Although you know there's a lot of these tasks
+
+=== 00:07:45 @ 7:45 (465s) ===
+  >>> [7:45] one of our students, JY Co, um, two years ago showing an agent in action
+  >>> [7:47] years ago showing an agent in action controlling the browser.
+  >>> [7:42] um, here's a demo that was made by um, one of our students, JY Co, um, two
+      [7:40] work from a lot of um, faculty. Um, and um, here's a demo that was made by um,
+      [7:50] controlling the browser. And so you give it a task like navigate
+
+=== 00:10:45 @ 10:45 (645s) ===
+  >>> [10:44] we can see our tuning list app over here. And it sees that it's running, but
+  >>> [10:42] And you see it browsed to the app. And we can see our tuning list app over
+  >>> [10:48] here. And it sees that it's running, but now it wants to test the functionality.
+      [10:50] now it wants to test the functionality. So, what we can do is we can see that it
+      [10:52] So, what we can do is we can see that it uh went through and it filled in uh buy
+
+=== 00:16:30 @ 16:30 (990s) ===
+  >>> [16:30] environment by getting observations of the current state that they're in in the
+  >>> [16:28] they'll be interacting with that environment by getting observations of
+  >>> [16:33] the current state that they're in in the environment. So that's something like
+  >>> [16:26] application on your computer, and they'll be interacting with that
+      [16:36] environment. So that's something like messages from the user they're
+
+=== 00:18:45 @ 18:45 (1125s) ===
+  >>> [18:44] this um over over and over again. And recently we've uh seen a lot of a lot of
+  >>> [18:48] recently we've uh seen a lot of a lot of improvements on uh complex reasoning
+  >>> [18:41] context window of the model and repeat this um over over and over again. And
+      [18:39] distribution um insert it into the context window of the model and repeat
+      [18:51] improvements on uh complex reasoning tasks by introducing chain of thought to
+
+=== 00:21:00 @ 21:00 (1260s) ===
+  >>> [21:01] also needs to get fed into the model in some way. So we'll have um this you know
+  >>> [20:58] function which here is JSON and um this also needs to get fed into the model in
+  >>> [21:04] some way. So we'll have um this you know underlying specification of the tool and
+      [20:54] representation of the interface to the function which here is JSON and um this
+      [21:07] underlying specification of the tool and then the model will view it by applying
+
+=== 00:22:30 @ 22:30 (1350s) ===
+  >>> [22:29] effective and often more effective way than generating JSON. Um, but there's
+  >>> [22:31] than generating JSON. Um, but there's some trade-offs, too. So, when the model
+  >>> [22:27] lectures that that's actually a very effective and often more effective way
+  >>> [22:34] some trade-offs, too. So, when the model calls the tool, it'll get back results
+      [22:25] syntax. And we'll see in a couple lectures that that's actually a very
+
+=== 00:23:45 @ 23:45 (1425s) ===
+  >>> [23:44] language models which maybe also take in images or other modalities. Um so the
+  >>> [23:47] images or other modalities. Um so the language models just tokens in and
+  >>> [23:42] um later on we'll talk about multimodal language models which maybe also take in
+  >>> [23:49] language models just tokens in and tokens out maybe multimodal tokens but
+      [23:40] is just you know interacting with tokens um later on we'll talk about multimodal
+
+=== 00:26:00 @ 26:00 (1560s) ===
+  >>> [25:59] conditioning on this updated history and you know the observations that it gets
+  >>> [26:01] you know the observations that it gets from this time step and then issues a
+  >>> [26:03] from this time step and then issues a new tool call and it repeats over and
+  >>> [25:56] repeat the process again. So the model's conditioning on this updated history and
+      [25:55] result of our tool call and then we repeat the process again. So the model's
+
+=== 00:27:00 @ 27:00 (1620s) ===
+  >>> [27:00] excerpt from this nice minimal repo called mini sui Asian um which actually
+  >>> [26:57] very simple implementation. This is an excerpt from this nice minimal repo
+  >>> [27:03] called mini sui Asian um which actually gets very high performance um on the
+      [26:54] but you know at a high level this is a very simple implementation. This is an
+      [27:07] gets very high performance um on the bench benchmark which we'll talk about
+
+=== 00:28:15 @ 28:15 (1695s) ===
+  >>> [28:14] observations, and um return them. So, I think it's also instructive to
+  >>> [28:16] So, I think it's also instructive to take a look at example agent
+  >>> [28:17] take a look at example agent trajectories. And um one nice thing
+      [28:20] trajectories. And um one nice thing about the Swebench uh data set or
+      [28:09] Execute the actions, get the observations, and um return them.
+
+=== 00:35:15 @ 35:15 (2115s) ===
+  >>> [35:15] point of view, capability safety is a capability. It's something you need to
+  >>> [35:17] capability. It's something you need to bake into the model. And if it's not
+  >>> [35:12] a capabilities researcher. But from my point of view, capability safety is a
+  >>> [35:19] bake into the model. And if it's not baked into the model, you won't feel
+      [35:10] they say I'm a safety researcher or I'm a capabilities researcher. But from my
+
+=== 00:39:45 @ 39:45 (2385s) ===
+  >>> [39:46] management, environment understanding, mostly from a capabilities perspective
+  >>> [39:42] within your context window, complex task management, environment understanding,
+  >>> [39:48] mostly from a capabilities perspective can be and maybe even safety mostly from
+      [39:50] can be and maybe even safety mostly from a capabilities perspective could be
+      [39:39] Accurate tool calling, uh, coherence within your context window, complex task
+
+=== 00:41:45 @ 41:45 (2505s) ===
+  >>> [41:44] able to train a model uh for agentic tasks. And this is uh a big point in
+  >>> [41:41] people to be able get all of you to be able to train a model uh for agentic
+  >>> [41:49] tasks. And this is uh a big point in that not that many people can do this
+      [41:38] the big goals of this class is to get people to be able get all of you to be
+      [41:52] that not that many people can do this well. And so we'd like the people in
+
+=== 00:43:45 @ 43:45 (2625s) ===
+  >>> [43:45] talk about in class are grammar constraint decoding, uh, which allows
+  >>> [43:43] Uh, some of the things we're going to talk about in class are grammar
+  >>> [43:47] constraint decoding, uh, which allows you to make sure that your tool calls
+  >>> [43:42] harness engineering and LLM training. Uh, some of the things we're going to
+  >>> [43:49] you to make sure that your tool calls are wellformed and match the
+
+=== 00:44:45 @ 44:45 (2685s) ===
+  >>> [44:44] it all in immediately uh you pull it uh in you know on demand. Um and it can
+  >>> [44:47] in you know on demand. Um and it can also be done through sub aent
+  >>> [44:48] also be done through sub aent delegation. So you delegate some parts
+      [44:40] want to be handling but you don't pull it all in immediately uh you pull it uh
+      [44:50] delegation. So you delegate some parts of a very long task to an agent. It
+
+=== 00:45:45 @ 45:45 (2745s) ===
+  >>> [45:44] tools for a particular task. um for LM training uh this is a nent
+  >>> [45:48] um for LM training uh this is a nent area. I don't think there's a lot of
+  >>> [45:41] those things. Um also possibly custom tools for a particular task.
+      [45:50] area. I don't think there's a lot of people who are doing this in uh in a lot
+      [45:38] time time point when you want to use those things. Um also possibly custom
+
+=== 00:46:45 @ 46:45 (2805s) ===
+  >>> [46:45] it was done entirely through prompts. But there's also more uh more complex
+  >>> [46:44] wanted a button. So, they made sure that it was done entirely through prompts.
+  >>> [46:42] but everybody wanted a plan mode. They wanted a button. So, they made sure that
+  >>> [46:48] But there's also more uh more complex ways uh to do this as well. Um, again,
+      [46:40] please plan do not do anything. Um, [laughter]
+
+=== 00:48:45 @ 48:45 (2925s) ===
+  >>> [48:46] So right now actually like there's kind of this thing uh that
+  >>> [48:47] there's kind of this thing uh that people say which is like oh the models
+  >>> [48:41] environments. So right now actually like
+  >>> [48:49] people say which is like oh the models are going to get better uh and then we
+      [48:40] shape or train in domain specific environments.
+
+=== 00:50:15 @ 50:15 (3015s) ===
+  >>> [50:13] about the OpenAI incident where uh it hacked into hugging face? Okay. Well, so
+  >>> [50:17] hacked into hugging face? Okay. Well, so I think most people heard about it, but
+  >>> [50:19] I think most people heard about it, but recently there was a um there was an
+      [50:09] people heard about this, but who heard about the OpenAI incident where uh it
+      [50:08] Um I I think probably a fair number of people heard about this, but who heard
+
+=== 00:52:45 @ 52:45 (3165s) ===
+  >>> [52:45] environment. And, um, there are different ways you can do that. uh it
+  >>> [52:47] different ways you can do that. uh it needs to work with a model and you need
+  >>> [52:42] agent is working within a contained environment. And, um, there are
+  >>> [52:49] needs to work with a model and you need to do inference. But if you've done
+      [52:40] sandbox. So, you need to make sure the agent is working within a contained
+
+=== 00:54:15 @ 54:15 (3255s) ===
+  >>> [54:16] Separately from this um there are orchestrators. I I wrote lang chain but
+  >>> [54:13] learned uh in in developing it. Separately from this um there are
+  >>> [54:18] orchestrators. I I wrote lang chain but maybe I should have written lang graph
+      [54:10] experience and some of the lessons we learned uh in in developing it.
+      [54:20] maybe I should have written lang graph instead in crew AI and kind of the they
+
+=== 00:55:45 @ 55:45 (3345s) ===
+  >>> [55:44] has a uh each problem has a sandbox and you start in the sandbox and that's the
+  >>> [55:46] you start in the sandbox and that's the state of the environment before the
+  >>> [55:47] state of the environment before the agent starts working and so you can run
+  >>> [55:41] for SWEBench for instance each problem has a uh each problem has a sandbox and
+      [55:50] agent starts working and so you can run these uh locally. Um some of the uh
+
+=== 00:56:45 @ 56:45 (3405s) ===
+  >>> [56:46] An extremely extremely important part of agents is caching previous requests
+  >>> [56:43] together. An extremely extremely important part of
+  >>> [56:41] also you need to batch the requests together.
+  >>> [56:49] agents is caching previous requests because agents take more and more
+      [56:40] model at once, it's more efficient but also you need to batch the requests
+
+=== 00:57:30 @ 57:30 (3450s) ===
+  >>> [57:30] them. uh one of our compute sponsors fireworks is an example of that and sale
+  >>> [57:28] models. So there's lots and lots of them. uh one of our compute sponsors
+  >>> [57:26] or 30 different providers serving the models. So there's lots and lots of
+  >>> [57:34] fireworks is an example of that and sale um training systems. So here what they
+      [57:25] And for any model, uh you'll see like 20 or 30 different providers serving the
+
+=== 00:58:15 @ 58:15 (3495s) ===
+  >>> [58:14] trajectories of the agent, what the agent did um and they gather metrics
+  >>> [58:13] So these capture the traces or trajectories of the agent, what the
+  >>> [58:17] agent did um and they gather metrics around them uh such as like how much
+  >>> [58:19] around them uh such as like how much time it takes, how much cost it was uh
+      [58:10] understand how your agents are working. So these capture the traces or
+
+=== 00:59:00 @ 59:00 (3540s) ===
+  >>> [58:59] yourself uh design evaluations for multi-step tasks. And so basically uh
+  >>> [59:02] multi-step tasks. And so basically uh we'll give you a task that you need to
+  >>> [58:57] So uh this is implement a harness yourself uh design evaluations for
+  >>> [59:04] we'll give you a task that you need to evaluate and you need to create an
+      [58:55] scratch uh on top of an open source LLM. So uh this is implement a harness
+
+=== 00:59:45 @ 59:45 (3585s) ===
+  >>> [59:45] slide. So um these are the assignments. Um the
+  >>> [59:43] which I'll I'll talk about on the next slide.
+  >>> [59:47] So um these are the assignments. Um the first assignments are basically going to
+  >>> [59:41] and uh finally we will have a project which I'll I'll talk about on the next
+  >>> [59:49] first assignments are basically going to be implementation assignments. So you'll
+
+=== 01:03:15 @ 63:15 (3795s) ===
+  >>> [63:14] Um so assignments one to three will be 40% total uh completed individually. Um
+  >>> [63:12] Um and so uh this is the grading policy. Um so assignments one to three will be
+  >>> [63:18] 40% total uh completed individually. Um we're going to have lecture highlights
+      [63:21] we're going to have lecture highlights and so uh basically the idea here is
+      [63:24] and so uh basically the idea here is that we want people to uh
+
+=== 01:06:30 @ 66:30 (3990s) ===
+  >>> [66:31] uh we're we're serious about this. Uh and that means that the thousand lines
+  >>> [66:28] questions tailored to your code. Um so uh we're we're serious about this. Uh
+  >>> [66:33] and that means that the thousand lines of slop that your agent generated will
+      [66:24] uh read your code and come up with quiz questions tailored to your code. Um so
+      [66:36] of slop that your agent generated will be a bad idea for you to submit. Um so
+
