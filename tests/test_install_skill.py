@@ -1,5 +1,7 @@
+import importlib.util
 import re
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -29,6 +31,19 @@ class InstallSkillTests(unittest.TestCase):
                 self.assertTrue((installed / "assets" / relative).exists(), relative)
             for helper in ("transcribe_whisper.py", "ocr_hardsubs.py", "frame_filter.py", "verify_notes.py", "extract_claims.py"):
                 self.assertTrue((installed / "assets" / helper).is_file(), helper)
+
+    @unittest.skipUnless(importlib.util.find_spec("numpy") and importlib.util.find_spec("PIL"),
+                         "frame_filter.py needs numpy and Pillow")
+    def test_installed_frame_filter_runs_from_another_directory(self):
+        # frame_filter.py imports the layout.json schema from its sibling verify_notes.py.
+        with tempfile.TemporaryDirectory() as tmp:
+            subprocess.run(["bash", str(ROOT / "scripts/install_skill.sh"), tmp], check=True, capture_output=True)
+            completed = subprocess.run(
+                [sys.executable, str(Path(tmp) / "lecture-to-notes/assets/frame_filter.py"), "--help"],
+                cwd=tmp, capture_output=True, text=True, check=False,
+            )
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            self.assertIn("layout", completed.stdout)
 
     def test_reinstall_replaces_previous_copy(self):
         with tempfile.TemporaryDirectory() as tmp:

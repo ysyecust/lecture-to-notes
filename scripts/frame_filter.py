@@ -31,7 +31,8 @@ Subcommands:
         Per-frame information score outside the presenter column, subtitle band, and
         logo corner; `talking_head` is true when both scores fall under the thresholds.
 
-Requires Pillow and numpy.
+Requires Pillow and numpy, plus verify_notes.py beside this file for the layout.json
+schema (install_skill.sh copies both).
 """
 from __future__ import annotations
 
