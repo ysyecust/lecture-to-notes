@@ -220,6 +220,31 @@ class LayoutDetectionTests(unittest.TestCase):
         self.assertFalse(result["composite"], result)
         self.assertEqual(result["panels"], [])
 
+    def candidate(self, box, coverage):
+        return {"box": box, "coverage": coverage,
+                "aspect_error": frame_filter.nearest_aspect(box[2] - box[0], box[3] - box[1])[1]}
+
+    def test_box_borrowing_a_line_inside_the_slide_loses_to_the_framed_slide(self):
+        # CppNow chapter-1 sample: the 16:10 box ends at the slide's footer rule.
+        found = [self.candidate((531, 0, 1920, 869), 0.55), self.candidate((556, 162, 1900, 917), 1.0),
+                 self.candidate((561, 167, 1895, 917), 0.99)]
+        self.assertEqual(frame_filter.choose_main(found)["box"], (561, 167, 1895, 917))
+
+    def test_largest_slide_wins_over_better_supported_camera_rectangles(self):
+        # NJU GSE L2: blackboard lines inside the camera score higher coverage than the seam.
+        found = [self.candidate((546, 0, 1280, 410), 0.65), self.candidate((0, 0, 530, 330), 0.73),
+                 self.candidate((0, 0, 537, 338), 0.50)]
+        self.assertEqual(frame_filter.choose_main(found)["box"], (546, 0, 1280, 410))
+        self.assertIsNone(frame_filter.choose_main([]))
+
+    def test_warnings_flag_few_frames_and_a_panel_larger_than_main(self):
+        # CMU L3 dark frames only: the camera became main and the slides a larger remainder.
+        panels = [{"name": "main", "box": [1280, 300, 1920, 660]}, {"name": "left", "box": [24, 134, 1279, 840]}]
+        warnings = frame_filter.layout_warnings(panels, 6)
+        self.assertTrue(any("only 6 frames" in w for w in warnings), warnings)
+        self.assertTrue(any("left is larger than main" in w for w in warnings), warnings)
+        self.assertEqual(frame_filter.detect_layout(side_by_side_frames())["warnings"], [])
+
     def test_inset_moves_only_inner_edges(self):
         self.assertEqual(frame_filter.inset_box([240, 0, 560, 180], 560, 180, 3), (243, 0, 560, 180))
         self.assertEqual(frame_filter.inset_box([0, 30, 320, 210], 480, 240, 3), (0, 33, 317, 207))
@@ -257,7 +282,7 @@ class LayoutCliTests(unittest.TestCase):
             out = Path(tmp) / "main.jpg"
             self.assertEqual(frame_filter.main(["crop", paths[5], "--out", str(out), "--layout", str(layout), "--panel", "main"]), 0)
             with Image.open(out) as image:
-                self.assertEqual(image.size, (main_box[2] - main_box[0] - 3, 180))
+                self.assertEqual(image.size, (main_box[2] - main_box[0] - 4, 180))
             left = Path(tmp) / "left.jpg"
             self.assertEqual(frame_filter.main(["crop", paths[5], "--out", str(left), "--layout", str(layout),
                                                 "--panel", "left", "--inset", "0"]), 0)
@@ -276,6 +301,11 @@ class LayoutCliTests(unittest.TestCase):
             self.assertEqual(frame_filter.main(["crop", str(src), "--out", out, "--layout", str(layout), "--panel", "board"]), 2)
             self.assertEqual(frame_filter.main(["crop", str(other), "--out", out, "--layout", str(layout), "--panel", "main"]), 2)
             self.assertEqual(frame_filter.main(["crop", str(src), "--out", out, "--panel", "main"]), 2)
+            for content in ("[1, 2, 3]", "null", "{}", '{"width": 560}', "{not json"):
+                with self.subTest(content=content):
+                    layout.write_text(content, encoding="utf-8")
+                    self.assertEqual(frame_filter.main(["crop", str(src), "--out", out, "--layout", str(layout),
+                                                        "--panel", "main"]), 2)
 
     def test_manual_box_cli_records_panels(self):
         with tempfile.TemporaryDirectory() as tmp:

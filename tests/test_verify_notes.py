@@ -174,6 +174,25 @@ class LayoutGateTests(unittest.TestCase):
         self.assertEqual(code, 1, out)
         self.assertIn("wider than 2:1", out)
 
+    def test_invalid_layout_json_fails_without_crashing(self):
+        bad_box = json.dumps({**COMPOSITE, "panels": [{"name": "main", "box": "1234"}]})
+        for content in ("{}", "[1, 2, 3]", "null", "{not json", bad_box):
+            with self.subTest(content=content), tempfile.TemporaryDirectory() as tmp:
+                workdir = self.workdir(tmp, [("wide.jpg", (1280, 410), "main")])
+                (workdir / "layout.json").write_text(content, encoding="utf-8")
+                code, out = run(workdir)
+                self.assertEqual(code, 1, out)
+                self.assertIn("FAIL layout.json", out)
+                self.assertIn("OVERALL FAIL", out)
+
+    def test_panel_shape_accepts_crops_with_and_without_the_bands_bottom(self):
+        for size in ((734, 410), (734, 350)):
+            with self.subTest(size=size), tempfile.TemporaryDirectory() as tmp:
+                workdir = self.workdir(tmp, [("slide.jpg", size, "main")], COMPOSITE)
+                (workdir / "bands.json").write_text(json.dumps({"crop_bottom": 60}), encoding="utf-8")
+                code, out = run(workdir)
+                self.assertEqual(code, 0, out)
+
     def test_single_picture_figure_without_layout_passes(self):
         with tempfile.TemporaryDirectory() as tmp:
             code, out = run(self.workdir(tmp, [("slide.jpg", (1920, 1080), "")]))

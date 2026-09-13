@@ -46,6 +46,9 @@ try:
 except ImportError as error:  # pragma: no cover - environment dependent
     raise SystemExit("frame_filter.py needs Pillow and numpy: pip install Pillow numpy") from error
 
+# Sibling stdlib-only script: `crop` and the delivery gate read layout.json with one schema.
+from verify_notes import layout_problem
+
 
 def load_gray(path: str) -> np.ndarray:
     with Image.open(path) as image:
@@ -131,8 +134,12 @@ def box_area(box) -> int:
     return max(0, box[2] - box[0]) * max(0, box[3] - box[1])
 
 
+def box_intersection(a, b) -> tuple:
+    return max(a[0], b[0]), max(a[1], b[1]), min(a[2], b[2]), min(a[3], b[3])
+
+
 def box_iou(a, b) -> float:
-    inter = box_area((max(a[0], b[0]), max(a[1], b[1]), min(a[2], b[2]), min(a[3], b[3])))
+    inter = box_area(box_intersection(a, b))
     union = box_area(a) + box_area(b) - inter
     return inter / union if union else 0.0
 
@@ -187,6 +194,47 @@ def trim_letterbox(box, mean: np.ndarray, tstd: np.ndarray, dark: float = 40.0, 
         else:
             break
     return x0, y0, x1, y1
+
+
+MIN_LAYOUT_FRAMES = 20
+
+
+def choose_main(found: list[dict], overlap: float = 0.5, margin: float = 0.2) -> dict | None:
+    """
+    Pick the main panel among screen-shaped candidates.
+
+    Two candidates sharing at least `overlap` of the smaller one describe the same region,
+    and the one whose edges have `margin` more coverage wins: the other borrows a line from
+    inside a picture. On a 20-frame CppNow sample, a 16:10 box ending at the slide's footer
+    rule (coverage 0.55) otherwise beat the framed slide (1.00) by area and cut the footer
+    off. Of the remaining candidates the largest is the main panel; its near-duplicates
+    differ by a border line, and the one closest to a screen aspect is kept.
+    """
+    kept = []
+    for candidate in found:
+        area = box_area(candidate["box"])
+        dominated = any(
+            other["coverage"] >= candidate["coverage"] + margin
+            and box_area(box_intersection(candidate["box"], other["box"])) >= overlap * min(area, box_area(other["box"]))
+            for other in found if other is not candidate)
+        if not dominated:
+            kept.append(candidate)
+    if not kept:
+        return None
+    largest = max(kept, key=lambda c: box_area(c["box"]))
+    return min((c for c in kept if box_iou(c["box"], largest["box"]) >= 0.95), key=lambda c: c["aspect_error"])
+
+
+def layout_warnings(panels: list[dict], count: int) -> list[str]:
+    """Conditions under which a measured layout must be checked on the preview by eye."""
+    warnings = []
+    if count < MIN_LAYOUT_FRAMES:
+        warnings.append(f"only {count} frames sampled; fewer than {MIN_LAYOUT_FRAMES} give panel edges little evidence")
+    if panels:
+        larger = [p["name"] for p in panels[1:] if box_area(p["box"]) > box_area(panels[0]["box"])]
+        if larger:
+            warnings.append(f"{', '.join(larger)} is larger than main; confirm on the preview that main holds the slides")
+    return warnings
 
 
 def detect_layout(
@@ -277,15 +325,13 @@ def detect_layout(
                         found.append({"box": box, "aspect": aspect, "aspect_error": error, "coverage": cover})
 
     result = {"width": int(width), "height": int(height), "frames": int(count), "source": "detected",
-              "composite": False, "panels": [], "consistency": None, "unmatched": []}
+              "composite": False, "panels": [], "consistency": None, "unmatched": [],
+              "warnings": layout_warnings([], count)}
     # A candidate covering nearly the whole picture is the picture itself (full-screen
     # slides, or a 16:9 frame whose own border matches the prior), never a panel.
-    found = [c for c in found if box_area(c["box"]) < full_share * width * height]
-    if not found:
+    main = choose_main([c for c in found if box_area(c["box"]) < full_share * width * height])
+    if main is None:
         return result
-    largest = max(found, key=lambda c: box_area(c["box"]))
-    # Near-duplicates differ by a border line; keep the one closest to a screen aspect.
-    main = min((c for c in found if box_iou(c["box"], largest["box"]) >= 0.95), key=lambda c: c["aspect_error"])
     x0, y0, x1, y1 = main["box"]
 
     panels = [{"name": "main", "box": [x0, y0, x1, y1], "aspect": main["aspect"],
@@ -317,7 +363,7 @@ def detect_layout(
         if any((np.abs(line) > edge_delta).mean() < side_presence for line in lines):
             unmatched.append(index)
     result.update(composite=True, panels=panels, unmatched=unmatched,
-                  consistency=round(1 - len(unmatched) / count, 3))
+                  consistency=round(1 - len(unmatched) / count, 3), warnings=layout_warnings(panels, count))
     return result
 
 
@@ -340,7 +386,7 @@ def manual_layout(width: int, height: int, specs: list[str]) -> dict:
     if len(set(names)) != len(names):
         raise ValueError("--box names must be unique")
     return {"width": width, "height": height, "frames": 0, "source": "manual", "composite": True,
-            "panels": panels, "consistency": None, "unmatched": []}
+            "panels": panels, "consistency": None, "unmatched": [], "warnings": []}
 
 
 def inset_box(box, width: int, height: int, inset: int) -> tuple[int, int, int, int]:
@@ -469,7 +515,7 @@ def main(argv=None) -> int:
     p_crop.add_argument("--bottom", type=int, default=0)
     p_crop.add_argument("--layout", default=None, help="layout.json from the `layout` subcommand")
     p_crop.add_argument("--panel", default=None, help="panel name from layout.json, e.g. main or left")
-    p_crop.add_argument("--inset", type=int, default=3, help="pixels to move inside every non-border panel edge")
+    p_crop.add_argument("--inset", type=int, default=4, help="pixels to move inside every non-border panel edge")
 
     p_score = sub.add_parser("score")
     p_score.add_argument("frames", nargs="+")
@@ -510,6 +556,8 @@ def main(argv=None) -> int:
         result["unmatched_count"] = len(unmatched)
         text = json.dumps(result)
         print(text)
+        for warning in result["warnings"]:
+            print(f"layout: warning: {warning}", file=sys.stderr)
         if args.json:
             Path(args.json).write_text(text + "\n", encoding="utf-8")
         if args.preview:
@@ -526,8 +574,16 @@ def main(argv=None) -> int:
             if not (args.layout and args.panel):
                 print("crop: --layout and --panel must be given together", file=sys.stderr)
                 return 2
-            layout = json.loads(Path(args.layout).read_text(encoding="utf-8"))
-            panels = {panel["name"]: panel for panel in layout.get("panels", [])}
+            try:
+                layout = json.loads(Path(args.layout).read_text(encoding="utf-8"))
+            except (OSError, ValueError) as error:
+                print(f"crop: cannot read {args.layout}: {error}", file=sys.stderr)
+                return 2
+            problem = layout_problem(layout)
+            if problem:
+                print(f"crop: {args.layout} {problem}; rerun frame_filter.py layout", file=sys.stderr)
+                return 2
+            panels = {panel["name"]: panel for panel in layout["panels"]}
             if args.panel not in panels:
                 print(f"crop: panel {args.panel!r} is not in {args.layout}; choose one of: "
                       f"{', '.join(panels) or '(no panels)'}", file=sys.stderr)

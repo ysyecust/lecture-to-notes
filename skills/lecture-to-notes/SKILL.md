@@ -648,7 +648,9 @@ Read `layout.json` before selecting figures:
   the slides, read the edges off the preview's pixel ruler and record them by hand:
   `frame_filter.py layout frames/*.png --box main=X0,Y0,X1,Y1 --box left=X0,Y0,X1,Y1 --json layout.json`.
   A `consistency` below 0.9 lists `unmatched_frames` whose layout differs (a full-screen
-  demo, a transition); view those frames before cropping them.
+  demo, a transition); view those frames before cropping them. Each entry in `warnings`
+  (fewer than 20 sampled frames, or a remaining panel larger than `main`) means the same:
+  confirm the boxes on the preview before any crop.
 
 Decide per figure after reading the full-resolution frame:
 

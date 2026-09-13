@@ -198,18 +198,58 @@ def manifest_rows(path: Path) -> list[dict]:
     return [dict(zip(header, line.split("\t"))) for line in lines[1:] if line.strip()]
 
 
+def layout_problem(layout) -> str | None:
+    """Why a parsed layout.json cannot be used, or None. frame_filter.py crop uses it too."""
+    if not isinstance(layout, dict):
+        return "must be a JSON object"
+    width, height = layout.get("width"), layout.get("height")
+    if not (isinstance(width, int) and isinstance(height, int) and width > 0 and height > 0):
+        return "needs positive integer width and height"
+    if not isinstance(layout.get("composite"), bool):
+        return "needs a boolean composite"
+    panels = layout.get("panels")
+    if not isinstance(panels, list) or (layout["composite"] and not panels):
+        return "needs a panels list, non-empty when composite"
+    names = set()
+    for panel in panels:
+        name = panel.get("name") if isinstance(panel, dict) else None
+        box = panel.get("box") if isinstance(panel, dict) else None
+        if not isinstance(name, str) or not name or name in names:
+            return "needs a unique name for every panel"
+        names.add(name)
+        if not (isinstance(box, list) and len(box) == 4 and all(isinstance(v, int) for v in box)):
+            return f"panel {name} needs a box of four integers"
+        x0, y0, x1, y1 = box
+        if not (0 <= x0 < x1 <= width and 0 <= y0 < y1 <= height):
+            return f"panel {name} box {box} lies outside the {width}x{height} frame"
+    return None
+
+
 def layout_gate(workdir: Path, report: Report) -> None:
     rows = manifest_rows(workdir / "figure_manifest.tsv")
     if not rows:
         report.emit("SKIP", "figure layout check (figure_manifest.tsv has no `figure` column)")
         return
     layout_path = workdir / "layout.json"
-    layout = json.loads(layout_path.read_text(encoding="utf-8")) if layout_path.exists() else None
-    panels = {panel["name"]: panel["box"] for panel in (layout or {}).get("panels", [])}
-    composite = bool(layout and layout.get("composite") and panels)
-    frame_height = int(layout.get("height", 0)) if layout else 0
-    bands_path = workdir / "bands.json"
-    crop_bottom = int(json.loads(bands_path.read_text(encoding="utf-8")).get("crop_bottom", 0)) if bands_path.exists() else 0
+    layout = None
+    if layout_path.exists():
+        try:
+            layout = json.loads(layout_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError) as error:
+            report.emit("FAIL", f"layout.json unreadable: {error}")
+            return
+        problem = layout_problem(layout)
+        if problem:
+            report.emit("FAIL", f"layout.json {problem}; rerun frame_filter.py layout")
+            return
+    panels = {panel["name"]: panel["box"] for panel in layout["panels"]} if layout else {}
+    composite = bool(layout and layout["composite"])
+    frame_height = layout["height"] if layout else 0
+    crop_bottom = 0
+    try:
+        crop_bottom = int(json.loads((workdir / "bands.json").read_text(encoding="utf-8")).get("crop_bottom", 0))
+    except (OSError, ValueError, TypeError, AttributeError):
+        pass  # no usable bands.json: panels are compared without a bottom crop
     problems, kept_full = [], []
     for row in rows:
         name = row.get("figure", "").strip()
@@ -226,9 +266,11 @@ def layout_gate(workdir: Path, report: Report) -> None:
             problems.append(f"{name}: `panel` must name one of {', '.join(panels)} or full (got {panel or 'nothing'})")
         elif composite:
             x0, y0, x1, y1 = panels[panel]
-            if crop_bottom and frame_height:
-                y1 = min(y1, frame_height - crop_bottom)
-            if abs(aspect / ((x1 - x0) / max(1, y1 - y0)) - 1) > PANEL_ASPECT_TOLERANCE:
+            # The figure may or may not also have gone through the bands.json bottom crop.
+            shapes = [(x1 - x0) / (y1 - y0)]
+            if crop_bottom and y0 < frame_height - crop_bottom < y1:
+                shapes.append((x1 - x0) / (frame_height - crop_bottom - y0))
+            if all(abs(aspect / shape - 1) > PANEL_ASPECT_TOLERANCE for shape in shapes):
                 problems.append(f"{name}: {size[0]}x{size[1]} does not match panel {panel} ({x1 - x0}x{y1 - y0}); "
                                 f"crop it with frame_filter.py crop --layout layout.json --panel {panel}")
         elif layout is None and aspect > WIDE_FIGURE:
