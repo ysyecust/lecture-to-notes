@@ -200,16 +200,19 @@ def trim_letterbox(box, mean: np.ndarray, tstd: np.ndarray, dark: float = 40.0, 
 MIN_LAYOUT_FRAMES = 20
 
 
-def choose_main(found: list[dict], overlap: float = 0.5, margin: float = 0.2) -> dict | None:
+def choose_main(found: list[dict], overlap: float = 0.5, margin: float = 0.2) -> tuple[dict, tuple] | None:
     """
-    Pick the main panel among screen-shaped candidates.
+    Pick the main panel among screen-shaped candidates; return it with the outer box of its near-duplicates.
 
-    Two candidates sharing at least `overlap` of the smaller one describe the same region,
-    and the one whose edges have `margin` more coverage wins: the other borrows a line from
-    inside a picture. On a 20-frame CppNow sample, a 16:10 box ending at the slide's footer
-    rule (coverage 0.55) otherwise beat the framed slide (1.00) by area and cut the footer
-    off. Of the remaining candidates the largest is the main panel; its near-duplicates
-    differ by a border line, and the one closest to a screen aspect is kept.
+    Candidates that share at least `overlap` of the smaller one without being near-duplicates
+    (IoU < 0.95) describe the region differently, and the one whose edges have `margin` more
+    coverage wins: the other borrows a line from inside a picture. On a 20-frame CppNow sample,
+    a 16:10 box ending at the slide's footer rule (coverage 0.55) otherwise beat the framed
+    slide (1.00) by area and cut the footer off. Of the rest the largest is the main panel.
+    Its near-duplicates differ by a seam or border line: fewer inner sides win (a line 2 px
+    inside the frame edge belongs to the slide; NJU GSE windows otherwise lost the slide's
+    last 6 columns), then the aspect closest to a screen. Other panels start outside the
+    whole group, so a frame border stays out of them as well.
     """
     kept = []
     for candidate in found:
@@ -217,13 +220,34 @@ def choose_main(found: list[dict], overlap: float = 0.5, margin: float = 0.2) ->
         dominated = any(
             other["coverage"] >= candidate["coverage"] + margin
             and box_area(box_intersection(candidate["box"], other["box"])) >= overlap * min(area, box_area(other["box"]))
+            and box_iou(candidate["box"], other["box"]) < 0.95
             for other in found if other is not candidate)
         if not dominated:
             kept.append(candidate)
     if not kept:
         return None
     largest = max(kept, key=lambda c: box_area(c["box"]))
-    return min((c for c in kept if box_iou(c["box"], largest["box"]) >= 0.95), key=lambda c: c["aspect_error"])
+    group = [c for c in kept if box_iou(c["box"], largest["box"]) >= 0.95]
+    main = min(group, key=lambda c: (c["inner_sides"], c["aspect_error"]))
+    outer = (min(c["box"][0] for c in group), min(c["box"][1] for c in group),
+             max(c["box"][2] for c in group), max(c["box"][3] for c in group))
+    return main, outer
+
+
+def frame_shows_box(frame: np.ndarray, box, edge_delta: int, presence: float, tolerance: int = 2) -> bool:
+    """True when each inner side of `box` is an edge along `presence` of its length in this frame, within `tolerance` px."""
+    height, width = frame.shape
+    x0, y0, x1, y1 = box
+    profiles = []
+    for x in (x0, x1):
+        if 0 < x < width:
+            band = frame[y0:y1, max(0, x - 1 - tolerance):min(width, x + 1 + tolerance)].astype(np.int16)
+            profiles.append(np.abs(np.diff(band, axis=1)).max(axis=1))
+    for y in (y0, y1):
+        if 0 < y < height:
+            band = frame[max(0, y - 1 - tolerance):min(height, y + 1 + tolerance), x0:x1].astype(np.int16)
+            profiles.append(np.abs(np.diff(band, axis=0)).max(axis=0))
+    return all((profile > edge_delta).mean() >= presence for profile in profiles)
 
 
 def layout_warnings(panels: list[dict], count: int) -> list[str]:
@@ -248,6 +272,7 @@ def detect_layout(
     full_share: float = 0.9,
     min_strip_share: float = 0.08,
     side_presence: float = 0.3,
+    min_consistency: float = 0.8,
     limit: int = 16,
 ) -> dict:
     """
@@ -269,7 +294,11 @@ def detect_layout(
     `full_share`. Stanford CS336 L2–L4 full-screen video: every candidate covered ≥ 99%
     of the frame, so they stay non-composite. Coverage is measured after letterbox
     trimming; measured before it, a CppNow box ending where dark rows stop matched
-    16:10 by chance while no frame showed an edge there.
+    16:10 by chance while no frame showed an edge there. A candidate must also show its
+    inner sides in `min_consistency` of the single frames, within 2 px: on 20-frame
+    windows of the full-screen CS336 L4 lecture, boxes assembled from camera texture
+    scored 0.0–0.65 and were reported as composites in 4 of 33 windows without this
+    check, while the real seams above scored 0.9–1.0.
     """
     count = len(frames)
     height, width = frames[0].shape
@@ -322,49 +351,42 @@ def detect_layout(
                         continue
                     # Measure the sides after trimming: where a letterbox ends must itself be an edge.
                     cover = coverage(*box)
-                    if cover >= min_coverage:
-                        found.append({"box": box, "aspect": aspect, "aspect_error": error, "coverage": cover})
+                    if cover < min_coverage or box_area(box) >= full_share * width * height:
+                        continue
+                    # Persistence adds evidence up across frames; a real seam also shows in
+                    # nearly every single frame, while lines assembled from a moving person or
+                    # camera texture do not.
+                    shown = [frame_shows_box(frame, box, edge_delta, side_presence) for frame in frames]
+                    if sum(shown) >= min_consistency * count:
+                        inner = sum((box[0] > 0, box[1] > 0, box[2] < width, box[3] < height))
+                        found.append({"box": box, "aspect": aspect, "aspect_error": error, "coverage": cover,
+                                      "inner_sides": inner, "unmatched": [i for i, s in enumerate(shown) if not s]})
 
     result = {"width": int(width), "height": int(height), "frames": int(count), "source": "detected",
               "composite": False, "panels": [], "consistency": None, "unmatched": [],
               "warnings": layout_warnings([], count)}
-    # A candidate covering nearly the whole picture is the picture itself (full-screen
-    # slides, or a 16:9 frame whose own border matches the prior), never a panel.
-    main = choose_main([c for c in found if box_area(c["box"]) < full_share * width * height])
-    if main is None:
+    # Candidates covering nearly the whole picture were skipped above: that is the picture
+    # itself (full-screen slides, or a 16:9 frame whose own border matches the prior).
+    chosen = choose_main(found)
+    if chosen is None:
         return result
+    main, (ox0, oy0, ox1, oy1) = chosen
     x0, y0, x1, y1 = main["box"]
 
     panels = [{"name": "main", "box": [x0, y0, x1, y1], "aspect": main["aspect"],
                "aspect_error": round(main["aspect_error"], 4), "coverage": round(main["coverage"], 3)}]
-    regions = {"left": (0, 0, x0, height), "right": (x1, 0, width, height),
-               "top": (x0, 0, x1, y0), "bottom": (x0, y1, x1, height)}
+    regions = {"left": (0, 0, ox0, height), "right": (ox1, 0, width, height),
+               "top": (ox0, 0, ox1, oy0), "bottom": (ox0, oy1, ox1, height)}
     for name, region in regions.items():
         if box_area(region) == 0:
             continue
         box = trim_letterbox(region, mean, tstd)
         if box_area(box) >= min_strip_share * width * height:
             panels.append({"name": name, "box": [int(v) for v in box]})
-
-    # A frame shows this layout when every inner side of the main panel is an edge
-    # along `side_presence` of its length; the rest (full-screen demos, transitions)
-    # are listed so the writer checks their figures by eye.
-    unmatched = []
-    for index, frame in enumerate(frames):
-        pixels = frame.astype(np.int16)
-        lines = []
-        if x0 > 0:
-            lines.append(pixels[y0:y1, x0] - pixels[y0:y1, x0 - 1])
-        if x1 < width:
-            lines.append(pixels[y0:y1, x1] - pixels[y0:y1, x1 - 1])
-        if y0 > 0:
-            lines.append(pixels[y0, x0:x1] - pixels[y0 - 1, x0:x1])
-        if y1 < height:
-            lines.append(pixels[y1, x0:x1] - pixels[y1 - 1, x0:x1])
-        if any((np.abs(line) > edge_delta).mean() < side_presence for line in lines):
-            unmatched.append(index)
-    result.update(composite=True, panels=panels, unmatched=unmatched,
-                  consistency=round(1 - len(unmatched) / count, 3), warnings=layout_warnings(panels, count))
+    # Frames that do not show the main panel's edges (full-screen demos, transitions, a
+    # dark slide on a black letterbox) are listed so the writer checks their figures by eye.
+    result.update(composite=True, panels=panels, unmatched=main["unmatched"],
+                  consistency=round(1 - len(main["unmatched"]) / count, 3), warnings=layout_warnings(panels, count))
     return result
 
 
@@ -584,6 +606,8 @@ def main(argv=None) -> int:
             if problem:
                 print(f"crop: {args.layout} {problem}; rerun frame_filter.py layout", file=sys.stderr)
                 return 2
+            for warning in layout.get("warnings") or []:
+                print(f"crop: warning: {args.layout}: {warning}", file=sys.stderr)
             panels = {panel["name"]: panel for panel in layout["panels"]}
             if args.panel not in panels:
                 print(f"crop: panel {args.panel!r} is not in {args.layout}; choose one of: "

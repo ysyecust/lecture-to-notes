@@ -12,11 +12,14 @@ of the page width and their text unreadable. SKILL.md required full frames and
   persistent edges after black letterbox is trimmed; what remains beside it becomes
   `left`/`right`/`top`/`bottom`. When two candidates cover the same region, the one with
   clearly better-supported edges wins, so a box ending at a line inside the slide (a footer
-  rule) loses to the framed slide. `--preview` draws the panels on a pixel ruler, `--box`
+  rule) loses to the framed slide. A candidate's edges must also show in at least 80% of the
+  single frames, so lines that only add up across frames (camera texture, a moving presenter)
+  never form a panel. `--preview` draws the panels on a pixel ruler, `--box`
   records panels measured by eye, `consistency` lists frames whose layout differs, and
   `warnings` flags fewer than 20 sampled frames or a remaining panel larger than `main`.
 - `frame_filter.py crop --layout layout.json --panel main` keeps one panel, 4 px inside every
-  inner edge so a blurred seam or a thin frame border stays out of the figure.
+  inner edge so a blurred seam or a thin frame border stays out of the figure, and repeats the
+  layout's `warnings` on stderr.
 - `scripts/verify_notes.py` fails a manifest figure that does not match its declared panel, a
   composite-video figure without a `panel`, a malformed `layout.json`, and any figure wider
   than 2:1 when no `layout.json` exists. `panel=full` keeps a whole frame on purpose.
@@ -25,7 +28,8 @@ of the page width and their text unreadable. SKILL.md required full frames and
 - Measured on 60 sampled frames per video (0.6–1.8 s each): GSE L2 slides `[546,0,1280,410]`
   (the crop starts at column 550, past the seam blur); CMU L3 slides `[0,120,1280,840]` and
   camera `[1280,300,1920,660]`; a CppNow talk's slides `[561,167,1895,917]` beside a speaker
-  sidebar. Three full-screen Stanford CS336 lectures stay non-composite.
+  sidebar. Three full-screen Stanford CS336 lectures stay non-composite. All 199 windows of 20
+  consecutive frames (step 10) across these six videos match their full-video result.
 
 ### Compatibility
 

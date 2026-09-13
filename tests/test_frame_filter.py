@@ -1,3 +1,5 @@
+import contextlib
+import io
 import json
 import sys
 import tempfile
@@ -220,22 +222,42 @@ class LayoutDetectionTests(unittest.TestCase):
         self.assertFalse(result["composite"], result)
         self.assertEqual(result["panels"], [])
 
-    def candidate(self, box, coverage):
-        return {"box": box, "coverage": coverage,
+    def candidate(self, box, coverage, frame=(1920, 1080)):
+        return {"box": box, "coverage": coverage, "unmatched": [],
+                "inner_sides": sum((box[0] > 0, box[1] > 0, box[2] < frame[0], box[3] < frame[1])),
                 "aspect_error": frame_filter.nearest_aspect(box[2] - box[0], box[3] - box[1])[1]}
 
     def test_box_borrowing_a_line_inside_the_slide_loses_to_the_framed_slide(self):
         # CppNow chapter-1 sample: the 16:10 box ends at the slide's footer rule.
         found = [self.candidate((531, 0, 1920, 869), 0.55), self.candidate((556, 162, 1900, 917), 1.0),
                  self.candidate((561, 167, 1895, 917), 0.99)]
-        self.assertEqual(frame_filter.choose_main(found)["box"], (561, 167, 1895, 917))
+        main, outer = frame_filter.choose_main(found)
+        self.assertEqual(main["box"], (561, 167, 1895, 917))
+        self.assertEqual(outer, (556, 162, 1900, 917))
 
     def test_largest_slide_wins_over_better_supported_camera_rectangles(self):
         # NJU GSE L2: blackboard lines inside the camera score higher coverage than the seam.
-        found = [self.candidate((546, 0, 1280, 410), 0.65), self.candidate((0, 0, 530, 330), 0.73),
-                 self.candidate((0, 0, 537, 338), 0.50)]
-        self.assertEqual(frame_filter.choose_main(found)["box"], (546, 0, 1280, 410))
+        frame = (1280, 410)
+        found = [self.candidate((546, 0, 1280, 410), 0.65, frame), self.candidate((0, 0, 530, 330), 0.73, frame),
+                 self.candidate((0, 0, 537, 338), 0.50, frame)]
+        self.assertEqual(frame_filter.choose_main(found)[0]["box"], (546, 0, 1280, 410))
         self.assertIsNone(frame_filter.choose_main([]))
+
+    def test_near_duplicate_touching_the_frame_edge_wins(self):
+        # NJU GSE 20-frame window: a slide line at x=1278 must not trim the slide's right margin.
+        frame = (1280, 410)
+        found = [self.candidate((546, 0, 1280, 410), 0.65, frame), self.candidate((550, 0, 1278, 410), 0.95, frame)]
+        main, outer = frame_filter.choose_main(found)
+        self.assertEqual(main["box"], (546, 0, 1280, 410))
+        self.assertEqual(outer, (546, 0, 1280, 410))
+
+    def test_frame_shows_box_tolerates_an_edge_inside_a_thin_border(self):
+        frame = np.full((100, 200), 30, dtype=np.uint8)
+        frame[20:80, 40:160] = 240
+        frame[18:23, 38:162] = 170   # 5 px grey border along the top
+        self.assertTrue(frame_filter.frame_shows_box(frame, (40, 20, 160, 80), 10, 0.3))
+        self.assertTrue(frame_filter.frame_shows_box(frame, (40, 22, 160, 80), 10, 0.3))
+        self.assertFalse(frame_filter.frame_shows_box(np.full((100, 200), 30, dtype=np.uint8), (40, 20, 160, 80), 10, 0.3))
 
     def test_warnings_flag_few_frames_and_a_panel_larger_than_main(self):
         # CMU L3 dark frames only: the camera became main and the slides a larger remainder.
@@ -306,6 +328,21 @@ class LayoutCliTests(unittest.TestCase):
                     layout.write_text(content, encoding="utf-8")
                     self.assertEqual(frame_filter.main(["crop", str(src), "--out", out, "--layout", str(layout),
                                                         "--panel", "main"]), 2)
+
+    def test_crop_repeats_layout_warnings(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            layout = Path(tmp) / "layout.json"
+            data = frame_filter.manual_layout(560, 180, ["main=240,0,560,180"])
+            data["warnings"] = ["left is larger than main; confirm on the preview that main holds the slides"]
+            layout.write_text(json.dumps(data), encoding="utf-8")
+            src = Path(tmp) / "frame.png"
+            Image.fromarray(side_by_side_frames(1)[0]).save(src)
+            errors = io.StringIO()
+            with contextlib.redirect_stderr(errors), contextlib.redirect_stdout(io.StringIO()):
+                code = frame_filter.main(["crop", str(src), "--out", str(Path(tmp) / "c.jpg"),
+                                          "--layout", str(layout), "--panel", "main"])
+            self.assertEqual(code, 0)
+            self.assertIn("left is larger than main", errors.getvalue())
 
     def test_manual_box_cli_records_panels(self):
         with tempfile.TemporaryDirectory() as tmp:
