@@ -30,7 +30,7 @@ flowchart LR
     C -->|burned-in subtitles| E["ocr_hardsubs.py<br/>OCR the subtitle band"] --> D
     C -->|none| F["Local ASR<br/>X ASR → Whisper"] --> D
     B --> G["yt-dlp<br/>video + cover"]
-    G --> H["ffmpeg dense frames<br/>frame_filter.py crop overlays · score"]
+    G --> H["ffmpeg dense frames<br/>frame_filter.py crop overlays and panels · score"]
     D --> I["Reader-first writing<br/>notes.tex"]
     H --> I
     I --> J["xelatex ×2"]
@@ -71,7 +71,7 @@ Then trigger it in Claude Code with `/lecture-to-notes <URL>` (or paste a Bilibi
 | `figures/` + `figure_manifest.tsv` + `figure_verification.txt` | Figures, the frame and time range behind each one, three-way verification output |
 | `audio.srt` (plus `audio_corrected.srt`, `hardsub_ocr.srt`) | Final subtitle track and where it came from |
 | `lecture_profile.json` · `teaching_atoms.tsv` · `numerical_claims.tsv` | Lecture mode and reader outcome, teaching-atom coverage, numerical-claim ledger |
-| `bands.json` · `frame_scores.json` | Overlay geometry and candidate-frame scores (required when the model cannot see images) |
+| `bands.json` · `layout.json` · `frame_scores.json` | Overlay geometry, the panel layout of camera-plus-slides recordings, and candidate-frame scores (required when the model cannot see images) |
 | `verify_notes.txt` | Delivery-gate report ending in `OVERALL PASS` |
 
 ## Features
@@ -84,6 +84,7 @@ Then trigger it in Claude Code with `/lecture-to-notes <URL>` (or paste a Bilibi
 | Fix speech with the picture | Aligns the OCR subtitle track with the ASR track and derives a correction glossary (刻石→刻蚀, 光眼膜→光掩膜) | `ocr_hardsubs.py glossary` → `correct_srt.py` |
 | Dense frames + three-way check | One frame every 15 s plus contact-sheet review; every figure is checked frame × subtitle × caption before it enters LaTeX | `verify_figures.py` |
 | Overlays and talking heads | Measures the navigation strip and subtitle band and crops only those; scores frames so presenter-only shots are rejected even when the model cannot see images | `frame_filter.py` |
+| Camera-plus-slides recordings | Measures where the slides and the camera sit and keeps one panel per figure, so slide text is no longer squeezed into half the page; uncropped wide figures fail the delivery gate | `frame_filter.py layout` · `verify_notes.py` |
 | Traceable numbers | Extracts every number with a unit from subtitle and OCR tracks and checks each one against the notes | `extract_claims.py` |
 | One-shot delivery gate | Density, mandatory artifacts, compile log, figure files, same-page footnotes — one command | `verify_notes.py` |
 | Reader-first writing | A standalone writing reference: meaning before jargon, one job per paragraph, value before limits | [`references/reader-first-writing.md`](skills/lecture-to-notes/references/reader-first-writing.md) |
@@ -179,7 +180,7 @@ pip install faster-whisper rapidocr-onnxruntime Pillow numpy
 | `sherpa-onnx` + X ASR | △ | Fast local zh/en transcription; models cached outside Git |
 | Whisper backend | △ | ASR fallback and other languages: `transcribe_whisper.py` picks `mlx-whisper` (macOS arm64) → `faster-whisper` → `openai-whisper` |
 | `rapidocr-onnxruntime` | with burned-in subtitles | `ocr_hardsubs.py` reads the subtitle band and overlay geometry |
-| `Pillow` + `numpy` | ✓ | `frame_filter.py` overlay crop and frame scores |
+| `Pillow` + `numpy` | ✓ | `frame_filter.py` overlay and panel crops, frame scores |
 | `python3` | ✓ | Runs everything under `scripts/` (CI verifies 3.12 / 3.13) |
 | `scripts/video_source.py` | ✓ | YouTube / Bilibili / X/Twitter URL detection and metadata probe |
 | `scripts/check_srt_health.py` | X/Twitter subtitles | SRT coverage, duplication, and runtime-window checks |
@@ -219,7 +220,7 @@ PYTHONPATH=. python3 -m unittest discover -s tests -v   # exactly what CI runs
 │   ├── verify_figures.py      # three-way figure check (timestamp × subtitle × frame)
 │   ├── transcribe_whisper.py  # Whisper with per-platform backend selection and a no-progress budget
 │   ├── ocr_hardsubs.py        # burned-in subtitle OCR: detect / extract to SRT / overlay geometry / glossary
-│   ├── frame_filter.py        # navigation-strip and subtitle-band crop; talking-head scores
+│   ├── frame_filter.py        # navigation-strip, subtitle-band, and panel crops; talking-head scores
 │   ├── extract_claims.py      # numerical-claim ledger from subtitle/OCR tracks, checked against the notes
 │   ├── verify_notes.py        # one-shot delivery gate: density, artifacts, compile log, figures, footnotes
 │   ├── install_skill.sh       # install the skill into ~/.agents / ~/.claude / ~/.codex

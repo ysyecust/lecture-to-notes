@@ -1,5 +1,55 @@
 # Release notes
 
+## 2026-09-13 — Readable figures from camera-plus-slides recordings
+
+NJU GSE 2026 Lectures 2–3 (78 figures, 1280×410) and CMU 11-768 Lectures 1–4 (143 figures,
+1920×840) printed camera-plus-slides frames at full page width, which left the slides 57–67%
+of the page width and their text unreadable. SKILL.md required full frames and
+`frame_filter.py crop` could only remove rows, so no step could split such a frame.
+
+- `scripts/frame_filter.py layout` measures the panels of one video from its dense frame
+  sample. The main panel is the largest 16:9, 16:10, or 4:3 rectangle whose inner sides are
+  persistent edges after black letterbox is trimmed; what remains beside it becomes
+  `left`/`right`/`top`/`bottom`. When two candidates cover the same region, the one with
+  clearly better-supported edges wins, so a box ending at a line inside the slide (a footer
+  rule) loses to the framed slide. A candidate's edges must also show in at least 80% of the
+  single frames, so lines that only add up across frames (camera texture, a moving presenter)
+  never form a panel. `--preview` draws the panels on a pixel ruler, `--box`
+  records panels measured by eye, and `consistency` lists frames whose layout differs.
+  `warnings` flags fewer than 20 sampled frames or distinct pictures, a remaining panel larger
+  than `main`, frames of another size, and a panel that shows in only 30–80% of the frames (a
+  recording that switches to full-screen for a while); the preview draws such candidates.
+- `frame_filter.py crop --layout layout.json --panel main` keeps one panel, 5 px inside every
+  inner edge so a blurred seam or a thin frame border stays out of the figure, and repeats the
+  layout's `warnings` on stderr.
+- `scripts/verify_notes.py` requires `layout.json` once the manifest lists figures. It fails a
+  figure that does not keep its declared panel's pixel size (so an uncropped 16:9 frame cannot
+  pass as a 16:9 panel), a composite-video figure without a `panel`, a malformed `layout.json`,
+  and a figure wider than 2:1 while `layout.json` names partial candidates, and it prints the
+  layout's warnings. `panel=full` keeps a whole frame on purpose.
+- SKILL.md Phase 2 measures the layout for every video, chooses a panel per figure, and
+  stacks slides above board writing when both teach.
+- Measured on 60 sampled frames per video (0.6–1.8 s each): GSE L2 slides `[546,0,1280,410]`
+  (the crop starts at column 551, past the seam blur); CMU L3 slides `[0,120,1280,840]` and
+  camera `[1280,300,1920,660]`; a CppNow talk's slides `[561,167,1895,917]` beside a speaker
+  sidebar. Three full-screen Stanford CS336 lectures stay non-composite. All 199 windows of 20
+  consecutive frames (step 10) across these six videos match their full-video result.
+
+### Compatibility
+
+- `verify_notes.py` now fails a workdir whose manifest lists figures but has no `layout.json`;
+  running `frame_filter.py layout` once fixes that, and `composite: false` is a valid result.
+  Published PDFs are unchanged; re-cropping the 221 affected figures is separate content work.
+
+### Known limits
+
+- A layout present in fewer than half of the sampled frames is not detected; contact-sheet review
+  and `--box` cover it.
+- A dark slide on a black letterbox hides the slide edge. On six such CMU frames alone the camera
+  becomes `main`, and `layout`, `crop`, and `verify_notes.py` print the warning.
+- Counting distinct pictures assumes compression-level noise between frames (0.3–0.5 grey levels
+  measured on static stretches); a static stretch with 5–10× that noise can pass for varied frames.
+
 ## 2026-09-11 — Web and PDF reading
 
 - Added a compact dual-format reader with a collapsible outline, focus mode, font

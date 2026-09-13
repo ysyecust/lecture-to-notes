@@ -30,7 +30,7 @@ flowchart LR
     C -->|烧录字幕| E["ocr_hardsubs.py<br/>OCR 字幕带"] --> D
     C -->|都没有| F["本地 ASR<br/>X ASR → Whisper"] --> D
     B --> G["yt-dlp<br/>视频 + 封面"]
-    G --> H["ffmpeg 密集帧<br/>frame_filter.py 裁叠加层 · 打分"]
+    G --> H["ffmpeg 密集帧<br/>frame_filter.py 裁叠加层与拼接分栏 · 打分"]
     D --> I["读者优先写作<br/>notes.tex"]
     H --> I
     I --> J["xelatex ×2"]
@@ -74,7 +74,7 @@ SKILL.md 的第 0 步会逐个检查这些辅助脚本，缺任何一个就停�
 | `figures/` + `figure_manifest.tsv` + `figure_verification.txt` | 配图、每图的帧与时间区间、三方校验输出 |
 | `audio.srt`（及 `audio_corrected.srt`、`hardsub_ocr.srt`） | 最终字幕轨与其来源 |
 | `lecture_profile.json` · `teaching_atoms.tsv` · `numerical_claims.tsv` | 讲座类型与读者目标、教学原子覆盖表、数值主张核对表 |
-| `bands.json` · `frame_scores.json` | 叠加层几何、候选帧打分（无视觉模型时必需） |
+| `bands.json` · `layout.json` · `frame_scores.json` | 叠加层几何、摄像头与课件拼接画面的分栏位置、候选帧打分（无视觉模型时必需） |
 | `verify_notes.txt` | 交付门禁报告，末行 `OVERALL PASS` |
 
 ## 特性
@@ -87,6 +87,7 @@ SKILL.md 的第 0 步会逐个检查这些辅助脚本，缺任何一个就停�
 | 用画面纠正听写 | 对齐 OCR 字幕与 ASR 轨，自动生成 `刻石→刻蚀`、`光眼膜→光掩膜` 这类纠错词典 | `ocr_hardsubs.py glossary` → `correct_srt.py` |
 | 密集帧 + 三方验证 | 每 15 秒采样 + contact sheet 审查；每张配图写入前核对「帧画面 × 字幕 × 描述」 | `verify_figures.py` |
 | 叠加层与讲者帧 | 测出导航条、字幕带并只裁掉它们；给帧打分，模型看不到图时也能拒绝讲者出镜帧 | `frame_filter.py` |
+| 摄像头与课件拼接画面 | 测出课件区和摄像头区的位置，每张图只保留讲课内容所在的一栏，课件文字不再被挤到半页宽；未切分的宽图过不了交付检查 | `frame_filter.py layout` · `verify_notes.py` |
 | 数值可追溯 | 从字幕和 OCR 轨提取每个带单位的数字，逐条核对讲义 | `extract_claims.py` |
 | 一次性交付门禁 | 密度、必需产物、编译日志、配图文件、脚注同页，一条命令 | `verify_notes.py` |
 | 读者优先写作 | 独立的写作规范：先讲含义再给术语、段落一个任务、限制先讲价值 | [`references/reader-first-writing.md`](skills/lecture-to-notes/references/reader-first-writing.md) |
@@ -194,7 +195,7 @@ pip install faster-whisper rapidocr-onnxruntime Pillow numpy
 | `sherpa-onnx` + X ASR | △ | 中英混合快速本地转写；模型单独缓存，不进 Git |
 | Whisper 后端 | △ | ASR 回退及其他语言：`transcribe_whisper.py` 自动选 `mlx-whisper`（macOS arm64）→ `faster-whisper` → `openai-whisper` |
 | `rapidocr-onnxruntime` | 有烧录字幕时 | `ocr_hardsubs.py` 读字幕带和叠加层几何 |
-| `Pillow` + `numpy` | ✓ | `frame_filter.py` 裁剪叠加层、给帧打分 |
+| `Pillow` + `numpy` | ✓ | `frame_filter.py` 裁剪叠加层与拼接分栏、给帧打分 |
 | `python3` | ✓ | 运行 `scripts/` 下所有脚本（CI 在 3.12 / 3.13 上验证） |
 | `scripts/video_source.py` | ✓ | YouTube / Bilibili / X/Twitter URL 识别与元数据探测 |
 | `scripts/check_srt_health.py` | X/Twitter 字幕 | 检查 SRT 覆盖率、重复率和运行时窗口 |
@@ -234,7 +235,7 @@ PYTHONPATH=. python3 -m unittest discover -s tests -v   # 与 CI 完全相同的
 │   ├── verify_figures.py      # 图文三方验证（时间戳 × 字幕 × 画面）
 │   ├── transcribe_whisper.py  # Whisper 转写：按平台选 mlx / faster / openai 后端 + 无进度预算
 │   ├── ocr_hardsubs.py        # 烧录字幕 OCR：检测 / 抽取为 SRT / 叠加层几何 / Whisper 纠错词典
-│   ├── frame_filter.py        # 导航条、字幕带测量与裁剪；讲者出镜帧打分
+│   ├── frame_filter.py        # 导航条、字幕带、拼接分栏的测量与裁剪；讲者出镜帧打分
 │   ├── extract_claims.py      # 从字幕 / OCR 提取数值主张并核对讲义
 │   ├── verify_notes.py        # 交付前一次性门禁：密度、产物、编译日志、配图与脚注同页
 │   ├── install_skill.sh       # 安装 skill 到 ~/.agents / ~/.claude / ~/.codex

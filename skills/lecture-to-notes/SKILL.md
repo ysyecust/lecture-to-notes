@@ -23,7 +23,7 @@ Check before starting (use `which`). Prompt the user to install any missing tool
 | `sherpa-onnx` + X ASR model | Optional zh/en ASR | Fast local Chinese/English transcription with token timestamps |
 | Whisper backend | ASR fallback / non-zh-en / no-CC | `transcribe_whisper.py` picks `mlx-whisper` (macOS arm64) → `faster-whisper` → `openai-whisper` |
 | `rapidocr-onnxruntime` | Bilibili / any burned-in subtitles | `ocr_hardsubs.py` reads the subtitle band and overlay geometry |
-| `Pillow` + `numpy` | Always | `frame_filter.py` overlay crop and talking-head scores |
+| `Pillow` + `numpy` | Always | `frame_filter.py` overlay and composite-panel crops, talking-head scores |
 
 Install the Python side with `pip install rapidocr-onnxruntime Pillow numpy` plus one
 transcription backend: `pip install mlx-whisper` on Apple silicon, otherwise
@@ -108,7 +108,9 @@ Produce a professional Chinese lecture note from a YouTube, Bilibili, or X/Twitt
 
 - use the video's actual teaching content, not just subtitle transcription
 - place the video's original cover image on the front page
-- include selected full-frame teaching figures chosen by contact-sheet review
+- include selected full-frame teaching figures chosen by contact-sheet review; when the video
+  places a camera feed and slides side by side, each figure keeps one measured panel so the
+  slide text stays readable
 - let a capable first-time reader understand the question, mechanism, evidence, consequence, and boundary without decoding the transcript
 - achieve source-fit information density — every figure, box, formula, and paragraph earns its space
 - be structurally organized with `\section{}` / `\subsection{}`
@@ -130,12 +132,13 @@ image-heavy PDFs with thin prose, or missing intermediate artifacts are automati
 | `audio_corrected.srt` | Copy of final track, or glossary/LLM-corrected track when local ASR was used |
 | `hardsub_ocr.srt` | `ocr_hardsubs.py extract` output when `ocr_hardsubs.py detect` reported burned-in subtitles; absent otherwise |
 | `bands.json` | Overlay geometry (navigation strip, subtitle band) from `ocr_hardsubs.py detect --geometry` or `frame_filter.py bands` |
+| `layout.json` | Panel layout from `frame_filter.py layout` over the dense sample; always measured, `composite: false` records a single-picture video |
 | `cover.jpg` | Front-page cover |
 | `video.mp4` | Source for frames (may omit only if user forbids download and provides frames) |
 | `frames/` | Dense sample, default 1 frame / 15s |
 | `frame_scores.json` | `frame_filter.py score` over the dense sample; mandatory when the host cannot show you images |
-| `figures/` | Selected full-frame figure assets with **semantic names** (`fig_01_topic.jpg`, …), overlays cropped via `bands.json` |
-| `figure_manifest.tsv` | Header `figure\tframe\tstart\tend\ttopic` — one row per figure |
+| `figures/` | Selected figure assets with **semantic names** (`fig_01_topic.jpg`, …), overlays cropped via `bands.json`, composites cropped to one panel via `layout.json` |
+| `figure_manifest.tsv` | Header `figure\tframe\tstart\tend\ttopic\tpanel` — one row per figure image; `panel` names the `layout.json` panel it keeps (`main`, `left`, …) or `full` |
 | `figure_verification.txt` | Full stdout of `verify_figures.py` over **all** manifest timestamps |
 | `lecture_profile.json` | Reader and source-fit profile; required fields are described below |
 | `teaching_atoms.tsv` | Header `atom\tstatus\tevidence` — every teaching atom mapped to the notes |
@@ -607,18 +610,71 @@ ffmpeg -ss <start> -to <end> -i video.mp4 -vf "fps=1/15" frames/ch<N>_%03d.png
 
 #### Stage 2: Frame selection (no automatic cropping of slide content)
 
-Use the original full frames directly. Do NOT apply automatic cropping to slide or board
-content — heuristic region cropping is unreliable (misidentifies blackboard content as
-"low information" regions). The one permitted crop removes overlays measured from the
-video itself — the burned-in subtitle band and the static navigation strip in `bands.json`
-— so a subtitle line never sits on top of a diagram in the PDF:
+Use the original full frames directly. Do NOT crop slide or board content by guessing which
+region matters — heuristic region cropping is unreliable (it misidentifies blackboard content
+as "low information" regions). Two crops are permitted, because both remove geometry
+measured from the video itself rather than content judged unimportant:
+
+1. **Overlays** — the burned-in subtitle band and the static navigation strip in
+   `bands.json`, so a subtitle line never sits on top of a diagram in the PDF.
+2. **Composite panels** — many recordings place a camera feed and a screen capture side by
+   side in one picture (NJU GSE 2026: 1280×410, camera left, slides right; CMU 11-768:
+   1280×720 slides beside a 640×360 camera). Printed at `\textwidth`, such a frame gives the
+   slides only 57–67% of the page width and their text becomes unreadable. `layout.json`
+   records the panels once per video, and each figure keeps the panel that carries its
+   teaching content.
 
 ```bash
 # bands.json comes from Phase 1 Stage 3a; without it, measure from the dense sample:
 python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/frame_filter.py" bands frames/*.png --json bands.json
+# Measure the panel layout once per video, then open the preview before cropping:
+python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/frame_filter.py" layout frames/*.png \
+    --json layout.json --preview layout_preview.png
 # Apply to every selected figure (never to contact sheets):
 python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/frame_filter.py" crop frames/ch2_031.png \
     --out figures/fig_07_cz_diagram.jpg --bands bands.json
+# In a composite video, add the panel the figure keeps:
+python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/frame_filter.py" crop frames/ch2_031.png \
+    --out figures/fig_07_cz_diagram.jpg --bands bands.json --layout layout.json --panel main
+```
+
+Read `layout.json` before selecting figures:
+
+- `composite: false` — the video is one picture (full-screen slides, camera, or screen);
+  crop overlays only. When `warnings` names a panel that shows in only part of the frames,
+  the recording switches layouts: open the preview (grey `candidate` boxes) and record the
+  panels with `--box`. A layout present in fewer than half of the sampled frames is not
+  detected at all; the contact sheet shows it, and `--box` records it.
+- `composite: true` — open `layout_preview.png`. `main` is the largest screen-shaped panel
+  (16:9, 16:10, or 4:3) and was the slide panel in all three composites measured on
+  2026-09-13; `left`/`right`/`top`/`bottom` hold what remains beside it. When a box misses
+  the slides, read the edges off the preview's pixel ruler and record them by hand:
+  `frame_filter.py layout frames/*.png --box main=X0,Y0,X1,Y1 --box left=X0,Y0,X1,Y1 --json layout.json`.
+  A `consistency` below 0.9 lists `unmatched_frames` whose layout differs (a full-screen
+  demo, a transition); view those frames before cropping them. Each entry in `warnings`
+  (fewer than 20 sampled frames or distinct pictures, a remaining panel larger than `main`,
+  frames of another size) means the same: confirm the boxes on the preview before any crop.
+
+Decide per figure after reading the full-resolution frame:
+
+| What the frame teaches | Figure files | `panel` in the manifest |
+|---|---|---|
+| Slides, code, or a screen demo | one crop of the screen panel | `main` |
+| Board writing or a physical demo | one crop of the camera panel | `left`, `right`, … |
+| Slides **and** board writing that adds to them | two crops stacked in one `figure` | one row per crop |
+| A layout the preview does not cover | the full frame, with the reason in `topic` | `full` |
+
+Never place a side-by-side composite at `\textwidth`. When both panels teach, stack them so
+each prints as large as the page allows:
+
+```latex
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_22_attention_slide.jpg}\\[4pt]
+\includegraphics[width=0.62\textwidth]{figures/fig_22_attention_board.jpg}
+\caption{课件与板书共同说明的内容\vtag}
+\end{figure}
+\srcnote{00:47:30--00:47:45}
 ```
 
 **Host without image input (mandatory fallback):** when Step 0 recorded `"vision": "no"`,
@@ -632,10 +688,12 @@ contact-sheet review is impossible, so text signals decide:
    process, not merely the subtitle line.
 4. Write captions from that OCR text plus the subtitle at the timestamp, and say so in
    `figure_manifest.tsv` (`topic` column ends with `[ocr]`).
+5. When `layout.json` reports `composite: true`, crop every figure to `main` and check that
+   OCR of the crop still reads the slide text; board writing cannot be judged without vision.
 
 **Future direction**: Use multimodal LLM (e.g., Claude Vision API) to classify frames
-and decide cropping per-frame. For now, use full frames and select the best ones manually
-via contact sheet review.
+and decide cropping per-frame. For now, use full frames (or one measured panel of a
+composite) and select the best ones manually via contact sheet review.
 
 #### Stage 3: Contact sheet review
 
@@ -698,7 +756,8 @@ For each candidate figure:
 
 5. **Persist audit artifacts (mandatory):**
    - Append every accepted figure to `figure_manifest.tsv` with columns
-     `figure`, `frame`, `start`, `end`, `topic` (topic in Chinese, concrete).
+     `figure`, `frame`, `start`, `end`, `topic`, `panel` (topic in Chinese, concrete; `panel`
+     as chosen in Stage 2, empty only when `layout.json` reports `composite: false`).
    - Run `verify_figures.py` on **all** `start` times and save full stdout to
      `figure_verification.txt`. Do not delete these files after compile.
 
@@ -756,8 +815,8 @@ writing skill or a network call.
 8. **Terminology**: introduce plain meaning before acronyms, stage labels, variants, or
    project-specific terms. Keep one stable term for one concept.
 
-9. **Figures: use full frames.** Use each distinct visual teaching atom that materially
-   improves understanding. **Every figure MUST pass the Stage 4 three-way verification
+9. **Figures: use full frames, or one measured panel of a composite.** Use each distinct
+   visual teaching atom that materially improves understanding. **Every figure MUST pass the Stage 4 three-way verification
    before being written into LaTeX.** Never write a caption from section context alone.
 
 10. **No figures inside boxes.** `importantbox`, `knowledgebox`, `warningbox` must not contain `\includegraphics`.
@@ -834,6 +893,9 @@ line each, ending with `OVERALL PASS` or `OVERALL FAIL`:
   duration: CJK, figure, section, box, and display-math floors; `teaching_atoms.tsv`
   all `ok`; `numerical_claims.tsv` all `in_notes=yes`;
 - **artifacts** — `figure_manifest.tsv`, `figure_verification.txt`, `audio.srt` non-empty;
+- **layout** — every `figure_manifest.tsv` image against `layout.json`, which must exist: in a
+  composite video it names a panel and keeps that panel's pixel size (crop, never resize); when
+  `layout.json` names partial candidates, no figure is wider than 2:1 without `panel=full`;
 - **compile log** — no `!` errors, no `Missing character`, no undefined references, no
   `invalid in math mode`, no `Overfull \hbox` above the threshold;
 - **figures** — every `\includegraphics` file exists, every video frame has a time
@@ -867,6 +929,7 @@ high density counts do not compensate for transcript-like, repetitive, or inflat
 - [ ] `notes.tex` + two-pass `notes.pdf`
 - [ ] `verify_notes.txt` ends with `OVERALL PASS`
 - [ ] `bands.json` present; every selected figure was cropped through it when the video has overlays
+- [ ] `layout.json` present; in a composite video every figure is one panel or two stacked panels, never a side-by-side frame at `\textwidth`
 - [ ] `frame_scores.json` present and no selected figure flagged `talking_head` (hosts without image input)
 - [ ] `cover.jpg`
 - [ ] `figures/` with semantic names; count passes density gate
@@ -901,7 +964,7 @@ high density counts do not compensate for transcript-like, repetitive, or inflat
 - `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/verify_figures.py`: Three-way figure verification (timestamp × subtitle × frame)
 - `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/transcribe_whisper.py`: Whisper with platform-aware backend selection (mlx / faster / openai), workdir model caches, and a no-progress time budget
 - `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/ocr_hardsubs.py`: Burned-in subtitle detection, band OCR to SRT, overlay geometry, and Whisper glossary derivation
-- `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/frame_filter.py`: Overlay band measurement and crop, plus talking-head scores for hosts without image input
+- `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/frame_filter.py`: Overlay band and composite panel measurement, overlay and panel crops, plus talking-head scores for hosts without image input
 - `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/extract_claims.py`: Builds `numerical_claims.tsv` from subtitle/OCR tracks and checks every number against `notes.tex`
 - `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/verify_notes.py`: One-shot pre-delivery gate (density, artifacts, compile log, figure files, same-page footnotes)
 - `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/prepare_cover.sh`: Cover image format conversion (webp/png → jpg)
