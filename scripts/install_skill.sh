@@ -42,7 +42,9 @@ for root in "${roots[@]}"; do
   cp -R "$SCRIPTS/whisper_prompts" "$target/assets/"
   find "$target" -name .DS_Store -delete
   sha="$(git -C "$REPO" rev-parse --short HEAD 2>/dev/null || echo unknown)"
-  printf 'source=%s\ncommit=%s\ninstalled=%s\n' "$REPO" "$sha" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > "$target/assets/INSTALLED_FROM"
+  version=unknown
+  [ -f "$REPO/VERSION" ] && version="$(tr -d '[:space:]' < "$REPO/VERSION")"
+  printf 'source=%s\nversion=%s\ncommit=%s\ninstalled=%s\n' "$REPO" "$version" "$sha" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > "$target/assets/INSTALLED_FROM"
   count="$(find "$target/assets" -type f | wc -l | tr -d ' ')"
-  echo "installed $NAME → $target ($count asset files, commit $sha)"
+  echo "installed $NAME → $target ($count asset files, version $version, commit $sha)"
 done

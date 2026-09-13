@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out the tagged commit
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Tag matches VERSION and RELEASE_NOTES.md
+        run: python3 scripts/release_notes.py check --tag "$GITHUB_REF_NAME"
+
+      - name: Tagged commit is on main
+        run: git merge-base --is-ancestor "$GITHUB_SHA" origin/main
+
+      - name: Install test dependencies
+        run: sudo apt-get update && sudo apt-get install --yes zsh python3-numpy python3-pil python3-bs4 pandoc imagemagick
+
+      - name: Python tests pass on the tagged commit
+        run: PYTHONPATH=. python3 -m unittest discover -s tests
+
+      - name: Publish the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 scripts/release_notes.py notes "$GITHUB_REF_NAME" --out release-body.md
+          gh release create "$GITHUB_REF_NAME" --verify-tag \
+            --title "$(python3 scripts/release_notes.py title "$GITHUB_REF_NAME")" \
+            --notes-file release-body.md

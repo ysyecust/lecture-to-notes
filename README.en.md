@@ -5,6 +5,7 @@
 **Turn a YouTube / Bilibili / X (Twitter) lecture video into a compilable Chinese LaTeX lecture-notes PDF.**
 Reader-first prose, every figure footnoted with its source time range, every number traceable to the subtitles or the screen.
 
+[![Release](https://img.shields.io/github/v/release/ysyecust/lecture-to-notes?sort=semver)](https://github.com/ysyecust/lecture-to-notes/releases)
 [![Tests](https://github.com/ysyecust/lecture-to-notes/actions/workflows/tests.yml/badge.svg)](https://github.com/ysyecust/lecture-to-notes/actions/workflows/tests.yml)
 [![Course library](https://github.com/ysyecust/lecture-to-notes/actions/workflows/pages.yml/badge.svg)](https://github.com/ysyecust/lecture-to-notes/actions/workflows/pages.yml)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-3776AB?logo=python&logoColor=white)](#dependencies)
@@ -194,6 +195,8 @@ PYTHONPATH=. python3 -m unittest discover -s tests -v   # exactly what CI runs
 
 `.github/workflows/tests.yml` runs two gate jobs on pull requests and pushes to `main`: `unit` (every Python test; needs zsh, numpy, Pillow) and `template` (compiles `notes-template.tex` inside TeX Live with CJK support, covering every template macro). Two slow jobs run only on manual dispatch or the weekly schedule: `synthetic-video` renders a deterministic lecture video with Pillow — burned-in subtitles, a static navigation strip, a presenter block — and runs the real `ocr_hardsubs.py` and `frame_filter.py` pipeline against it; `macos-smoke` runs the suite on an Apple-silicon runner and checks that `transcribe_whisper.py` selects mlx. Tests that need optional tools (xelatex, ffmpeg, rapidocr, a CJK font) skip when the tool is absent. `main` requires `unit` and `template` to pass before merging.
 
+The version lives in `VERSION` at the repository root, and every version has its own section at the top of `RELEASE_NOTES.md`. Pushing a `vX.Y.Z` tag on `main` runs `.github/workflows/release.yml`, which checks the tag against `VERSION` and the notes, runs the Python tests, and publishes a [GitHub Release](https://github.com/ysyecust/lecture-to-notes/releases). The version policy and release steps are in [docs/releasing.md](docs/releasing.md) (Chinese).
+
 ## Repository layout
 
 <details>
@@ -224,6 +227,7 @@ PYTHONPATH=. python3 -m unittest discover -s tests -v   # exactly what CI runs
 │   ├── extract_claims.py      # numerical-claim ledger from subtitle/OCR tracks, checked against the notes
 │   ├── verify_notes.py        # one-shot delivery gate: density, artifacts, compile log, figures, footnotes
 │   ├── install_skill.sh       # install the skill into ~/.agents / ~/.claude / ~/.codex
+│   ├── release_notes.py       # check VERSION against RELEASE_NOTES.md; extract release notes
 │   ├── prepare_cover.sh       # cover conversion (webp/png → jpg)
 │   ├── smart_crop.py          # slide-region detector (experimental; production uses full frames)
 │   ├── pdf_inspector.py        # PDF safety inspection, metadata, first-page preview

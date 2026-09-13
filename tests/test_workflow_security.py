@@ -5,6 +5,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 CHECK = ROOT / ".github/workflows/contribution-check.yml"
 PAGES = ROOT / ".github/workflows/pages.yml"
+RELEASE = ROOT / ".github/workflows/release.yml"
 
 
 class WorkflowSecurityTests(unittest.TestCase):
@@ -29,7 +30,7 @@ class WorkflowSecurityTests(unittest.TestCase):
             self.assertIn(required, workflow)
 
     def test_actions_are_pinned_to_full_commit_shas(self):
-        for path in (CHECK, PAGES):
+        for path in (CHECK, PAGES, RELEASE):
             for line in path.read_text().splitlines():
                 if "uses:" not in line:
                     continue

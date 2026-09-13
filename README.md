@@ -5,6 +5,7 @@
 **把 YouTube / Bilibili / X(Twitter) 的讲座视频，变成可编译的中文 LaTeX 讲义 PDF。**
 读者优先的成文，每张配图带原视频时间脚注，每个数字都能追溯到字幕或画面。
 
+[![Release](https://img.shields.io/github/v/release/ysyecust/lecture-to-notes?sort=semver)](https://github.com/ysyecust/lecture-to-notes/releases)
 [![Tests](https://github.com/ysyecust/lecture-to-notes/actions/workflows/tests.yml/badge.svg)](https://github.com/ysyecust/lecture-to-notes/actions/workflows/tests.yml)
 [![Course library](https://github.com/ysyecust/lecture-to-notes/actions/workflows/pages.yml/badge.svg)](https://github.com/ysyecust/lecture-to-notes/actions/workflows/pages.yml)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-3776AB?logo=python&logoColor=white)](#依赖)
@@ -209,6 +210,8 @@ PYTHONPATH=. python3 -m unittest discover -s tests -v   # 与 CI 完全相同的
 
 `.github/workflows/tests.yml` 在 PR 和 `main` 推送时运行两个门禁 job：`unit`（全部 Python 测试，需要 zsh、numpy、Pillow）和 `template`（在带 CJK 支持的 TeX Live 里编译 `notes-template.tex`，覆盖所有模板宏）。两个慢 job 只在手动触发或每周一定时运行：`synthetic-video` 用 Pillow 渲染一段带烧录字幕、静态导航条和讲者色块的合成视频，真实跑一遍 `ocr_hardsubs.py` 与 `frame_filter.py`；`macos-smoke` 在 Apple silicon runner 上跑全部测试并确认 `transcribe_whisper.py` 选中 mlx 后端。缺少可选依赖（xelatex、ffmpeg、rapidocr、CJK 字体）时对应测试自动跳过，本地不会因此报错。`main` 分支要求 `unit` 和 `template` 通过后才能合并。
 
+版本号写在根目录的 `VERSION` 里，每个版本在 `RELEASE_NOTES.md` 顶部有自己的一节。在 `main` 上推送 `vX.Y.Z` tag 后，`.github/workflows/release.yml` 会核对 tag、`VERSION` 和发布说明是否一致，跑一遍 Python 测试，再创建 [GitHub Release](https://github.com/ysyecust/lecture-to-notes/releases)。版本号规则和发布步骤见 [docs/releasing.md](docs/releasing.md)。
+
 ## 仓库结构
 
 <details>
@@ -239,6 +242,7 @@ PYTHONPATH=. python3 -m unittest discover -s tests -v   # 与 CI 完全相同的
 │   ├── extract_claims.py      # 从字幕 / OCR 提取数值主张并核对讲义
 │   ├── verify_notes.py        # 交付前一次性门禁：密度、产物、编译日志、配图与脚注同页
 │   ├── install_skill.sh       # 安装 skill 到 ~/.agents / ~/.claude / ~/.codex
+│   ├── release_notes.py       # 核对 VERSION 与 RELEASE_NOTES.md，提取 Release 正文
 │   ├── prepare_cover.sh       # 封面格式转换（webp/png → jpg）
 │   ├── smart_crop.py          # 课件区域检测（实验性，实际流程中通常直接用全帧）
 │   ├── pdf_inspector.py        # PDF 安全检查、元数据与首图解析

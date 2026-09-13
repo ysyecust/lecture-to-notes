@@ -15,7 +15,9 @@ on:
       - "skills/**"
       - "README.md"
       - "RELEASE_NOTES.md"
+      - "VERSION"
       - ".github/workflows/tests.yml"
+      - ".github/workflows/release.yml"
   push:
     branches:
       - main
@@ -32,7 +34,9 @@ on:
       - "skills/**"
       - "README.md"
       - "RELEASE_NOTES.md"
+      - "VERSION"
       - ".github/workflows/tests.yml"
+      - ".github/workflows/release.yml"
   workflow_dispatch:
   schedule:
     # Weekly run of the slow jobs (synthetic video OCR, macOS smoke) on Monday 03:17 UTC.

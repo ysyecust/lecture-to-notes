@@ -1,5 +1,30 @@
 # Release notes
 
+## v1.0.0 — 2026-09-13 — First tagged release
+
+v1.0.0 is the first release with a version number and contains everything recorded in the dated
+sections below. From here on, every release has its own `## vX.Y.Z — date — title` section, a
+matching Git tag, and a GitHub Release.
+
+### What v1.0.0 does
+
+- Turns YouTube, Bilibili, and X/Twitter lectures into reader-first Chinese LaTeX notes and a PDF,
+  with a five-stage subtitle fallback (manual CC, automatic captions, burned-in subtitle OCR, local
+  ASR, visual-only) and a one-shot delivery gate, `scripts/verify_notes.py`.
+- Crops subtitle overlays and camera-plus-slides panels measured from the video itself, so figures
+  keep their slide text readable.
+- Publishes the course library with PDF.js reading and checked HTML versions of selected lectures.
+
+### Release process
+
+- `VERSION` holds the repository version. `scripts/release_notes.py check` keeps it in step with
+  this file and runs in the unit tests.
+- Pushing a `vX.Y.Z` tag runs `.github/workflows/release.yml`: it checks the tag against `VERSION`
+  and this file, confirms the commit is on `main`, runs the Python tests, and publishes the GitHub
+  Release with this section as its notes.
+- `scripts/install_skill.sh` records `version=` next to `commit=` in `assets/INSTALLED_FROM`.
+- Version policy and maintainer steps: `docs/releasing.md`.
+
 ## 2026-09-13 — Readable figures from camera-plus-slides recordings
 
 NJU GSE 2026 Lectures 2–3 (78 figures, 1280×410) and CMU 11-768 Lectures 1–4 (143 figures,
@@ -31,8 +56,8 @@ of the page width and their text unreadable. SKILL.md required full frames and
   stacks slides above board writing when both teach.
 - Measured on 60 sampled frames per video (0.6–1.8 s each): GSE L2 slides `[546,0,1280,410]`
   (the crop starts at column 551, past the seam blur); CMU L3 slides `[0,120,1280,840]` and
-  camera `[1280,300,1920,660]`; a CppNow talk's slides `[561,167,1895,917]` beside a speaker
-  sidebar. Three full-screen Stanford CS336 lectures stay non-composite. All 199 windows of 20
+  camera `[1280,300,1920,660]`; a CppNow talk's framed slides `[556,162,1900,917]` (cropped to
+  `[561,167,1895,912]`, inside the grey border) beside a speaker sidebar. Three full-screen Stanford CS336 lectures stay non-composite. All 199 windows of 20
   consecutive frames (step 10) across these six videos match their full-video result.
 
 ### Compatibility

@@ -23,6 +23,8 @@ class InstallSkillTests(unittest.TestCase):
             self.assertTrue((installed / "SKILL.md").is_file())
             self.assertTrue((installed / "references/reader-first-writing.md").is_file())
             self.assertTrue((installed / "assets/INSTALLED_FROM").is_file())
+            version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+            self.assertIn(f"version={version}\n", (installed / "assets/INSTALLED_FROM").read_text(encoding="utf-8"))
             text = (installed / "SKILL.md").read_text(encoding="utf-8")
             references = set(re.findall(
                 re.escape(ASSETS_PLACEHOLDER) + r"/([A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*)", text))
