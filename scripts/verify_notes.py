@@ -273,9 +273,11 @@ def layout_gate(workdir: Path, report: Report) -> None:
             if all(abs(aspect / shape - 1) > PANEL_ASPECT_TOLERANCE for shape in shapes):
                 problems.append(f"{name}: {size[0]}x{size[1]} does not match panel {panel} ({x1 - x0}x{y1 - y0}); "
                                 f"crop it with frame_filter.py crop --layout layout.json --panel {panel}")
-        elif layout is None and aspect > WIDE_FIGURE:
+        elif aspect > WIDE_FIGURE:
+            advice = ("run frame_filter.py layout" if layout is None else
+                      "layout.json reports no panels; check its warnings and preview and record panels with --box")
             problems.append(f"{name}: {size[0]}x{size[1]} is wider than 2:1, likely a camera-plus-slides frame; "
-                            "run frame_filter.py layout, or set panel=full on purpose")
+                            f"{advice}, or set panel=full on purpose")
     for line in problems[:12]:
         print(f"  LAYOUT {line}")
     for name in kept_full:

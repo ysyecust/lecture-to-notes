@@ -222,34 +222,42 @@ class LayoutDetectionTests(unittest.TestCase):
         self.assertFalse(result["composite"], result)
         self.assertEqual(result["panels"], [])
 
-    def candidate(self, box, coverage, frame=(1920, 1080)):
-        return {"box": box, "coverage": coverage, "unmatched": [],
-                "inner_sides": sum((box[0] > 0, box[1] > 0, box[2] < frame[0], box[3] < frame[1])),
+    def candidate(self, box, coverage):
+        return {"box": box, "coverage": coverage,
                 "aspect_error": frame_filter.nearest_aspect(box[2] - box[0], box[3] - box[1])[1]}
 
     def test_box_borrowing_a_line_inside_the_slide_loses_to_the_framed_slide(self):
         # CppNow chapter-1 sample: the 16:10 box ends at the slide's footer rule.
         found = [self.candidate((531, 0, 1920, 869), 0.55), self.candidate((556, 162, 1900, 917), 1.0),
                  self.candidate((561, 167, 1895, 917), 0.99)]
-        main, outer = frame_filter.choose_main(found)
-        self.assertEqual(main["box"], (561, 167, 1895, 917))
-        self.assertEqual(outer, (556, 162, 1900, 917))
+        self.assertEqual(frame_filter.choose_main(found)["box"], (556, 162, 1900, 917))
 
     def test_largest_slide_wins_over_better_supported_camera_rectangles(self):
         # NJU GSE L2: blackboard lines inside the camera score higher coverage than the seam.
-        frame = (1280, 410)
-        found = [self.candidate((546, 0, 1280, 410), 0.65, frame), self.candidate((0, 0, 530, 330), 0.73, frame),
-                 self.candidate((0, 0, 537, 338), 0.50, frame)]
-        self.assertEqual(frame_filter.choose_main(found)[0]["box"], (546, 0, 1280, 410))
+        found = [self.candidate((546, 0, 1280, 410), 0.65), self.candidate((0, 0, 530, 330), 0.73),
+                 self.candidate((0, 0, 537, 338), 0.50)]
+        self.assertEqual(frame_filter.choose_main(found)["box"], (546, 0, 1280, 410))
         self.assertIsNone(frame_filter.choose_main([]))
 
-    def test_near_duplicate_touching_the_frame_edge_wins(self):
-        # NJU GSE 20-frame window: a slide line at x=1278 must not trim the slide's right margin.
-        frame = (1280, 410)
-        found = [self.candidate((546, 0, 1280, 410), 0.65, frame), self.candidate((550, 0, 1278, 410), 0.95, frame)]
-        main, outer = frame_filter.choose_main(found)
-        self.assertEqual(main["box"], (546, 0, 1280, 410))
-        self.assertEqual(outer, (546, 0, 1280, 410))
+    def test_near_duplicates_merge_into_their_outer_box(self):
+        # NJU GSE 20-frame windows: x0 546/550 and x1 1278/1280 are one panel; the inner box clipped glyphs.
+        found = [self.candidate((550, 0, 1278, 410), 0.95), self.candidate((546, 0, 1280, 410), 0.65)]
+        self.assertEqual(frame_filter.choose_main(found)["box"], (546, 0, 1280, 410))
+
+    def test_layout_shown_in_part_of_the_frames_is_reported_not_dropped(self):
+        # 30% full-screen frames in a side-by-side recording: below the consistency gate, still named.
+        full = [slide_view(180, 560, i) for i in range(9)]
+        result = frame_filter.detect_layout(side_by_side_frames(21) + full)
+        self.assertFalse(result["composite"], result)
+        self.assertTrue(result["candidates"], result)
+        self.assertTrue(any("shows in only" in w for w in result["warnings"]), result["warnings"])
+
+    def test_repeated_picture_is_warned(self):
+        frames = [side_by_side_frames(1)[0]] * 30
+        self.assertEqual(frame_filter.distinct_pictures(frames), 1)
+        result = frame_filter.detect_layout(frames)
+        if result["composite"]:
+            self.assertTrue(any("distinct pictures" in w for w in result["warnings"]), result["warnings"])
 
     def test_frame_shows_box_tolerates_an_edge_inside_a_thin_border(self):
         frame = np.full((100, 200), 30, dtype=np.uint8)
@@ -266,6 +274,10 @@ class LayoutDetectionTests(unittest.TestCase):
         self.assertTrue(any("only 6 frames" in w for w in warnings), warnings)
         self.assertTrue(any("left is larger than main" in w for w in warnings), warnings)
         self.assertEqual(frame_filter.detect_layout(side_by_side_frames())["warnings"], [])
+        repeated = frame_filter.layout_warnings(panels[:1], 30, distinct=1)
+        self.assertTrue(any("only 1 distinct pictures among 30 frames" in w for w in repeated), repeated)
+        partial = frame_filter.layout_warnings([], 60, partial={"box": (561, 167, 1895, 917), "consistency": 0.65})
+        self.assertTrue(any("shows in only 65% of frames" in w for w in partial), partial)
 
     def test_inset_moves_only_inner_edges(self):
         self.assertEqual(frame_filter.inset_box([240, 0, 560, 180], 560, 180, 3), (243, 0, 560, 180))
@@ -304,7 +316,7 @@ class LayoutCliTests(unittest.TestCase):
             out = Path(tmp) / "main.jpg"
             self.assertEqual(frame_filter.main(["crop", paths[5], "--out", str(out), "--layout", str(layout), "--panel", "main"]), 0)
             with Image.open(out) as image:
-                self.assertEqual(image.size, (main_box[2] - main_box[0] - 4, 180))
+                self.assertEqual(image.size, (main_box[2] - main_box[0] - 5, 180))
             left = Path(tmp) / "left.jpg"
             self.assertEqual(frame_filter.main(["crop", paths[5], "--out", str(left), "--layout", str(layout),
                                                 "--panel", "left", "--inset", "0"]), 0)
@@ -328,6 +340,19 @@ class LayoutCliTests(unittest.TestCase):
                     layout.write_text(content, encoding="utf-8")
                     self.assertEqual(frame_filter.main(["crop", str(src), "--out", out, "--layout", str(layout),
                                                         "--panel", "main"]), 2)
+
+    def test_layout_reports_frames_of_another_size(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = self.write_frames(tmp, side_by_side_frames(22))
+            for index in range(3):
+                path = Path(tmp) / f"other_{index}.png"
+                Image.fromarray(dark_frame()).save(path)
+                paths.append(str(path))
+            layout = Path(tmp) / "layout.json"
+            with contextlib.redirect_stderr(io.StringIO()), contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(frame_filter.main(["layout", *paths, "--json", str(layout)]), 0)
+            warnings = json.loads(layout.read_text(encoding="utf-8"))["warnings"]
+            self.assertTrue(any("3 frames are not 560x180" in w for w in warnings), warnings)
 
     def test_crop_repeats_layout_warnings(self):
         with tempfile.TemporaryDirectory() as tmp:

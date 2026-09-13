@@ -641,7 +641,10 @@ python3 "/ABSOLUTE/PATH/TO/lecture-to-notes/assets/frame_filter.py" crop frames/
 Read `layout.json` before selecting figures:
 
 - `composite: false` — the video is one picture (full-screen slides, camera, or screen);
-  crop overlays only.
+  crop overlays only. When `warnings` names a panel that shows in only part of the frames,
+  the recording switches layouts: open the preview (grey `candidate` boxes) and record the
+  panels with `--box`. A layout present in fewer than half of the sampled frames is not
+  detected at all; the contact sheet shows it, and `--box` records it.
 - `composite: true` — open `layout_preview.png`. `main` is the largest screen-shaped panel
   (16:9, 16:10, or 4:3) and was the slide panel in all three composites measured on
   2026-09-13; `left`/`right`/`top`/`bottom` hold what remains beside it. When a box misses
@@ -649,8 +652,8 @@ Read `layout.json` before selecting figures:
   `frame_filter.py layout frames/*.png --box main=X0,Y0,X1,Y1 --box left=X0,Y0,X1,Y1 --json layout.json`.
   A `consistency` below 0.9 lists `unmatched_frames` whose layout differs (a full-screen
   demo, a transition); view those frames before cropping them. Each entry in `warnings`
-  (fewer than 20 sampled frames, or a remaining panel larger than `main`) means the same:
-  confirm the boxes on the preview before any crop.
+  (fewer than 20 sampled frames or distinct pictures, a remaining panel larger than `main`,
+  frames of another size) means the same: confirm the boxes on the preview before any crop.
 
 Decide per figure after reading the full-resolution frame:
 
@@ -891,8 +894,8 @@ line each, ending with `OVERALL PASS` or `OVERALL FAIL`:
   all `ok`; `numerical_claims.tsv` all `in_notes=yes`;
 - **artifacts** — `figure_manifest.tsv`, `figure_verification.txt`, `audio.srt` non-empty;
 - **layout** — every `figure_manifest.tsv` image against `layout.json`: in a composite video
-  it names a panel and matches that panel's shape; without `layout.json`, no figure is wider
-  than 2:1;
+  it names a panel and matches that panel's shape; unless `layout.json` reports panels, no
+  figure is wider than 2:1 without `panel=full`;
 - **compile log** — no `!` errors, no `Missing character`, no undefined references, no
   `invalid in math mode`, no `Overfull \hbox` above the threshold;
 - **figures** — every `\includegraphics` file exists, every video frame has a time

@@ -15,27 +15,36 @@ of the page width and their text unreadable. SKILL.md required full frames and
   rule) loses to the framed slide. A candidate's edges must also show in at least 80% of the
   single frames, so lines that only add up across frames (camera texture, a moving presenter)
   never form a panel. `--preview` draws the panels on a pixel ruler, `--box`
-  records panels measured by eye, `consistency` lists frames whose layout differs, and
-  `warnings` flags fewer than 20 sampled frames or a remaining panel larger than `main`.
-- `frame_filter.py crop --layout layout.json --panel main` keeps one panel, 4 px inside every
+  records panels measured by eye, and `consistency` lists frames whose layout differs.
+  `warnings` flags fewer than 20 sampled frames or distinct pictures, a remaining panel larger
+  than `main`, frames of another size, and a panel that shows in only 30–80% of the frames (a
+  recording that switches to full-screen for a while); the preview draws such candidates.
+- `frame_filter.py crop --layout layout.json --panel main` keeps one panel, 5 px inside every
   inner edge so a blurred seam or a thin frame border stays out of the figure, and repeats the
   layout's `warnings` on stderr.
 - `scripts/verify_notes.py` fails a manifest figure that does not match its declared panel, a
   composite-video figure without a `panel`, a malformed `layout.json`, and any figure wider
-  than 2:1 when no `layout.json` exists. `panel=full` keeps a whole frame on purpose.
+  than 2:1 unless `layout.json` reports panels. `panel=full` keeps a whole frame on purpose.
 - SKILL.md Phase 2 measures the layout for every video, chooses a panel per figure, and
   stacks slides above board writing when both teach.
 - Measured on 60 sampled frames per video (0.6–1.8 s each): GSE L2 slides `[546,0,1280,410]`
-  (the crop starts at column 550, past the seam blur); CMU L3 slides `[0,120,1280,840]` and
+  (the crop starts at column 551, past the seam blur); CMU L3 slides `[0,120,1280,840]` and
   camera `[1280,300,1920,660]`; a CppNow talk's slides `[561,167,1895,917]` beside a speaker
   sidebar. Three full-screen Stanford CS336 lectures stay non-composite. All 199 windows of 20
   consecutive frames (step 10) across these six videos match their full-video result.
 
 ### Compatibility
 
-- A workdir whose manifest figures are wider than 2:1 now fails `verify_notes.py` until it has
-  a `layout.json` or marks those figures `panel=full`. Published PDFs are unchanged; re-cropping
-  the 221 affected figures is separate content work.
+- A workdir whose manifest figures are wider than 2:1 now fails `verify_notes.py` until its
+  `layout.json` reports panels or those figures are marked `panel=full`. Published PDFs are
+  unchanged; re-cropping the 221 affected figures is separate content work.
+
+### Known limits
+
+- A layout present in fewer than half of the sampled frames is not detected; contact-sheet review
+  and `--box` cover it.
+- A dark slide on a black letterbox hides the slide edge. On six such CMU frames alone the camera
+  becomes `main`, and both `layout` and `crop` warn.
 
 ## 2026-09-11 — Web and PDF reading
 

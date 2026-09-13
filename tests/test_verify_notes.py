@@ -193,6 +193,13 @@ class LayoutGateTests(unittest.TestCase):
                 code, out = run(workdir)
                 self.assertEqual(code, 0, out)
 
+    def test_wide_figure_fails_when_layout_reports_no_panels(self):
+        single = {"width": 1280, "height": 410, "composite": False, "panels": []}
+        with tempfile.TemporaryDirectory() as tmp:
+            code, out = run(self.workdir(tmp, [("wide.jpg", (1280, 410), "")], single))
+        self.assertEqual(code, 1, out)
+        self.assertIn("layout.json reports no panels", out)
+
     def test_single_picture_figure_without_layout_passes(self):
         with tempfile.TemporaryDirectory() as tmp:
             code, out = run(self.workdir(tmp, [("slide.jpg", (1920, 1080), "")]))
