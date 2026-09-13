@@ -125,5 +125,169 @@ class CliTests(unittest.TestCase):
             self.assertFalse(rows["slide.jpg"]["talking_head"])
 
 
+def camera_view(height, width, i, seed):
+    """Static camera: noisy wall, a dark board with a persistent frame and chalk tray, a moving body."""
+    noise = np.random.default_rng(seed + i)
+    view = noise.integers(40, 70, size=(height, width)).astype(np.uint8)
+    view[int(height * 0.11):int(height * 0.72), 8:width - 8] = noise.integers(5, 20, size=(int(height * 0.72) - int(height * 0.11), width - 16))
+    view[int(height * 0.72):int(height * 0.75), 4:width - 4] = 160
+    x = 10 + (i * 17) % max(1, width - 50)
+    view[int(height * 0.4):, x:x + 30] = 150
+    return view
+
+
+def slide_view(height, width, i):
+    """Slides that turn every four frames: light page, dark title bar, text lines."""
+    page = np.random.default_rng(100 + i // 4)
+    view = np.full((height, width), 245, dtype=np.uint8)
+    view[: max(4, height // 10), :] = 90
+    for k in range(5):
+        y = height // 5 + k * height // 7
+        x = int(page.integers(8, width // 5))
+        view[y:y + 6, x:min(width, x + int(page.integers(width // 3, width - x)))] = 30
+    return view
+
+
+def side_by_side_frames(count=24):
+    """GSE-like 560×180 frame: 4:3 camera left, 16:9 slides right, a blurred grey seam."""
+    frames = []
+    for i in range(count):
+        frame = np.zeros((180, 560), dtype=np.uint8)
+        frame[:, :240] = camera_view(180, 240, i, 1)
+        frame[:, 240:] = slide_view(180, 320, i)
+        frame[:, 238:241] = 120
+        frames.append(frame)
+    return frames
+
+
+def letterboxed_frames(count=24):
+    """CMU-like 480×240 frame: 16:9 slides at y=30, a 16:9 camera at the right, black elsewhere."""
+    frames = []
+    for i in range(count):
+        frame = np.random.default_rng(900 + i).integers(0, 3, size=(240, 480)).astype(np.uint8)
+        frame[30:210, 0:320] = slide_view(180, 320, i)
+        frame[75:165, 320:480] = camera_view(90, 160, i, 2)
+        frames.append(frame)
+    return frames
+
+
+def sidebar_frames(count=24):
+    """CppNow-like 16:9 480×270 frame: a speaker sidebar left, 16:9 slides inset on dark grey."""
+    frames = []
+    for i in range(count):
+        frame = np.random.default_rng(700 + i).integers(28, 31, size=(270, 480)).astype(np.uint8)
+        frame[20:200, 0:120] = camera_view(180, 120, i, 3)
+        frame[40:229, 132:468] = slide_view(189, 336, i)
+        frames.append(frame)
+    return frames
+
+
+def fullscreen_frames(count=16):
+    return [slide_view(180, 320, i) for i in range(count)]
+
+
+def panel(result, name):
+    return next(p for p in result["panels"] if p["name"] == name)
+
+
+class LayoutDetectionTests(unittest.TestCase):
+    def assertBoxNear(self, box, expected, slack=3):
+        for got, want in zip(box, expected):
+            self.assertLessEqual(abs(got - want), slack, f"{box} vs {expected}")
+
+    def test_side_by_side_slides_win_over_camera_rectangles(self):
+        result = frame_filter.detect_layout(side_by_side_frames())
+        self.assertTrue(result["composite"], result)
+        self.assertBoxNear(panel(result, "main")["box"], [240, 0, 560, 180])
+        self.assertBoxNear(panel(result, "left")["box"], [0, 0, 240, 180])
+        self.assertEqual(result["consistency"], 1.0)
+
+    def test_letterbox_is_trimmed_from_main_and_strip(self):
+        result = frame_filter.detect_layout(letterboxed_frames())
+        self.assertTrue(result["composite"], result)
+        self.assertBoxNear(panel(result, "main")["box"], [0, 30, 320, 210])
+        self.assertBoxNear(panel(result, "right")["box"], [320, 75, 480, 165])
+        self.assertEqual({p["name"] for p in result["panels"]}, {"main", "right"})
+
+    def test_sidebar_inside_a_16_9_frame_is_found(self):
+        result = frame_filter.detect_layout(sidebar_frames())
+        self.assertTrue(result["composite"], result)
+        self.assertBoxNear(panel(result, "main")["box"], [132, 40, 468, 229])
+        self.assertIn("left", {p["name"] for p in result["panels"]})
+
+    def test_full_screen_slides_are_not_composite(self):
+        result = frame_filter.detect_layout(fullscreen_frames())
+        self.assertFalse(result["composite"], result)
+        self.assertEqual(result["panels"], [])
+
+    def test_inset_moves_only_inner_edges(self):
+        self.assertEqual(frame_filter.inset_box([240, 0, 560, 180], 560, 180, 3), (243, 0, 560, 180))
+        self.assertEqual(frame_filter.inset_box([0, 30, 320, 210], 480, 240, 3), (0, 33, 317, 207))
+        with self.assertRaises(ValueError):
+            frame_filter.inset_box([10, 10, 14, 14], 100, 100, 3)
+
+    def test_manual_boxes_are_validated(self):
+        layout = frame_filter.manual_layout(560, 180, ["main=240,0,560,180", "left=0,0,240,180"])
+        self.assertEqual(layout["source"], "manual")
+        self.assertTrue(layout["composite"])
+        for bad in (["main=240,0,600,180"], ["main=1,2,3"], ["main=0,0,10,10", "main=0,0,20,20"]):
+            with self.assertRaises(ValueError):
+                frame_filter.manual_layout(560, 180, bad)
+
+
+class LayoutCliTests(unittest.TestCase):
+    def write_frames(self, tmp, frames):
+        paths = []
+        for index, frame in enumerate(frames):
+            path = Path(tmp) / f"f_{index:03d}.png"
+            Image.fromarray(frame).save(path)
+            paths.append(str(path))
+        return paths
+
+    def test_layout_then_crop_main_and_left(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = self.write_frames(tmp, side_by_side_frames())
+            layout = Path(tmp) / "layout.json"
+            preview = Path(tmp) / "preview.png"
+            self.assertEqual(frame_filter.main(["layout", *paths, "--json", str(layout), "--preview", str(preview)]), 0)
+            result = json.loads(layout.read_text(encoding="utf-8"))
+            self.assertTrue(preview.is_file())
+            self.assertEqual(result["unmatched_count"], 0)
+            main_box = panel(result, "main")["box"]
+            out = Path(tmp) / "main.jpg"
+            self.assertEqual(frame_filter.main(["crop", paths[5], "--out", str(out), "--layout", str(layout), "--panel", "main"]), 0)
+            with Image.open(out) as image:
+                self.assertEqual(image.size, (main_box[2] - main_box[0] - 3, 180))
+            left = Path(tmp) / "left.jpg"
+            self.assertEqual(frame_filter.main(["crop", paths[5], "--out", str(left), "--layout", str(layout),
+                                                "--panel", "left", "--inset", "0"]), 0)
+            with Image.open(left) as image:
+                self.assertEqual(image.size[1], 180)
+
+    def test_crop_rejects_unknown_panel_and_other_frame_sizes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            layout = Path(tmp) / "layout.json"
+            layout.write_text(json.dumps(frame_filter.manual_layout(560, 180, ["main=240,0,560,180"])), encoding="utf-8")
+            src = Path(tmp) / "frame.png"
+            Image.fromarray(side_by_side_frames(1)[0]).save(src)
+            other = Path(tmp) / "other.png"
+            Image.fromarray(dark_frame()).save(other)
+            out = str(Path(tmp) / "c.jpg")
+            self.assertEqual(frame_filter.main(["crop", str(src), "--out", out, "--layout", str(layout), "--panel", "board"]), 2)
+            self.assertEqual(frame_filter.main(["crop", str(other), "--out", out, "--layout", str(layout), "--panel", "main"]), 2)
+            self.assertEqual(frame_filter.main(["crop", str(src), "--out", out, "--panel", "main"]), 2)
+
+    def test_manual_box_cli_records_panels(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = self.write_frames(tmp, side_by_side_frames(2))
+            layout = Path(tmp) / "layout.json"
+            code = frame_filter.main(["layout", *paths, "--box", "main=241,0,560,180", "--box", "left=0,0,238,180",
+                                      "--json", str(layout)])
+            self.assertEqual(code, 0)
+            result = json.loads(layout.read_text(encoding="utf-8"))
+            self.assertEqual([p["name"] for p in result["panels"]], ["main", "left"])
+            self.assertEqual(frame_filter.main(["layout", *paths, "--box", "main=241,0,999,180"]), 2)
+
+
 if __name__ == "__main__":
     unittest.main()

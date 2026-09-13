@@ -1,5 +1,35 @@
 # Release notes
 
+## 2026-09-13 — Readable figures from camera-plus-slides recordings
+
+NJU GSE 2026 Lectures 2–3 (78 figures, 1280×410) and CMU 11-768 Lectures 1–4 (143 figures,
+1920×840) printed camera-plus-slides frames at full page width, which left the slides 57–67%
+of the page width and their text unreadable. SKILL.md required full frames and
+`frame_filter.py crop` could only remove rows, so no step could split such a frame.
+
+- `scripts/frame_filter.py layout` measures the panels of one video from its dense frame
+  sample. The main panel is the largest 16:9, 16:10, or 4:3 rectangle whose inner sides are
+  persistent edges after black letterbox is trimmed; what remains beside it becomes
+  `left`/`right`/`top`/`bottom`. `--preview` draws the panels on a pixel ruler, `--box`
+  records panels measured by eye, and `consistency` lists frames whose layout differs.
+- `frame_filter.py crop --layout layout.json --panel main` keeps one panel, 3 px inside every
+  inner edge so the blurred seam stays out of the figure.
+- `scripts/verify_notes.py` fails a manifest figure that does not match its declared panel, a
+  composite-video figure without a `panel`, and any figure wider than 2:1 when no
+  `layout.json` exists. `panel=full` keeps a whole frame on purpose.
+- SKILL.md Phase 2 measures the layout for every video, chooses a panel per figure, and
+  stacks slides above board writing when both teach.
+- Measured on 60 sampled frames per video (0.6–1.8 s each): GSE L2 slides `[546,0,1280,410]`
+  (the crop starts at column 549, past the seam blur); CMU L3 slides `[0,120,1280,840]` and
+  camera `[1280,300,1920,660]`; a CppNow talk's slides `[561,167,1895,917]` beside a speaker
+  sidebar. Three full-screen Stanford CS336 lectures stay non-composite.
+
+### Compatibility
+
+- A workdir whose manifest figures are wider than 2:1 now fails `verify_notes.py` until it has
+  a `layout.json` or marks those figures `panel=full`. Published PDFs are unchanged; re-cropping
+  the 221 affected figures is separate content work.
+
 ## 2026-09-11 — Web and PDF reading
 
 - Added a compact dual-format reader with a collapsible outline, focus mode, font

@@ -221,6 +221,19 @@ class XSupportDocumentationTests(unittest.TestCase):
         self.assertIn("no automatic cropping", self.skill.lower())
         self.assertIn("optional and experimental", self.skill)
 
+    def test_skill_documents_composite_panel_crops(self):
+        for text in (
+            f'python3 "{ASSETS_PLACEHOLDER}/frame_filter.py" layout frames/*.png',
+            "--layout layout.json --panel main",
+            "| `layout.json` |",
+            "figure\\tframe\\tstart\\tend\\ttopic\\tpanel",
+            "Never place a side-by-side composite at `\\textwidth`",
+            "- **layout** —",
+        ):
+            with self.subTest(text=text):
+                self.assertIn(text, self.skill)
+        self.assertIn("camera-plus-slides", self.openai)
+
 
 class PackagedSkillSmokeTests(unittest.TestCase):
     def test_literal_asset_references_exist_after_install(self):

@@ -1,4 +1,4 @@
 interface:
   display_name: "Lecture to Notes"
   short_description: "Create source-faithful, reader-first lecture notes."
-  default_prompt: "Use $lecture-to-notes for this YouTube, Bilibili, or X(Twitter) lecture URL to create source-faithful, reader-first Chinese notes with verified full-frame figures, contact-sheet review, and validated local ASR with Whisper fallback, without transcript or quota filler."
+  default_prompt: "Use $lecture-to-notes for this YouTube, Bilibili, or X(Twitter) lecture URL to create source-faithful, reader-first Chinese notes with verified full-frame figures (one measured panel for camera-plus-slides composites), contact-sheet review, and validated local ASR with Whisper fallback, without transcript or quota filler."

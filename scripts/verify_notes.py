@@ -12,6 +12,10 @@ Checks:
   artifacts   figure_manifest.tsv, figure_verification.txt, audio.srt non-empty
   log         `!` errors, Missing character, undefined references, `invalid in math
               mode`, Overfull \\hbox above --overfull-pt
+  layout      figure_manifest.tsv against layout.json: in a composite recording every
+              figure names a measured panel (or `full`) and matches that panel's
+              aspect; without layout.json a figure wider than 2:1 fails as a probable
+              uncropped camera-plus-slides frame
   figures     every \\includegraphics file exists
   provenance  every figure's time footnote (\\footnotetext{视频画面时间区间：…} or
               \\srcnote{…}) lands on the same PDF page as its caption
@@ -26,6 +30,7 @@ import argparse
 import json
 import re
 import shutil
+import struct
 import subprocess
 import sys
 from pathlib import Path
@@ -141,6 +146,103 @@ def artifact_gate(workdir: Path, report: Report) -> None:
             report.emit("PASS", f"{name} present")
         else:
             report.emit("FAIL", f"{name} missing or empty")
+
+
+# ---------------------------------------------------------------- figure layout
+WIDE_FIGURE = 2.0
+PANEL_ASPECT_TOLERANCE = 0.03
+
+
+def image_size(path: Path) -> tuple[int, int] | None:
+    """Width and height of a PNG or JPEG read from its header, without an imaging library."""
+    try:
+        with path.open("rb") as handle:
+            head = handle.read(24)
+            if head.startswith(b"\x89PNG\r\n\x1a\n") and len(head) == 24:
+                return struct.unpack(">II", head[16:24])
+            if not head.startswith(b"\xff\xd8"):
+                return None
+            handle.seek(2)
+            while True:
+                if handle.read(1) != b"\xff":
+                    return None
+                marker = handle.read(1)
+                while marker == b"\xff":  # fill bytes
+                    marker = handle.read(1)
+                if not marker:
+                    return None
+                code = marker[0]
+                if code == 0x01 or 0xD0 <= code <= 0xD8:  # markers without a length
+                    continue
+                length = handle.read(2)
+                if len(length) < 2:
+                    return None
+                if 0xC0 <= code <= 0xCF and code not in (0xC4, 0xC8, 0xCC):  # start of frame
+                    frame = handle.read(5)
+                    if len(frame) < 5:
+                        return None
+                    height, width = struct.unpack(">HH", frame[1:5])
+                    return width, height
+                handle.seek(struct.unpack(">H", length)[0] - 2, 1)
+    except OSError:
+        return None
+
+
+def manifest_rows(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+    lines = path.read_text(encoding="utf-8").splitlines()
+    header = lines[0].split("\t") if lines else []
+    if "figure" not in header:
+        return []
+    return [dict(zip(header, line.split("\t"))) for line in lines[1:] if line.strip()]
+
+
+def layout_gate(workdir: Path, report: Report) -> None:
+    rows = manifest_rows(workdir / "figure_manifest.tsv")
+    if not rows:
+        report.emit("SKIP", "figure layout check (figure_manifest.tsv has no `figure` column)")
+        return
+    layout_path = workdir / "layout.json"
+    layout = json.loads(layout_path.read_text(encoding="utf-8")) if layout_path.exists() else None
+    panels = {panel["name"]: panel["box"] for panel in (layout or {}).get("panels", [])}
+    composite = bool(layout and layout.get("composite") and panels)
+    frame_height = int(layout.get("height", 0)) if layout else 0
+    bands_path = workdir / "bands.json"
+    crop_bottom = int(json.loads(bands_path.read_text(encoding="utf-8")).get("crop_bottom", 0)) if bands_path.exists() else 0
+    problems, kept_full = [], []
+    for row in rows:
+        name = row.get("figure", "").strip()
+        path = next((p for p in (workdir / name, workdir / "figures" / name) if name and p.is_file()), None)
+        size = image_size(path) if path else None
+        if not size or not size[1]:
+            problems.append(f"{name}: image missing or unreadable")
+            continue
+        aspect = size[0] / size[1]
+        panel = (row.get("panel") or "").strip()
+        if panel == "full":
+            kept_full.append(name)
+        elif composite and panel not in panels:
+            problems.append(f"{name}: `panel` must name one of {', '.join(panels)} or full (got {panel or 'nothing'})")
+        elif composite:
+            x0, y0, x1, y1 = panels[panel]
+            if crop_bottom and frame_height:
+                y1 = min(y1, frame_height - crop_bottom)
+            if abs(aspect / ((x1 - x0) / max(1, y1 - y0)) - 1) > PANEL_ASPECT_TOLERANCE:
+                problems.append(f"{name}: {size[0]}x{size[1]} does not match panel {panel} ({x1 - x0}x{y1 - y0}); "
+                                f"crop it with frame_filter.py crop --layout layout.json --panel {panel}")
+        elif layout is None and aspect > WIDE_FIGURE:
+            problems.append(f"{name}: {size[0]}x{size[1]} is wider than 2:1, likely a camera-plus-slides frame; "
+                            "run frame_filter.py layout, or set panel=full on purpose")
+    for line in problems[:12]:
+        print(f"  LAYOUT {line}")
+    for name in kept_full:
+        print(f"  FULL {name}: panel=full keeps the whole frame")
+    if problems:
+        report.emit("FAIL", f"{len(problems)} manifest figures not cropped to a measured panel")
+    else:
+        kept = f" ({len(kept_full)} kept full on purpose)" if kept_full else ""
+        report.emit("PASS", f"{len(rows)} manifest figures fit the frame layout{kept}")
 
 
 # ---------------------------------------------------------------- compile log
@@ -266,6 +368,7 @@ def main(argv=None) -> int:
     report = Report()
     density_gate(workdir, report)
     artifact_gate(workdir, report)
+    layout_gate(workdir, report)
     tex_path = workdir / args.tex
     if not args.skip_log:
         log_gate(workdir / args.log, args.overfull_pt, report)
