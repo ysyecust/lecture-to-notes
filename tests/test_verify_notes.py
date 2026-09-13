@@ -147,7 +147,17 @@ class LayoutGateTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             code, out = run(self.workdir(tmp, [("wide.jpg", (1280, 410), "main")], COMPOSITE))
         self.assertEqual(code, 1, out)
-        self.assertIn("does not match panel main", out)
+        self.assertIn("is not panel main", out)
+
+    def test_uncropped_16_9_frame_does_not_pass_as_a_16_9_panel(self):
+        # CppNow: the whole 1920x1080 frame and the slide panel are both 16:9.
+        layout = {"width": 1920, "height": 1080, "composite": True,
+                  "panels": [{"name": "main", "box": [556, 162, 1900, 917]}, {"name": "left", "box": [0, 0, 556, 1080]}]}
+        cases = (((1920, 1080), 1), ((635, 350), 1), ((1334, 745), 0))
+        for size, expected in cases:
+            with self.subTest(size=size), tempfile.TemporaryDirectory() as tmp:
+                code, out = run(self.workdir(tmp, [("slide.jpg", size, "main")], layout))
+                self.assertEqual(code, expected, out)
 
     def test_panel_crops_pass(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -168,11 +178,11 @@ class LayoutGateTests(unittest.TestCase):
         self.assertEqual(code, 0, out)
         self.assertIn("FULL figures/wide.jpg", out)
 
-    def test_wide_figure_without_layout_fails(self):
+    def test_manifest_figures_need_layout_json(self):
         with tempfile.TemporaryDirectory() as tmp:
-            code, out = run(self.workdir(tmp, [("wide.jpg", (1280, 410), "")]))
+            code, out = run(self.workdir(tmp, [("slide.jpg", (1920, 1080), "")]))
         self.assertEqual(code, 1, out)
-        self.assertIn("wider than 2:1", out)
+        self.assertIn("layout.json missing", out)
 
     def test_invalid_layout_json_fails_without_crashing(self):
         bad_box = json.dumps({**COMPOSITE, "panels": [{"name": "main", "box": "1234"}]})
@@ -193,16 +203,25 @@ class LayoutGateTests(unittest.TestCase):
                 code, out = run(workdir)
                 self.assertEqual(code, 0, out)
 
-    def test_wide_figure_fails_when_layout_reports_no_panels(self):
-        single = {"width": 1280, "height": 410, "composite": False, "panels": []}
+    def test_wide_figure_fails_only_when_layout_names_partial_candidates(self):
+        partial = {"width": 1280, "height": 410, "composite": False, "panels": [],
+                   "candidates": [{"box": [546, 0, 1280, 410], "consistency": 0.65}],
+                   "warnings": ["panel [546, 0, 1280, 410] shows in only 65% of frames"]}
         with tempfile.TemporaryDirectory() as tmp:
-            code, out = run(self.workdir(tmp, [("wide.jpg", (1280, 410), "")], single))
+            code, out = run(self.workdir(tmp, [("wide.jpg", (1280, 410), "")], partial))
         self.assertEqual(code, 1, out)
-        self.assertIn("layout.json reports no panels", out)
-
-    def test_single_picture_figure_without_layout_passes(self):
+        self.assertIn("names partial panel candidates", out)
+        self.assertIn("WARN layout.json: panel [546, 0, 1280, 410] shows in only 65% of frames", out)
+        # A single-picture video with a tall subtitle crop can be wider than 2:1 on its own.
+        single = {"width": 1920, "height": 1080, "composite": False, "panels": []}
         with tempfile.TemporaryDirectory() as tmp:
-            code, out = run(self.workdir(tmp, [("slide.jpg", (1920, 1080), "")]))
+            code, out = run(self.workdir(tmp, [("subtitled.jpg", (1920, 890), "")], single))
+        self.assertEqual(code, 0, out)
+
+    def test_single_picture_figure_with_layout_passes(self):
+        single = {"width": 1920, "height": 1080, "composite": False, "panels": []}
+        with tempfile.TemporaryDirectory() as tmp:
+            code, out = run(self.workdir(tmp, [("slide.jpg", (1920, 1080), "")], single))
         self.assertEqual(code, 0, out)
 
     def test_image_size_reads_png_and_jpeg_headers(self):

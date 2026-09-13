@@ -22,9 +22,11 @@ of the page width and their text unreadable. SKILL.md required full frames and
 - `frame_filter.py crop --layout layout.json --panel main` keeps one panel, 5 px inside every
   inner edge so a blurred seam or a thin frame border stays out of the figure, and repeats the
   layout's `warnings` on stderr.
-- `scripts/verify_notes.py` fails a manifest figure that does not match its declared panel, a
-  composite-video figure without a `panel`, a malformed `layout.json`, and any figure wider
-  than 2:1 unless `layout.json` reports panels. `panel=full` keeps a whole frame on purpose.
+- `scripts/verify_notes.py` requires `layout.json` once the manifest lists figures. It fails a
+  figure that does not keep its declared panel's pixel size (so an uncropped 16:9 frame cannot
+  pass as a 16:9 panel), a composite-video figure without a `panel`, a malformed `layout.json`,
+  and a figure wider than 2:1 while `layout.json` names partial candidates, and it prints the
+  layout's warnings. `panel=full` keeps a whole frame on purpose.
 - SKILL.md Phase 2 measures the layout for every video, chooses a panel per figure, and
   stacks slides above board writing when both teach.
 - Measured on 60 sampled frames per video (0.6–1.8 s each): GSE L2 slides `[546,0,1280,410]`
@@ -35,16 +37,18 @@ of the page width and their text unreadable. SKILL.md required full frames and
 
 ### Compatibility
 
-- A workdir whose manifest figures are wider than 2:1 now fails `verify_notes.py` until its
-  `layout.json` reports panels or those figures are marked `panel=full`. Published PDFs are
-  unchanged; re-cropping the 221 affected figures is separate content work.
+- `verify_notes.py` now fails a workdir whose manifest lists figures but has no `layout.json`;
+  running `frame_filter.py layout` once fixes that, and `composite: false` is a valid result.
+  Published PDFs are unchanged; re-cropping the 221 affected figures is separate content work.
 
 ### Known limits
 
 - A layout present in fewer than half of the sampled frames is not detected; contact-sheet review
   and `--box` cover it.
 - A dark slide on a black letterbox hides the slide edge. On six such CMU frames alone the camera
-  becomes `main`, and both `layout` and `crop` warn.
+  becomes `main`, and `layout`, `crop`, and `verify_notes.py` print the warning.
+- Counting distinct pictures assumes compression-level noise between frames (0.3–0.5 grey levels
+  measured on static stretches); a static stretch with 5–10× that noise can pass for varied frames.
 
 ## 2026-09-11 — Web and PDF reading
 

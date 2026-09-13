@@ -12,10 +12,10 @@ Checks:
   artifacts   figure_manifest.tsv, figure_verification.txt, audio.srt non-empty
   log         `!` errors, Missing character, undefined references, `invalid in math
               mode`, Overfull \\hbox above --overfull-pt
-  layout      figure_manifest.tsv against layout.json: in a composite recording every
-              figure names a measured panel (or `full`) and matches that panel's
-              aspect; without layout.json a figure wider than 2:1 fails as a probable
-              uncropped camera-plus-slides frame
+  layout      figure_manifest.tsv against layout.json, which must exist once the manifest
+              lists figures: in a composite recording every figure names a measured panel
+              (or `full`) and keeps that panel's pixel size; when layout.json reports no
+              panels but names partial candidates, a figure wider than 2:1 fails
   figures     every \\includegraphics file exists
   provenance  every figure's time footnote (\\footnotetext{视频画面时间区间：…} or
               \\srcnote{…}) lands on the same PDF page as its caption
@@ -150,7 +150,7 @@ def artifact_gate(workdir: Path, report: Report) -> None:
 
 # ---------------------------------------------------------------- figure layout
 WIDE_FIGURE = 2.0
-PANEL_ASPECT_TOLERANCE = 0.03
+MAX_INSET = 16  # pixels a panel crop may move inside each edge (frame_filter.py crop --inset)
 
 
 def image_size(path: Path) -> tuple[int, int] | None:
@@ -231,20 +231,24 @@ def layout_gate(workdir: Path, report: Report) -> None:
         report.emit("SKIP", "figure layout check (figure_manifest.tsv has no `figure` column)")
         return
     layout_path = workdir / "layout.json"
-    layout = None
-    if layout_path.exists():
-        try:
-            layout = json.loads(layout_path.read_text(encoding="utf-8"))
-        except (OSError, ValueError) as error:
-            report.emit("FAIL", f"layout.json unreadable: {error}")
-            return
-        problem = layout_problem(layout)
-        if problem:
-            report.emit("FAIL", f"layout.json {problem}; rerun frame_filter.py layout")
-            return
-    panels = {panel["name"]: panel["box"] for panel in layout["panels"]} if layout else {}
-    composite = bool(layout and layout["composite"])
-    frame_height = layout["height"] if layout else 0
+    if not layout_path.exists():
+        report.emit("FAIL", "layout.json missing; run frame_filter.py layout (composite: false is a valid result)")
+        return
+    try:
+        layout = json.loads(layout_path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as error:
+        report.emit("FAIL", f"layout.json unreadable: {error}")
+        return
+    problem = layout_problem(layout)
+    if problem:
+        report.emit("FAIL", f"layout.json {problem}; rerun frame_filter.py layout")
+        return
+    for warning in layout.get("warnings") or []:
+        print(f"  WARN layout.json: {warning}")
+    panels = {panel["name"]: panel["box"] for panel in layout["panels"]}
+    composite = layout["composite"]
+    candidates = not composite and bool(layout.get("candidates"))
+    frame_height = layout["height"]
     crop_bottom = 0
     try:
         crop_bottom = int(json.loads((workdir / "bands.json").read_text(encoding="utf-8")).get("crop_bottom", 0))
@@ -265,19 +269,19 @@ def layout_gate(workdir: Path, report: Report) -> None:
         elif composite and panel not in panels:
             problems.append(f"{name}: `panel` must name one of {', '.join(panels)} or full (got {panel or 'nothing'})")
         elif composite:
+            # Compare pixel sizes, not shapes: an uncropped 16:9 frame has the shape of a 16:9
+            # slide panel. The figure may or may not have gone through the bands.json crop.
             x0, y0, x1, y1 = panels[panel]
-            # The figure may or may not also have gone through the bands.json bottom crop.
-            shapes = [(x1 - x0) / (y1 - y0)]
+            width, heights = x1 - x0, [y1 - y0]
             if crop_bottom and y0 < frame_height - crop_bottom < y1:
-                shapes.append((x1 - x0) / (frame_height - crop_bottom - y0))
-            if all(abs(aspect / shape - 1) > PANEL_ASPECT_TOLERANCE for shape in shapes):
-                problems.append(f"{name}: {size[0]}x{size[1]} does not match panel {panel} ({x1 - x0}x{y1 - y0}); "
-                                f"crop it with frame_filter.py crop --layout layout.json --panel {panel}")
-        elif aspect > WIDE_FIGURE:
-            advice = ("run frame_filter.py layout" if layout is None else
-                      "layout.json reports no panels; check its warnings and preview and record panels with --box")
-            problems.append(f"{name}: {size[0]}x{size[1]} is wider than 2:1, likely a camera-plus-slides frame; "
-                            f"{advice}, or set panel=full on purpose")
+                heights.append(frame_height - crop_bottom - y0)
+            slack = 2 * MAX_INSET
+            if not (width - slack <= size[0] <= width and any(h - slack <= size[1] <= h for h in heights)):
+                problems.append(f"{name}: {size[0]}x{size[1]} is not panel {panel} ({width}x{heights[0]} less its inset); "
+                                f"crop it with frame_filter.py crop --layout layout.json --panel {panel} and keep its pixel size")
+        elif candidates and aspect > WIDE_FIGURE:
+            problems.append(f"{name}: {size[0]}x{size[1]} is wider than 2:1 while layout.json names partial panel "
+                            "candidates; check the preview and record panels with --box, or set panel=full on purpose")
     for line in problems[:12]:
         print(f"  LAYOUT {line}")
     for name in kept_full:

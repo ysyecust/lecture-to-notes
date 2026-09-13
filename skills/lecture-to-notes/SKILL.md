@@ -893,9 +893,9 @@ line each, ending with `OVERALL PASS` or `OVERALL FAIL`:
   duration: CJK, figure, section, box, and display-math floors; `teaching_atoms.tsv`
   all `ok`; `numerical_claims.tsv` all `in_notes=yes`;
 - **artifacts** — `figure_manifest.tsv`, `figure_verification.txt`, `audio.srt` non-empty;
-- **layout** — every `figure_manifest.tsv` image against `layout.json`: in a composite video
-  it names a panel and matches that panel's shape; unless `layout.json` reports panels, no
-  figure is wider than 2:1 without `panel=full`;
+- **layout** — every `figure_manifest.tsv` image against `layout.json`, which must exist: in a
+  composite video it names a panel and keeps that panel's pixel size (crop, never resize); when
+  `layout.json` names partial candidates, no figure is wider than 2:1 without `panel=full`;
 - **compile log** — no `!` errors, no `Missing character`, no undefined references, no
   `invalid in math mode`, no `Overfull \hbox` above the threshold;
 - **figures** — every `\includegraphics` file exists, every video frame has a time
