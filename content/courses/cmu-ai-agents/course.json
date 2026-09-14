@@ -27,7 +27,7 @@
       "web_source": {
         "tex": "source/lecture01/notes.tex",
         "sha256": "6e5331976efa808b15d08e6040fe6ce26be901908c3d294d6170eb7de9acc327",
-        "pdf_sha256": "2d400cf4a51d8f25ff1bed16795b11e0d65d80ad50fe36ce2ba2c10b913e4468",
+        "pdf_sha256": "014baa95968461eaa253bcfc74651f7500f17a418a73e20b32047921bf3af193",
         "expected": {
           "chapters": 10,
           "figures": 33,
@@ -51,7 +51,7 @@
           "figures/fig_11_actions_as_tokens.jpg": "a9702f7c68088344825569daf0d697f8bc3d7425b86f1c0a301e19da97014bde",
           "figures/fig_12_react_loop.jpg": "af9076d30185922c72ae5c12947baa1b823b94695bed4d68ae8b2bf4b0cfbdf0",
           "figures/fig_13_minimal_react_code.jpg": "ef7ce6c5e5e90d0907047c8f9abd26305e51412c491aa5a02abb428ead5f9489",
-          "figures/fig_14_swebench_trajectory.jpg": "db7cfa3fa720db9297a0be449b418fef930eb093afbd18653fda57f15887a04e",
+          "figures/fig_14_swebench_trajectory.jpg": "345c11acc7d8626499e6ae63b17b43b6e2d7852334261338449e11a75f8b6676",
           "figures/fig_15_capabilities_list.jpg": "0e9ef1de521f9d62215f7429aa23ff3f6dba1b3b252311b5116e3212e6151019",
           "figures/fig_16_two_ways_to_build.jpg": "8134dc56cc33318d91f987d7c5a5c7a552733170b57bb968c134cf4d2750d89e",
           "figures/fig_17_training_pipeline.jpg": "abb51dcac8fa8ef6116a05029b56402d1c9d8ac787f425409f5b9b2e225a7606",

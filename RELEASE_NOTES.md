@@ -7,7 +7,8 @@ page width. Their 221 figures now keep only the slide panel that `frame_filter.p
 so at the same page width the slides print about 1.75× larger (GSE) and 1.5× larger (CMU).
 
 - Slide panels: GSE L2 `[546,0,1280,410]`, GSE L3 `[545,0,1280,410]` (crops 729–730 px wide);
-  CMU L1–L4 `[0,120,1280,840]` (crops 1275×710). Each lecture directory now keeps its
+  CMU L1–L4 `[0,120,1280,840]` (crops 1275×710; CMU L1 `fig_14` keeps its bottom 5 px, 1275×715, so a
+  link tooltip in the screen recording stays whole). Each lecture directory now keeps its
   `layout.json`, and `figure_manifest.tsv` records the kept panel in a new `panel` column.
 - Board writing: two figures also show the blackboard at the same moment, where the notes explain
   what was drawn — GSE L2 figure 23 (arcs from the user turn back over the earlier context) and
