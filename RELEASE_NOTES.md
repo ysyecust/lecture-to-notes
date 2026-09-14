@@ -1,5 +1,26 @@
 # Release notes
 
+## v1.0.1 — 2026-09-13 — Readable figures in six published lectures
+
+NJU GSE 2026 Lectures 2–3 and CMU 11-768 Lectures 1–4 printed camera-plus-slides frames at full
+page width. Their 221 figures now keep only the slide panel that `frame_filter.py layout` measured,
+so at the same page width the slides print about 1.75× larger (GSE) and 1.5× larger (CMU).
+
+- Slide panels: GSE L2 `[546,0,1280,410]`, GSE L3 `[545,0,1280,410]` (crops 729–730 px wide);
+  CMU L1–L4 `[0,120,1280,840]` (crops 1275×710; CMU L1 `fig_14` keeps its bottom 5 px, 1275×715, so a
+  link tooltip in the screen recording stays whole). Each lecture directory now keeps its
+  `layout.json`, and `figure_manifest.tsv` records the kept panel in a new `panel` column.
+- Board writing: two figures also show the blackboard at the same moment, where the notes explain
+  what was drawn — GSE L2 figure 23 (arcs from the user turn back over the earlier context) and
+  GSE L3 figure 29 (commit → tree → blob, with the 10000-file directory shared between V1 and V2).
+- PDFs rebuilt: GSE L2 28→37 pages, L3 31→40; CMU L1 32→37, L2 29→34, L3 39→44, L4 35→41. Two CMU
+  figures print at 0.9 page width so their time footnotes stay on the caption page. The HTML reading
+  profiles (`web_source`) of all six lectures were regenerated.
+- `scripts/web_notes.py` converts a figure that holds several images: Pandoc's placeholder alt text
+  (`image`) no longer fails the text-preservation check, and a test covers a slide-plus-board figure.
+- CMU L2's layout was measured on its 33 published frames, because YouTube refused four video
+  downloads (HTTP 403); its slide panel matches the one measured on the other CMU lectures' video.
+
 ## v1.0.0 — 2026-09-13 — First tagged release
 
 v1.0.0 is the first release with a version number and contains everything recorded in the dated

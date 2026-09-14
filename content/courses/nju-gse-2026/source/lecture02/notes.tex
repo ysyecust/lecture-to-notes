@@ -356,7 +356,12 @@ Self-attention 允许每个新 token 重新读取过去上下文。全局的“�
 
 把每次失败都追加进全局规则，会逐渐形成厚重、互相防御的提示墙。规则越多，冲突越难发现，模型在每一步都需要分配注意力处理无关约束。相反，完全不保留经验又会重复踩坑。课程给出的方向是分层：稳定原则常驻，任务方法放 Skill，细节通过测试和接口固化。
 
-\lecturefigure{fig_023_context_competes_attention.jpg}{上下文既是纠偏资源，也是竞争注意力的资源}{00:50:45--00:51:00}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth,height=0.49\textheight,keepaspectratio]{\detokenize{figures/fig_023_context_competes_attention.jpg}}\\[4pt]
+\includegraphics[width=0.5\textwidth]{\detokenize{figures/fig_023_context_competes_attention_board.jpg}}
+\caption{上下文既是纠偏资源，也是竞争注意力的资源；下方为同一时刻的板书：从 user 处画回 sys prompt 与此前各段上下文的弧线（原视频画面：00:50:45--00:51:00）}
+\end{figure}
 
 \begin{importantbox}{把“记住”升级为“机制”}
 关键约束不要只写在 prompt：类型约束交给编译器，接口约束交给 property tests，回归约束交给 CI，权限边界交给执行层，阶段状态交给 checkpoint。机制可以失败并留下证据；纯文本提醒失败时，模型常常仍会声称自己遵守了。

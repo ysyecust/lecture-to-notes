@@ -1,0 +1,1 @@
+{"width": 1920, "height": 960, "frames": 60, "source": "detected", "composite": true, "panels": [{"name": "main", "box": [0, 120, 1280, 840], "aspect": "16:9", "aspect_error": 0.0, "coverage": 0.817}, {"name": "right", "box": [1280, 300, 1920, 660]}], "consistency": 1.0, "candidates": [], "warnings": [], "unmatched_frames": [], "unmatched_count": 0}

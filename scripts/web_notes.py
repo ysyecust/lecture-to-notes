@@ -275,8 +275,12 @@ def convert(source: Path, source_root: Path, output: Path, spec: dict, item: dic
     components.extend({"kind": "code", "text": t.get_text()} for t in doc.find_all("pre"))
     # Verify that AST text/code and the original math annotations survive rendering.
     text = re.sub(r"\s+", "", doc.get_text(" "))
+    # Image alt text is replaced by the figure caption above. Pandoc fills it with the
+    # placeholder "image" when one figure holds several images (slides above board writing).
+    alt_nodes = {id(inner) for node in walk(ast) if node.get("t") == "Image" for inner in walk(node["c"][1])}
     missing_text = []
     for node in walk(ast):
+        if id(node) in alt_nodes: continue
         token = node.get("c") if node.get("t") == "Str" else node.get("c", [None, ""])[1] if node.get("t") in ("Code", "CodeBlock") else ""
         if isinstance(token, str) and token and not token.startswith("LTNWEB"):
             if re.sub(r"\s+", "", token) not in text: missing_text.append(token[:50])

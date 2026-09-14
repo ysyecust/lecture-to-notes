@@ -1,0 +1,1 @@
+{"width": 1280, "height": 410, "frames": 60, "source": "detected", "composite": true, "panels": [{"name": "main", "box": [545, 0, 1280, 410], "aspect": "16:9", "aspect_error": 0.0084, "coverage": 0.844}, {"name": "left", "box": [0, 0, 545, 410]}], "consistency": 1.0, "candidates": [], "warnings": [], "unmatched_frames": [], "unmatched_count": 0}

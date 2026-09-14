@@ -1,17 +1,18 @@
 {
-  "rendered_pages": 28,
+  "rendered_pages": 37,
   "render_dpi": 120,
   "contact_sheets": [
     "quality/final_pages_contact_01.jpg",
     "quality/final_pages_contact_02.jpg",
     "quality/final_pages_contact_03.jpg",
-    "quality/final_pages_contact_04.jpg"
+    "quality/final_pages_contact_04.jpg",
+    "quality/final_pages_contact_05.jpg"
   ],
   "blank_pages": 0,
   "cropped_content_pages": 0,
   "overlapping_content_pages": 0,
   "unreadable_figure_pages": 0,
-  "manual_review": "all pages",
+  "manual_review": "all pages on contact sheets; figure pages 11, 22 and 31 closeup at 100 dpi",
   "latest_render_reviewed": true,
   "status": "pass"
 }
