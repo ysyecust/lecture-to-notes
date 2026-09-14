@@ -77,6 +77,32 @@ class WebNotesTests(unittest.TestCase):
             source.write_text(text);Image.new('RGB',(10,10),'black').save(root/'figure.png')
             with self.assertRaisesRegex(ConversionError,'image hashes'):convert(source,root,root/'changed',spec,item)
 
+    @unittest.skipUnless(READY,'Pandoc and ImageMagick required')
+    def test_figure_with_slide_and_board_images_converts(self):
+        from PIL import Image
+        from bs4 import BeautifulSoup
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)
+            for name,color in (('slide.png','white'),('board.png','black')):Image.new('RGB',(16,9),color).save(root/name)
+            text=r'''\documentclass{article}
+\begin{document}
+\section{测试章节}
+\begin{figure}\centering
+\includegraphics[width=\textwidth]{slide.png}\\[4pt]
+\includegraphics[width=0.5\textwidth]{board.png}
+\caption{课件与同一时刻的板书\protect\footnotemark}\end{figure}
+\footnotetext{视频画面时间区间：00:00:00--00:00:15。}
+\end{document}'''
+            source=root/'notes.tex';source.write_text(text)
+            spec={'expected':{'chapters':1,'figures':1,'images':2,'callouts':0,'tables':0,'math':0,'time_tokens':2},
+                  'resources':{'slide.png':digest(root/'slide.png'),'board.png':digest(root/'board.png')}}
+            item={'id':'test','title':'测试','sha256':'pdf','source_url':'https://www.bilibili.com/video/BVtest/'}
+            result=convert(source,root,root/'out',spec,item)
+            self.assertEqual(result['status'],'passed');self.assertEqual(result['counts']['images'],2)
+            document=BeautifulSoup((root/'out/article.html').read_text(),'html.parser')
+            caption=document.select_one('figure figcaption').get_text()
+            self.assertEqual([image['alt'] for image in document.select('figure img')],[caption,caption])
+
     def test_failed_conversion_does_not_publish_html_or_reuse_old_output(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);course=root/'content/courses/a';course.mkdir(parents=True);(course/'notes.tex').write_text('changed')
