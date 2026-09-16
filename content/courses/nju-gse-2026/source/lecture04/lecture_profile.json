@@ -1,0 +1,9 @@
+{
+  "mode": "technical-slide",
+  "audience": "有基本 Git 使用经验、想理解版本管理系统设计取舍的技术读者",
+  "vision": "no",
+  "central_question": "当人类与并行 Agent 都要修改同一个仓库时，版本管理系统应该记录什么、又该由谁来协调？",
+  "reader_outcome": "能说明 Git 与 Jujutsu 在 change/commit 身份上的关键取舍，解释 git worktree、互斥锁与决策记录在 Agent 协作中的分工，并判断哪些协作约束应留给工具、哪些必须留给团队流程",
+  "visual_teaching_atoms": 36,
+  "formula_teaching_atoms": 1
+}

@@ -215,6 +215,68 @@
           "figures/fig_39_agent_project.jpg": "d831e7e3da74221906ebae6c518d3368c15f4e3da8302f3ad0d2bf61acd6dc3c"
         }
       }
+    },
+    {
+      "file": "nju_gse_2026_04_repository_management_2_zh.pdf",
+      "title": "第 4 讲：软件仓库管理（二）",
+      "order": 4,
+      "expected_pages": 45,
+      "duration_minutes": 98,
+      "instructor": "蒋炎岩",
+      "source_url": "https://www.bilibili.com/video/BV1Q6en6NEUo/",
+      "source_label": "B站",
+      "meta": "蒋炎岩 · 重新设计版本管理系统与 Agent 协作 · 98min · 45页",
+      "web_source": {
+        "tex": "source/lecture04/notes.tex",
+        "sha256": "08b1a99394337117c9dfa297036c6bbc0329478c95fdc20cc798d379f1939a2d",
+        "pdf_sha256": "7a9a80f014303309a145a8c56b2fb9c71869625d8dfbfc3c82781736b926267f",
+        "expected": {
+          "chapters": 16,
+          "figures": 35,
+          "images": 35,
+          "callouts": 21,
+          "tables": 8,
+          "math": 3,
+          "time_tokens": 71
+        },
+        "resources": {
+          "figures/fig_01_lab1_requirements.jpg": "f2f6739512457159f8da7af07ecfa703927c81492e151a452b7850584888f05c",
+          "figures/fig_02_project_as_files.jpg": "9745dbfb9365c63d195a5058287de27f94e6130f45dc11c847dd1ee2c2d70760",
+          "figures/fig_03_filesystem_convenience.jpg": "1c4588451c1e637ea609d4b287b577383ad7ffcd29caf2628af0e5d6d263ebde",
+          "figures/fig_04_ai_era_software.jpg": "4ce704faa513a04c2b277487462f75224a66aef9eba12683f307be6b7fae998e",
+          "figures/fig_05_git_manages.jpg": "a586ab6b301ab9c1f46a2f9ed77412041233c1df8643afa916c9195ed81bb43c",
+          "figures/fig_06_repo_tree.jpg": "666e41bcfc355850cc869d8eb651942cdc2fd16ca2aeb19d2ad7ebf431ff51b4",
+          "figures/fig_07_search_contributing.jpg": "67655c528ac996983c03a7bcf24cc2c004ad2bad54aef735effeb2121139dbfc",
+          "figures/fig_08_contributing_checklist.jpg": "c788e4f73988b31c92943069d1054e0dac78cfaec0f22000556aae1a3f87ba72",
+          "figures/fig_09_redesign_vcs.jpg": "ecf2bb44f7362de8a72e76f11c9fa1f72a9819079354513e6459fedb4d410184",
+          "figures/fig_10_change_first_class.jpg": "daa1a2f67444f1140fcae4705f54aa0b396b6af4745b03f9fd1ad5916a361251",
+          "figures/fig_11_work_in_progress_commit.jpg": "ddc9ab2c5f862bbc20cbb565d2a56771b9d55072a364b34c593a831ab7c05a41",
+          "figures/fig_12_einstellung.jpg": "133abfe930c79c4653a0a253d352fb360d6b973f6238d2aa3db8f03765690c59",
+          "figures/fig_13_agent_redesign_title.jpg": "c38e7828118d9749e3d51c8882fb860883c3e12045703bb1f3cd849e232b2a0f",
+          "figures/fig_14_single_threaded.jpg": "464507c56d465431da676818c354269ebc36cc9a69ba40e28fb2eaf17627e7e6",
+          "figures/fig_15_agent_team_swarm.jpg": "61344b017175f8f9ce7c4b2fd0dbf7d29e7eba754cf4f63a778274d3dc82e65b",
+          "figures/fig_16_git_worktree.jpg": "ddb7f4b9fac1647ab448ac6deea761317036c5d7aff991f4d864cffe32b8c19e",
+          "figures/fig_17_worktree_demo.jpg": "c62318e873e99faa386de7e8b6a4df0a6fcd69383a3b0c5da813c16ca6af2970",
+          "figures/fig_18_repo_overview_gitdir.jpg": "447f9c9db55b24743baa7f55d98006e17922d5229ecbea7f5eea089131e55253",
+          "figures/fig_19_why_version_control.jpg": "58616dddc27474f5f2ffc19c4b715842e14b21607fa63f3aec4bcfea0d2101d5",
+          "figures/fig_20_main_sub_agent_lock.jpg": "ccdc5743dda1c8ff63568ca2b3410f12a60efc78e964e327d354196ddb3be9e8",
+          "figures/fig_21_lock_boundary.jpg": "c6169137011b52fbe7084c20dd756187984b573e7256b030455014fbbc75e091",
+          "figures/fig_22_team_kill_line.jpg": "d6f9996927025af4a8569dcf09de74c516dab6da29e115700750892877aa4a09",
+          "figures/fig_23_brooks_complexity.jpg": "8790f817d4ba7c50bf0621be37805a0faca9bf7b4dc4b5bf3832156625ce55ec",
+          "figures/fig_24_vcs_lessons.jpg": "614aa6478e50fc39c25275061c81a1f4cffe3b1131f6b13f560f4e95ba630314",
+          "figures/fig_25_pico_tower_hanoi.jpg": "466b824ff73fa90001be6c3e996b1a2df28cccdcee649cb78fbf424517c17046",
+          "figures/fig_26_hanoi_code.jpg": "d1684d83bb485f8ae5aba6a2e4528aa14342f53042b806bdc549da4a82424b34",
+          "figures/fig_27_git_fits.jpg": "69782a6ec0ba5a04066384b21981cfc7b55e7269bca5827b3d08d921adad2876",
+          "figures/fig_28_start_project.jpg": "1c0ace16629c288aa8ed162b64964e1a8ada62264f5b7d8d5e1999ea6611a717",
+          "figures/fig_29_vibecoding_lessons.jpg": "cdf8535928ff6e1343523513a494d88bc57eb080bea2c96271beb50c343f7b83",
+          "figures/fig_30_capability_table.jpg": "e6c2dcf3693bf5d96222e3e5c33885be98ee82681c9b01b0019d80fac4485222",
+          "figures/fig_31_architecture.jpg": "742865396f58a168c23fb5d932e6800785689b1cec456177e550aab0a4b2ddaa",
+          "figures/fig_32_mvp.jpg": "4494640d99028db9ad0b67eb991afca84c3a953d8e77b3b74941fea8bffa864d",
+          "figures/fig_33_cloud_sync_redline.jpg": "3efa2633bdfd6fe935781a346d2f5580a7df6af7d32f35626245f802a4ea919b",
+          "figures/fig_34_data_classification.jpg": "2deb068c42fef704dbbbd234174243fc6ed418292ea32379deac0f20203cd8dc",
+          "figures/fig_35_prompt_tech_debt.jpg": "82ad9c395b178e276f0c164e5d20759a6df38a459726f94c4986ebb490705f80"
+        }
+      }
     }
   ]
 }

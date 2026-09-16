@@ -1,0 +1,36 @@
+figure	frame	start	end	topic	panel
+figures/fig_01_lab1_requirements.jpg	f_0013.png	00:01:00	00:01:14	实验（1）会成长的个人助手：个人数据库、成长验收与五项基础能力[ocr]	main
+figures/fig_02_project_as_files.jpg	f_0024.png	00:05:15	00:05:29	项目是各种文件的集合：intent/spec/code/test/memory 各司其职[ocr]	main
+figures/fig_03_filesystem_convenience.jpg	f_0028.png	00:06:45	00:06:59	文件系统只保证“能存”，artifact 之间的 traceability 会丢失[ocr]	main
+figures/fig_04_ai_era_software.jpg	f_0043.png	00:10:30	00:10:44	将错就错的软件形态：从压缩包、SVN 到 Git，AI 时代会再变[ocr]	main
+figures/fig_05_git_manages.jpg	f_0056.png	00:13:30	00:13:44	Git 管理的是快照与快照之间的关系：merge 汇合、rebase 重放[ocr]	main
+figures/fig_06_repo_tree.jpg	f_0062.png	00:15:15	00:15:29	一个真实仓库的目录：assets/docs/guest/scripts 与 AGENTS.md[ocr]	main
+figures/fig_07_search_contributing.jpg	f_0082.png	00:20:15	00:20:29	让 Agent 先在仓库里搜索 CONTRIBUTING.md[ocr]	main
+figures/fig_08_contributing_checklist.jpg	f_0083.png	00:20:30	00:20:44	CONTRIBUTING.md 应该写清楚的约定清单[ocr]	main
+figures/fig_09_redesign_vcs.jpg	f_0092.png	00:22:45	00:22:59	重新设计版本管理：我们真正想操作的是 change，而不是 commit[ocr]	main
+figures/fig_10_change_first_class.jpg	f_0119.png	00:28:45	00:28:59	把 change 作为一等公民：commit ID 会变，change ID 延续[ocr]	main
+figures/fig_11_work_in_progress_commit.jpg	f_0133.png	00:30:00	00:30:14	工作副本本身就是一个 commit：冲突直接存进 commit[ocr]	main
+figures/fig_12_einstellung.jpg	f_0136.png	00:33:45	00:33:59	Einstellung effect：肌肉记忆锁住注意力，AI Native 才有换代机会[ocr]	main
+figures/fig_13_agent_redesign_title.jpg	f_0144.png	00:35:45	00:35:59	章首：Agent 时代，再次重新设计版本管理系统[ocr]	main
+figures/fig_14_single_threaded.jpg	f_0148.png	00:36:00	00:36:14	人是 single-threaded 生物：stash/branch/Jujutsu 都是为单人设计[ocr]	main
+figures/fig_15_agent_team_swarm.jpg	f_0165.png	00:41:00	00:41:14	Agent Team（Swarm）：分钟级原子提交与并行写入让 Git 模型跟不上[ocr]	main
+figures/fig_16_git_worktree.jpg	f_0170.png	00:42:15	00:42:29	git worktree：一个仓库、多个工作目录，各有 HEAD 和 index[ocr]	main
+figures/fig_17_worktree_demo.jpg	f_0190.png	00:45:30	00:45:44	两个 worktree 并行生成 slop 模块：self_test 29 项通过、5234 行[ocr]	main
+figures/fig_18_repo_overview_gitdir.jpg	f_0200.png	00:49:30	00:49:44	worktree 的 .git 是一个文本文件，里面写着 gitdir[ocr]	main
+figures/fig_19_why_version_control.jpg	f_0211.png	00:51:15	00:51:29	人的限制塑造了工具：快照、小步前进、bisect/blame[ocr]	main
+figures/fig_20_main_sub_agent_lock.jpg	f_0227.png	00:55:30	00:55:44	主 Agent 规划、子 Agent 上锁开干[ocr]	main
+figures/fig_21_lock_boundary.jpg	f_0253.png	01:02:30	01:02:44	锁保护的是共享状态：上锁→读最新→改→验证→快照→解锁[ocr]	main
+figures/fig_22_team_kill_line.jpg	f_0256.png	01:03:45	01:03:59	版本控制只是工具，真正的困难是进度管理；AI 是一条斩杀线[ocr]	main
+figures/fig_23_brooks_complexity.jpg	f_0264.png	01:05:45	01:05:59	n 个人有 n(n-1)/2 条潜在沟通关系：5 人 10 条、10 人 45 条[ocr]	main
+figures/fig_24_vcs_lessons.jpg	f_0268.png	01:06:45	01:06:59	版本控制留下的启发：记住历史、并行探索、汇合成果[ocr]	main
+figures/fig_25_pico_tower_hanoi.jpg	f_0274.png	01:08:15	01:08:29	回到 Pico Playground：Tower of Hanoi 与“数据库启动”[ocr]	main
+figures/fig_26_hanoi_code.jpg	f_0288.png	01:11:45	01:11:59	Tower of Hanoi 的最小实现（next_of / hanoi）[ocr]	main
+figures/fig_27_git_fits.jpg	f_0301.png	01:15:00	01:15:14	Git 刚好适合记录做题轨迹：树状历史、免费 diff、git notes[ocr]	main
+figures/fig_28_start_project.jpg	f_0313.png	01:18:00	01:18:14	开始做一个项目：你就是包工头，从零开始连需求都还没对齐[ocr]	main
+figures/fig_29_vibecoding_lessons.jpg	f_0360.png	01:29:30	01:29:44	Vibe Coding 的教训：代码记住结果，决策记录记住“为什么”[ocr]	main
+figures/fig_30_capability_table.jpg	f_0364.png	01:30:45	01:30:59	能力—位置—关键实现：个人数据用 FTS5+BM25 分块索引[ocr]	main
+figures/fig_31_architecture.jpg	f_0369.png	01:32:00	01:32:14	总体架构：pi 扩展、CLI、手机 PWA 入口，daemon 与能力层[ocr]	main
+figures/fig_32_mvp.jpg	f_0372.png	01:32:30	01:32:44	用 MVP 验证需求：先选最值得验证的假设，再做最小版本[ocr]	main
+figures/fig_33_cloud_sync_redline.jpg	f_0388.png	01:36:30	01:36:44	硬红线：绝不把 state/assistant.db 放进云盘同步[ocr]	main
+figures/fig_34_data_classification.jpg	f_0389.png	01:37:00	01:37:14	数据分类：哪些能上云、哪些只能本地派生[ocr]	main
+figures/fig_35_prompt_tech_debt.jpg	f_0393.png	01:38:00	01:38:14	早期的 prompt 影响最大：每一次“确定”都在埋技术债[ocr]	main

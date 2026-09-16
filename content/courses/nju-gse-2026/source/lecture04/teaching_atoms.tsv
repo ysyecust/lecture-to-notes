@@ -1,0 +1,43 @@
+atom	status	evidence
+Lab1「会成长的个人助手」与验收机制	ok	fig_01_lab1_requirements；第 1 节
+项目是 intent/spec/code/test/memory/README 的集合	ok	fig_02_project_as_files；第 2 节
+文件系统丢失 artifact 之间的 traceability，形成技术债	ok	fig_03_filesystem_convenience；第 2 节
+traceability 是软件工程长期问题（FOSE 2014 论文）	ok	00:09:41；第 2 节
+将错就错：压缩包→SVN→Git，AI 时代软件形态会再变	ok	fig_04_ai_era_software；第 3 节
+artifact 关联图与仓库数据库、AI 维护一致性（讲者预测）	ok	00:11:42；第 3 节
+Git 管理文件、目录、快照与快照之间的关系	ok	fig_05_git_manages；第 4 节
+学生单分支经验与 CONTRIBUTING.md 的硬约束	ok	fig_07_search_contributing / fig_08_contributing_checklist；第 4 节
+「学生思维」与 AI 时代的斩杀线	ok	00:21:07；第 4 节
+merge 的 ownership 漂移副作用	ok	00:23:01；第 4 节
+rebase 把修改重放到新起点，以及其冲突边界	ok	fig_09_redesign_vcs；第 4 节
+Git 没有 change 对象，用 commit+parent 替代 change	ok	00:26:31；第 4 节
+Jujutsu：change 一等公民，commit ID vs change ID	ok	fig_10_change_first_class；第 5 节
+工作副本本身就是一个 commit，冲突存进 commit	ok	fig_11_work_in_progress_commit；第 5 节
+Einstellung effect 与「先理解正确设计」的学习顺序	ok	fig_12_einstellung；第 5 节
+所有既有版本管理系统默认使用者是人类	ok	fig_14_single_threaded；第 6 节
+人是 single-threaded，load/store 读改写不原子	ok	fig_14_single_threaded；第 6 节
+人的 change 以小时计，沟通快于提交，因此 stash/branch 合理	ok	00:38:45；第 6 节
+Agent 分钟级到秒级原子提交，可扩到 10×/100× team	ok	fig_15_agent_team_swarm；第 7 节
+提交速率不等于验证速率（测试流水线边界）	ok	00:41:46；第 7 节
+每个 Agent 独立开发机加 remote 同步	ok	00:42:15；第 7 节
+git worktree：一个仓库多个工作目录，共享对象库与分支引用	ok	fig_16_git_worktree；第 7 节
+worktree 的 .git 是含 gitdir 指针的文本文件	ok	fig_18_repo_overview_gitdir；第 8 节
+worktree 演示：slop 代码 5234 行、self_test 29 项通过	ok	fig_17_worktree_demo；第 7 节
+人的限制塑造工具、communication gap 与团队规模收益递减	ok	fig_19_why_version_control；第 8 节
+blame 的前提是可追责，Agent 克隆体使 blame 失去对象	ok	00:53:41；第 9 节
+Git 模型类似乐观并发控制，依赖访问局部性	ok	00:57:09；第 10 节
+冲突可升级为死锁并触发 abort 与 rollback	ok	00:56:23；第 10 节
+Agent 变快后应偏向悲观并发控制：declare/acquire/release	ok	fig_20_main_sub_agent_lock；第 10 节
+文件级锁与锁保护的是任务依赖的共享状态	ok	fig_21_lock_boundary；第 10 节
+锁协议与 advisory lock 同理；锁不保证修改正确	ok	fig_21_lock_boundary；第 10 节
+版本控制只是工具，真正的困难是团队与进度管理；AI 斩杀线	ok	fig_22_team_kill_line；第 11 节
+团队沟通复杂度 n(n-1)/2：5 人 10 条、10 人 45 条（Brooks）	ok	fig_23_brooks_complexity；第 11 节
+版本控制的第一性启发：记住历史、并行探索、汇合成果	ok	fig_24_vcs_lessons；第 11 节
+Pico Playground 的 Tower of Hanoi 与「数据库启动」	ok	fig_25_pico_tower_hanoi；第 12 节
+Git 恰好适合记录做题轨迹：树状历史、diff、git notes	ok	fig_27_git_fits；第 12 节
+从零开始的项目：需求未对齐、以不变应万变	ok	fig_28_start_project；第 13 节
+MVP 验证最值得验证的假设	ok	fig_32_mvp；第 13 节
+Vibe Coding 教训：代码记住结果，决策记录记住「为什么」	ok	fig_29_vibecoding_lessons；第 13 节
+能力—位置—关键实现与总体架构、单一执行闸门	ok	fig_30_capability_table / fig_31_architecture；第 13 节
+云盘同步与本地派生的数据边界	ok	fig_33_cloud_sync_redline / fig_34_data_classification；第 14 节
+早期 prompt 影响最大，每一次「确定」都在埋技术债	ok	fig_35_prompt_tech_debt；第 14 节

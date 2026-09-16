@@ -1,0 +1,22 @@
+CJK_chars=16682 figures=35 sections=16 boxes=21 display_math=1 code=8 tables=8
+mode=technical-slide duration_min=98.5 need_CJK>=6894 need_figures>=28 need_sections>=8 need_boxes>=12 need_math>=1
+PASS density gates
+teaching_atoms total=42 missing=0
+PASS teaching atoms
+numerical_claims total=20 missing_in_notes=0
+PASS numerical claims
+PASS figure_manifest.tsv present
+PASS figure_verification.txt present
+PASS audio.srt present
+PASS 35 manifest figures fit the frame layout
+log errors=0 missing_chars=0 undefined=0 math_invalid=0 overfull=4 (worst 7.5pt, >10pt: 0)
+PASS no compile errors
+PASS no missing glyphs
+PASS no undefined references
+PASS no invalid math-mode commands
+PASS overfull boxes within 10pt
+figures referenced=36 missing_files=0
+PASS all figure files exist
+PASS every video-frame figure has a time footnote
+PASS figure footnotes on the same page as captions
+OVERALL PASS
