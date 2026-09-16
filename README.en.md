@@ -4,6 +4,7 @@
 
 **Turn a YouTube / Bilibili / X (Twitter) lecture video into a compilable Chinese LaTeX lecture-notes PDF.**
 Reader-first prose, every figure footnoted with its source time range, every number traceable to the subtitles or the screen.
+Published lectures also get a [web article](#course-library-and-online-reading) that reads on a desktop or a phone.
 
 [![Release](https://img.shields.io/github/v/release/ysyecust/lecture-to-notes?sort=semver)](https://github.com/ysyecust/lecture-to-notes/releases)
 [![Tests](https://github.com/ysyecust/lecture-to-notes/actions/workflows/tests.yml/badge.svg)](https://github.com/ysyecust/lecture-to-notes/actions/workflows/tests.yml)
@@ -21,7 +22,7 @@ Reader-first prose, every figure footnoted with its source time range, every num
 
 ## What it does
 
-Give it a video URL and it produces a complete set of lecture notes: `notes.tex` (from `\documentclass` to `\end{document}`), the compiled `notes.pdf`, cropped figures, the final subtitle track, and a set of intermediate artifacts that make the content auditable (figure manifest, numerical-claim ledger, delivery-gate report). The repository is also a [Codex / Claude Code / DeepSeek Harness skill](#quick-start), a [course library site](#course-library-and-pdf-contributions), and a [paper-to-HTML tool](skills/paper-to-html/SKILL.md).
+Give it a video URL and it produces a complete set of lecture notes: `notes.tex` (from `\documentclass` to `\end{document}`), the compiled `notes.pdf`, cropped figures, the final subtitle track, and a set of intermediate artifacts that make the content auditable (figure manifest, numerical-claim ledger, delivery-gate report). The repository is also a [Codex / Claude Code / DeepSeek Harness skill](#quick-start), a [course library site](#course-library-and-online-reading), and a [paper-to-HTML tool](skills/paper-to-html/SKILL.md).
 
 ```mermaid
 flowchart LR
@@ -90,6 +91,7 @@ Then trigger it in Claude Code with `/lecture-to-notes <URL>` (or paste a Bilibi
 | One-shot delivery gate | Density, mandatory artifacts, compile log, figure files, same-page footnotes — one command | `verify_notes.py` |
 | Reader-first writing | A standalone writing reference: meaning before jargon, one job per paragraph, value before limits | [`references/reader-first-writing.md`](skills/lecture-to-notes/references/reader-first-writing.md) |
 | Course library | Course spines, lecture ticks, full-text search, a dedicated reader; external contributions only through PDF-only pull requests | `site_catalog.py` `build_site.py` `pdf_inspector.py` |
+| Two published formats | The same `notes.tex` also becomes a web article: the source, the PDF and every figure are pinned by hash in the course manifest, and chapters / figures / math / time intervals are counted against the manifest — any mismatch publishes the PDF alone | `web_notes.py` |
 
 ## Subtitles: the five-stage fallback
 
@@ -113,9 +115,32 @@ flowchart TD
 - **Pass 1 — dictionary** (`correct_srt.py`): batch-replaces `wrong → right` pairs. The dictionary can come from `whisper_prompts/glossary_<course>.json` or be generated from burned-in subtitles by `ocr_hardsubs.py glossary`. Milliseconds.
 - **Pass 2 — segment-level semantics** (`llm_correct_srt.py`): splits the track into ~90 s segments, picks one mid-segment frame each, and calls `claude -p` for multimodal correction. Fixes context-level errors but is slow; run it only for notes you intend to publish.
 
-## Course library and PDF contributions
+## Course library and online reading
 
-The site hosts course PDFs and paper notes: as of 2026-09-05, 7 courses, 62 lecture PDFs, about 1,990 pages, plus 9 paper notes — including all 18 lectures of Stanford CS336: Language Modeling from Scratch (Spring 2026) and the 2026 Nanjing University “Generative Software Engineering” course. From a course card, PDFs open in a dedicated reader page; when the embedded preview is unavailable, direct-open and download links remain.
+The [course site](https://blog.simona.plus/lecture-to-notes/) hosts lecture notes and paper notes: as of 2026-09-16, 9 courses, 69 lectures, 2,247 pages, plus 9 paper notes — including all 18 lectures of Stanford CS336: Language Modeling from Scratch (Spring 2026) and the 2026 Nanjing University “Generative Software Engineering” course.
+
+<img src="docs/assets/readme/reading.webp" alt="Course library home, desktop web reading, phone web reading" width="100%">
+
+<sub>Left: the library home, where the short ticks on each card are the lectures. Middle: web reading on the desktop, the left rail switching between this lecture's outline and the other lectures of the same course. Right: the same lecture in an iPhone viewport.</sub>
+
+### Web article and original PDF
+
+Every lecture can be read as its original PDF. Eight of them also have a checked web article (Nanjing University “Generative Software Engineering” lectures 1–4 and CMU 11-768 AI Agents lectures 1–4): the reader opens the web article by default, the toolbar switches back to the PDF, and `&format=pdf` selects it directly.
+
+- **The web article reflows**: font size between 16 and 28 px, comfortable or wide measure, both remembered in the browser; figures zoom on click; each caption keeps the video interval it was taken from and links back to that moment in the source video.
+- **The PDF runs on a bundled PDF.js**: a selectable, searchable text layer (Chinese included), outline, page numbers, fit-width / fit-page, and 25%–800% zoom. The PDF.js version is pinned in `package.json` and shipped with the site rather than loaded from a public CDN; JavaScript inside a PDF never executes.
+- **Reading position**: the web article stores its reading block and offset, the PDF its page, coordinates and zoom — in `localStorage` only. When it cannot be read (private windows), reading starts from the top instead of failing.
+- **Focus mode**: one button hides the rail and the extra toolbar controls, in both formats.
+
+### Reading on a phone
+
+Below 820 px the outline becomes a drawer that closes itself after a jump, and the lecture switcher becomes a select. Below 560 px the toolbar rewraps and keeps the font-size and measure controls. `npm run test:e2e` walks the whole reading flow in an iPhone 14 viewport on Chromium, plus desktop Chromium and WebKit.
+
+### A failed conversion publishes the PDF alone
+
+`scripts/web_notes.py` builds the web article by parsing TeX only — it never runs a TeX engine or a shell command. The source `.tex`, its PDF, and every referenced image are pinned by SHA-256 in the manifest's `web_source`, and chapters, figures, callouts, tables, math and time strings are all counted. If anything disagrees, the lecture keeps its PDF and no half-converted page is published. The publishing contract and the review flow for a new lecture are in [docs/development/web-reading.md](docs/development/web-reading.md) (Chinese).
+
+## PDF contributions
 
 Contributors cannot push to `main`. Fork the repository, add PDFs under `content/inbox/` in your fork, commit, and open a pull request with the PDF-contribution template. A pull request is a merge request only; it grants no write access.
 
@@ -169,6 +194,16 @@ pip install sherpa-onnx numpy  # optional
 pip install faster-whisper rapidocr-onnxruntime Pillow numpy
 ```
 
+### Site and web reading (only needed to maintain the library)
+
+```bash
+brew install pandoc node          # Linux: apt install pandoc nodejs npm
+pip install beautifulsoup4
+npm ci                            # installs PDF.js and Playwright from package-lock.json
+python3 -m scripts.build_site --root . --output _site --generated-at "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+npm run test:e2e                  # desktop Chromium / WebKit + an iPhone 14 viewport
+```
+
 ### Tools at a glance
 
 | Tool | Required | Purpose |
@@ -183,6 +218,8 @@ pip install faster-whisper rapidocr-onnxruntime Pillow numpy
 | `rapidocr-onnxruntime` | with burned-in subtitles | `ocr_hardsubs.py` reads the subtitle band and overlay geometry |
 | `Pillow` + `numpy` | ✓ | `frame_filter.py` overlay and panel crops, frame scores |
 | `python3` | ✓ | Runs everything under `scripts/` (CI verifies 3.12 / 3.13) |
+| `pandoc` + `beautifulsoup4` | site builds | `web_notes.py` converts `notes.tex` into the web article and checks counts and hashes |
+| Node.js + `npm ci` | site builds | Pins PDF.js and Playwright; PDF.js ships with the site instead of a public CDN |
 | `scripts/video_source.py` | ✓ | YouTube / Bilibili / X/Twitter URL detection and metadata probe |
 | `scripts/check_srt_health.py` | X/Twitter subtitles | SRT coverage, duplication, and runtime-window checks |
 | Claude Code CLI | △ | Only for `llm_correct_srt.py` (reuses your local login, no API key) |
@@ -194,6 +231,8 @@ PYTHONPATH=. python3 -m unittest discover -s tests -v   # exactly what CI runs
 ```
 
 `.github/workflows/tests.yml` runs two gate jobs on pull requests and pushes to `main`: `unit` (every Python test; needs zsh, numpy, Pillow) and `template` (compiles `notes-template.tex` inside TeX Live with CJK support, covering every template macro). Two slow jobs run only on manual dispatch or the weekly schedule: `synthetic-video` renders a deterministic lecture video with Pillow — burned-in subtitles, a static navigation strip, a presenter block — and runs the real `ocr_hardsubs.py` and `frame_filter.py` pipeline against it; `macos-smoke` runs the suite on an Apple-silicon runner and checks that `transcribe_whisper.py` selects mlx. Tests that need optional tools (xelatex, ffmpeg, rapidocr, a CJK font) skip when the tool is absent. `main` requires `unit` and `template` to pass before merging.
+
+A pull request from a branch of this repository also runs `web-reader`: it builds both published formats inside the isolated container and walks the reading flow with Playwright (pull requests from forks skip this job). After the merge, `pages.yml` repeats that build, checks every published PDF with qpdf, and deploys only once the browser tests pass too.
 
 The version lives in `VERSION` at the repository root, and every version has its own section at the top of `RELEASE_NOTES.md`. Pushing a `vX.Y.Z` tag on `main` runs `.github/workflows/release.yml`, which checks the tag against `VERSION` and the notes, runs the Python tests, and publishes a [GitHub Release](https://github.com/ysyecust/lecture-to-notes/releases). The version policy and release steps are in [docs/releasing.md](docs/releasing.md) (Chinese).
 
@@ -233,13 +272,18 @@ The version lives in `VERSION` at the repository root, and every version has its
 │   ├── pdf_inspector.py        # PDF safety inspection, metadata, first-page preview
 │   ├── site_catalog.py         # trusted course catalog
 │   ├── build_site.py           # static site build
+│   ├── web_notes.py            # notes.tex → checked web article (hash and count gates)
 │   └── whisper_prompts/        # Whisper --initial_prompt glossaries
 ├── tests/                      # unittest suite; synthetic_video.py renders the synthetic lecture
+├── e2e/                        # Playwright reading-flow tests (desktop + phone viewports)
+├── package.json                # pinned PDF.js and Playwright versions
+├── playwright.config.mjs       # browser-test viewports and the local site server
 ├── docs/
 │   ├── index.html              # course library home
-│   ├── reader.html             # allowlist-driven PDF reader
+│   ├── reader.html             # allowlist-driven reader (web article + original PDF)
 │   ├── contribute.html         # PDF contribution entry
 │   ├── assets/                 # framework-free front-end modules and styles; readme/ holds this file's images
+│   ├── development/            # web-reading.md: the two-format publishing contract (Chinese)
 │   └── papers/                 # published paper notes (HTML)
 ├── .github/workflows/
 │   ├── tests.yml               # PR gate + weekly slow tests

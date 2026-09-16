@@ -8,13 +8,16 @@ PDF.js 6.3.289 由 npm 锁定安装，站点构建从本地依赖复制浏览器
 
 阅读位置按 PDF SHA-256 保存；HTML 位置还绑定对应的 HTML 哈希。网页记录阅读块与偏移，PDF 记录页码、坐标和缩放。数据仅保存在本机 localStorage；不可用时继续阅读。
 
-## 已归档的三个试点
+## 已归档的源材料
 
-- 第 1 讲：`content/courses/nju-gse-2026/source/notes.tex`。
-- 第 2 讲：`content/courses/nju-gse-2026/source/lecture02/notes.tex`。
-- 第 3 讲：`content/courses/nju-gse-2026/source/lecture03/notes.tex`。
+截至 2026-09-16 共 8 讲，每讲的 `web_source.tex` 指向课程目录下的归档源文件：
 
-第三讲归档的源文件将封面讲次修正为 3，与已发布 PDF 一致；原始工作目录不修改。源文件、对应 PDF 和引用图片的 SHA-256 都固定在课程 manifest 的 `web_source` 中。修改其中任何内容后，必须复核并更新 profile；不能通过自动刷新哈希来绕过内容审阅。
+- 南京大学《生成式软件工程》：`content/courses/nju-gse-2026/` 下的 `source/notes.tex`（第 1 讲）、
+  `source/lecture02/notes.tex`、`source/lecture03/notes.tex`、`source/lecture04/notes.tex`。
+- CMU 11-768 AI Agents：`content/courses/cmu-ai-agents/` 下的 `source/lecture01/notes.tex` 到
+  `source/lecture04/notes.tex`。
+
+GSE 第 3 讲归档的源文件将封面讲次修正为 3，与已发布 PDF 一致；原始工作目录不修改。源文件、对应 PDF 和引用图片的 SHA-256 都固定在课程 manifest 的 `web_source` 中。修改其中任何内容后，必须复核并更新 profile；不能通过自动刷新哈希来绕过内容审阅。
 
 ## 组件与转换
 

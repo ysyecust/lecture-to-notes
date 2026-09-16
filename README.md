@@ -4,6 +4,7 @@
 
 **把 YouTube / Bilibili / X(Twitter) 的讲座视频，变成可编译的中文 LaTeX 讲义 PDF。**
 读者优先的成文，每张配图带原视频时间脚注，每个数字都能追溯到字幕或画面。
+已发布的讲义还有一份桌面和手机都能读的[网页正文](#课程资料库与在线阅读)。
 
 [![Release](https://img.shields.io/github/v/release/ysyecust/lecture-to-notes?sort=semver)](https://github.com/ysyecust/lecture-to-notes/releases)
 [![Tests](https://github.com/ysyecust/lecture-to-notes/actions/workflows/tests.yml/badge.svg)](https://github.com/ysyecust/lecture-to-notes/actions/workflows/tests.yml)
@@ -21,7 +22,7 @@
 
 ## 它做什么
 
-给一个视频链接，产出一套完整的讲义：`notes.tex`（从 `\documentclass` 到 `\end{document}`）、编译好的 `notes.pdf`、裁好的配图、最终字幕轨，以及一组能证明内容可信的中间产物（配图清单、数值主张核对表、交付门禁报告）。仓库同时是一个 [Codex / Claude Code / DeepSeek Harness skill](#快速开始)、一个 [课程资料库站点](#课程资料库与贡献-pdf) 和一个 [论文解读工具](skills/paper-to-html/SKILL.md)。
+给一个视频链接，产出一套完整的讲义：`notes.tex`（从 `\documentclass` 到 `\end{document}`）、编译好的 `notes.pdf`、裁好的配图、最终字幕轨，以及一组能证明内容可信的中间产物（配图清单、数值主张核对表、交付门禁报告）。仓库同时是一个 [Codex / Claude Code / DeepSeek Harness skill](#快速开始)、一个 [课程资料库站点](#课程资料库与在线阅读) 和一个 [论文解读工具](skills/paper-to-html/SKILL.md)。
 
 ```mermaid
 flowchart LR
@@ -93,6 +94,7 @@ SKILL.md 的第 0 步会逐个检查这些辅助脚本，缺任何一个就停�
 | 一次性交付门禁 | 密度、必需产物、编译日志、配图文件、脚注同页，一条命令 | `verify_notes.py` |
 | 读者优先写作 | 独立的写作规范：先讲含义再给术语、段落一个任务、限制先讲价值 | [`references/reader-first-writing.md`](skills/lecture-to-notes/references/reader-first-writing.md) |
 | 课程化归档 | 课程书脊、讲次刻度、全文检索、独立阅读页；外部只能通过 PDF-only PR 投稿 | `site_catalog.py` `build_site.py` `pdf_inspector.py` |
+| 双格式发布 | 同一份 `notes.tex` 除了 PDF 再转一份网页正文：源文件、PDF 和每张图的哈希固定在课程 manifest 里，章节 / 图 / 公式 / 时间区间逐项计数核对，任一项对不上就只发 PDF | `web_notes.py` |
 
 ## 字幕获取：五级回退
 
@@ -116,13 +118,45 @@ flowchart TD
 - **阶段 1 — 词典级**（`correct_srt.py`）：用 `wrong → right` pair 批量替换。词典可以来自 `whisper_prompts/glossary_<course>.json`，也可以由 `ocr_hardsubs.py glossary` 从烧录字幕自动生成。毫秒完成。
 - **阶段 2 — 段级语义**（`llm_correct_srt.py`）：按 ~90 秒切段，每段抽一个中间帧，调 `claude -p` 做多模态校准。能修语境级错误，但耗时长，一般只对要发布的讲义跑。
 
-## 课程资料库与贡献 PDF
+## 课程资料库与在线阅读
 
-课程站点收录多门课程的 PDF 和论文解读：截至 2026-09-05 共 7 门课程、62 篇讲义、约 1990 页，另有 9 篇论文解读，包括 Stanford
+[课程站点](https://blog.simona.plus/lecture-to-notes/)收录多门课程的讲义和论文解读：截至 2026-09-16 共 9 门课程、
+69 篇讲义、2247 页，另有 9 篇论文解读，包括 Stanford
 CS336: Language Modeling from Scratch Spring 2026 全 18 讲，
 以及南京大学《生成式软件工程》2026 课程讲义。
-课程卡片进入讲次列表后，PDF 会在独立阅读页中打开；若浏览器内嵌预览不可用，仍可
-直接打开或下载原始 PDF。
+
+<img src="docs/assets/readme/reading.webp" alt="课程资料首页、桌面端网页阅读、手机端网页阅读" width="100%">
+
+<sub>左：按课程分卡片的资料首页，卡片里的短横是讲次刻度；中：桌面端网页阅读，左栏在本讲目录与同课程其他讲次之间切换；右：同一讲在 iPhone 视口下的网页阅读。</sub>
+
+### 网页正文与原版 PDF
+
+每讲都能读原版 PDF。其中 8 讲另有一份通过校验的网页正文（南京大学《生成式软件工程》第 1–4 讲、
+CMU 11-768 AI Agents 第 1–4 讲）：打开阅读页默认进网页正文，工具栏一键切回 PDF，
+也可以用 `&format=pdf` 直接指定。
+
+- **网页正文可重排**：字号 16–28 px、行宽在舒适与宽行之间切换，选择记在本机；图片点击放大；
+  图注下方保留视频画面的时间区间，并给出一个跳回原视频该时刻的链接。
+- **PDF 用打包好的 PDF.js**：文本层可选可查找（中文也搜得到）、书签、页码、适宽 / 整页和 25%–800%
+  缩放。PDF.js 版本由 `package.json` 锁定并随站点一起打包，不依赖公共 CDN；PDF 内嵌的 JavaScript 不执行。
+- **接着上次读**：网页正文记阅读块与偏移，PDF 记页码、坐标和缩放，只存在本机 localStorage；
+  隐私模式下读不到就从头开始，不影响阅读。
+- **专注阅读**：一键收起目录和多余的工具栏，网页和 PDF 两种模式都适用。
+
+### 手机阅读
+
+窗口宽度 820 px 以下，左栏目录收进抽屉，点一个章节跳过去后自动收起；同课程的讲次切换换成下拉框；
+560 px 以下工具栏按行重排，字号与行宽控制仍然可用。`npm run test:e2e` 用 iPhone 14 视口的 Chromium
+跑一遍完整阅读流程，桌面 Chromium 与 WebKit 各跑一遍。
+
+### 转换不过关就只发 PDF
+
+网页正文由 `scripts/web_notes.py` 生成：它只解析 TeX，不调用 TeX 引擎，也不执行 shell 命令。源
+`.tex`、对应 PDF 和每张引用图片的 SHA-256 固定在课程 manifest 的 `web_source` 里，章节、图、提示框、
+表格、公式和时间字符串的数量也逐项核对。任何一项对不上，这一讲就只保留 PDF，不会发布半成品网页。
+发布约定和新讲义的审阅流程见 [docs/development/web-reading.md](docs/development/web-reading.md)。
+
+## 贡献 PDF
 
 普通贡献者不能直接修改本仓库的 `main` 分支。他们需要先 Fork 仓库，在自己的
 Fork 中把 PDF 添加到 `content/inbox/` 并保存 commit，再使用 PDF contribution
@@ -184,6 +218,16 @@ pip install sherpa-onnx numpy  # 可选
 pip install faster-whisper rapidocr-onnxruntime Pillow numpy
 ```
 
+### 站点与网页阅读（只有维护课程库时需要）
+
+```bash
+brew install pandoc node          # Linux 用 apt install pandoc nodejs npm
+pip install beautifulsoup4
+npm ci                            # 按 package-lock.json 装 PDF.js 与 Playwright
+python3 -m scripts.build_site --root . --output _site --generated-at "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+npm run test:e2e                  # 桌面 Chromium / WebKit + iPhone 14 视口
+```
+
 ### 工具一览
 
 | 工具 | 必需 | 用途 |
@@ -198,6 +242,8 @@ pip install faster-whisper rapidocr-onnxruntime Pillow numpy
 | `rapidocr-onnxruntime` | 有烧录字幕时 | `ocr_hardsubs.py` 读字幕带和叠加层几何 |
 | `Pillow` + `numpy` | ✓ | `frame_filter.py` 裁剪叠加层与拼接分栏、给帧打分 |
 | `python3` | ✓ | 运行 `scripts/` 下所有脚本（CI 在 3.12 / 3.13 上验证） |
+| `pandoc` + `beautifulsoup4` | 构建站点时 | `web_notes.py` 把 `notes.tex` 转成网页正文并核对计数与哈希 |
+| Node.js + `npm ci` | 构建站点时 | 锁定 PDF.js 与 Playwright 版本；PDF.js 随站点打包，不走公共 CDN |
 | `scripts/video_source.py` | ✓ | YouTube / Bilibili / X/Twitter URL 识别与元数据探测 |
 | `scripts/check_srt_health.py` | X/Twitter 字幕 | 检查 SRT 覆盖率、重复率和运行时窗口 |
 | Claude Code CLI | △ | 仅 `llm_correct_srt.py` 需要（复用本地登录态，无需 API key） |
@@ -209,6 +255,10 @@ PYTHONPATH=. python3 -m unittest discover -s tests -v   # 与 CI 完全相同的
 ```
 
 `.github/workflows/tests.yml` 在 PR 和 `main` 推送时运行两个门禁 job：`unit`（全部 Python 测试，需要 zsh、numpy、Pillow）和 `template`（在带 CJK 支持的 TeX Live 里编译 `notes-template.tex`，覆盖所有模板宏）。两个慢 job 只在手动触发或每周一定时运行：`synthetic-video` 用 Pillow 渲染一段带烧录字幕、静态导航条和讲者色块的合成视频，真实跑一遍 `ocr_hardsubs.py` 与 `frame_filter.py`；`macos-smoke` 在 Apple silicon runner 上跑全部测试并确认 `transcribe_whisper.py` 选中 mlx 后端。缺少可选依赖（xelatex、ffmpeg、rapidocr、CJK 字体）时对应测试自动跳过，本地不会因此报错。`main` 分支要求 `unit` 和 `template` 通过后才能合并。
+
+从本仓库分支发起的 PR 还会跑 `web-reader`：在隔离容器里构建 PDF 与网页两种格式，再用 Playwright
+过一遍阅读流程（Fork 来的 PR 不跑这一步）。合并到 `main` 后 `pages.yml` 重复这套构建，先用 qpdf
+检查每个已发布 PDF，浏览器测试也通过才部署站点。
 
 版本号写在根目录的 `VERSION` 里，每个版本在 `RELEASE_NOTES.md` 顶部有自己的一节。在 `main` 上推送 `vX.Y.Z` tag 后，`.github/workflows/release.yml` 会核对 tag、`VERSION` 和发布说明是否一致，跑一遍 Python 测试，再创建 [GitHub Release](https://github.com/ysyecust/lecture-to-notes/releases)。版本号规则和发布步骤见 [docs/releasing.md](docs/releasing.md)。
 
@@ -248,13 +298,18 @@ PYTHONPATH=. python3 -m unittest discover -s tests -v   # 与 CI 完全相同的
 │   ├── pdf_inspector.py        # PDF 安全检查、元数据与首图解析
 │   ├── site_catalog.py         # 生成可信课程目录
 │   ├── build_site.py           # 构建静态站点
+│   ├── web_notes.py            # notes.tex → 通过校验的网页正文（哈希与计数核对）
 │   └── whisper_prompts/        # Whisper --initial_prompt 术语表
 ├── tests/                      # unittest 套件；synthetic_video.py 生成合成讲座视频
+├── e2e/                        # Playwright 阅读流程测试（桌面 + 手机视口）
+├── package.json                # PDF.js 与 Playwright 的锁定版本
+├── playwright.config.mjs       # 浏览器测试的视口与本地站点服务
 ├── docs/
 │   ├── index.html              # 课程资料首页
-│   ├── reader.html             # 目录白名单驱动的 PDF 阅读器
+│   ├── reader.html             # 目录白名单驱动的阅读页（网页正文 + 原版 PDF）
 │   ├── contribute.html         # PDF 贡献入口
 │   ├── assets/                 # 无框架前端模块与样式；readme/ 下是本文件的插图
+│   ├── development/            # web-reading.md：双格式发布约定与审阅流程
 │   └── papers/                 # 已发布的论文解读 HTML
 ├── .github/workflows/
 │   ├── tests.yml               # PR 门禁 + 每周慢测

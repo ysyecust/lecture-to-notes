@@ -1,5 +1,27 @@
 # Release notes
 
+## v1.1.0 — 2026-09-16 — A fourth GSE lecture, and a README that covers web reading
+
+NJU GSE 2026 Lecture 4 (软件仓库管理（二）, 45 pages, 35 figures) joins the library in both published
+formats, so the course library now holds 9 courses, 69 lectures and 2,247 pages, of which 8 lectures
+have a checked web article next to their PDF.
+
+- Lecture 4 came from a video with no subtitle track at all: `ocr_hardsubs.py detect` reported a
+  bottom band, but sampling at 10% / 50% / 90% showed slide text and a static watermark rather than
+  subtitles, so the track is local ASR (mlx-whisper large-v3-turbo, 2911 segments after cleaning,
+  `check_srt_health.py` coverage 1.0). `frame_filter.py layout` measured the slide panel at
+  `[548,0,1280,410]` with consistency 1.0 on 1/15 s frames; all 35 figures keep that panel (727×410).
+- `README.md` and `README.en.md` now document online reading, which they had never mentioned: the two
+  reading modes and how the reader picks one, reflowable text (16–28 px, two measures) with figure
+  zoom and per-figure links back into the source video, the bundled PDF.js (text-layer search,
+  25%–800% zoom, no public CDN), reading positions kept in `localStorage`, the phone layout below
+  820 px and 560 px, and the rule that a lecture failing any conversion check publishes its PDF alone.
+- The READMEs also gained a screenshot of the library home, desktop reading and phone reading; the
+  site-build dependencies (Pandoc, BeautifulSoup4, Node with `npm ci`); the `web-reader` pull-request
+  job and what `pages.yml` verifies before deploying; and `web_notes.py`, `e2e/` and
+  `docs/development/` in the repository tree. `docs/development/web-reading.md` now lists all eight
+  archived sources instead of the three original pilots.
+
 ## v1.0.1 — 2026-09-13 — Readable figures in six published lectures
 
 NJU GSE 2026 Lectures 2–3 and CMU 11-768 Lectures 1–4 printed camera-plus-slides frames at full
