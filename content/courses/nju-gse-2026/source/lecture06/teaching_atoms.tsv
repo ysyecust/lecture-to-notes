@@ -1,0 +1,43 @@
+atom	status	evidence
+回顾：Intent→Spec→Impl 与数据依赖图，Royce 对瀑布模型的批判	ok	fig_01_review_keywords；第 1 节“从意图到实现”
+traceability 与 UML 作为 pre-AI 时代的对齐手段	ok	第 1 节 knowledgebox“可追溯性”
+软件不软：纯逻辑制品容不下 bit 翻转、silent error	ok	fig_02_software_not_soft；第 1 节“软件不软”
+需求/产品/架构难以定量研究；Wicked Problems（1973）	ok	fig_03_wicked_problems；第 1 节
+AI 让目标明确的代码极便宜，边界清楚即可铺开 Agent Swarm	ok	fig_04_agentic_leverage；第 2 节
+MVP 先做最重要功能（依赖图决定不做无用功）	ok	第 2 节“MVP 的本能”
+几个字的 prompt（CLI / client-server / db.ts）让 MVP 分叉并进入上下文，形成技术债	ok	fig_04_board_intent_spec_mvp；第 2 节
+日志缺失也是 AI 默认不会主动偿还的技术债（课堂死机诊断）	ok	第 2 节 warningbox
+需求工程曾经难讲：学生见不到真实客户；AI 后独立开发者爆炸	ok	fig_05_req_eng_before_after；第 3 节
+教务系统的需求爆炸：AI 搜索、慕课助教、维护时段等需求叠加	ok	fig_06_jw_ai_search；第 3 节
+GPT 调研生成需求说明书：目录、业务目标 BG、功能需求 FR 编号与验收口径	ok	fig_07/08/09/10；第 3 节表格
+编号 ID 提供形式化语义从而支持 traceability；需求清单/追踪矩阵/验收场景可用于管理团队	ok	fig_11_srs_artifacts；第 3 节
+计算机系统基础 NEMU 讲义是学生第一次见到的长需求文档	ok	第 3 节 knowledgebox
+subagent 只凭需求说明书实现教务 demo；缺课次数校验 ≤100	ok	fig_12_absence_validation；第 3 节
+总需求分解与同理心（为临近退休的教务员设计）	ok	fig_13_req_decomposition；第 3 节
+需求永远说不清且会变；领域经验是行业壁垒	ok	fig_14_req_swamp；第 4 节
+离散数学拆课案例：“或”关系、下拉框补丁、override 与数据库手改	ok	第 4 节“离散数学拆成两门”
+培养方案案例数字：160 学分及构成、高数 A/B、交换课抵扣	ok	fig_15_graduation_case；第 4 节表格
+缺课次数改为 -1 导致页面 500：焦油坑	ok	fig_16_tar_pit；第 4 节
+Agentic MVP 的错觉与 No Silver Bullet（Brooks 1987）	ok	fig_17_agentic_mvp；fig_18_no_silver_bullet；第 4 节
+架构定义：驾驭复杂性、应对变化；Parnas 1972 信息隐藏	ok	fig_19_architecture_def；第 5 节
+再小的代码也有架构：read/parse/process/write	ok	fig_20_small_code_arch；第 5 节代码
+getopt 与 POSIX 约定：把 argv 复杂性隔离为 parsing state	ok	第 5 节代码与说明
+批评“语言律师”式教学：语法特性都与架构相关	ok	第 5 节
+非递归汉诺塔四种实现：GPT-6 数学规律、DeepSeek 任务栈、讲者抽象机器、CSDN 版本	ok	fig_21~24；第 6 节代码与表格
+架构关乎对需求掌控到什么程度；换表示改变难度（Zhang & Norman 1994）	ok	第 6 节 importantbox
+Excel 二维码生成器：需求明确但公式长而脆弱，版本/位置等需求变更	ok	fig_25_qr_complexity；fig_25_board_excel_versions；第 7 节
+二维码伪代码：SIZE=17+4V、RS 纠错 26 码字、134 码字	ok	fig_26_qr_pseudocode；第 7 节公式
+跳出问题看问题：其实要做编译器，中间语言 IR 两个后端	ok	fig_27/28；第 7 节
+性能优化在 IR 上：常量折叠、公共子表达式、LET、循环外提、PGO	ok	fig_29_perf_optimization；第 7 节
+架构能力来自学习与社会积累、共情	ok	第 7 节小结前段落
+AI 生成教务 demo 的架构与 AI 自评（三层单体、乐观锁、幂等、事务、审计）	ok	fig_30_ai_arch_review；第 8 节
+CRUD：当前状态快照、范式消除冗余、UPDATE 迁移	ok	fig_31_crud；fig_33_board_crud_state；第 8 节
+CRUD 灾难：当前状态=事实+规则+决定，丢失计算过程（can_graduate）	ok	fig_32_crud_disaster；第 8 节公式
+软件是现实过程的有损投影：不一致数据变成黑洞	ok	fig_33_lossy_projection；第 8 节
+计算机系改学院：沿用 dept_id 还是新建	ok	fig_34/35；第 8 节表格
+迁移代价：代码可重写历史不能补；ERP 手艺活；研究生院系统故事	ok	fig_36_migration_cost；第 8 节
+持久化数据结构；状态/操作/delta 三种等价视图（WAL、git/svn、CRUD）	ok	fig_37；第 9 节
+退学/复学与院系调整的 replay 解决方式	ok	第 9 节
+Event Sourcing：事件历史为本、快照优化；需从一开始设计	ok	fig_38_event_sourcing；第 9 节公式
+Agent 评估：分域采用 ES，全面 ES 以 80% 复杂度换 20% 收益	ok	fig_39_es_tradeoff；第 9 节
+CQRS：读写分离模型与同步约定；DDD 等名词回到第一性原理	ok	fig_40_cqrs；第 9 节

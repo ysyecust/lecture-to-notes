@@ -1,0 +1,44 @@
+figure	frame	start	end	topic	panel
+figures/fig_01_review_comments.jpg	f_0014.png	00:03:15	00:03:30	Review & Comments：Typesafe AI 的 Jev（System I 实时决策）与"感受一下 AI 进化的速度"	main
+figures/fig_02_chatgpt_2022.jpg	f_0020.png	00:04:45	00:05:00	AI 进化时间线视频中的 2022.11 ChatGPT 一帧："让自然语言成为入口"	main
+figures/fig_03_noam_brown_taste.jpg	f_0037.png	00:09:00	00:09:15	工作性质在改变：Noam Brown 访谈中的 90%/10% 与 Taste（对接下来该做什么的直觉）	main
+figures/fig_04_bitter_lesson_rsi.jpg	f_0062.png	00:15:15	00:15:30	The Bitter Lesson：OpenAI All In RSI 与"数据分布工程"支撑新一轮 Scaling Law（含 DoReMi 实验）	main
+figures/fig_05_data_flywheel.jpg	f_0067.png	00:16:30	00:16:45	数据分布工程的飞轮：发现新领域→建立可靠反馈→优化训练分布→获得并组合新能力→改进下一轮训练	main
+figures/fig_06_trainable_domains.jpg	f_0071.png	00:17:30	00:17:45	增加可训练领域：空间变换、系统架构、主动实验等智力活动变成可规模化训练的对象	main
+figures/fig_07_review_intent_spec_impl.jpg	f_0077.png	00:19:00	00:19:15	Review 版本管理：软件是 Intent、Spec、Impl 的组合体；从零开始构造软件	main
+figures/fig_08_mvp_office_assistant.jpg	f_0080.png	00:19:45	00:20:00	今天的答案：直接做一个 MVP——Office Assistant（GLM-5.3 直出）	main
+figures/fig_09_scanner_ui_demo.jpg	f_0083.png	00:20:30	00:20:45	Office Assistant 演示视频：触摸屏上的扫描界面（开始扫描、单双面等选项）	main
+figures/fig_10_printer_scanner_driver_table.jpg	f_0099.png	00:24:30	00:24:45	Agent 对两台设备的梳理表：标签打印机与扫描仪各自的 USB ID、内核路径、应用访问方式与权限	main
+figures/fig_11_label_printer_demo.jpg	f_0111.png	00:27:30	00:27:45	演示视频：标签打印机打出带条形码的标签	main
+figures/fig_12_label_print_help.jpg	f_0114.png	00:28:15	00:28:30	AI 生成的 label-print 工具帮助文本：60x30 mm 标签、二值化（Floyd-Steinberg / Otsu）	main
+figures/fig_13_today_outline.jpg	f_0123.png	00:30:30	00:30:45	今天的内容：软件工程的诞生、软件工程的智慧、UML	main
+figures/fig_14_1960s_expensive_programmers.jpg	f_0138.png	00:34:15	00:34:30	软件还是新生事物的年代：1960s 昂贵的码农，把客户需求翻译成软件系统，Dijkstra 登记职业的回忆	main
+figures/fig_15_boys_life_1968.jpg	f_0139.png	00:34:30	00:34:45	1968 年想象中的"明日学校"：《Boys' Life》1968 年 9 月号封面	main
+figures/fig_16_slide_source_markdown.jpg	f_0141.png	00:35:00	00:35:15	课件的 Markdown 源文件：[[ ]] 中是交给 AI 的指令（如去互联网找 1960s 杂志扫描图）	main
+figures/fig_17_customized_requirements.jpg	f_0156.png	00:38:45	00:39:00	软件工程和其他工程的区别：需求是高度定制化的（选课系统例子）	main
+figures/fig_18_software_crisis_dijkstra.jpg	f_0163.png	00:40:30	00:40:45	Software Crisis：进度、成本、质量一起失控；Dijkstra 的 GoTo 暴论与 The Humble Programmer	main
+figures/fig_19_nato_1968.jpg	f_0176.png	00:43:45	00:44:00	"软件工程"成为共同议题：1968 年 10 月 Garmisch NATO 软件工程会议	main
+figures/fig_20_apollo_hamilton.jpg	f_0178.png	00:44:15	00:44:30	把软件当作工程：Apollo，Margaret Hamilton 与她的团队，1201/1202 警报	main
+figures/fig_21_hamilton_agent_summary.jpg	f_0182.png	00:45:15	00:45:30	Agent 对 MIT Technology Review 文章的摘要：Forget It 程序、Lauren bug、阿波罗 11 号	main
+figures/fig_22_ieee_definition.jpg	f_0199.png	00:49:30	00:49:45	软件工程的诞生：IEEE 定义（systematic, disciplined, quantifiable）	main
+figures/fig_23_intent_three_interpretations.jpg	f_0204.png	00:50:45	00:51:00	软件工程的智慧：同一个 intent（会议室预约系统）被三种理解做成不一致的产品	main
+figures/fig_24_royce_waterfall_slide.jpg	f_0207.png	00:51:30	00:51:45	Royce 与瀑布模型：如何按时、不超预算地交付大型软件，"瀑布假设"	main
+figures/fig_25_royce_fig1.jpg	f_0216.png	00:53:45	00:54:00	royce.md 中 Royce 原文 Figure 1：ANALYSIS → CODING 两步流程	main
+figures/fig_26_royce_fig2_waterfall.jpg	f_0222.png	00:55:15	00:55:30	royce.md 中 Royce 原文 Figure 2：瀑布式阶梯流程图	main
+figures/fig_27_ai_firsthand_info.jpg	f_0245.png	01:01:00	01:01:15	AI 时代的一手信息：我的 AI 阅读助手 royce.md；谁来决定知识怎样压缩	main
+figures/fig_28_royce_fig10_summary.jpg	f_0253.png	01:03:00	01:03:15	royce.md 中 Royce 原文 Figure 10（Summary）与 Agent 对"被误读"的结论	main
+figures/fig_29_royce_tdd_mapping.jpg	f_0266.png	01:06:15	01:06:30	Agent 生成的 Royce 五步建议与 TDD 对应物的映射表	main
+figures/fig_30_testing_first_experienced.jpg	f_0270.png	01:07:15	01:07:30	Testing：timing / storage / I/O 第一次"被经历"；代价沿依赖一路向上	main
+figures/fig_31_do_it_twice.jpg	f_0272.png	01:07:45	01:08:00	Do It Twice：用今天的 MVP 理解 Royce 的 Pilot Model，用敏捷理解"反复做 Pilot"	main
+figures/fig_32_data_dependency_graph.jpg	f_0294.png	01:13:15	01:13:30	瀑布模型就是 Data Dependency Graph；TDD：拿 Testcase 当需求与设计	main
+figures/fig_33_dd_feedback_diagram.jpg	f_0297.png	01:14:00	01:14:15	用 Data Dependency 理解开发过程：瀑布、MVP/Pilot、敏捷三种反馈路径	main
+figures/fig_34_read_classics.jpg	f_0300.png	01:14:45	01:15:00	阅读"开天辟地"的经典：带着今天的经验回到当年的问题	main
+figures/fig_35_methods_tools.jpg	f_0333.png	01:23:00	01:23:15	软件工程的方法和工具：为每个阶段创建方法学和工具；不同阶段不同的"语言"	main
+figures/fig_36_methods_wisdom.jpg	f_0350.png	01:27:15	01:27:30	方法和工具的智慧：决策表、基于性质的测试（QuickCheck）、需求追踪矩阵	main
+figures/fig_37_board_traceability.jpg	f_0370.png	01:32:15	01:32:30	板书：/docs/、/src/、README.md 的文件视角与 intent→spec→impl 的依赖图	left
+figures/fig_38_design_by_contract.jpg	f_0354.png	01:28:15	01:28:30	契约编程 Design by Contract：前置条件、后置条件与类不变量（取款例子）	main
+figures/fig_39_eiffel_contract.jpg	f_0370.png	01:32:15	01:32:30	把契约写进语言：Eiffel 的 require/do/ensure 语法；Dafny、Verus	main
+figures/fig_40_uml.jpg	f_0383.png	01:35:30	01:35:45	Unified Modeling Language：能否有一种中间语言统一整个面向对象世界	main
+figures/fig_41_read_uml_spec.jpg	f_0395.png	01:38:30	01:38:45	阅读 UML Spec：让 AI 读 796 页规范备课，花去 18% 五小时额度（约 ¥5.3）	main
+figures/fig_42_which_intents_pinned.jpg	f_0398.png	01:39:15	01:39:30	哪些意图必须显式钉死，哪些可以留白：用语言的方法解决 Intent-Spec-Impl Gap	main
+figures/fig_43_diagram_not_model.jpg	f_0400.png	01:39:45	01:40:00	一、图≠模型：语义只有一个家；跨工具、跨时间存活的意图必须落成显式数据	main

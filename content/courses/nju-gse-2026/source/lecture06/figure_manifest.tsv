@@ -1,0 +1,46 @@
+figure	frame	start	end	topic	panel
+figures/fig_01_review_keywords.jpg	f_0003.png	00:00:30	00:00:44	上一讲回顾：Intent-Spec-Impl Gap、瀑布模型、数据依赖图；需求分析/设计/实现各有方法，UML 试图对齐全世界	main
+figures/fig_02_software_not_soft.jpg	f_0015.png	00:03:30	00:03:44	软件不软：需求难对齐、方案难选择、实现与返工贵	main
+figures/fig_03_wicked_problems.jpg	f_0034.png	00:08:15	00:08:29	需求、产品、架构难以定量研究；城市规划中的 Wicked Problems（Rittel & Webber, 1973）	main
+figures/fig_04_agentic_leverage.jpg	f_0056.png	00:13:45	00:13:59	Agentic AI：目标明确的代码极便宜；需求、产品设计、架构成为撬动生产力的杠杆，否则堆积 AI Slop	main
+figures/fig_04_board_intent_spec_mvp.jpg	f_0056.png	00:13:45	00:13:59	板书：intent→spec→impl 依赖与 trace；同一 MVP 需求加 CLI / client-server 提示词后分叉出不同实现	left
+figures/fig_05_req_eng_before_after.jpg	f_0061.png	00:15:00	00:15:14	需求工程曾经难讲：AI 之前与之后的独立开发者和付费用户	main
+figures/fig_06_jw_ai_search.jpg	f_0069.png	00:17:00	00:17:14	教务系统中的 AI 搜索：询问教学楼灯的维修联系人	main
+figures/fig_07_srs_cover.jpg	f_0097.png	00:24:00	00:24:14	GPT 调研生成的《南京大学本科教学服务平台需求说明书》封面与编制依据	main
+figures/fig_08_srs_toc.jpg	f_0099.png	00:24:30	00:24:44	需求说明书目录：调研方法、业务目标、角色模型、功能需求、验收场景、需求追踪等 16 章与附录	main
+figures/fig_09_business_goals.jpg	f_0103.png	00:25:30	00:25:44	2.2 候选业务目标 BG-01 至 BG-06 及可评估方式	main
+figures/fig_10_functional_reqs.jpg	f_0108.png	00:26:45	00:26:59	6.1 门户与身份、6.2 教学任务：FR 编号、优先级、候选验收口径与依据	main
+figures/fig_11_srs_artifacts.jpg	f_0119.png	00:29:30	00:29:44	需求交付物：需求清单.csv、需求说明书.html、需求追踪矩阵.csv、验收场景.csv	main
+figures/fig_12_absence_validation.jpg	f_0128.png	00:31:45	00:31:59	GPT 按需求说明书实现的教务演示：记录缺课次数输入校验（必须≤100）	main
+figures/fig_13_req_decomposition.jpg	f_0131.png	00:32:30	00:32:44	教务系统假想需求分解：培养与学籍、教学运行、选课与学习、考试与成绩、毕业与学位、协同与服务	main
+figures/fig_14_req_swamp.jpg	f_0137.png	00:34:00	00:34:14	教务系统的需求泥潭：访谈不完、各方需求冲突、客户说不清楚	main
+figures/fig_15_graduation_case.jpg	f_0157.png	00:39:00	00:39:14	培养方案案例：160 学分构成、数学二选一、先修、交换课抵扣与管理员线下审批	main
+figures/fig_16_tar_pit.jpg	f_0164.png	00:40:45	00:40:59	勉强实现需求后进入焦油坑：把缺课次数改为 -1 导致页面全部瘫痪	main
+figures/fig_17_agentic_mvp.jpg	f_0171.png	00:42:30	00:42:44	Agentic AI 时代的 MVP：前所未有地容易，也让人产生驾驭 AI 的错觉	main
+figures/fig_18_no_silver_bullet.jpg	f_0176.png	00:43:45	00:43:59	没有银弹：需求变更穿透依赖图，维护成本随软件增长	main
+figures/fig_19_architecture_def.jpg	f_0179.png	00:44:30	00:44:44	软件架构：驾驭复杂性、应对变化；把易变的设计决策藏在模块内部（Parnas, 1972）	main
+figures/fig_20_small_code_arch.jpg	f_0189.png	00:47:00	00:47:14	再小的代码也有架构：read/parse/process/write 四阶段 main	main
+figures/fig_21_hanoi_gpt6.jpg	f_0211.png	00:52:30	00:52:44	非递归汉诺塔 GPT-6 版本：盘号 = 1 + 步号二进制末尾 0 的个数	main
+figures/fig_22_hanoi_deepseek.jpg	f_0213.png	00:53:00	00:53:14	非递归汉诺塔 DeepSeek 版本：显式任务栈	main
+figures/fig_23_hanoi_abstract_machine.jpg	f_0218.png	00:54:15	00:54:29	非递归汉诺塔讲者版本：用 call/ret 宏模拟栈帧与 pc 的抽象机器	main
+figures/fig_24_hanoi_four_forms.jpg	f_0228.png	00:56:45	00:56:59	同一个汉诺塔四种表达：复杂性被放在哪里	main
+figures/fig_25_qr_complexity.jpg	f_0250.png	01:02:15	01:02:29	QRCode Generator 的复杂性：Excel 公式极长且脆弱，需求变更极度痛苦	main
+figures/fig_25_board_excel_versions.jpg	f_0250.png	01:02:15	01:02:29	板书：Excel 2019/2023 版本与单元格整体右移	left
+figures/fig_26_qr_pseudocode.jpg	f_0264.png	01:05:45	01:05:59	二维码伪代码：版本 5-L、37×37 模块、Reed-Solomon 纠错 26 码字、共 134 码字	main
+figures/fig_27_qr_compiler.jpg	f_0268.png	01:06:45	01:06:59	我们其实要实现的是编译器：先用中间语言表达计算规则，再落到 Excel	main
+figures/fig_28_ir_two_backends.jpg	f_0284.png	01:10:45	01:10:59	一份中间语言两种执行方式：Python 构造器→IR DAG→Python/Excel 后端	main
+figures/fig_28_board_llm_ir_excel.jpg	f_0300.png	01:14:45	01:14:59	板书：LLM 生成中间语言，翻译为 qr.py 验证、翻译为 Excel 交付	left
+figures/fig_29_perf_optimization.jpg	f_0285.png	01:11:00	01:11:14	性能优化：常量折叠、公共子表达式、LET 与辅助单元格	main
+figures/fig_30_ai_arch_review.jpg	f_0304.png	01:15:45	01:15:59	AI 对自身生成教务 demo 的架构评价：经典三层单体与生产级横切设计	main
+figures/fig_31_crud.jpg	f_0314.png	01:18:15	01:18:29	CRUD 架构：用当前状态描述整个世界	main
+figures/fig_32_crud_disaster.jpg	f_0325.png	01:21:00	01:21:14	CRUD 架构的灾难：当前状态混着事实、规则和决定	main
+figures/fig_33_lossy_projection.jpg	f_0335.png	01:23:30	01:23:44	软件是现实过程的有损投影：系统外的事实与不一致数据	main
+figures/fig_33_board_crud_state.jpg	f_0335.png	01:23:30	01:23:44	板书：学生/院系表构成当前状态，退学即一次 UPDATE 迁移	left
+figures/fig_34_dept_change.jpg	f_0339.png	01:24:30	01:24:44	需求的语义还会变：计算机系变成计算机学院	main
+figures/fig_35_dept_id.jpg	f_0342.png	01:25:15	01:25:29	沿用旧 dept_id 还是新建 dept_id：两种选择各自承诺的业务语义	main
+figures/fig_36_migration_cost.jpg	f_0347.png	01:26:30	01:26:44	系统一旦跑起来修改代价极高：代码可重写，历史不能凭空补出	main
+figures/fig_37_first_class_deps.jpg	f_0375.png	01:33:30	01:33:44	把依赖变成 first-class citizens：记录当前状态或操作历史	main
+figures/fig_37_board_history_vs_state.jpg	f_0375.png	01:33:30	01:33:44	板书：持久化数据结构与操作序列 op→op，对照 CRUD 的单一当前状态	left
+figures/fig_38_event_sourcing.jpg	f_0382.png	01:35:15	01:35:29	Event Sourcing：只追加的事件历史投影出当前视图	main
+figures/fig_39_es_tradeoff.jpg	f_0385.png	01:36:00	01:36:14	Agent 对教务 demo 改用 event sourcing 的评估：分域看，不是全局更好	main
+figures/fig_40_cqrs.jpg	f_0386.png	01:36:15	01:36:29	CQRS：Command 与 Query 使用不同模型，并约定如何同步	main

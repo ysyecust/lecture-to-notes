@@ -1,0 +1,9 @@
+{
+  "mode": "mixed",
+  "audience": "学过编程、第一次系统了解软件工程历史，并开始用 AI Agent 写代码的计算机专业学生",
+  "vision": "yes",
+  "central_question": "软件工程为什么会在 1968 年前后诞生，它为弥合 intent、spec、impl 之间的 gap 发明了哪些流程与语言，这些智慧在 AI 生成代码的时代还剩下什么？",
+  "reader_outcome": "能说明 Royce 论文对瀑布模型的真实批评与 do it twice，用数据依赖图比较瀑布、MVP、TDD 与敏捷的反馈路径，并判断决策表、QuickCheck、需求追踪、契约式编程与 UML 各自让哪一层意图变得可检查",
+  "visual_teaching_atoms": 43,
+  "formula_teaching_atoms": 4
+}

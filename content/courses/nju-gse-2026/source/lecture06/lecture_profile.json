@@ -1,0 +1,9 @@
+{
+  "mode": "technical-slide",
+  "audience": "学过编程与数据库基础、用过 AI 编程工具、第一次系统思考需求与架构的技术读者",
+  "vision": "yes",
+  "central_question": "当 AI 能廉价生成目标明确的代码之后，为什么需求与架构成了决定软件能走多远的杠杆？好的架构又如何在需求持续变化时控制复杂性？",
+  "reader_outcome": "能解释需求为何永远说不清且会变、为何每个需求决策都会变成技术债；能用“跳出问题看问题”分析 10 行、2000 行、50 万行三个尺度的架构选择；能说明 CRUD 在教务类系统中丢失历史的问题，以及 Event Sourcing / CQRS 用事件历史换取可解释性的取舍",
+  "visual_teaching_atoms": 45,
+  "formula_teaching_atoms": 5
+}

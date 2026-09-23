@@ -1,0 +1,1316 @@
+1
+00:00:00,000 --> 00:00:30,000
+Review&Comments 1-107老师 摧毁性的事情一直都在发生 TypesafeAI的Jev o我猜是一个prefillonly的transformer 官方披露：一次并行输出全部概率，无需逐token自回归生成。见技术介绍。 SystemI（人类意义上的实时决策） 感受一下AI进化的速度 很难想象SillconValley里的PiedPiper到今天会怎么样 以及我们每个人在就业市场上面临的挑战
+
+2
+00:00:30,000 --> 00:00:35,000
+超越LLM？新型A技术JeV的期时智能演承 1-107老师 28259-15 8700.63 TypeSadeAI发容T全新能型 0 7104 G 0 Je/小tBalatro,% 6 ( 195 (0) 超热大模型Jev 保姆级教程 IT: GPT-6 SolLuns. Fael. Jev + Browser Use *:# utnAAgeneP. JEV亲自净 0822 901) (624) [RAR) TypeSode R* Jev是什么？为何 Jev: Jev RtA? Ht L 比LLMs快200你 1.02 Jev作升文模型的理技
+
+3
+00:00:35,000 --> 00:00:45,000
+H-107老师
+
+4
+00:00:45,000 --> 00:00:50,000
+"effective_range"."under3ee" spread_deg""-11.2" -107老师 "shells(2per shot)" "one_Liner" pointbLank annihiLation,slovreload" enemy_types" "player_physics" nax_speed" "-292mapunits/second" "acceleration" "reaches max speed in~1.1 secondsfronstandstill" neasurenent_context" 'distance_unit" "Doonnapunit; not inches,feet,meters,or miles,Theplayer'sbody is 32units wide. 'distance_bands" "contact" "under 64 nap units; inmediate nelee range" "close": mediun"256tounder768; rangedengagementandmeaningfuttraveldistance" "far" "768ormore;distantandsubstantialtravelrequired" "relative_bearing_degrees" ""straight ahead" "positive"""Left" "+9e"""directly left" "+/-18e""behind" vertical_ain""autonatic when the target is in view only horizontal bearing matters then,A shot "tine" $O.1267 "one_game_tick"-"1/35second" "controL_rate" "decisions updateevery4ticks(-e.1 seconds); controlspersist continuously betveen decisions"
+
+5
+00:00:50,000 --> 00:00:55,000
+sight cannotbehituntil youback offfarenoughtoseeit" "time" -107老师 "controL_rate" "one_gane_tick""1/35second" "decislonsupdateevery-4ticks(-e.1 seconds);controlspersistcontinuousl) between decisions" "projectile_prediction", "closest approachassumes theplayer staysatthe current position;noving changes it" "player" "health" "39/208" "55/100 "armor" veapon" "shotgun" "status" "amno" "carrying" "fist" "shotgun (out of shells, "pistol(6ebullets)" in hand)" "keys" "suitching" alls" "left" "ahead" "open" "open" "right" "open” "footing" "velocity" null "speed" $O.1267 "direction" *-7* (dead ahead)"
+
+6
+00:00:55,000 --> 00:01:00,000
+-distance";"343(medium)" "just now" "bearing" -107老师 "-76*(right)" "status" "out of vier "Last_seen" "label""ammo cLip G(1ebullets)" "just no "distance" "474(medlun)" "bearing" "-78(right)" "status" "out of vie" "Label","arnorvest B (leo armor)" "Last_seen" "distance""195(close)" "justno "bearing" "+98"(teft)" "status" "out of viex" "Last_seen" "ammo clipB(1ebullets)" "335(sedlum)" "a fevseconds ago" "distance": "bearing" "+106*(left)" "status" "out ofvies" "Label" "last_seen" "chaingunA(veapon+2ebullets)" "distance" ""a fewsecondsago" "-14]-(behindleft)" "698(mediun)" "bearing" "status" "out of vie $O.1267 amnoclipD(1ebutlets)" "last_seen" "a feu seconds ago"
+
+7
+00:01:00,000 --> 00:01:05,000
+新型A技术JeV的界时智能演示 -107老师 PAUSED 00.47 /.02:43
+
+8
+00:01:05,000 --> 00:01:10,000
+型A技水eV的时智靠演示 PAUSED 00.32 / 02:43
+
+9
+00:01:10,000 --> 00:01:15,000
+1430 80.1218
+
+10
+00:01:15,000 --> 00:01:20,000
+H-107老师
+
+11
+00:01:25,000 --> 00:01:30,000
+4-107老师
+
+12
+00:01:30,000 --> 00:01:35,000
+软件工程 1-107老师 ##Review Comments 推毁性的事情一直都在发生 BV1x1ex6TEFu/) 我猜是一个prefillonly的transformer SystemI（人类意义上的实时决策） OpenAINoahBrown的访谈 一工作性质在改变：如果AI能做一个人90% 的工作，那个人的注意力就会集中到AI做不好的那10%上 Taste（"**对接下来该做什么**"） 的直觉：一两代模型之后就比他强了 “可验证”V.S.“不可验证” ![](noah.webp) [The_BitterLesson](https://ww.cs.utexas.edu/~eunsol/courses/ data/bitter_lesson.pdf) OpenAI all in RSI “数据分布工程”的飞轮 [[支撑新一轮scalinglaw p5/Lect/index.md 14,56-41
+
+13
+00:01:35,000 --> 00:01:40,000
+Review&Comments Toexitfue scen.pressand hold 1-107老师 摧毁性的事情一直都在发生 TypesafeAI的Jev 我猜是一个prefillonly的transformer SystemI（人类意义上的实时决策） 感受一下AI进化的速度 很难想象SillconValley里的PiedPiper到今天会怎么样 以及我们每个人在就业市场上面临的挑战
+
+14
+00:01:40,000 --> 00:03:25,000
+Review&Comments 仙-107老师 摧毁性的事情一直都在发生 TypesafeAI的Jev 我猜是一个prefillonly的transformer SystemI（人类意义上的实时决策） 感受一下AI进化的速度 很难想象SillconValley里的PiedPiper到今天会怎么样 以及我们每个人在就业市场上面临的挑战 绿导师原谅你了训
+
+15
+00:03:25,000 --> 00:03:30,000
+本视领完全中GPT-6Asua制作雨成 仙丨-107老师 智能纪元 绿导师原谅
+
+16
+00:03:30,000 --> 00:03:35,000
+1-107老师 1950 机器思考 变成研究问题
+
+17
+00:03:35,000 --> 00:03:40,000
+本视频完全由GPT-6Astra制作雨成 山1-107老师 1956-1958 人工智能得名，感知机开始学习
+
+18
+00:03:40,000 --> 00:03:45,000
+山1-107老师 1960s 感知与规划，让机器走出计算器
+
+19
+00:03:45,000 --> 00:03:50,000
+山1-107老师 1970-1990 规则不断积累，热望也经历寒冬
+
+20
+00:03:50,000 --> 00:03:55,000
+ina H-107老师 1997 深蓝击败卡斯帕罗夫 机器跨过一座棋局高峰
+
+21
+00:03:55,000 --> 00:04:00,000
+窄A的辉煌时刻， 1,2 (om2,) _2.2 2012 Dverviewvisualizesneuron AlexNet带来转折 ttivationsandlayerconnections 从像素中。逐层学习特征
+
+22
+00:04:00,000 --> 00:04:05,000
+常AI的辉煌时刻， 击败各种各样的棋局高手 1-107老师 Convolution 008 Input(28,28) Output(26,26) 0.02 -0.26 x 0.04 -0.23 -0.25 0.17 -0.16 -0.18 0.07 2012 卷积提取局部特证，再完成分类hematricestochangekernelposition
+
+23
+00:04:05,000 --> 00:04:10,000
+牌的想局手 仙-107老师 2016 AlphaGo：学习与搜索结合 直觉，也开始成为机器的能力 绿导师原谅你了小山
+
+24
+00:04:10,000 --> 00:04:15,000
+1-107老师 2016 AlphaGo：学习与搜素结合 直觉，也开始成为机器的能力
+
+25
+00:04:15,000 --> 00:04:20,000
+机制示意·尚一明句的表示更！ fluffy blue creatureroamedtheverdantforest 9.7 26 3.6 5.6 9.7 7.1 7.9 7.7 4.3 4.3 4.6 6.0 5.6 4.5 9.8 6.9 4.6 6.5 9.7 5.4 9.2 7.7 5.6 0.6 6.0 4.2 1.2 0.2 6.6 12,288 1.9 6.1 6.4 6.3 6.6 3.7 2017 0.2 4.3 6.1 23. 81 8.2 9.4 8.8 6.1 2.5 Transformer：词元变为向量 3.6 信息开始在上下文中建位联系
+
+26
+00:04:20,000 --> 00:04:25,000
+fluffy bluecreature 机制示意·同一句的表示更粉 rest Query Any adjectives 128-dimensional in front of me? WQ 963 2017 20 注意力，决定此刻该关注谁
+
+27
+00:04:25,000 --> 00:04:30,000
+本找频凭全由GPT-6Astra制作成 -107老师 大学生用亚包 2020TVAIs2026PA GPT来了 GPT6A3IB于净8 汇聚相关信息，让词义随语境更 GPTAnEMa...E+ openaiMaT义-M
+
+28
+00:04:30,000 --> 00:04:35,000
+机制乐意：一别句的表示更前 H-107老师 creature →亩+博=面 Tuffy blue rdant 2017 汇聚相关信息，让词义随语境更新
+
+29
+00:04:35,000 --> 00:04:40,000
+大语言模型 机制示意·同一例句的表示更新 H-107老师 2017 thefluffy bluecreatureroamed the verdant 22？多头关注不同关系 the fluffyblue creature roamed the verdantforest 并行训练，打开规模之门
+
+30
+00:04:40,000 --> 00:04:45,000
+灰姆言模型 Output:Is -1 1-107老师 Input:Count files ina directory Output: Is -1 /wc -1 Input:Diskspaceusedbyhomedirectory Output:du~ Input:Replacefoowithbarinall.pyfiles Output:sed-i.bak--'s/foo/bar/g'*.py Input:Deletethemodelssubdirectory Output:rm-rf./models 2020 Input:WhatfolderamIin? GPT-3：给出几个例子 模型便能接着完成新任务 Submit
+
+31
+00:04:45,000 --> 00:04:50,000
+山丨-107老师 NW6 2020 AlphaFold2，把序列变成立体结构
+
+32
+00:04:50,000 --> 00:04:55,000
+2022年原始录您·任务：格怡出十种高解品有建议 ChatGPT 仙-107老师 Examples Capabilities Limitations "Explain quantum computing in Rememberswhatusersaid May occasionally generate simpleterms" earlierinthecomversation incorrect information Allows user to provide follow-up Got any creativeideas fora 10 May occasionally produce year old's birthday?"-- corrections harmfulinstructionsorbiased content "HowdoImakeanHTTPrequest Trained to decline inappropriate in Javascript?"-- requests Limitedknowfedgeofworldand events after 2021 2022.11 ChatGPT，让自然语言成为入口 I want to cook something with seafood today, can you give me 10 dishes as options?
+
+33
+00:04:55,000 --> 00:05:00,000
+2022年原始录像·任务：给出十种测解监看建议 Shrimpanagrits 2.Salmonburgers Clamchowder 4. Lobster roll Cajun shrimp and rice Crab cakes Garlicshrimppasta 8.Fish tacos 9.Seafoodgumbo 10,Grilledsalmonwithvegetables These dishes can vary in difficulty level, so you can choose one that best fits instructions on howto 2022.11 ChatGPT，让自然语言成为入口
+
+34
+00:05:00,000 --> 00:05:05,000
+Ca Pyhonalpye 1-107老师 pletion.createl coatant"1 input_content)] assistant_responss mait nessage.chusnel.send[asslatant_response) reeponselchainesltollnasage'l'content elient.rum(DLscoRD_Tox) client.-Chatbot(intents-istents) verythingl0 funetion revealloke2() raidel' poa/> </ueript> (at> e Sokes are repiaced by tvo real Jokes. Response:ciDOCTTTr htsi> otnllang'en' 2023.03 -"vievport'content-"vidthrdevice-width,initial-sale-l.o"> JokeWebaitec/title GPT-4:看懂-张草图 把想法变成能运行的网页
+
+35
+00:05:05,000 --> 00:05:10,000
+Tex开发者加数公开权重·原始教程 RAM Disk -107老师 wnioading shards:100% 2/2 [01:21<00.00, 36.86s/t] wnloading (._)of-00002.safetensors: 100% 9.98G/9.98G [01:00c00:00. 264MB/s] wnioeding (-_Jof-00002.sadetensors: 100% nding checkpoint shards: 100% 2/2 [01:02c00:00. 28.73s/] wnloading (..)oeration_config.json:100% 188/188 [00.00c00:00, 11.5kB/s] gResponses erything set up,let's seehow Llama responds to somesamplequerles. get_llama_response(prompt:str) ->None: Generate a response from the Llama model. Parameters: prompt (str):The user's input/question tor the model. 2023.07 Returms: Nonet Prints the model's response. Llama2开放权重，开发者接力探索 sequences = llama_pipeline( prompt,
+
+36
+00:05:10,000 --> 00:05:15,000
+-107老师 (etel-N05-m 2023.12 Gemini：读入图片 找到错误，再解释为什么
+
+37
+00:05:15,000 --> 00:05:20,000
+腊建：东京夜晚的青虹街头 -107老师 2024.02 Sora:从一句描述，到连续影像
+
+38
+00:05:20,000 --> 00:05:25,000
+-107老师 25 24 2024.05 Find sin(a) in the triangle GPT-4o:看见问题 在交互中，给出反馈
+
+39
+00:05:25,000 --> 00:05:30,000
+官万滨示节送·时间轻压 11-107老师 2024.05 GPT-4O:看见问题 在交互中，给出反馈
+
+40
+00:05:30,000 --> 00:05:35,000
+shead> 1-107老师 <title>Self-AttentionVisualization</title> <style> body( margin: n; padding:; position: relative; font-family: Arial,sans-serif; position:relative; display:inline-block; margin-top: 5: margin-left:Zpa; display: inline-block; position: relative; margio: D lBu: 2024.09 cursor: pointer: fonts12e: 24px; 01：让模型用更多计算去思考 Eaftrhtanavectoi osroln-lon:
+
+41
+00:05:35,000 --> 00:05:40,000
+公开论文案例迁原·R1-Zero中调练版本 1-107老师 DeepSeek-Rl-Zero 论文累例还原·中间训练版本 (a-/(a+x))=x a>1 2025.01 R1-Zero：强化学习中 出现回头检查的推理行为
+
+42
+00:05:40,000 --> 00:05:45,000
+AN Posts ging Face Docs Enterprise I Models Dutasets Spaces Pricing -107老师 wk-alDeepSeek-R1D 2501-12941 t card Firs and versaon Communty O Use this modei 2 toondatcand k-R1 148,751 caso params DF16FR_E4M3 F32 Pager.Link.a. uction 2025.01 ct oar first-genraticn reasoning modeds, DeepSeeik-R1-Zrro and DeepSeel-R1 R1-Zero, a modef trsined va farge-icale regnforcement learnsing (RL) wdthost supervised S'Tj as a peeliminary steg, demonstrated remaricsbis pertoomance on reasoning, With R1公开权重，推理走向更多人 eik.Rd-Zero natuorally enserged with.rusmserous poserdul ansd interestiegrgasosog tawevet, DrenRStheibR3-Zaro.encocotrrs ctallngrssechu mrtetrpetitimn, poot
+
+43
+00:05:45,000 --> 00:05:50,000
+1-107老师 Two weeks later 2026.02 Opus4.6：研究者设定任务 多个claude协作构建给译器
+
+44
+00:05:50,000 --> 00:05:55,000
+1-107老师 2026.02 运行Linux相关构建，编译Doom 复杂工程，开始出现实际成果
+
+45
+00:05:55,000 --> 00:06:00,000
+1-107老师 ApexPro-OlympicLaunch 2026.02 Vercel早期评价：跨过产品可用门搭
+
+46
+00:06:00,000 --> 00:06:05,000
+体现象示意，2013实验影你， -107老师 2026.09.08 OpenAl宣布给出 Navier-Stokes问题的证明
+
+47
+00:06:05,000 --> 00:06:10,000
+体象乐量·2013实验彩像， 菲证明卖票 1-107老师 2026.09 三维不可压流动，在光滑外力下 可出现有限时间奇性
+
+48
+00:06:10,000 --> 00:06:15,000
+体现象示量·2013实验彩你，非证明实录 2026.09 公开论文与Lean形式化证明 让推导进入可检查的表达
+
+49
+00:06:15,000 --> 00:06:20,000
+-107老师 公开Lean源码 NavierStokes/PeriodicPaperTheorem.lean pressure_smooth :ContDiffon wp preSingularDomain force_smooth: ContDiff  f velocity_periodic:UnitSpatialPeriodsOn (Icoe pressure_periodic :UnitSpatiaiPeriodsOn Ico force_periodic :UnitSpatialPeriodsOn (Ici e) supportcompact: Iscompactk support_interior entallnterior velocity_support 2026.09 FundamentaiCube tsupport (fun x : nfundamentalCube 当机器跨越人类智慧的又一座高峰 未来的可能，才刚刚展开
+
+50
+00:06:20,000 --> 00:06:25,000
+二-107老师 此视频完全由GPT-6astra制作
+
+51
+00:06:25,000 --> 00:06:30,000
+软件工程 -107老师 ##Review&Coments 推毁性的事情一直都在发生 BV1x1ex6TEFu/) 我猜是一个prefiulonly的transformer SystemI（人类意义上的实时决策） OpenAINoahBrown的访谈 一工作性质在改变：如果AI能做一个人90% 的工作，那个人的注意力就会集中到AI做不好的那10%上 Taste（"**对换下来该做什么*"） 的直觉：一两代模型之后就比他强了 "可验证”V.S，“不可验证” ![](noah.webp) [The_BitterLesson](https://ww.cs.utexas.edu/~eunsol/courses data/bitter_lesson.pdf) OpenAI all in RSI “数据分布工程”的飞轮 [[支撑新一轮scalinglaw 14,56-41 p5/Lect/index.md Top
+
+52
+00:06:30,000 --> 00:06:35,000
+Review&Comments 1-107老师 Toexitfullscreenpressandhold 摧毁性的事情一直都在发生 TypesafeAI的Jev 我猜是一个prefillonly的transformer 官方披露：一次并行输出全部概率，无需逐token自回归生成。见技术介绍。 SystemI（人类意义上的实时决策） 感受一下AI进化的速度 很难想象SillconValley里的PiedPiper到今天会怎么样 以及我们每个人在就业市场上面临的挑战
+
+53
+00:06:35,000 --> 00:06:50,000
+Review&Comments 1-107老师 摧毁性的事情一直都在发生 TypesafeAI的Jev 我猜是一个prefillonly的transformer SystemI（人类意义上的实时决策） 感受一下AI进化的速度 很难想象SillconValley里的PiedPiper到今天会怎么样 以及我们每个人在就业市场上面临的挑战
+
+54
+00:06:50,000 --> 00:06:55,000
+山-107老师 我们干脆拿彼得·格雷戈里的二十万 Yeah,whatifwetookPeterGregory's200,000.
+
+55
+00:06:55,000 --> 00:07:00,000
+bililbi -107老师 抱你说我们我们是指谁 I'msorryyouSaid,wg,Who'satinreferencetoexactly?
+
+56
+00:07:00,000 --> 00:07:05,000
+1-107老师 魔笛手现在只压缩音频 I meanrightnowPiedPiper justdoesaudio..
+
+57
+00:07:05,000 --> 00:07:10,000
+-07老师 也许格雷戈里说得对这支术很有潜力 Imean maybePeter Gregoryis right.Maybethisthingcould be huge
+
+58
+00:07:10,000 --> 00:07:15,000
+1-107老师 一直都被欺负 havegottentheshitkickedoutofus...
+
+59
+00:07:15,000 --> 00:07:20,000
+-107老师 我们可以打造自己的帝国 where-we-canbe-in-charge-and buildempires
+
+60
+00:07:20,000 --> 00:07:25,000
+软件工程 1-107老师 ##Review& Comments 推毁性的事情一直都在发生 BV1x1ex6TEFu/) 我猜是一个prefillonly的transformer SystemI（人类意义上的实时决策） OpenAINoahBrown的访谈 一工作性质在改变：如果AI能做一个人90% 的工作，那个人的注意力就会集中到AI做不好的那10%上 Taste（"**对接下来该做什么**"） 的直觉：一两代模型之后就比他强了 “可验证”V.S.“不可验证” ![](noah.webp) [The_BitterLesson](https://ww.cs.utexas.edu/~eunsol/courses data/bitter_lesson.pdf) OpenAI all in RSI “数据分布工程”的飞轮 [[支撑新一轮scalinglaw p5/Lect/index.md 14,112-101 Top
+
+61
+00:07:25,000 --> 00:08:05,000
+Review&Comments 1-107老师 摧毁性的事情一直都在发生 TypesafeAI的Jev o我猜是一个prefillonly的transformer 官方披露：一次并行输出全部概率，无需逐token自回归生成。见技术介绍。 SystemI(人类意义上的实时决策） 感受一下AI进化的速度 很难想象SillconValley里的PiedPiper到今天会怎么样 以及我们每个人在就业市场上面临的挑战 1 / 8
+
+62
+00:08:05,000 --> 00:09:20,000
+工作性质在改变 1-107老师 OpenAINoamBrown的访谈 如果AI能做一个人90%的工作，那个人的注意力就会集中到AI做不好的10%上 Taste("对接下来该做什么"的直觉)：他预计，一两代模型之后就比他强了 。"可验证"V.S."不可验证" 2./
+
+63
+00:09:20,000 --> 00:09:25,000
+The BitterLesson 1-107老师 OpenAIAllInRSI TheBitterLesson 6“数据分布工程”的飞轮 支撑新一轮ScalingLaw：数据分布工程 学什么、何时学：在什么阶段，接触哪些经验 怎样学：比例、难度、顺序与训练方式 持续调整：根据学习进展、跨域迁移与泛化表现，改变训练分布 e就DoReMi的实验：某领域的训练占比降低后，该领域的困感度仍然可以改善 2 / I
+
+64
+00:09:25,000 --> 00:10:05,000
+工作性质在改变 -107老师 OpenAINoamBrown的访谈 如果AI能做一个人90%的工作，那个人的注意力就会集中到AI做不好的10%上 Taste("对接下来该做什么”的直觉)：他预计，一两代模型之后就比他强了 。"可验证"V.S."不可验证" 7./
+
+65
+00:10:05,000 --> 00:10:30,000
+The BitterLesson 1-107老师 OpenAIAllInRSI TheBitterLesson 。“数据分布工程"的飞轮 支撑新一轮ScalingLaw：数据分布工程 持续调整：根据学习进展、跨域迁移与泛化表现，改变训练分布 0@DoReMi的实验：某领域的训练占比降低后，该领域的困感度仍然可以改善
+
+66
+00:10:30,000 --> 00:15:30,000
+The BitterLesson 仙-107老师 OpenAIAllInRSI TheBitterLesson 。“数据分布工程的飞轮 支撑新一轮ScalingLaw：数据分布工程 学什么、何时学：在什么阶段，接触哪些经验 怎样学：比例、难度、顺序与训练方式 持续调整：根据学习进展、跨域迁移与泛化表现，改变训练分布 o.DoReMi的实验：某领域的训练占比降低后，该领域的困感度仍然可以改善 绿导师原谅你了
+
+67
+00:15:30,000 --> 00:16:45,000
+数据分布工程的飞轮 仙-107老师 自动化能力生产过程 发现新领域 扩大可训练范围 改进下一轮训练 独立验证的净收益 建立可靠反馈 模型参与训练研究 环境与验证器 能力生产过程的自动化 获得并组合新能力 优化训练分布 迁移与泛化 比例·难度·顺序·方式 绿导师原谅你了
+
+68
+00:16:45,000 --> 00:16:50,000
+增加可训练领域 仙-107老师 把更多智力活动变成可以规模化训练的对象 方法。 空间变换、图形规则归纳、几何构造 运行、模型检查、故障注入与需求变化：检验方案 主动实验、记忆管理、需求澄清 可靠反馈 与验证器 后续预测与任务结果：评价此前的选择 方式 绿导师原谅你了证
+
+69
+00:16:50,000 --> 00:17:40,000
+增加可训练领域 仙-107老师 把更多智力活动变成可以规模化训练的对象 空间变换、图形规则归纳、几何构造 就生成器与约束检查：构造任务，验证结果 系统架构、并发协议、故障诊断 运行、模型检查、故障注入与需求变化：检验方案 主动实验、记忆管理、需求澄清 0后续预测与任务结果：评价此前的选择 绿导师原谅你了 5/ I
+
+70
+00:17:40,000 --> 00:19:15,000
+Review:版本管理 仙1-107老师 软件是Intent、Spec、Impl的组合体 以文件系统快照的形式存储（版本管理） 所谓“软件开发”，就是不断推出新的版本，直到满足客户需求 。这其中很自然会遇到分叉、冲突... o于是你能理解SVN、Git、Jujutsu、....的设计原因 从零开始构造软件 上次起了个头：从空的项目（模糊的intent)开始，我们可以做什么？ 绿导师原谅你了训i 5 / I
+
+71
+00:19:15,000 --> 00:20:05,000
+今天的答案：直接做一个MVP 仙-107老师 OfficeAssistant（GLM-5.3直出） “软件”公司的彻底消亡（eV，豆包手机，...) 以后可以想象：说好需求，自动下单零部件，3D打印定制件，回家Lab就建好了 绿导师原谅你了证 I / L
+
+72
+00:20:05,000 --> 00:20:10,000
+file:l -To exit full screen,press 仙1-107老师 标签打印 文档扫描 敬请期待 敬请期待 ZHIXIANDA 绿导师原谅你了， 0.00.70.47
+
+73
+00:20:10,000 --> 00:20:15,000
+山1-107老师 标签打印 文格扫描 敬请期待 请期待 ZHIXIANDA 0.08.70.47
+
+74
+00:20:15,000 --> 00:20:25,000
+11-107老师 ZHIXIANDA
+
+75
+00:20:25,000 --> 00:20:30,000
+4-107老师
+
+76
+00:20:30,000 --> 00:20:40,000
+山1-107老师 ZHIXIANDA
+
+77
+00:20:40,000 --> 00:20:45,000
+11-107老师
+
+78
+00:20:45,000 --> 00:20:50,000
+1-107老师 canon
+
+79
+00:20:50,000 --> 00:20:55,000
+41-107老师 ZHIXIANDA
+
+80
+00:20:55,000 --> 00:22:15,000
+-107老师 ZHIXIANDA 0.43/0.4
+
+81
+00:22:15,000 --> 00:22:20,000
+今天的答案：直接做一个M To exit full screen,press and hold -107老师 OfficeAssistant（GLM-5.3直出） “软件"公司的彻底消亡(Jev,豆包手机，..) 以后可以想象：说好需求，自动下单零部件，3D打印定制件，回家Lab就建好了
+
+82
+00:22:20,000 --> 00:23:10,000
+今天的答案：直接做一个MVP 1-107老师 OfficeAssistant GLM-5.3直出） 软件”公司的彻底消亡(lev,豆包手机，...） 以后可以想象：说好需求，自动下单零部件，3D打印定制件，回家Lab就建好了 I / L
+
+83
+00:23:10,000 --> 00:23:15,000
+--group-directories-first --iconssauto assets p1 p4 scripts MMakefile docs p2 AGENTS.md 仙-107老师 README.md guest p3 p6 CLAUDE.md cd E. 绿导师原谅你
+
+84
+00:23:15,000 --> 00:23:20,000
+$eza --git --group-directories-first--iconsauto assets scripts pi p4 MMakefile docs AGENTS.md P2 仙1-107老师 README.md guest p3 p6 CLAUDE.md $cd~/Projects/labmate/ impl scripts webaAGENTS.md tests MREADME.md $ cd scripts/ 绿导师原谅你了
+
+85
+00:23:20,000 --> 00:23:25,000
+docs p5 AGENTS.md p2 README.md guest p6 p3 CLAUDE.md 仙1-107老师 cd~/Proiects/labmate/ eza -git--group-directories-first--icons=auto impl scripts webAGENTS.md README.md $cd scripts/ eza --git -group-directories-first--icons=auto Dlabel-print Dscan $ pi pi vo.86.0 escapeinterrupt:ctrl+c/ctrl+d clear/exit:/commands! bash - ctrl+o more Press ctrl+o to show full startup help and loaded resources. Pi can explain its own features and look up its docs. Ask it how to use or extend Pi. [Context] ~/.pi/agent/AGENTS.md, ~/Projects/labmate/AGENTS.md [Extensions] 解释一下 绿导师原谅你了训i /Projects/labmate/scripts(master) 0.0%/1.0M (auto) deepseek-flash · high
+
+86
+00:23:25,000 --> 00:23:30,000
+$ eza --git --group-directories-first --iconssauto implscripts AGENTS.md tests web README.md 仙-107老师 $ cd scripts/ $ eza --git --group-directories-first --icons=auto 0 label-print D scan $pi pi vo.86.0 escape interrupt : ctrl+c/ctrl+d clear/exit : / commands : bash . ctrl+o more Press ctrl+o to show full startup help and loaded resources. Pi can explain its own features and look up its docs. Ask it how to use or extend Pi. [Context] ~/.pi/agent/AGENTS.md, ~/Projects/labmate/AGENTS.md [Extensions] 解释一下打印机和扫描一是如何连接的 " Working 绿导师原谅你了证 ~/Projects/labmate/scripts(master) 0.0%/1.0M (auto) deepseek-flash · high
+
+87
+00:23:30,000 --> 00:23:35,000
+$~ 81: --device PATH printer node(default:auto-detect) 93: permission deniedon the device  Install the udev 仙丨-107老师 rule above, or run withsudo.l 210: udev/ the devicerule Took 0.os $cd/home/jyy/Projects/Labmate6rg-n "dev|usb/lplscanimage|VENDOR|ex"scripts/Label-printIsed impl/misc/tools/zmprint.py I head -40 (60 earlier lines, ctrl+o to expand) if not n: (03eb:9638,/n/n/lp*).Replugitandcheck "dmesg.",file=sys.stderr) ok,elapsed,ndte=timed_write(n,job,args.timeout) print(f"sent to (n):(nice_id()orzMINprinter'); Took o.os Thinking.. .working 绿导师原谅你了b训i ~/Projects/labmate/scripts (master) 个5.2k±712R6.8k CH56.0% $0.002 0.8%/1.0M(auto) deepseek-fla
+
+88
+00:23:35,000 --> 00:23:40,000
+'scripts"，'scan"), web/server/src/paths.ts:25:exportconstSCANS_DIR 仙-107老师 path.join(DATA_DIR,"scans'); Took o.es Thinking... $cd /home/jyy/Projects/labmateS6rg-n"scanimagedef buid_pdf|work_dir|out_pdf|check_output|subprocess.run|Popen web/server/src/routes/scan.ts web/server/src/routes/labels.tsIhead-30 (o earlier lines,ctrl+o to expand) egeashstitwfhiicb'sonolmun) nstallsallenoriis $40 20 tmp es.path.ahsbathlargs-wbtk_dir) th.bas anes.aene_Pat FTogsef e.os working 绿导师原谅你了证 ~/Projects/labmate/scripts(master) 6.3k±1.7kR23kCH82.4%$0.0051.9%/1.0M(auto) deepseek-fla
+
+89
+00:23:40,000 --> 00:23:45,000
+$0 表，物理/驱动层（各走各的） 仙-107老师 标签打印机 扫描仪 EZECAN / ZMIN GL70 CanonigageFORMULA R48 USB TD e3eb :963p 1083 :1679 LibuSb直访USBSANE 33ev2c55/1ol ecanon_dr 后瑞) 内用路 Libusiba收SANE读 （ZMIPL1指含1bit.位 围，不经CuPs impl/m15r<odev/99zmtn impl/misc/ucev/9can -gl7e.ruas (ustmsc+ PHe)-(USB S两务部议0666) 0666，节 mppt-onsg) 发茂方或也不网 #mptttf_prtnitr(）a历/sycc(aas/usbmisep+ ieeest_id，配rSCANMDL6L7e退国 扫插机zarinttfiadpzid_aevic源）用iys/cimssbmj迅开 绿导师原谅你了讯i Lsv,usb/lpin.
+
+90
+00:23:45,000 --> 00:24:50,000
+Thinking... 仙丨-107老师 结论：两者互不连接，各自以USB连到一台主机（LinuX机器 ），在软件里是两条独立的通路。 1.物理/驱动层（各走各的） 标签打印机 扫描仪 设备 EZSCAN/ZMINGL70 Canon imageFORMULA R40 USB ID 03eb:9638 1083:1679 内核路 usblp驱动→字符设备 Libusb直访USB（SANE /dev/usb/LpN 的canon_dr后端） 应用访 直接往LpN写操字节 Scanimage经SANE读 （ZMIPL1指令+1bit位 图）：不经CUPS 权限 impl/misc/udev/99zmin impl/misc/udev/99-can -gl70.rules (usbmisc+u on-r40.rules (USB 设 sb两条部设0666) 0666.否则节点 root-only) 绿导师原谅你了ibi 发现方式也不同： -打印机zmprint.find_printer(）遍历/sys/class/usbmisc/lp*
+
+91
+00:24:50,000 --> 00:24:55,000
+1.物理/驱动层（各走各的） 仙丨-107老师 标签打印机 扫描仪 设备 EZSCAN / ZMIN GL70 Canon imageFORMULA R40 USBID 03eb:9638 1083:1679 内核路 usblp驱动→字符设备 libusb直访USB（SANE /dev/usb/kpN 的canon_dr后端） 应用访 直接往lpN写裸字节 Scanimage 经 SANE 读 (ZMIPL1指令+1bit位 图），不经CUPS 权限 impl/misc/udev/99-zmin impl/misc/udev/99-can -gl70.rules (usbmisc+u on-r40.rules(USB设 sb两条部设0666) 0666，否则节点 root-only) 发现方式也不同： 打印机zmprint.find_printer(）遍历/sys/class/usbmisc/lp+ 读 ieee1284_id. 匹配 MFG:EZSCAN ;MDL:GL70, 返回 /dev/usb/LpN。 -扫描仪scripts/scanfind_device(）用scanimage-L：为避开 net/escl/airscan各超时~1os，它建了个临时 绿导师原谅你了训i SANE_CONFIG_DIR，只启用Canon_dr后端再探测，并优先取 libusb：设备。
+
+92
+00:24:55,000 --> 00:25:00,000
+图），不经CUPS 权限 implL/misc/udev/99zmin 仙-107老师 impL/misc/udev/99can -gl70.rules (usbmisc+u on-r4o.rules (USB 设 sb两条都设0666) 0666，否则节点 root-only) 发现方式也不同： -打印机zmprint.find_printer(）遍历/sys/class/usbmisc/lp* 读ieee1284_id,区配MFGEZSCAN;MDL:GL70，返回 /dev/usb/LpN。 扫描仪scripts/scan:find_device(）用scanimage-L为避开 net/escl/airscan各超时~1os，它建了个临时 SANE_CONFIG_DIR，只启用canon_dr后端再探测，并优先取 libusb：设备。 2.应用层（谁把它们串起来） web/server/src/paths.ts把scripts/scan.scripts/label-print 登记为脚本路径：server通过child_process.spawn把它们当子 进程拉起（web/server/src/routes/scan.ts、labels，ts），进程组 以便取消时整棵杀掉。两者之间没有直接通通： -扫描：本把PDF写进--work-dir，目录里page-*.png数已扫 面数、marker存页数、done最后写：服务端轮询目录做进度，完 成后重命名/上传到SCANSDIR -打印：服务端把图片文件路径作为参数交给label-print，由它自 已二进制化后写设备节点。 绿导师原谅你了i 即：共享的是『同一台USB主机+间一套web调度」，不是设备
+
+93
+00:25:00,000 --> 00:25:10,000
+$ ~ net/escl/airscan各超时~1os.它建了个临时 SANE_CONFIG_DIR.只启用Canon_dr后端再探测，并优先取 libusb：设备。 仙1-107老师 2.应用层（谁把它们串起来） web/server/src/paths.ts 把 scripts/scan,scripts/label-print 登记为脚本路径：server通过child_process.spawn把它们当子 进程拉起（web/server/src/routes/scan.ts、labels.ts），进程组 以便取消时整棵杀掉。两者之间没有直接通道： -扫描：费本把PDF写进--work-dir，目录里page-*.png数已扫 面数、marker存页数、done最后写：服务端轮询目录做进度，完 成后重命名/上传到SCANS_DIR。 -打印：服务端把图片文件路径作为参数交给label-print，由它自 己二进制化后写设备节点。 即：共享的是『同一台USB主机+同一套web调度」，不是设备 之间的连线。 Recap：关键点是区分「物理USB拓扑」与「软件通路」一两台外 没都是USB挂到同一主机，但打印机走内核USbLp的 /dev/usb/lpW操字节流，扫描仪走SANE/libusb，三者只在web 服务层的子进程调度处汇合：udev规则和find_printer/-L探 测是两个设备各自的接人缴节。 绿导师原谅你了i /Projects/labmate/scripts(master) ↑9.5k ±2.8k R31k CH89.2% $0.006 1.2%/1.0M (auto) deepseek-fla
+
+94
+00:25:10,000 --> 00:25:15,000
+SANE_CONFIG_DIR.只启用CaIOn_dr后端再探测，并优先取 Libusb：设备。 仙-107老师 2.应用层（谁把它们串起来） web/server/src/paths.ts  scripts/scan, scripts/label-print 登记为脚本路径：server通过childprocesscspawn把它们当子 进量拉起（weberververc/rotchildproG、1nspbw），进程组 只拉：电起PDFe写进： png数已 面数、造板带真想、done，最后真：最道媒海目录进度，完 面数身名/上择到SCAd6n通R。 打助：务捐把明片文品D你为美费更录1aDe rin 由它自 打二进制化后衰爱监文件。 即，共享的是『同一台u5B主机+同一套web调度」，不是登备 之闻的连线。 Re2：USB就区-m 受/usUSUp到周气主，但打印即+SANE/ibusb.μ奢一eb 蒙务量的b/pN靠/#湾，金，uk是规购和「iosp二者F在web 诚务满的子进客调座处汇后： (AUFC 绿导师原谅你了ii sjfPta"ucts/labmate/iscriptSo,inaster),1
+
+95
+00:25:15,000 --> 00:27:20,000
+今天的答案：直接做一个MVP 仙1-107老师 OfficeAssistant（GLM-5.3直出） “软件公司的彻底消亡Jev，豆包手机，...） 以后可以想象：说好需求，自动下单零部件，3D打印定制件，回家Lab就建好了 绿导师原谅你了训品
+
+96
+00:27:20,000 --> 00:27:25,000
+仙-107老师 0.14/0.47
+
+97
+00:27:25,000 --> 00:27:40,000
+山1-107老师 ART 0.1470.47
+
+98
+00:27:40,000 --> 00:27:45,000
+4-107老师 ART 0.14/0.47
+
+99
+00:27:45,000 --> 00:27:50,000
+ART 0.14/0.47
+
+100
+00:27:50,000 --> 00:28:05,000
+-107老师 0.14/0.47
+
+101
+00:28:05,000 --> 00:28:10,000
+H-107老师 ART 0.14/0.42
+
+102
+00:28:10,000 --> 00:28:15,000
+$ eza --git --group-directories-first --icons=auto Dlabel-print Dscan 1-107老师 $vi sean
+
+103
+00:28:15,000 --> 00:28:25,000
+#!/usr/bin/envpython3 label-print --print image files onto the 60 x 30 mm labels 仙丨-107老师 of the EZSCAN/ZMINGL70USBlabelprinter. label-print photo.jpg label-print qr1.png qr2.png qr3.png # one label per file label-print-<screenshot.png # read from standard input label-print big-png --copies 3 --density 18 Every image is converted to black and white,scaled down proportionally until it fits the label, and centred.Images are never enlarged unless --up is given. Binarisation: the label printer is 1 bit per pixel, so the image hasto be reduced to pure black and white.By default the tool looks at the picture and picks: *continuous tone(photographs,gradients,shaded artwork) > Floyd-Steinberg halftone, which keeps far more of the original detail; already black-and-white art (QR codes,screenshots,line drawings,text)-> 绿导师原谅你了训 label-print 7,1
+
+104
+00:28:25,000 --> 00:28:30,000
+RooT  os.path.dirname(os.path.dirname(os.path. realpath(file))) 仙丨-107老师 sys.path.insert(o,os.path.join(RooT,"impl","misc", "tools")) import zmprint #noqa:E402 (the label engine) import zmdrain #noqa:E402 import zmreset* # noqa: E402 LABEL_W_MM = 60.0 LABEL_H_MM=30.0 # Above this share of mid-tone pixels the picture is treated as continuous tone. # Measured on fitted images: crisp black-and-white art o-1.7 %，photographs95%, # so anything in between is a very wide safety margin either way. MIDTONE_CUT=0.08 MIDTONE_BAND=(32,224) # darker/lighter than this counts as"solid" def to_gray(source,rotate: int): -"Any format Pitlow can read -> a flat grayscale image (white background).*" 45,1 label-print 绿导师原谅你了！ 14%
+
+105
+00:28:30,000 --> 00:28:40,000
+import zmprint #noqa:E402(the label engine) import zmdrain 仙丨-107老师 #noqa:E402 import zmreset #noqa:E402 LABEL_W_MM = 60.0 LABEL_H_MM=30.0 DPI=203 # Above this share of mid-tone pixels the picture is treated as continuous tone. # Measured on fitted images: crisp black-and-white art @-1.7 %,photographs95%, way. TIDTONECUT=0.08 MIDTONE_BAND=(32，224) # darker/lighter than this counts as"solid" def to_gray(source,rotate:int): "Anyformat Pillow can read->aflat grayscale image (white background)... from PIL import Image if source =- "_": data = sys,stdin.buffer.read() label-print 50,1 绿导师原谅你了siBi 15%
+
+106
+00:28:40,000 --> 00:28:45,000
+软件工程 仙-107老师 ##Review&Comments 推毁性的事情一直都在发生 BV1x1ex6TEFu/) 我猜是一个prefiulonly的transformer SystemI（人类意义上的实时决策） OpenAINoahBrown的访谈 工作性质在改变：如果AI能做一个人90% 的工作，那个人的注意力就会集中到AI做不好的那10%上 Taste（"**对接下来该做什么*"） 的直觉：一两代模型之后就比他强了 “可验证”v.s.“不回验证” ![](noah.webp) [The_Bitter_Lesson](https://ww.cs.utexas.edu/~eunsol/courses/ data/bitter_lesson.pdf) OpenAI all in RSI “数据分布工程”的飞轮 [[支撑新一轮scalinglaw 绿导师原谅你了i p5/Lect/index.md 16,34-24 Top
+
+107
+00:28:45,000 --> 00:28:55,000
+今天的答案：直接做一个MV To exit full screen,press andhold 仙-107老师 OfficeAssistant（GLM-5.3直出） “软件公司的彻底消亡Jev，豆包手机，..） 以后可以想象：说好需求，自动下单零部件，3D打印定制件，回家Lab就建好了 绿导师原谅你了训
+
+108
+00:28:55,000 --> 00:30:45,000
+今天的内容 仙-107老师 但其实曾经的软件工程不是这样的 有必要了解一下“构造软件”的历史中，大家发现、发明了什么 口软件工程的诞生 。软件工程的智慧 o UML 绿导师原谅你了 I / II
+
+109
+00:30:45,000 --> 00:30:50,000
+Review：版本管理 仙丨-107老师 软件是intent，spec，impl的组合体 以文件系统快照的形式存储（版本管理） 所谓“软件开发”就是不断推出新的版本，直到满足客户需求 -这其中很自然会遇到分叉、冲突. 一于是你能理解SVN，Git，Jujutsu，.，的设计原因 给“从零开始构造软件”起了个头 -从空的项目（模期的intent）开始，我们可以做什么？ 今天的答案 直接做一个MVP，相当于AI帮你补全了细节 例子：OfficeAssistant（GLM-5.3直出） ([](assistant.mp4) 但其实曾经的软件工程不是这样的 -有必要了解一下“构造软件”的历史中大家发现/发明了什么 #软件工程的读生 回到“软件”还是新生事物的1960S. 码农很费（越早，编程工具越不成熟：码农越贵） 一高智力需求的工种，成本极高 当然那时候硬件更贵 绿导师原谅你了i 48,653- p5/lect/index.md 14%
+
+110
+00:30:50,000 --> 00:34:20,000
+软件还是新生事物的年代 仙1-107老师 回到1960s：昂贵的码农 码农很贵：越早，编程工具越不成熟，码农越贵 高智力需求的工种，成本极高 当然那时候硬件更贵 码农还经常缺少对客户的同理心、商业的理解等“软技能，也不懂业务 把客户的需求翻译成软件系统 软件企业的任务是把客户的需求翻译成软件系统 。客户不理解计算机能做什么 oIntent-spec-implgap天然存在 绿导师原谅你了训 物理学家”。本人回忆 1 /.7.
+
+111
+00:34:20,000 --> 00:34:35,000
+软件还是新生事物的年代 仙1-107老师 回到1960s：昂贵的码农 码农很贵：越早，编程工具越不成熟，码农越贵 高智力需求的工种，成本极高 ○当然那时候硬件更贵 码农还经常缺少对客户的同理心、商业的理解等“软技能”，也不懂业务 把客户的需求翻译成软件系统 软件企业的任务是把客户的需求翻译成软件系统 。客户不理解计算机能做什么 oIntent-spec-implgap天然存在 这还是个年轻的职业：Dijkstra回忆，1957年结婚登记时，“程序员”不被承认为职业，最后登记成了“理论 绿导师原谅你了B训i 物理学家"。本人回忆 1 / 7.
+
+112
+00:34:35,000 --> 00:34:50,000
+1968年想象中的“明日学校 仙1-107老师 计算机可以怎样教学生？ BOYS'LIFE 《Boys'Life》1968年9月号：终端即时判分，针对薄弱环节辅导，让学生按自己的节奏学习。封面与原刊 ComputerizedSchoolHouse,第24页 绿导师原谅你了
+
+113
+00:34:50,000 --> 00:35:20,000
+但其实曾经的软件工程不是这样的 仙-107老师 有必要了解一下“构造软件”的历史中大家发现/发明了什么 ##软件工程的诞生 回到“软件”还是新生事物的1960S.. 码农很贵（越早，编程工具越不成熟，码农越贵） 高智力需求的工种，成本极高 当然那时候硬件更贵 一码农还经常缺少对客户的同理心、商业的理解等 “软技能”，也不懂业务 -软件企业的任务是把*客户*的需求翻译成软件系统 一客户不理解计算机能做什么 -Intent-spec-impl gap天然存在 [[去互联网上找一个1960s杂志对软件的幻想(扫播图).如果没找到就> 不放门 软件工程和其他工程的区别 需求是*高度定制化*的 "Software crisis" 软件开发进度无法预测 软件开发成本前溃 质量、维护都是问题 绿导师原谅你了Bi p5/Lect/index.md 61,3-175 24%
+
+114
+00:35:20,000 --> 00:35:25,000
+1968年想象中的“明日学校 Toexitfullscretn.pressandhold 仙-107老师 计算机可以怎样教学生？ BOYS'LIFE 《Boys'Life》1968年9月号：终端即时判分，针对薄弱环节辅导，让学生按自已的节奏学习。封面与原刊 ComputerizedSchoolHouse,第24页 绿导师原谅你了品 课堂思考：“因材施教是意图：程序怎样判断学生已经学会？
+
+115
+00:35:25,000 --> 00:35:55,000
+1968年想象中的“明日学校 仙|-107老师 计算机可以怎样教学生？ BOYS'LIFE 《Boys'Life》1968年9月号：终端即时判分，针对薄弱环节辅导，让学生按自已的节奏学习。封面与原刊 ComputerizedSchoolHouse,第24页 绿导师原谅你了B山B让
+
+116
+00:35:55,000 --> 00:36:00,000
+1968年想象中的“明日学校 仙1-107老师 计算机可以怎样教学生？ BOYS'LIFE ComputerizedSchoolHouse,第24页 绿导师原谅你了训 课堂思考：“因材施教是意图：程序怎样判断学生已经学会？
+
+117
+00:36:00,000 --> 00:36:05,000
+1968年想象中的“明日学校 仙1-107老师 计算机可以怎样教学生？ BOYS'LIFE 《Boys'Life》1968年9月号：终端即时判分，针对薄弱环节辅导，让学生按自己的节奏学习。封面与原刊 ComputerizedSchoolHouse,第24页 绿导师原谅你了训 课堂思考：“因材施教是意图：程序怎样判断学生已经学会？ / t
+
+118
+00:36:05,000 --> 00:36:15,000
+软件还是新生事物的年代 仙-107老师 回到1960s：昂贵的码农 码农很贵：越早，编程工具越不成熟，码农越贵 高智力需求的工种，成本极高 当然那时候硬件更贵 码农还经常缺少对客户的同理心、商业的理解等“软技能”，也不懂业务 把客户的需求翻译成软件系统 软件企业的任务是把客户的需求翻译成软件系统 D客户不理解计算机能做什么 Intent-spec-implgap天然存在 绿导师原谅你了证 物理学家”。本人回忆
+
+119
+00:36:15,000 --> 00:39:00,000
+软件工程和其他工程的区别 仙1-107老师 需求是高度定制化的 也因此一直认为是高度需要人类智慧的（编程，谁学谁知道） 以“选课系统”为例，同一个功能名称，可能对应完全不同的规则 名额先到先得、抽签，还是按专业保留？ 不满足先修课要求时，老师能否特批？谁负贵批准？ 退课空出的名额交给候补队首，还是重新开放抢课？ 程序也在执行客户的制度与例外 这些选择决定了谁能选上课。我们的理解：业务规则与责任边界，本身就是要构造的软件的一部分。 绿导师原谅你了训 3/ 7
+
+120
+00:39:00,000 --> 00:39:25,000
+Software Crisis 仙丨-107老师 进度、成本、质量一起失控 软件开发进度无法预测 软件开发成本崩溃 质量、维护都是问题 E.W.Dijkstra的"暴论" 暴论：GoToStatementConsideredHarmful（1968) o挑性的开场：程序员的水平随程序中goto密度上升而下降：背后的关切是人的推理能力有限，程序结 构应帮助人理解执行过程。 TheHumbleProgrammer(1972ACMTuringLecture) 。硬件越强，社会越敢提出更大的目标：新的野心把软件开发推向能力边界。 绿导师原谅你了山 4 / 7
+
+121
+00:39:25,000 --> 00:39:30,000
+$cd/tmp 仙丨-107老师 绿导师原谅你了训
+
+122
+00:39:30,000 --> 00:39:35,000
+$ cd $ pi 仙丨-107老师 pi vo.86.0 escape interrupt . ctrl+c/ctrl+d clear/exit - / commands : bash . ctrl+o more Press ctrl+o to show full startup help and loaded resources. Pi can explain its own features and look up its docs. Ask it how to use or extend Pi. [Context] -pi/agent/AGENTS.md [Extensions] anarumitw/pi-chrome-devtools:dist Read https://homepages.cwi.nl/-storm/teaching/reader/Dijkstra68.p df andsummary working 0.0%/1.0M (auto) deepseekflash · high 绿导师原谅你了山B
+
+123
+00:39:35,000 --> 00:40:40,000
+Software Crisis 仙|-107老师 进度、成本、质量一起失控 软件开发进度无法预测 软件开发成本崩溃 质量、维护都是问题 E.W.Dijkstra的"暴论" 暴论： GoToStatementConsideredHarmful (1968) 挑鲜性的开场：程序员的水平随程序中goto密度上升而下降：背后的关切是人的推理能力有限，程序结 构应帮助人理解执行过程。 TheHumbleProgrammer(1972ACMTuringLecture) 。硬件越强，社会越敢提出更大的目标：新的野心把软件开发推向能力边界。 绿导师原谅你了山
+
+124
+00:40:40,000 --> 00:40:50,000
+goto的危害 仙1-107老师 也许还能用某种“归一化时钟”（自程序启动以来的动作计数）唯一 划画推进，但这种坐标毫无用处一想描述“n=人数-1的那些 点会变得异常复杂。 goto太原始，是在“邀请人把程序弄乱”。各种结构化子句正是对 它加以*约束（bridle）**的手段：未来新增子句（如abortion 子句）也应满足“能维持一个对程序员独立且有助益的坐标系统"这 一要求。 致谢与相关文献 受到PeterLandin、ChristopherStrachey影响：Heinz Zemanek在1959年哥本哈根pre-ALGOL会议上已质疑goto是 否应与赋值语句平起平坐。 wirth6Hoare在推动case结构时也表达了类似观点 ：Jacopini（Bohm6Jacopini）证明了goto在逻辑上多余，但 机械化地把任意流程图转成无跳转版本并不值得推募，结果未必更 清晰。 Recap：抓住文章的真正主线一它不是简单“过厌goto”，而是用” 文本索引/动态索引构成独立坐标系“来论证：值必须相对于过程推 进点才有意义，而goto破坏了这种可理解性：这正是结构化编程 的理论出发点。工具上用了curl下载+pdftotext判断为扫描 件+pdftoppm转图+tesseractOcR提取全文。 绿导师原谅你了训 个4.6k ±1.7k R12k CH59.2% $0.004 0.7%/1.0M (auto) deepseek-fla
+
+125
+00:40:50,000 --> 00:41:20,000
+$口 已读取该PDF（是一份扫描件，我用OCR提取了全文）。这是计算 机科学史上最著名的短文之一。 仙丨-107老师 Dijkstra《GoToStatement Considered Harmful)(CACM11(3), 1968）摘要 背景与断言 -作者多年的观察：程序员的水平与所写程序中goto语句的密度 呈反比。 主张：goto应从一切"高级语言"中度除（也许纯机器码除外） 核心论证：静态文本VS，动态过程 一程序员的真正工作对象不是程序文本，而是程序控制下随着时间展 开的执行过程：最终要满足规格的是这个动态过程。 一人的智力撞长把握静态关系，却弱骗于想象随时间演化的过程。因此 应尽量缩小静态程序“与“动态过程“之间的概念鸿沟，让二者对应 关系尽可能平凡。 如何刻画过程的推进（坐标系统） 纯赋值语句序列：一个指向程序文本中的位置即可一称为文本索 引(textualindex) 一加入条件、选择、case、条件表达式后，单个文本索引仍够用。 加入*过程（procedure）*后，还需知道是哪一次调用“，于是 用一串文本索引，长度等于调用深度。 加入重复子句（循环）后，文本索引不再充分，需为每次进入循环 配一个动态索引（循环计数）。 一结论：过程推进总可由文本索引与动态索引的混合序列唯一刻画。 为什么需要这些独立坐标 绿导师原谅你 一这业索引的值不受程序员控制，由程序书写方式或运行时动态产生 一因面是独立坐标。
+
+126
+00:41:20,000 --> 00:41:40,000
+为什么需要这些独立坐标 仙丨-107老师 一这些索引的值不受程序员控制，由程序书写方式或运行时动态产生 一因而是独立坐标。 一关键原因：变量的值只有在“过程推进到何处“的参照下才有意义。 经典例子：统计房间里人数n，当你看到有人进入但还没执行加一 时，n恰好等于实际人数减一。 goto的危害 刻画推进，但这种坐标毫无用处一想描述“n人数-1的那些 点“会变得异常复杂。 一goto太原始，是在"邀请人把程序弄乱'。各种结构化子句正是对 它加以**约束（bridle）**的手段：未来新增子句（如abortion 子句）也应满足“能维持一个对程序员独立且有助益的坐标系统“这 一要求。 致谢与相关文献 受到PeterLandin.ChristopherStrachey影响：Heinz Zemanek在1959年哥本哈根pre-ALGOL会议上已质疑goto是 否应与赋值语句平起平坐。 wirth6Hoare在推动case结构时也表达了类似观点 ：Jacopini（Bohm6Jacopini）证明了goto在逻辑上多余，但 机械化地把任意流图转成无跳转版本并不值得推荐，结果未必更 清晰。 Recap：抓住文章的真正主线一它不是简单“讨厌goto”，而是用” 文本索引/动态索引构成独立坐标系“来论证：值必须相对于过程推 绿导师原谅你了丽 进点才有意义，而goto破坏了这种可理解性：这正是结构化编狸 的理论出发点。工具上用了curl下载+pdftotext判断为扫描
+
+127
+00:41:40,000 --> 00:41:45,000
+Software Crisis 仙1-107老师 进度、成本、质量一起失控 软件开发进度无法预测 软件开发成本崩溃 质量、维护都是问题 E.W.Dijkstra的"暴论" 暴论：<GoToStatementConsideredHarmful(1968) o挑鲜性的开场：程序员的水平随程序中goto密度上升而下降：背后的关切是人的推理能力有限，程序结 构应帮助人理解执行过程。 TheHumbleProgrammer(1972ACMTuringLecture) 就硬件越强，社会越敢提出更大的目标：新的野心把软件开发推向能力边界。 绿导师原谅你了B训P
+
+128
+00:41:45,000 --> 00:41:50,000
+否应与赋值语句平起平坐。 -wirth6Hoare在推动case结构时也表达了类似观点 山-107老师 ：Jacopini（Bohm6Jacopini)证明了goto在逻辑上多余，但 机械化地把任意流程图转成无跳转版本并不值得推荐，结果未必更 清晰。 Recap：抓住文章的真正主线一它不是筒单“讨厌goto”，而是用” 文本索引/动态索引构成独立坐标系“来论证：值必须相对于过程推 进点才有意义，而goto破坏了这种可理解性：这正是结构化编程 的理论出发点。工具上用了curl下载+pdftotext判断为扫描 伴+pdftoppm转图+tesseractocR提取全文。 Only showingmodels from configured providers.Use/Login to addproviders, → v deepseek-flash [deepseek] . default deepseek-v4-pro [deepseek] Model Name: DeepSeek V4.1 Flash Metzcsbingaodel catalogs. Enter to select : Ctrl+S to set as default - Escape/Ctrl+C to cancel 绿导师原谅 个4.6k =1.7k R12k CH59.2% $0.004 0.7%/1.0M (auto) deepseek-fla
+
+129
+00:41:50,000 --> 00:41:55,000
+否应与赋值语句平起平坐。 -wirth6Hoare在推动case结构时也表达了类似观点 仙丨-107老师 ：Jacopini（Bohm6Jacopini)证明了goto在逻辑上多余，但 机械化地把任意流程图转成无跳转版本并不值得推荐，结果未必更 清晰。 Recap：抓住文章的真正主线一它不是筒单“讨厌goto”，而是用” 文本索引/动态索引构成独立坐标系“来论证：值必须相对于过程推 进点才有意义，而goto破坏了这种可理解性：这正是结构化编程 的理论出发点。工具上用了curl下载+pdftotext判断为扫描 件+pdftoppm转图+tesseractocR提取全文。 Model: deepseekflash Summ 4.6k 1.7k R12k CH59.2% $0.004 0.7%/1.0M (auto)deepseek-fla 绿导师原谅你了训Bi
+
+130
+00:41:55,000 --> 00:42:00,000
+Model:deepseek-flash 仙|-107老师 Summarize https://ww.cs.utexas.edu/~EwD/transcriptions/EwD03xx/EwD340 .html Thinking.. $cd/tmpS5curl-sL-A"Mozilla/5.o"-0ewd340.html "https://ww.cs.utexas.edu/~EwD/transcriptions/EwD03xx/EwD34 0.html"$6ls-laewd340.html66fileewd340.html6echo "----$6python3-<<'EOF' import re,html S=open('/tmp/ewd340.html,encoding='utf-8',errors='replace') .read() print("chars:",len(s)) print(s[:800]) EoF (timeout 60s) Elapsed 1.0s working 绿导师原谅你了山 4.9k2.0kR19k CH96.6% $0.0040.7%/1.0M(auto) deepseek-fla
+
+131
+00:42:00,000 --> 00:42:05,000
+s=re.sub(r'(?s)<[">]+>",'",s) s=htnl.unescape(s) 仙1-107老师 s=re.sub(r'[Itlxao]+','",s) s=re.sub(r'In/s+/n+","In)n',s) s=s.strip() open('ewd340.txt','w,encoding=utf-8').write(s) print("words:",len(s.split())) print(s[:3000]) EoF(timeout30s) :(61 earlier lines, ctrl+o to expand) the grounds that there was no such profession.And,believe act shows theridiculous entry"theoretical physicist"! So much for the slowmess with which I saw the Took o.0s Thinking... read/tmp/ewd340.txt:1-120 : working 绿导师原谅你了训 个6.0k ×2.4k R33k CH91.4% $0.005 1.8%/1.0M (auto) deepseek-fla
+
+132
+00:42:05,000 --> 00:42:15,000
+Software Crisis 仙|-107老师 进度、成本、质量一起失控 软件开发进度无法预测 软件开发成本崩溃 质量、维护都是问题 E.W.Dijkstra的"暴论" 暴论：GoToStatementConsideredHarmful（1968) α挑鲜性的开场：程序员的水平随程序中goto密度上升而下降：背后的关切是人的推理能力有限，程序结 构应帮助人理解执行过程。 TheHumbleProgrammer(1972ACMTuringLecture) 就硬件越强，社会越敢提出更大的目标：新的野心把软件开发推向能力边界。 绿导师原谅你了训i
+
+133
+00:42:15,000 --> 00:42:20,000
+EDSAC：子程序库与闭子程序是“最伟大的软件发明之一”，支撑了 仙丨-107老师 抽象的基本模式。 FORTRAN：当年极为勇敢且成功，但如今作为思维载体已过时、浪 费胆力、风险高：其悲剧在于被广泛接受，把成千上万人锁在“兼 客性"的伽锁上。 LISP：基础原理极少却异常稳定，被称为“最聪明地溢用计算机的 方式“一作者视之为赞誉，因为它带来了思想的解放。 ALGOL60：首次以与实现无美的方式定义语言，展示了BNF与精 准英文的力量：缺点：语法过度紧复、参数机制组合自由度太大而 危险。 一PL/1：文档庞大、巴洛克，如间“操作舱里有7000个按钮的飞机 “，像毒品，其“增长特征如危险肿瘤“。 革命愿景与三个条件 预70年代内即可用现在百分之几的人年构建几乎无错误的系统： 可靠与廉价同向一与其事后调试，不如一开始就不引入bug。 三项条件： 1社会已认识到需要（1968年Garmisch软件工程会议首次公开承 认危机）： 2，经济需要足够强（硬件价格预计再降十倍，软件成本必须降一个 数量级）： 3，技术上可行一给出六个论据： 技术可行的六个论据 1，只需考虑智力上可管理的程序，候选方案大大简化。 2，一旦限定到这一子集，就一次性大幅增减解空间。 绿导师原谅你了证 3，正确性证明与程序同步生长，证明反成为设计启发： 测试能有效证明bug的存在，却无法证明其不存在。
+
+134
+00:42:20,000 --> 00:42:55,000
+$口 背景：个人史与职业的诞生 仙丨-107老师 一1952年成为荷兰第一位"程序员“；在理论物理与编程间摇摆时， 上司vanwijngaarden劝他：计算机必将长存，何不由你来把编 程建设成一门受人尊敬的学科。 1957年结婚登记时，阿姆斯特丹市政当局不承认“程序员“是职业 ，只能填“理论物理学家“一足见当年编程职业化之迟缓。 诊断：为什么会有“软件危机” 一早期机器是实验性的、独一无二的、又慢又小；程序员地位单微， 其工作被视作机器的附属。由此留下两个错误观念：真正的程序员 应当“爱解避、爱要聪明技巧”，以及编程不过是优化效率。 天真的期待：机器变强后编程自然不再是问题。结果相反一机器强 了几个数量级，社会野心也成正比勘胀，程序员被夹在“目的与手 段"的张力中，于是陷入软件危机。 作者认为次要原因是I/O中断、多级存储：主因恰恰是机器变得 太强： 没有机器时，编程根本不成问间赠：有了一台小机器，编程成了小 问题：如今有了巨型机器，编程就成了同样巨大的问题。 -严厉批评第三代计算机的设计（以dutycycle定义performance ，price只算硬件）：令他度过"职业生逛最黑暗的一周"：并识刺 一主张：应当像评审论文一样公开评审新计算机。 软件史的几块里程碑 EDSAC：子程序库与闭子程序是“最伟大的软件发明之一"，支撑了 绿导师原谅你了Biil 抽象的基本模式。 FORTRAN：当年极为勇收且成功，但如今作为思维载体已过时、浪
+
+135
+00:42:55,000 --> 00:43:00,000
+太强： 没有机器时，编程根本不成问间题，有了一台小机器，编程成了小 仙丨-107老师 向意：如今有了巨型期品，爆理账成了同样巨大的间等。 严房批评第三代计算机的设计（以dutycycle定义performance ，price只算硬件），令他度过“职业生滋最黑暗的一周"：并设刺 "素得多所以设计不坏“的现辑，如同“吸烟的人多所以吸烟有益“。 主张，应当像评审论文一样公开评审新计算机。 件史的几块里程碍 EDSAC：子程序库与闭子程序是“最伟大的软件发明之一“，支挥了 抽象的基本模式。 FORTRAN：当年极为勇款且成功，但如今作为思维载体已过时、浪 费赔力、风险高：其悲剧在于被广泛接受，把成千上万人锁在“兼 容性“的槛锁上。 LISP：基础原理极少却异常移定，被称为“最聪明地泄用计算机的 方式“一作者之为货管，因为它带来了思想的解放。 ALGOL60：首次以与实现无关的方式定义语言，展示了BNF与精 准英文的力量：缺点：语法过度繁复、参数机制组合自由度太大而 危险。 PL/1：文档庞大、巴落克，如同"操作舱里有7000个按钮的飞机 “，像毒品，其“增长特征如危险肿童。 苹命恶最与三个条件 预言70年代内即可用现在百分之几的人年构建几乎无错误的系统： 可靠与廉价间向一与其事后调试，不如一开始就不引入bug。 三项条件： 1.社会已认识到需要（1968年Garmisch软件工程会议首次公开承 绿导师原谅你了BiiBil 认危机）： 2.经济需要足够强（硬件价格预计再降十倍，软件成本必须降一个
+
+136
+00:43:00,000 --> 00:43:05,000
+技术可行的六个论据 仙丨-107老师 1.只需考虑智力上可管理的程序，候选方案大大简化。 2，一旦限定到这一子集，就一次性大幅缩减解空间。 3，正确性证明与程序同步生长，证明反成为设计启发： 测试能有效证明bug的存在，却无法证明其不存在。 4，借助抽象，理解程序所需的智力投入不必随长度平方增长（基至 可线性）：并点出若干关键“抽象模式"。 5，工具反过来型造思维：语言决定我们能思考什么，而脑力是最稀 缺资源一固此要“像操癌疫一样操开脱明技巧“，追求系统而谦 （modest）**的语言。 6.层次化/良好分解（nicelyfactoredsolutions） 是唯一能令 人满意地解决复杂系统的速径。 阻力与结语 物理以设备费用绑架"校选型） 一还有政治障碍：方法论教育会放大能力差距，在追求均质化的社会 中可能不受欢迎。 一计算机作为“工具“的影响只是文化表层的涟满：作为前所来有的智 力挑战才更深远。层级系统的时间粒度比可达101°，是其他技术 从未有过的环境。 结论：唯有充分认识任务之艰巨、坚持朴素优雅的语言、尊重人类 心智的困有局限，以“非常谦逊的程序员“姿态行事，编程才能做好 Recap：这篇是《TheHumbleProgrammer》—Dijkstra拒软件危 绿导师原谅你了山B让 机归因于“机器变得太强“，并以“测试不能证明无bug““抽象是为 了更精确而非更模期““工具塑造思维“等论点，论证以谦逊、抽象
+
+137
+00:43:05,000 --> 00:43:30,000
+2.经济需要足够强（硬件价格预计再降十倍，软件成本必须降一个 数量级）： 仙丨-107老师 3.技术上可行一给出六个论据： 技术可行的六个论据 1.只需考虑智力上可管理的程序，候选方案大大简化。 2，一旦限定到这一子集，就一次性大幅缩减解空间。 3，正确性证明与程序同步生长，证明反成为设计启发： 测试能有效证明bug的存在，却无法证明其不存在。 4。借助抽象，理解程序所需的智力投入不必随长度平方增长（基至 可线性）：并点出若干关键“抽象模式。 5，工具反过来塑造思维：语言决定我们能思考什么，而脂力是最稀 逊（modest）**的语言。 6，层次化/良好分解（nicelyfactoredsolutions) 是唯一能令 人满意地解决复系统的速径。 阻力与结语 保守力量主要来自教育机构与“含不得重写旧程序“的用户（如高能 物理以设备费用“绑架“校选型）。 一还有政治障碍：方法论教育会放大能力差距，在追求均质化的社会 中可能不受欢迎。 一计算机作为“工具“的影响只是文化表层的连满：作为前所未有的智 力挑战才更深远。层级系统的时间粒度比可达101°，是其他技术 从未有过的环境。 一结论：唯有充分认识任务之艰巨、坚持补素优雅的语言、尊重人类 心智的围有局服，以“非常谦逊的程序员“姿态行事，编程才能做好 绿导师原谅你了B训i
+
+138
+00:43:30,000 --> 00:43:45,000
+测试能有效证明bug的存在，却无法证明其不存在。 4，借助抽象，理解程序所需的智力投入不必随长度平方增长（基至 仙-107老师 可线性）：并点出若干关键“抽象模式。 5，工具反过来型造思维：语言决定我们能思考什么，而赔力是最稀 缺资源一因此要“像躲痘癌疫一样躲开脱明技巧”，追求系统而*谦 逊（modest）**的语言。 6，层次化/良好分解（nicelyfactoredsolutions) 是唯一能令 人满意地解决复杂系统的途径。 阻力与结语 -保守力量主要来自教育机构与“舍不得重写旧程序“的用户（如高能 物理以设备费用“绑架“校图选型》 一还有政治障碍：方法论教育会放大能力差距，在追求均质化的社会 中可能不受欢迎。 一计算机作为“工具“的影响只是文化表层的涟滑：作为前所未有的智 力挑战才更深远。层级系统的时间粒度比可达10°，是其他技术 从未有过的环境。 一结论：唯有充分认识任务之巨、坚持补素优雅的语言、尊重人类 心智的围有局限，以非常谦整的程序员“姿态行事，编程才能做好 Recap：这简是《TheHumbleProgrammer》—Dijkstra把软件危 了更精确而非更模期“工具望造思维“等论点，论证以谦避、抽象 和层次化来编程。拆取手法：CUrL拿HTML→正则去标签抽取正 文→通读全文再按“背景／危机诊断/软件史／革命愿景+六 论据／阻力与结语“分层归纳。 绿导师原谅你了训i
+
+139
+00:43:45,000 --> 00:43:50,000
+Software Crisis 仙-107老师 进度、成本、质量一起失控 软件开发进度无法预测 软件开发成本崩溃 、质量、维护都是问题 E.W.Dijkstra的"暴论" 暴论：@GoToStatementConsideredHarmful（1968) o挑鲜性的开场：程序员的水平随程序中goto密度上升而下降：背后的关切是人的推理能力有限，程序结 构应帮助人理解执行过程。 TheHumbleProgrammer(1972ACMTuringLecture) 。硬件越强，社会越敢提出更大的目标：新的野心把软件开发推向能力边界。 绿导师原谅你了Bip
+
+140
+00:43:50,000 --> 00:43:55,000
+“软件工程成为共同议题 仙-107老师 1968年：一场刻意的“挑鲜” 律。报告前言 连危机”也有争议 会上有人反对一概而论：排序、工资处理已有成熟办法：困难集中在规模和要求超出已有经验的系统。会议 讨论，57.1.2 由此理解“危机”：过去成功的经验，未必能支撑下一种规模与野心。 绿导师原谅你了iBi 5/7
+
+141
+00:43:55,000 --> 00:44:10,000
+“软件工程”成为共同议题 仙-107老师 1968年：一场刻意的“挑畔” "SoftwareEngineering"被刻意选作带挑鲜意味的名称：软件生产也应有成熟工程学科的理论基础与实践纪 律。报告前言 连危机”也有争议 会上有人反对一概而论：排序、工资处理已有成熟办法：困难集中在规模和要求超出已有经验的系统。会议 讨论，57.1.2 由此理解“危机”：过去成功的经验，未必能支撑下一种规模与野心。 绿导师原谅你了训i
+
+142
+00:44:10,000 --> 00:44:15,000
+5，工具反过来造思维：语言决定我们能思考什么，而力是最稀 缺资源一因此要“像操癌疫一样开脱明技巧“，追求系统面*诉 仙-107老师 避（modest）**的语言。 6，层次化/良好分解（nicelyfactoredsolutions) 是唯一能令 人满意地解决复杂系统的速径。 阻力与结语 物理以设备费用“绑架“校选型） 还有政治障碍：方法论教育会放大能力差距，在追求均质化的社会 中可能不受欢迎。 一计算机作为“工具“的影响只是文化表层的涟满：作为前所未有的智 力挑战才更深远。层级系统的时间粒度比可达10°，是其他技术 从未有过的环境。 一结论：唯有充分认识任务之艰巨、坚持朴补素优雅的语言、尊重人类 心智的困有局限，以“非常谦耻的程序员“姿态行事，编程才能做好 Recap：这篇是《TheHumbleProgrammer》—Dijkstra把软件危 了更精确而非更模期““工具塑造思维“等论点，论证以谦避、抽象 和层次化来编程。抓取手法：CUurL拿HTML→正则去标签抽取正 文→通读全文再按背景危机诊断/软件史/革命愿景+六 论据/阻力与结语“分层妇纳。 Summarizehttps://ww.scrummanager.com/files/nato1968e.pdf 绿导师原谅你了训 个14k ±4.4kR42k CH51.4% $0.010 1.8%/1.0M (auto) deepseek-flas
+
+143
+00:44:15,000 --> 00:44:25,000
+把软件当作工程：Apollo 仙-107老师 MargaretHamilton与她的团队 MargaretHamilton o领导MIT仪器实验室的软件工程部门，参与Apollo飞行软件开发，推动软件工程观念获得承认。NASA /MIT介绍 能工作”还包括发生意外的时候 Apollo11登月下降时，计算机过载，出现1201/1202警报。亲历者解释 。软件的优先级与恢复机制，让关键的下降控制任务得以继续。 。MIT团队事先充分测试过恢复能力，地面团队才有依据判断可以继续登月。 这个案例里的工程工作包括：决定必须保住什么、实现恢复机制，并验证它确实有效。 绿导师原谅你了B训i 5 / 7
+
+144
+00:44:25,000 --> 00:44:30,000
+三 Menu MIT Technology Review Sigrin SUBSCRIBE&SAVE17% qot qm, poe_sja, pr ,sp equ, am1_ggea 仙丨-107老师 About two decades later, Ilaoilton held her lbeeath in the M/T Instrditeofation Lab's mission meeincaiag room as cee ed the greatest wfiat tds"in hustiry canuc to truiden. Cn July 20, 1969, at 3:17 p.m POPULAR Bestoeruime, the lonar node Eagls Coucled.dovtn on tic-noenc ty theh, Hfamsiteatras thebcad ol salrware cngineering foe the.Apolo AlundanentalteskeesLMsstardy peegra.As she liles to suy tar Eaglkdsstew were de besr humans te wineratleteattack vixk.oiothchmacsuteicerand bict toardswittwate wit the hind te iom Wi Douglas Heaven on id. Alsrecursiveser-inproveenentesgptnot I eue/oonbos auto In saore tham a decade eorking with the Apoo missions, Hamilton Michelle Kin hclped salely shephierd spaceosbips into and out of orbit, She ted s group ofncarly.100.dcvelopets.terfingingrigortnd nespectto.whatwas Alismorelikelythantuanstofombiases thbep the bnindnetehjhlofsoltwsire eogineetitg (in.fact, shieLame ap wtentirrg witxbe tecm.sotoezec-emginexr"aod pusbed iorits uso)And sbedid MicheleKim al of if witb creatfivoly.and apdonbvledtiy a oteicironrcpeatedly brne trergoas Hore/swtyAlagetsle andichesttoreach ot: tot"tla: mever-gsirng-tobappen aubappco, GraceHuckins Hamilon lttcolkgr thtinking bewoeld bc a methematicias plhaning D get a joli wtile berhiushingl tconttu Harvaed Law Schiool aod thct go (o gnd scbaol berseif.la.tiso, she sttod wueling forthereounood MIT stietcoeoligon EhcaodLotenzscho chaged licrwth peigramming an 800-pound onmpanar calledihe UGP-30 Ilamilten had oevcr seem a onmpeno, tut she.tiok to it right away. losdiog inerthodos wiys ttijsuke tbe lumlieding dorig work enore qdcdty, "1 would.talke sreps thot woutd be called "rcky'programmjing Cula"shsuos:For instaoo. by-the-benk dibogcog lmwolvodslowty toeding the long puper rolj thar thelu an incerrect progrems back through themachine, Haeilcon, whe bad no patience fer tlric, learned binary coode andstartol oditing theshpes brrsellpudlinralwte eilie papus wsth axbarp peuril to.ritrs a D to a Latidi nsing a snixll pstee of tape for 绿导师原谅你了BiB the everse, (Thescork dome hy Hamilton and otbers everiusally helped lead ta.Ltechu's snunthrcaking, wekcp chaos ibemy)
+
+145
+00:44:30,000 --> 00:44:35,000
+Menu MIT Technology Revlew Snin SUBSCRIBEA SAVE17% aad made "loghorm and e 仙丨-107老师 Each time that bappened Polaroid, along with "doc from,she says.Ifthesam thal person to fix it. AR Thoughts of that ath Ph years of -discovering thin Justreleased Heaven inventing things,'she rea 35InnovatorsUnder35 hooked on this sinngc no gtnot was helping to create in a she has ceempared to "the Subscrbetomeettheyoungtraiblazersthatare Ernpcallyo makingwavesacrossAl,cimatetech,andmore. fascinute hert oot jest fin Pius.get bonus Alcontent. cocrecting them,but trac paticrns they follow in ord aad peeveet them."1 thou CLAIMITNOFF the enem.' she says. So in 1964, wben she saw theMTTInstrumentationLabrectuiting programmers towork ce solnwerefor whatwoudd become the Apolle program, Haoiltom jumped. at the .hance. Initially, she was assigncd what vras presumed to be a loit- impact peojecl,writing the code thut would kik in if an umanned mission aborted. The higher-ups were"so sure this waso't going to happen, she says, that she actually named her pregram "Forget lt.' fuuod hcescuinNigh Aoceptiltockies stenfe.Smenueseclinpolky whcte an error ceuld 绿导师原谅你了训i SUBSCRIBE & SAVE 17%
+
+146
+00:44:35,000 --> 00:44:40,000
+175% MITTechnologyReview Reset 三Menu SUBSCKIBE&SAVE17% -107老师 In 1961, Hamilton brought this outside-the-box approach to her next position, inventing a new error protocol for MIT's massive, unruly SAGE air defense system. This computer took up a whole warehouse, and made“foghorn POPULAR and fire engine sounds" when it crashed, she says. Each time that happened, she'd have the programmer at fault A fundamental flaw leaves LLMs strikingly pose for a Polaroid, along with"documentation of where vulnerableto attack [the mistake] came from," she says. If the same error Will Douglas Heaven occurred again,theycouldbring in thatperson to fix it. Al's recursive self-improvementmightnot come so quickly after all Thoughts ofthatmathPhD faded. After years of Michelle Kim Cookie Policy We use cookies to give you amore personalized browsing experience Acceptallcookies and analyze site traffic. See.our.cookie policy Cookies settings CRIBE&SAVE17% Signin
+
+147
+00:44:40,000 --> 00:44:45,000
+三Menu MITTechnologyReview 山丨-107老师 SUBSCRIBE them."I thought of them as the enemy," she says. Soin1964,whenshesawanad fromthe MITInstrumentation Lab recruiting programmerstoworkonsoftwarefor whatwouldbecometheApolloprogram, Hamilton jumped at the chance.Initially, she was assigned what was presumed to be a low-impact project, writing the code thatwouldkickinifanunmanned mission aborted.The higher-ups were "so sure this wasn't going to happen, HamiltonwithApollocode,1969 Mlt Museum shesays,thatsheactuallynamedher 绿星师腺 program"Forget It."(When one of these
+
+148
+00:44:45,000 --> 00:44:50,000
+MITTechnologyReview 三Menu SUBSCRIBE 1-107老师 TheBigStory Artificialintelligence Biotech&health Climate&energy inventing things,sherealized she was hooked on this strange newfield she was helpingtocreateinanatmosphereshe has compared to“the Wild West." Errors,especially,continued tofascinate her:not just finding and correcting them,buttracing thepatterns they follow inordertopredictandprevent them."I thought of them as the enemy” she says. Soin1964,whenshesawanadfromthe MIT Instrumentation Lab recruiting
+
+149
+00:44:50,000 --> 00:44:55,000
+1968年想象中的“明日学校 To exit full screen, press and hold 山丨-107老师 计算机可以怎样教学生？ BOYS'LIFE 《Boys'Life》1968年9月号：终端即时判分，针对薄弱环节辅导，让学生按自己的节奏学习。封面与原刊 ·ComputerizedSchoolHouse,第24页 绿导师原谅件 课堂思考：“因材施教”是意图：程序怎样判断学生已经学会？
+
+150
+00:44:55,000 --> 00:45:00,000
+(nooutput) 仙1-107老师 Command exited with code 6 Took 18.0s Thinking... $cd/tmp66curl-sSL-A"Mozilla/5.0"-onato1968e.pdf "https://ww.scrumanager.con/files/nato1968e.pdf";echo "exit=$?";ls-la nato1968e.pdf 2>/dev/null;echo"---dns ---"; getent hosts ww.scrumanager.com; echo"---retry "http://ww.scrummanager.com/files/nato1968e.pdf";echo "exit=$?";s-la nato2.pdf 2>/dev/null(timeout 90s) curl:(6)Could notresolvehost:www.scrummanager.com exit=6 -sup-- Elapsed24.0s : working 绿导师原谅你了部 个14k4.7k R78k CH98.7%$o.010 1.9%/1.0M (auto) deepseek-flas
+
+151
+00:45:00,000 --> 00:45:05,000
+个14k 4.7k R78k CH98.7% $o.010 1.9%/1.0M (auto)deepseekfLas To resume this session: pi --session 01a0be70-1969-76bc-b677-2 仙-107老师 27f4fbfdc17 $ pi pi vo.86.0 escape interrupt - ctrl+c/ctrl+d clear/exit :/ commands : bash : ctrl+o more Press ctrl+o to show full startup help and loaded resources. Pi can explain its own features and look up its docs. Ask it how to use or extend Pi. [Context] -pi/agent/AGENTS.md [Extensions] anarumitw/pi-chrome-devtools:dist Summarizehttps://ww.technologyreview.com/2019/08/16/579/ Thinking.. working 绿导师原谅你了 0.0%/1.0M (auto) deepseek-flash - high
+
+152
+00:45:05,000 --> 00:45:10,000
+r'property="og:description"content="(.*?)""]: m=re.search(pat,s,re.s) 仙-107老师 if m: print(pat[:2o],"::",html.unescape(m.group(1))[:4oo]) EoF(timeout30s) (6 earlier lines,ctrl+o to expand) nots." About two decades later,Hamilton held her breath in property="og:descrip ::By relentlesslyrooting out errors, the MiTInstrumeotationLab's. the original software engioeer hetped send astronouts to the moon. Took 0.0s Thinking... $cd/tmp66python3-<<'EOF' importre,html #try to find article bodyparagraphs body=re.findall(r'<p[>]+>(.*?) " working 绿导师原谅你了 个439 ±360 R4.6k CH92.9% $0.001 0.3%/1.0M (auto) deepseekfLas
+
+153
+00:45:10,000 --> 00:45:15,000
+Took 0.0s 仙-107老师 Thinking... 文章摘要 (MargaretHamilton》-MITTechnologyReview.2019年8月 16日，作者CaraGiaimo（MIT校友） 主题：通过不懈地排查错误，这位“最初的软件工程师“把宇航员送上 了月球。 核心内容 -成长与入行：Hamilton儿时与父亲长途驾车时总在讨论"如果会 怎样、为什么、为什么不“这类哲学问题。1959年她本想当数学家 ，却为MIT气象学家EdwardLorenz编程一台8oo磅的 LGP-30，从此遂上计算机。地常用"取巧“办法提效一直接学二进制 ，用铅笔在纸带上扎孔把0改成1。 错误即敌人：在MIT的SAGE防空系统项目中，炮发明了记录错 误来源的协议（出错者与相应文档一起拍立得存档），形成追溯、 预测和预防错误的思路。炮说：我把错误当作敌人。 阿波罗计划：1964年加入MIT仪器实验室。地先写无人任务中止 时的代码，因认为不会触发而给程序取名“ForgetIt"，结果真派 上用场。随后晋升到载人级“软件，必须能侦测并补偿硬件故障或 绿导师原谅你了B训 宇航员误操作。地提出了"软件工程（softwareengineering) 并力推使用，领导近100名开发者。
+
+154
+00:45:15,000 --> 00:45:20,000
+$口 16日，作者CaraGiaimo（MIT校友） 仙1-107老师 主题：通过不懈地排查错误，这位“最初的软件工程师"把宇航员送上 了月球。 核心内容 -成长与入行：Hamilton儿时与父亲长途驾车时总在讨论“如果-会 怎样、为什么、为什么不“这类哲学间题。1959年炮本想当数学家 ，却为MIT气象学家EdwardLorenz编程一台800磅的 LGP-30，从此迷上计算机。地常用"取巧“办法提效一直接学二进制 ，用铅笔在纸带上扎孔把0改成1。 错误即敏人：在MIT的SAGE防空系统项目中，炮发明了记录错 误来源的协议（出错者与相应文档一起拍立得存档），形成追溯、 预测和预防错误的思路。炮说：“我把错误当作敌人。“ 阿波罗计划：1964年加入MIT仪器实验室。炮先写无人任务中止 时的代码，因认为不会触发而给程序取名“ForgetIt"，结果真派 上用场。酶后吾升到我人级“款件，必须能侦测并补偿硬件故障或 罕航员溪排作，地提出了“获件工理（softwareengineering）“ 讨并力找使用，您放100名开我害。 "Laurenbag”，地蒙第4#文儿Laaron到实验量，Lanren主世 谢器里乱接能发了任多中确的发射期序别PG导致尚清，NASA 起帮手以为忘只免许记子在素，间安8号（前次我人经月） 集有手献提摇换作停致导航故据丢失，正是个跨感一地笑称 绿导师原谅你了ibil 阿装零11号：悬母敏要将教结时，出现五条靠力不足的告，由 于软件设计可最，作斯辅信狂它既先处理盈天健的看随生费，任费
+
+155
+00:45:20,000 --> 00:45:55,000
+阿波罗计划：1964年加入MIT仪器实验室。炮先写无人任务中止 时的代码，因认为不会触发而给程序取名“ForgetIt”，结果真派 仙/-107老师 上用场。随后音升到“载人级“软件，必须能侦测并补偿硬件故障或 宇航员误操作。地提出了"软件工程（softwareengineering） 调并力推使用，领导近100名开发者。 "Laurenbug"：地常带4岁女儿Lauren到实验室，Lauren在模 拟器里乱按，触发了任务中途的发射前序列PO1，导致期溃。NASA 起初不以为意，只允许记录在案。阿波罗8号（首次载人绕月） 真有宇航员误操作导致导航数据丢失，正是这个隐患一她笑称 "It's the Lauren bug!" 阿波罗11号：登月舱即将着陆时，出现五条算力不足的告警。由 于软件设计可靠，体斯顿信任它优先处理最关键的着陆任务，任务 得以继续。看着软件在降落中自愈，地说那是“纯粹的恐惧"。 一晚年荣誉：2016年获奥巴马领发总统自由勋章：2017年炮站在自 己团队代码堆旁的照片被做成乐高小人。创办Hamilton Technologies.开发UniversalSystemsLanguage，力求从根本 上预防常见错误，而非事后补款。 意义：文章借此说明，把一个"绝不会发生“的假设都当成可能，正是 可靠软件与航天安全的关键。 Recap：本文串起Hamilton从"错误即敌人的理念到阿波罗软件 工程实践的故事，重点在于“thenever-going-to-happencan 靠性变成一门学科。 绿导师原谅你了B训i
+
+156
+00:45:55,000 --> 00:46:00,000
+宇航员误操作。地提出了“软件工程（softwareengineering) 调并力推使用，领导近100名开发者。 仙丨-107老师 "Laurenbug"：地常带4岁女儿Lauren到实验室，Lauren在模 拟器里乱按，触发了任务中迄的发射前序列PO1，导致前溃。NASA 起初不以为意，只允许记录在案。阿波罗8号（首次载人绕月） 真有宇航员误操作导致导航数据丢失，正是这个隐患一她笑称 "It's the Lauren bug!" 阿波罗11号：登月舱即将着陆时，出现五条算力不足的告警。由 于款件设计可靠，体斯顿信任它优先处理最关键的着陆任务，任务 得以继续。看着软件在降落中自愈，炮说那是“纯粹的恐惧“。 晚年荣誉：2016年获爽巴马领发总统自由勋章：2017年炮站在自 已团队代码堆旁的照片被做成乐高小人。始创办Hamilton Technologies，开发UniversalSystemsLanguage，力求从根本 上预防常见错误，面非事后补敦。 意义：文章借此说明，把一个“绝不会发生“的假设都当成可能，正是 可靠软件与航天安全的关键。 工程实践的故事，重点在于“thenever-going-to-happencan 靠性变成一门学科。 绿导师原谅你了训i 个2.5k 1.3k R10k CH63.5% $0.002 0.6%/1.0M (auto) deepseek-fla
+
+157
+00:46:00,000 --> 00:46:05,000
+核心内容 仙/-107老师 成长与入行：Hamilton儿时与父亲长途驾车时总在讨论如果..会 怎样、为什么、为什么不“这类哲学问题。1959年她本想当数学家 ，却为MIT气象学家EdwardLorenz编程一台8oo磅的 LGP-30，从此递上计算机。地常用"取巧“办法提效一直接学二进制 ，用铅笔在纸带上扎孔把0改成1。 错误即欲人：在MIT的SAGE防空系统项目中，炮发明了记录错 误来源的协议（出错者与相应文档一起拍立得存档），形成追溯、 预测和预防错误的思路。始说：“我把错误当作敌人。“ 阿波罗计划：1964年加入MIT仪器实验室。炮先写无人任务中止 时的代码，因认为不会触发而给程序取名“ForgetIt"，结果真派 上用场。随后普升到“载人级“软件，必须能测并补偿硬件故障或 宇航员误操作。地提出了"软件工程（softwareengineering）“一 调并力推使用，领导近100名开发者。 "Laurenbug"：地常带4岁攻儿Lauren到实验室，Lauren在模 拟器里乱按，触发了任务中途的发射前序列PO1，导致期溃。NASA 起初不以为意，只允许记录在案。阿波罗8号（首次载人绕月） 真有宇航员误操作导致导航数据丢失，正是这个隐患一炮笑称 "It's the Lauren bug!" 阿波罗11号：登月舱即将着陆时，出现五条算力不足的告警。由 子软件设计可靠，体斯频信任它优先处理最关键的着陆任务，任务 得以继续。看着软件在降落中自愈，炮说那是“纯粹的恐惧”。 晚年荣誉：2016年获奥巴马领发总统自由助章：2017年炮站在自 绿导师原谅你了训i 己团队代码堆旁的照片被做成乐高小人。地创办Hamilton Technologies，开发UniversalSystemsLanguage力求从根本
+
+158
+00:46:05,000 --> 00:46:10,000
+《MargaretHamilton》-MITTechnologyReview.2019年8月 16日，作者CaraGiaimo（MIT校友） 仙-107老师 主题：通过不懈地排查错误，这位最初的软件工程师“把宇航员送上 了月球。 核心内容 成长与入行：Hamilton儿时与父亲长途驾车时总在讨论“如果.会 怎样、为什么、为什么不“这类替学问题。1959年她本想当数学家 ，却为MIT气象学家EdwardLorenz编程一台800磅的 用铅笔在纸带上扎孔把0改成1。 错误即敌人：在MIT的SAGE防空系统项目中，炮发明了记录错 误来源的协议（出错者与相应文档一起拍立得存档），形成追溯、 预测和预防错误的思路。炮说：“我把错误当作敌人。 阿波罗计划：1964年加入MIT仪器实验室。炮先写无人任务中止 时的代码，因认为不会触发而给程序取名“ForgetIt”，结果真派 上用场。随后音升到载人级“软件，必须能侦测并补偿硬件故障或 宇航员误操作。地提出了“软件工程（softwareengineering）"一 调并力推使用，领导近100名开发者。 “Laurenbug”：地常带4岁女儿Lauren到实验室，Lauren在模 拟器里乱按，触发了任务中途的发射前序列PO1，导致期渍。NASA 起初不以为意，只允许记录在案。阿波罗8号（首次载人绕月） 真有宇航员误操作导致导航数据丢失，正是这个隐患一她笑称 "It's the Lauren bug!" 绿导师原谅你了ii 阿波罗11号：登月舱即将着陆时，出现五条算力不足的告警。由
+
+159
+00:46:10,000 --> 00:46:25,000
+拟器里乱按，触发了任务中途的发射前序列PO1，导致崩渍。NASA 起初不以为意，只允许记录在案。阿波罗8号（首次载人绕月） 仙-107老师 真有宇航员误操作导致导航数据丢失，正是这个隐患一她笑称 "It's the Lauren bug!" 阿波罗11号：登月舱即将着陆时，出现五条算力不足的告警。由 于软件设计可靠，体斯频信任它优先处理最关键的着陆任务，任务 得以继续。看着软件在降落中自念，地说那是"纯粹的恐惧。 晚年荣誉：2016年获奥巴马领发总统自由助章：2017年炮站在自 己团队代码堆旁的照片被做成乐高小人。创办Hamilton Technologies.开发UniversalSystemsLanguage.力求从根本 上预防常见错误，而非事后补敦。 意义：文章借此说明，把一个"绝不会发生“的假设都当成可能，正是 可靠软件与航天安全的关键。 Recap：本文事起Hamilton从“错误即敌人“的理念到阿波罗软件 工程实践的故事，重点在于“thenever-going-to-happencan 靠性变成一门学科。 讲一讲那个软件的故事 : working 绿导师原谅你了训让 个2.5k 1.3k R10k CH63.5% $o.002 0.6%/1.0M (auto) deepseek-fla
+
+160
+00:46:25,000 --> 00:46:45,000
+Thinking... 仙-107老师 阿波罗导航软件（AGC）的故事 这篇文章提到的“那个软件"，就是阿波罗制导计算机（AGC，Apollo GuidanceComputer）的飞行软件一由MIT仪器实验室 （InstrumentationLab，今Draper实验室）负责，Margaret Hamilton领导近1oo人编写。Hamilton那句名言字始终："the never-going-to-happencanhappen”（绝不可能发生的事，也是可 能发生的）。 1.硬件本身就是奇观：绳芯存储器 穿过磁环，一根线穿进环内是1，绕过去是0。麻省理工把这项枯燥 活外包给雷神公司，据说干活的是被称为“LOL”（littleold ladies）的女工：地们一边听织法，一边按图纸把代码“编织"进硬体 。等到软件要改，就得重新“织“一遍，所以程序必须一次写对。 2."ForgetIt”程序 Hamilton最初被派去写一个"无人任务中止时“才用的代码，领导们 都觉得这根本不会触发，于是地把程序命名为“ForgetIt”（算了吧 ）。结果真有一次任务中止，这套被忽视的代码立刻成了主角，炮也 3."Laurenbug"与阿波多8号 常带着4岁女儿Lauren来实验室。Lauren在模拟器里乱按，触 绿导师原谅你了山i 发了任务中途的发射前序列Po1，把软件搞前溃。Hamilton要求加 一道保护，NASA觉得太不可能，只允许炮“记一笔”。
+
+161
+00:46:45,000 --> 00:46:50,000
+这篇文章提到的“那个软件"，就是阿波罗制导计算机（AGC，Apollo GuidanceComputer）的飞行软件一由MIT仪器实验室 仙1-107老师 (InstrumentationLab，今Draper实验室）负贵，Margaret Hamilton领导近1oo人编写。Hamilton那句名言贯穿始终："the never-going-to-happencanhappen（绝不可能发生的事，也是可 能发生的）。 1.硬件本身就是奇观：绳芯存储器 穿过磁环，一根线穿进环内是1，绕过去是0。麻省理工把这项枯燥 活外包给雷神公司，据说干活的是被称为“LOL”（littleold ladies）的女工；地们一边听织法，一边按图纸把代码“编织“进硬体 。等到软件要改，就得重新“织“一遍，所以程序必须一次写对。 2.“ForgetIt”程序 Hamilton最初被派去写一个“无人任务中止时“才用的代码，领导们 都部觉得这根本不会触发，于是地把程序命名为“ForgetIt”（算了吧 ）。结果真有一次任务中止，这套被忽视的代码立刻成了主角，炮也 3."Laurenbug”与阿波罗8号 常带着4岁女儿Lauren来实验室。Lauren在模数器里乱按，触 发了任务中途的发射前序列Po1.把软件搞崩渍。Hamilton要求加 一道保护，NASA觉得太不可能，只允许炮“记一笔“。 阿波罗8号（首次载人绕月）上，宇航员真的误操作输入了P01, 导航数据当场消失，只能把地叫来恢复。地后来说话时还在笑：“这 是Laurenbug!" 绿导师原谅你了训 4.阿波罗11号：1201/1202告警 最惊险的一幕发生在登月舱Eagle即将着陆时：告警1201和1202
+
+162
+00:46:50,000 --> 00:46:55,000
+Hamilton领导近10o人编写。Hamilton那句名言贯穿始终：“the never-going-to-happencanhappen"（绝不可能发生的事，也是可 能发生的）。 仙-107老师 1.硬件本身就是寄观：编芯存储器 穿过磁环，一根线穿进环内是1，绕过去是0。麻省理工把这项枯燥 活外包给雷神公司，据说干活的是被称为"LOL”（littleold ladies）的女工：地们一边听织法，一边按图纸把代码“编织“进硬体 。等到软件要改，就得重新“织“一遍，所以程序必须一次写对。 2."ForgetIt”程序 Hamilton最初被派去写一个"无人任务中止时“才用的代码，领导们 都觉得这根本不会触发，于是地把程序命名为“ForgetIt”（算了吧 ）。结果真有一次任务中止，这套被忽视的代码立划成了主角，炮也 炮常带着4岁女儿Lauren来实验室。Lauren在模数器里乱按，触 发了任务中途的发射前序列Po1.把软件搞崩渍。Hamilton要求加 一道保护，NASA觉得太不可能，只允许炮“记一笔"。 阿波罗8号（首次载人绕月）上，宇航员真的误操豫作输入了P01， 导航数据当场消失，只能把炮叫来恢复。她后来说话时还在笑：“这 是Laurenbug！ 4.阿波罗11号：1201/1202告警 最惊险的一幕发生在登月舱Eagle即将着陆时：告警1201和1202 连续闪出五条，意思是计算机过载、任务被挤掉一部分原因是交会 绿导师原谅你了训 雷达的开关位置不对，喂进了多余数据。 换作别的累统，这叫“死机“：但这套软件设计时就让执行程序
+
+163
+00:46:55,000 --> 00:47:00,000
+3."Laurenbug”与阿波罗8号 常带着4岁女儿Lauren来实验室。Lauren在模数器里乱按，触 仙-107老师 发了任务中速的发射前序列Po1，把软件搞崩溃。Hamilton要求加 一道保护，NASA觉得太不可能，只允许炮“记一笔”。 阿波罗8号（首次载人绕月）上，宇航员真的误操作输入了P01 导航数据当场消失，只能把炮叫来恢复。地后来说话时还在笑：“这 是Laurenbug！ 4，阿波罗11号：1201/1202告警 最惊险的一幕发生在登月舱Eagle即将着陆时：告警1201和1202 连续闪出五条，意思是计算机过载、任务被挤掉一部分原因是交会 雷达的开关位置不对，喂进了多余数据。 换作别的系统，这叫“死机“：但这套软件设计时就让执行程序 （Executive）能优先级调度：过载时自动砍掉低优先级任务、重启 并让最关键的着陆任务继续跑。休斯顿的年轻工程师JackGarman 对照备忘录城“这没问题"，SteveBales给出GO。Eagle最终带着 约25秒的燃料余量着陆。 Hamilton说，看着软件在降落过程中当场自念，那种感觉是"纯粹的 念惧（sheerterror) 5.遗产：从排错"到“软件工程” -地首创并力推"softwareengineering”（软件工程）这个词，把 当时被当作“手工活“的工作变成一门严学科。 一核心方法：不只修bug，而是追踪错误模式、预测并预防：让代码 在硬件故障、人为失误、意外时序下仍能侦测、恢复。 -炮后来的公司HamiltonTechnoLogies开发UniversalSystems Language，主张从设计上让常见错误无法发生"，而不是事后补敦 2016年获总统自由勋章：2017年那张地站在自己团队代码打印 绿导师原谅你了Biibil 旁的照片被做成乐高小人。
+
+164
+00:47:00,000 --> 00:47:10,000
+一道保护，NASA觉得太不可能，只允许始“记一笔”。 阿波罗8号（首次载人绕月）上，宇航员真的误操作输入了P01 仙-107老师 导航数据当场消失，只能把炮叫来恢复。她后来说话时还在笑："这 是Laurenbug!" 4.阿波罗11号：1201/1202告警 最惊险的一幕发生在登月舱Eagle即将着陆时：告警1201和1202 连续闪出五条，意思是计算机过载、任务被挤掉一部分原因是交会 雷达的开关位置不对，喂进了多余数据。 换作别的系统，这叫"死机“；但这套软件设计时就让执行程序 （Executive）能优先级调度：过载时自动砍掉低优先级任务、重启 并让最关键的着陆任务继续跑。体斯领的年轻工程师JackGarman 对照备忘录贼“这没问题"，SteveBales给,出GO。Eagle最终带着 约25秒的燃料余量着陆。 Hamilton说，看着软件在降落过程中当场自念，那种感觉是“纯粹的 忍惧(sheerterror)"。 5.遗产：从"排错“到"软件工程” -地首创并力推"softwareengineering（软件工程）这个词，把 当时被当作手工活“的工作变成一门严需学科。 核心方法：不只修bug，而是追踪错误模式、预测并预防：让代码 在硬件故障、人为失误、意外时序下仍能侦测、恢复。 地后来的公司HamiltonTechnoLogies开发UniversalSystems Language，主张"从设计上让常见错误无法发生"，面不是事后补救 -2016年获总统自由勋章；2017年那张她站在自己困队代码打印稿 旁的照片被做成乐高小人。 Recap；用“绝不可能发生“的假设去设计软件，是这段故事的核心 绿导师原谅你了iiBil 方法一从ForgetIt、Laurenbug到1201/1202告警，每一次
+
+165
+00:47:10,000 --> 00:47:30,000
+把软件当作工程：Apollo 仙-107老师 MargaretHamilton与她的团队 MargaretHamilton o领导MIT仪器实验室的软件工程部门，参与Apollo飞行软件开发，推动软件工程观念获得承认。NASA /MIT介绍 能工作”还包括发生意外的时候 Apollo11登月下降时，计算机过载，出现1201/1202警报。亲历者解释 软件的优先级与恢复机制，让关键的下降控制任务得以继续。 MIT团队事先充分测试过恢复能力，地面团队才有依据判断可以继续登月。 这个案例里的工程工作包括：决定必须保住什么、实现恢复机制，并验证它确实有效。 绿导师原谅你了ii 6 / 7.
+
+166
+00:47:30,000 --> 00:47:40,000
+把软件当作工程：Apollo 仙-107老师 MargaretHamilton与她的团队 MargaretHamilton 领导MIT仪器实验室的软件工程部门，参与Apollo飞行软件开发，推动软件工程观念获得承认。NASA /MIT介绍 “能工作”还包括发生意外的时候 软件的优先级与恢复机制，让关键的下降控制任务得以继续。 。MIT团队事先充分测试过恢复能力，地面团队才有依据判断可以继续登月。 绿导师原谅你了训 5/ 7
+
+167
+00:47:40,000 --> 00:47:45,000
+Recap：本文串起Hamilton从“错误即敌人“的理念到阿波罗软伴 仙丨-107老师 工程实践的故事，重点在于“thenever-going-to-happencan 靠性变成一门学科。 讲一讲那个软件的故事 Thinking.. 阿液罗导航软件（AGC）的故事 这篇文章提到的"那个软件"，就是阿波罗制导计算机（AGC，ApolLo GuidanceComputer）的飞行软件一由MIT仪器实验室 （InstrumentationLab，今Draper实验室）负责，Margaret Hamilton领导近1oo人编写。Hamilton那句名言贯字始终：the never-going-to-happencanhappen”（绝不可能发生的事，也是可 能发生的）。 1.硬件本身就是奇观：绳芯存储器 穿过磁环，一根线穿进环内是1，绕过去是0。麻省理工把这项枯燥 活外包给雷神公司，据说干活的是被称为“LOL”（littleold ladies）的女工：地们一边听织法，一边按图纸把代码"编织"进硬体 。等到软件要改，就得重新“织“一遍，所以程序必须一次写对。 2."ForgetIt”程序 绿导师原谅你了 Hamilton最初被派去写一个"无人任务中止时“才用的代码，领导们 都觉得这根本不会触发，于是地把程序命名为"ForgetIt”（算了吧
+
+168
+00:47:45,000 --> 00:47:50,000
+把软件当作工程：Apollo 仙-107老师 MargaretHamilton与她的团队 MargaretHamilton o领导MIT仪器实验室的软件工程部门，参与Apollo飞行软件开发，推动软件工程观念获得承认。NASA /MIT介绍 能工作”还包括发生意外的时候 Apollo11登月下降时，计算机过载，出现1201/1202警报。亲历者解释 软件的优先级与恢复机制，让关键的下降控制任务得以继续。 。MIT团队事先充分测试过恢复能力，地面团队才有依据判断可以继续登月。 这个案例里的工程工作包括：决定必须保住什么、实现恢复机制，并验证它确实有效。 绿导师原谅你了证 6 / 7
+
+169
+00:47:50,000 --> 00:49:45,000
+软件工程的诞生 仙丨-107老师 在成本、时间等约束下交付软件 在成本、时间等约束下，把人的意图变成可工作的软件系统。 6从大到团队组织管理，小到代码风格都会覆盖的学科 IEEE：把工程应用于软件 IEEE:(1)Theapplication ofa systematic, disciplined,quantifiableapproach to the development, operation,andmaintenanceofsoftware;that is,the applicationofengineeringto software.(2) Thestudyofapproachesas in (1). 系统化、有纪律、可量化：覆盖开发、运行与维护。 绿导师原谅你了！
+
+170
+00:49:45,000 --> 00:51:05,000
+软件工程的智慧 仙丨-107老师 回到Pre-LLM时代 接到开发任务，肯定不能立即安排码农干活一一虽然最终产物是他们生产的 如何减少intent-spec-implgap带来的影响？ 先到先得 做一个好用的 会议室预约系统 会议室预约系统 微汉室：A301 编: 2024-05-20.10:00~11:00 预约成功 待审批 付费优先 请先付款 同一个intent 三种理解 不一致的产品 绿导师原谅你，
+
+171
+00:51:05,000 --> 00:51:50,000
+Royce与瀑布模型 山-107老师 如何按时、不超预算地交付大型软件？ WinstonRoyce:Managingthedevelopmentof largesoftwaresystems 这篇论文画出了后来被称为“瀑布模型”的经典阶段图 1970年的背景：航天器任务规划、指令与飞行后分析，时间和存储都有硬约束。 原文在这张图之后就指出：这样的实施方式风险很高，容易失败。 “瀑布假设" iran 希望迭代只发生在相邻阶段之间 实际测试中暴露的问题，却会一路回溯到设计与需求 绿导师原谅价
+
+172
+00:51:50,000 --> 00:51:55,000
+s./scripts/read-tuiarticle/7001/royce.md 仙-107老师 绿导师原谅你了
+
+173
+00:51:55,000 --> 00:52:05,000
+负责，Margaret NewTab $口 Hamilton领导近1oo人编写。Hamilton那 仙丨-107老师 句名言贯穿始终：“the never-going-to-happencanhappen（绝不 可能发生的事，也是可 能发生的）。 1.硬件本身就是奇观：绳芯存储器 AGC的内存是手工编织的“绳芯存储器（core ropememory)"—电线 穿过磁环，一根线穿进环内是1，绕过去是 麻省理工把这项枯燥 活外包给雷神公司，据说干活的是被称为“LO L"(little old ladies）的女工：她们一边听织法，一边按图 纸把代码“编织“进硬体 等到软件要改，就得重新“织"一遍，所以程 序必须一次写对。 $./scripts/read-tuiarticle/70o1/royce.m $./scripts/read-tui article/7ooi/royce.m 绿导师原谅你了Bi
+
+174
+00:52:05,000 --> 00:52:10,000
+仙1-107老师 baidu.cem 新间 地图 贴吧 视频 图片 hao123 库库AI 文心 百度搭子 更多 设置 整录 Bai 百度 李扩当选陕西韩城市委书记 百度一下 文心复杂问题就找文心助手，深入思考回答更优> 百度热慢 O换一换 下载 以文化自觉守护城市根脉 “衣中茅台"卖爆了：毛利串超爱马仕 绿导师原谅你了BiBi 中国代表团首金 唐钱婷刷新女子50米蛙泳亚运会纪录
+
+175
+00:52:10,000 --> 00:52:15,000
+仙丨-107老师 漯布模型 百度一下 百度首页 Bai du 百度 设置 文心 网页 图片 资讯 笔记 地图 贴吧 文军 更多 请按回车"键发起检索 绿导师原谅你了BiP
+
+176
+00:52:15,000 --> 00:52:20,000
+仙-107老师 xe.baidu.coe/bem/8s.d.2/9817778 asnsa HEVE 宠义 绿导师原谅你了ii
+
+177
+00:52:20,000 --> 00:52:25,000
+仙丨-107老师 Msem/量s52/9817778 Reiet 科普中国·科学百 Baid百科 湛布模型 致力于权威的科 【方法范】高效应用湿市模型 20:10 因订阅更新 C 556 B.漯布模型(WaterfallModel 回本润条出科管中国科学古科务编考与股用工作限目事版， 漂布模型(WalertallModel）是一个顶目开发案构，开发过程是通过没计一系列阶股顺序展开的，从系绕需求分析开始直到 产品发布和维护，每个阶段都会产生循环反馈，因此，如果有信息未用美或者爱现了间题，展么最好“返国上一个阶股并进行 适激的修改，通目开发进程从一个阶股“准动到下一个阶提，这您是温事模重名移的由来，包活载再工程开发，全业项目开发， 产品生产以及市历所传每格插海要模型， Watertall Modal 湛布模型的概述图（1张） 1定义 二催型优缺点 3模型零户震求 权合作插具 目录 核心用总 绿导师原谅你了训
+
+178
+00:52:25,000 --> 00:52:30,000
+仙丨-107老师 域2/9817778 Bai 百科 瀑布模型 进入词条 近期有个法分于冒允白度白科方人贝，以蹈除 地质学名词 首页 秒懂百科 百丈崖瀑布 山东省潍坊市临胸县沂山风景名胜区内的瀑布 瀑布模型 小播报 马尿水漯布 重庆南川喀斯特地貌悬崖瀑布 一个项目开发架构 藏布巴东瀑布群 秒ding百科 绿导师原谅你了小证 中国西藏雅鲁藏布大峡谷内的瀑布群
+
+179
+00:52:30,000 --> 00:52:35,000
+仙丨-107老师 m/52/9817778 Bai 百科 瀑布模型 进入词条 系统分析员 分析报告 需求分析70 M项目管理员 程序员 系统设计报告 高级程序员 系统设计6号 用户 M软件编程70% 源程序 UTP 测试报告 欢件测试130% 更改要求 软件推护67% 绿导师原谅你了证
+
+180
+00:52:35,000 --> 00:52:40,000
+仙1-107老师 em/a2/9817778 Bai 瀑布模型 百科 进入词条 Server Component +Watt 1Wattsaved attheServerComponent SavedHere savesatotal of2.s4Wattsintotal consumption -1.0W -1.18 W DC-DC AC-DC Saves an and -1.49W additional .18Where .31where Distribution and .04 W here -1.53W UPS and.14 W here -1.67 W Cooling Cumulative and1.07W here Saving -2.74W and.07 W here Switchgear / 绿导师原谅你了证 Transformer -2.84W
+
+181
+00:52:40,000 --> 00:52:45,000
+仙丨-107老师 wtem/量s线2/9817778 Bai 瀑布模型 百科 进入词条 词杀图册 B.瀑布模型（WaterfallModel) 用户婴求 分新股告 M唤目管理员 系绕分析员 可行性研究与计划 家分新74 定义 系粮设计服店 程序员 阶段 U用户 高级检序员 需求分析 设计 开发阶段 编码 更改要求 维护阶段 运行维护 软件工程瀑布模型 词条图片 绿导师原谅你了州
+
+182
+00:52:45,000 --> 00:52:50,000
+Royce与瀑布模型 仙-107老师 如何按时、不超预算地交付大型软件？ WinstonRoyce:Managingthedevelopmentof largesoftwaresystems 这篇论文画出了后来被称为“瀑布模型”的经典阶段图 1970年的背景：航天器任务规划、指令与飞行后分析，时间和存储都有硬约束。 。原文在这张图之后就指出：这样的实施方式风险很高，容易失败。 “瀑布假设" 希望选代只发生在相邻阶段之间 实际测试中暴露的问题，却会一路回溯到设计与需求 绿导师原谅你了训 2. /
+
+183
+00:52:50,000 --> 00:53:10,000
+MANAGING THE DEVELOPMENT OF LARGE SOFTWARE SYSTEMS 仙1-107老师 INTRODUCTION I am going to describe my personal views about managing large software developments. I have had various assignments during the past nine years, mostly concerned with the development of software packages forspacecraft missionplanning,commanding and post-flight analysis.In these assignments Ihave experienced different degrees of success with respect to arriving at an operational state, on time, and within costs. I have become prejudiced by my experiences and I am going to relate some of these prejudices in this presentation. CONPUTER PROGRAM DEVELOPMENT FUNCTIONS There are two essential steps common to all computer program developments, regardless of size or complexity. There is first an analysis step, followed second by a coding step as depicted in Figure 1.This sort of very simple implementation concept is in fact all that is required if the effort is sufficiently small and if the final product is to be operated programs for internal use. It is also the kind of development effort for which most customers are happy to pay, since both steps involve genuinely creative work which directly contributes to the usefulness of the final product. An implementation plan to manufacture larger software systems, and keyed only to these steps, however, is doomed to failure. 绿导师原谅你了证 Manyadditional development steps are required,none royce.md1-30/7790%
+
+184
+00:53:10,000 --> 00:53:15,000
+$ eza --git --group-directories-first --iconsauto I am going to describe my personal views about managing large assets scripts MMakefile software developments. I have had various assignments during docs p2 p5 AGENTS.md 仙1-107老师 README.md the past nine years, mostly concerned with the development of guest p6 p3 CLAUDE.md software packages for spacecraft mission planning, commanding $viE5/Lect/index.md and post-flight analysis. In these assignments I have experienced different degrees of success with respect to arriving at an operational state,on time,and within costs. I have become prejudiced by my experiences and I am going to relate some of these prejudices in this presentation. COMPUTERPROGRAMDEVELOPMENTFUNCTIONS There are two essential steps common to all computer program developments,regardless of size or complexity.There is first an analysis step, followed second by a coding step as depicted in Figure 1. This sort of very simple implementation concept is in fact all that is required if the effort is sufficiently small and if the final product is to be operated by those who built it -as is typically done with computer programs for internal use. It is also the kind of development effort for which most customers are happy to pay,since both steps involve genuinely creative work which directly contributes to the usefulness of the final product. An implementation plan to manufacture larger software systems, and keyed only to these steps, however, is doomed to failure. Many additional development steps are required,none contribute as directly to the final product as analysis and coding, and all drive up the development costs. Customer 绿导师原谅你了代 personnel typically would rather not pay for them, and royce.md4-33/7790%
+
+185
+00:53:15,000 --> 00:53:25,000
+$ eza --git --group-directories-first --iconsauto I am going to describe my personal views about managing large assets scripts pi MMakefile software developments. I have had various assignments during docs p2 AGENTS.md 仙1-107老师 README.md the past nine years, mostly concerned with the development of guest p3 p6 CLAUDE.md software packages for spacecraft mission planning, commanding cd~/Projects/readspace/ and post-flight analysis. In these assignments I have eza --git --group-directories-first --icons=auto experienced different degrees of success with respect to article magazine review AGENTS.md arriving at an operational state, on time,and within costs. arxiv morning-paper scripts CLAUDE.md build reader spec relate some of these prejudices in this presentation. $ viLabelprinter COMPUTERPROGRAMDEVELOPMENTFUNCTIONS There are two essential steps common to all computer program developments, regardless of size or complexity. There is first an analysis step, followed second by a coding step as depicted in Figure 1. This sort of very simple implementation concept is in fact all that is required if the effort is sufficiently small and if the final product is to be operated by those who built it -as is typically done with computer programs for internal use. It is also the kind of development effort for which most customers are happy to pay,since both steps involve genuinely creative work which directly contributes to the usefulness of the final product.An implementationplanto manufacturelarger softwaresystems, and keyed only to these steps, however, is doomed to failure. Many additional development steps are required, none contribute as directly to the final product as analysis and coding, and all drive up the development costs. Customer 绿导师原谅你了刷 personnel typically would rather not pay forthem,and royce.md4-33/7790%
+
+186
+00:53:25,000 --> 00:53:30,000
+Figure 3 portrays the iterative relationship between I am going to describe my personal views about managing large successive development phases for this scheme. The ordering software developments. I have had various assignments during 仙-107老师 of steps is based on the following concept: that as each step the past nine years, mostly concerned with the development of progresses and the design is further detailed, there is an software packages for spacecraft mission planning, commanding iteration with the preceding and succeeding steps but rarely and post-flight analysis. In these assignments I have with the more remote steps in the sequence. The virtue of all experienced different degrees of success with respect to of this is that as the design proceeds the change process is arriving at an operational state,on time,and within costs. scoped down to manageable limits. At any point in the design process after the requirements analysis is completed there relate some of these prejudices in this presentation. exists a firm and closeup,moving baseline to which to return in the event of unforeseen design difficulties. what we have CONPUTERPROGRAMDEVELOPMENTFUNCTIONS is an effective falback position that tends to maximizethe extent of early work that is salvageable and preserved. There are two essential steps common to all computer program developments, regardless of size or complexity. There is first an analysis step, followed second by a coding step as Page 2 depicted in Figure 1. This sort of very simple implementation concept is in fact all that is required if the effort is ![Image_#1:_Eigure_2-_waterfall-style_flowchart_of sufficiently small and if the final product is to be operated implementation_steps)(data:image/webp;base64, by those who built it -as is typically done with computer UKLGRJBEAABXRUJQVLA4WAOAAAAgAAAANWQAKWIASUNOUBAKAAAAAADQAAAAAA programs for internal use. It is also the kind of development IQAABtbnRyUKdCIFhZWiAAAAAAAAAAAAAAAABhY3NQVBQTAAAAAAAAAAAAAAA effort for which most customers are happy to pay,since both AAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAA steps involve genuinely creative work which directly AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADKZXNJAAAA contributes to the usefulness of the final product. An implementation plan to manufacture larger software systems, ByAAAABRnWFLaAAAB3AAAABRiWFLaAAAB8AAAABRyVFJDAAACBAAACAXnVFJDA and keyed only to these steps, however, is doomed to failure. AACBAAACAXiVFJDAAACBAAACAXkZXNjAAAAAAAAACJBCnRpZmV4IFNVZnR3YX3 Many additional development steps are required, none LIHNSR0IgSUNDIFByb2ZpbGUAAAAAAAAAAAAAACJBcnRpZmV4IFNVZnR3YXJLI contribute as directly to the final product as analysis and HNSROIgSUNDIFBYDZpDGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA coding, and all drive up the development costs. Customer AAAAAdGV4dAAAAABDb3B5cmLnaHQgQXJ0aWZLeCBTb2Z0d2FyZSAyMDExAFaaa personnel typically would rather not pay for them, and article/7e01/royce.md 绿导师原谅你了B训B 22,0-1 8% royce.md4-33/7790%
+
+187
+00:53:30,000 --> 00:53:40,000
+![Image_#i:_Staircase_diagram_of_software_development_phases I am going to describe my personal views about managing large with_smallfeedbackloops_onlybetween_successive_steps](data: software developments. I have had various assignments during 山1-107老师 image/webp;base64, the past nine years, mostly concerned with the development of UKLGROhEAABXRUJQVLA4WAOAAAAgAAAAfQQAfWIASUNDUBAKAAAAAAOQAAAAAA software packages for spacecraft mission planning, commanding IQAABtbnRyUKdCIFhZWiAAAAAAAAAAAAAAAABhY3NwQVBQTAAAAAAAAAAAAAAA and post-flight analysis. In these assignments I have AAAAAAAAAAAAAAAAAAAA9LYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAA experienced different degrees of success with respect to AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADKZXNJAAAA arriving at an operational state, on time, and within costs. AAAAHxjCHJ0AAABeAAAACh3dHBOAAABOAAAABRia3BOAAABtAAAABRyWFLaAAA I have become prejudicedby my experiences and Iam going to relate some of these prejudices in this presentation. AACBAAACAXiVFJDAAACBAAACAXKZXNAAAAAAAAACJBCnRpZmV4IFNVZnR3YXJ LIHNSROIgSUNDIFByb2ZpbGUAAAAAAAAAAAAAACJBCnRpZmV4IFNVZnR3YXJLI COMPUTERPROGRAM DEVELOPMENTFUNCTIONS HNSROIgSUNDTFByb2ZpbGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAdGV4dAAAAABDb3B5cmLnaHQgQXJ0aWZLeCBTb2Z0d2FyZSAyMDExAFhZW There are two essential steps common to all computer program iAAAAAAAADZUQABAAAAARbMWFLaIAAAAAAAAAAAAAAAAAAAAABYWVOgAAAAAAA developments, regardless of size or complexity. There is Ab6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFLaIAAAAAAAACSgAAAPh first an analysis step, followed second by a coding step as AAAtS9jdXJ2AAAAAAAABAAAAAAFAAOADWAUABKAHgAjACgALQAyADCAOWBAAEU depicted in Figure 1. This sort of very simple implementation ASgBPAFQAWQBeAGMAaABtAHIAdwB8AIEAhgCLAJAALQCaAJ8ApACpAK4ASgC3A concept is in fact all that is required if the effort is LWAWQDGAMSAOADVANSA4ADLAOSA8AD2APSBAQEHAQOBEWEZAR8BJQErATIBOAE sufficiently small and if the final product is to be operated by those who built it -as is typically done with computer AUUBTAFSAVkBYAFnAW4BdQF8AYMBiwGSAZoBoQGpAbEBuQHBAckB0QHZAeEB6Q programs for internal use. It is also the kind of development TyAfoCAwIMAhQCHQImAi8COAJBAksCVAJdAmcCcQJ6AoQCjgKYAqICrAK2AsEC effort for which most customers are happy to pay, since both ywLVAuAC6wL1AwADCwMNAyEDLQM4AOMDTwNaA2YDCgN+ steps involve genuinely creative work which directly A40DLgOiA64DugPHA9MD4APSA/ contributes to the usefulness of the final product. An KEBgQTBCAELQQ7BEgEVQRjBHEEfgSMBJoEqAS2BMQEOwThBPAE/ implementationplanto manufacturelarger softwaresystems, gUNBRwFKwU6BUkFWAVnBXcFhgwWBaYFtQXFBdUF5QX2BgYGFgYnBjcGSAZZBmo and keyed only to these steps, however, is doomed to failure. GewaMBp0GrwbABtEG4wb1BwcHGQcrBz0HTwdhB3QHhgeZB6wHvwfSB+UH+ Many additional development steps are required, none AgLCB8IMghGCFoIbgiCCJYIqgi+ contribute as directly to the final product as analysis and coding, and all drive up the development costs. Customer rFCtwK8wSLCyILOQtRC2kLgAuYC7ALyAvhC/ 绿导师原谅你了B证 personnel typically would rather not pay for them, and article/7eoi/royce.md 41,1124-124117% royce.md4-33/7790%
+
+188
+00:53:40,000 --> 00:53:50,000
+I am going to describe my personal views about managing large software developments. I have had various assignments during 山/-107老师 the past nine years, mostly concerned with the development of software packages for spacecraft mission planning, commanding and post-flight analysis. In these assignments I have experienced different degrees of success with respect to arriving at an operational state, on time, and within costs. I have become prejudiced by my experiences and I am going to relate some of these prejudices in this presentation. COMPUTERPROGRAMDEVELOPMENTFUNCTIONS There are two essential steps common to all computer program developments, regardless of size or complexity. There is first an analysis step, followed second by a coding step as depicted in Figure 1. This sort of very simple implementation concept is in fact all that is required if the effort is sufficiently small and if the final product is to be operated by those who built it -as is typically done with computer programs for internal use. It is also the kind of development effort for which most customers are happy to pay,since both steps involve genuinely creative work which directly contributes to the usefulness of the final product. An implementation plan to manufacture larger software systems, and keyed only to these steps, however, is doomed to failure. Many additional development steps are required, none contribute as directly to the final product as analysis and coding, and all drive up the development costs. Customer personnel typically would rather not pay for them, and development personnel would rather not implement them. The prime function of management is to sell these concepts to both groups and then enforce compliance on the part of development personnel. ANALYSIS 绿导师原谅你小让 royce.md4-33/6290%
+
+189
+00:53:50,000 --> 00:54:00,000
+contribute as directly to the final product as analysis and coding, and all drive up the development costs. Customer 仙-107老师 personnel typically would rather not pay for them, and development personnel would rather not implement them. The prime function of management is to sell these concepts to both groups and then enforce compliance on the part of development personnel. ANALYSIS CODING Figure 1, Implementation steps to deliver a senall computer program for internal opetations, [Image #1: Figure 1 flowchart ANALYSIS box with arrow poin ting downto CODINGbox] Figure 1. Implementation steps to deliver a small computer program for internal operations. Figure summary: Simple two-step flow diagram. A rectangular leading down and to the right into a second rectangular box labeled "coDING"(lower right), showing that a small computer 绿导师原谅你了B program for internal operations is produced by a single royce.md31-60/7794%
+
+190
+00:54:00,000 --> 00:54:05,000
+of this is that as the design proceeds the change process is scoped down to manageable limits. At any point in the design 仙-107老师 process after the requirements analysis is completed there exists a firm and closeup,moving baseline to which to return in the event of unforeseen design difficulties. what we have is an effective fallback position that tends to maximize the extent of early work that is salvageable and preserved. REURAEMENTS SYSTEM OUREM OFTRARE ANALYIIE BOCAAM DESION TESTING PERATIONS [Image #1: Figure 2 -waterfall-style flowchart of implement ationsteps] Figure 2. Implementation steps to develop a large computer program for delivery to a customer. I believe in this concept, but the implementation described 绿导师原谅你了山Bi above is risky and invitesfailure.The problem is royce.md79-108/77910%
+
+191
+00:54:05,000 --> 00:54:20,000
+Royce与瀑布模型 仙1-107老师 如何按时、不超预算地交付大型软件？ WinstonRoyce:Managingthedevelopmentof largesoftwaresystems 这篇论文画出了后来被称为“瀑布模型”的经典阶段图 1970年的背景：航天器任务规划、指令与飞行后分析，时间和存储都有硬约束。 。原文在这张图之后就指出：这样的实施方式风险很高，容易失败。 “瀑布假设 希望迭代只发生在相邻阶段之间 实际测试中暴露的问题，却会一路回溯到设计与需求 绿导师原谅你了训 2. / I
+
+192
+00:54:20,000 --> 00:54:45,000
+of this is that as the design proceeds the change process is $ eza --git --group-directories-first--iconssauto scoped down to manageable limits. At any point in the design assets p1 p4 scripts MMakefile process after the requirements analysis is completed there docs p2 p5 AGENTS.md 仙-107老师 README.md exists a firm and closeup,moving baseline to which to return guest p3 p6 CLAUDE.md in the event of unforeseen design difficulties.what we have is an effective fallback position that tends to maximize the extent of early work that is salvageable and preserved. REOURREMENTE SYITEM SOFTRARE ANALYIS PROCAAM DESION COOING TESTNG OPERATIONS [Image #1: Figure 2 -waterfall-style flowchart of implement ationsteps) Figure 2. Implementation steps to develop a large computer program for delivery to a customer. I believe in this concept, but the implementation described 绿导师原谅你了证 above is risky and invitesfailure.The problem is royce.md79-108/77910%
+
+193
+00:54:45,000 --> 00:54:50,000
+of this is that as the design proceeds the change process is scripts assets p4 MMakefile scoped down to manageable limits. At any point in the design docs p5 AGENTS.md p2 README.md process after the requirements analysis is completed there guest p6 p3 仙1-107老师 CLAUDE.md exists a firm and closeup,moving baseline to which to return cd -/Projects/readspace/ in the event of unforeseen design difficulties. what we have eza --git -group-directories-first--icons=auto is an effective fallback position that tends to maximize the article review magazine AGENTS.md arxiv extent of early work that is salvageable and preserved. morning-paper scripts CLAUDE.md build reader spec $pi MEORREMNTS pi vo.86.0 SOFTRARI escape interrupt : ctrl+c/ctrl+d clear/exit-/ commands bash - ctrl+o more ANALYIS Press ctrl+o to show full startup help and loaded resources. PROCAAM DESION Pi can explain its own features and look up its docs. Ask it how to use or extend Pi. COOING TESTING [Context] ~/.pi/agent/AGENTS.md, AGENTS.md OPERATIONS [Extensions [Image #1: Figure 2 -waterfall-style flowchart of implement ationsteps] Figure 2. Implementation steps to develop a large computer program for delivery to a customer. Read the royce paper, and I believe in this concept, but the implementation described 绿导师原谅你了iBi above is risky and invitesfailure.The problem is -/Projects/readspace royce.md79-108/77910% 0.0%/1.0M (auto) deepseekflash · high
+
+194
+00:54:50,000 --> 00:54:55,000
+of this is that as the design proceeds the change process is scoped down to manageable limits. At any point in the design process after the requirements analysis is completed there 仙丨-107老师 $ ls-laarticle/7001/;wc -c article/7001/royce.md exists a firm and closeup,moving baseline to which to return in the event of unforeseen design difficulties. what we have .(1 earlier lines,ctrl+o to expand) is an effective fallback position that tends to maximize the drwxr-xr-x2jyyjyy 4096Sep1916:47 extent of early work that is salvageable and preserved. drwx- 6Jyyjyy 4096Sep1923:45. -rw 1jyyJjyy601700Sep1916:47royce.md -rw-r--r--1jyyJyy439063Sep1916:40royce.pdf SYSTEM MEORREMNTS 601700.article/7001/royce.md SOFTRAR Tooko.os ANALYIS PROCAAM DESION $scripts/read-mdarticle/7oo1/royce.md>/tmp/royce.txt 2>/tmp/royce.err;wc-l/tmp/royce.txt;head-5 COOING /tmp/royce.err TESTING o/tmp/royce.txt Nomodulenamedbs4'.Instalt CPERATIONS scripts/requirements-read-md.txt first. [Image #i: Figure 2 -waterfall-style flowchart of implement Took 0.1s ationsteps) Figure 2. Implementation steps to develop a large computer program for delivery to a customer. 1 working I believe in this concept, but the implementation described 绿导师原谅你了B讯bi above is risky and invitesfailure.The problem is ~/Projects/readspace 个324 ±309 R5.6k CH95.0% $0.001 0.3%/1.0M (auto) royce.md79-108/77910% deepseekflas
+
+195
+00:54:55,000 --> 00:55:00,000
+of this is that as the design proceeds the change process is $Ls-la.venv/bin/python*;.venv/bin/python3.14-c"import scoped down to manageable limits. At any point in the design bs4,markdown_it;print('ok')"2>61 1 tail-3 仙丨-107老师 process after the requirements analysis is completed there exists a firm and closeup,moving baseline to which to return (3earlierlines,ctrl+oto expand) in the event of unforeseen design difficulties. what we have python3.14 is an effective fallback position that tends to maximize the irwxrwxrwx1jyyjyy44Sep1016:59.venv/bin/python3.14-> extent of early work that is salvageable and preserved. /opt/homebrew/opt/pythona3.14/bin/python3.14 /bin/bosh: line 1:viov/bin/python3.14: Nn such FiLe ar directory MEOARREMNTI SYETEM Took 0.0s SOTTRAR ANALYES Thinking.. PROCAAM DESION $ cat scripts/requirements-read-md.txt;python3 -m pip COOING install --user beautifulsoup4 markdown-it-py 2>51 I tail -3 (timeout180s) TESTING cat: scripts/requirements-read-md.txt: No such file or CPERATIONS [Image #1: Figure 2 -waterfall-style flowchart of implement Elapsed 0.ns ationsteps] Figure 2. Implementation steps to develop a large computer program for delivery to a customer. working Use the read skiu I believe in this concept, but the implementation described 绿导师原谅你了BiiBil above is risky and invitesfailure.The problem is ~/Projects/readspace 个1.7k917R25kCH95.6%$0.0020.5%/1.0M(auto) royce.md79-108/77910% deepseek-fLas
+
+196
+00:55:00,000 --> 00:55:05,000
+of this is that as the design proceeds the change process is scoped down to manageable limits. At any point in the design process after the requirements analysis is completed there 仙-107老师 "skills"-print 2>/dev/nullIhead-20 exists a firm and closeup,moving baseline to which to return in the event of unforeseen design difficulties. what we have /home/jyy/Projects/GenSE/.agents/skills is an effective fallback position that tends to maximize the /home/jyy/Projects/pico-playground/.agents/skills extent of early work that is salvageable and preserved. /home/jyy/Projects/codex/codex-rs/skiils /home/jyy/Projects/codex/.codex/skills /home/jyy/Projects/readspace/.kimi-code/skills HEORRENT SYSTEM Took 2.3s ANALYIS $ Is -R .kimi-code/skills; Is .kimi-code PROCAAM DESION (1e earlierlines,ctrl+otoexpand) COOING .kimi-code/skills/rewrite: TESTING SKILL.md agents OPERATIONS skills [Image #1: Figure 2 -waterfall-style flowchart of implement Took 0.0s ationsteps] Figure 2. Implementation steps to develop a large computer program for delivery to a customer. .i working I believe in this concept, but the implementation described 绿导师原谅你了训 above is risky and invitesfailure.The problem is ~/Projects/readspace 个2.2k1.2kR34kCH95.0%$0.0020.5%/1.0M(auto) royce.md79-108/77910% deepseek-fla
+
+197
+00:55:05,000 --> 00:55:10,000
+of this is that as the design proceeds the change process is scoped down to manageable limits. At any point in the design process after the requirements analysis is completed there 仙丨-107老师 $head-60scripts/README.md2>/dev/null;echo==;ls exists a firm and closeup,moving baseline to which to return scripts/reader2>/dev/null;head-3oscripts/read-tui in the event of unforeseen design difficulties. what we have is an effective fallback position that tends to maximize the (33 earlier lines, ctrl+o to expand) extent of early work that is salvageable and preserved. importselect import signal import struct SYETEM MEORREMNTI import sys import termios SOPTRAR Took 0.0s ANALYSE PROCAAM DESION Thinking.. COOING $python3-mvenv/tmp/rsvenv2>611tail-266 TESTING /tmp/rsvenv/bin/pipinstalt-q beautifulsoup4markdown-it-py OPERATIONS markdowm_it;print('ok')"(timeout 30s) [Image #i: Figure 2-waterfall-style flowchart of implement Elapsed a.0s ationsteps Figure 2. Implementation steps to develop a large computer program for delivery to a customer. working I believe in this concept, but the implementation described 绿导师原谅你了iBi above is risky and invites failure.The problem is ~/Projects/readspace 个3.0k>1.9kR51kCH95.4%$o.0040.7%/1.0M(auto) royce.md79-108/77910% deepseek-fla
+
+198
+00:55:10,000 --> 00:55:15,000
+iteration with the preceding and succeeding steps but rarely Thinking... with the more remote steps in the sequence. The virtue of all 仙-107老师 of this is that as the design proceeds the change process is scoped down to manageable limits. At any point in the design $/tmp/rsvenv/bin/pythonscripts/read-md process after the requirements analysis is completed there article/7ooi/royce.md>/tmp/royce.txt;wc-l-c exists a firm and closeup,moving baseline to which to return /tmp/royce.txt;head-60/tmp/royce.txt(timeout120s) in the event of unforeseen design difficulties. what we have is aneffective fallback position that tends to maximizethe (21 earlier lines, ctrl+o to expand) extent of early work that is salvageable and preserved. bs4.exceptions.FeatureNotFound:Couldn't find a tree builder SYITEM with the features you requested:html5lib.Do you need to install a parser library? e0/tmp/royce.txt Took0.3s ANALYES PROCRAN DESION $/tmp/rsvenv/bin/pipinstall-qhtml5lib2>61Itail-2; OODING /tmp/rsvenv/bin/pythonscripts/read-mdarticle/7oo1/royce.md /tmp/royce.txt(timeout300s) Elapsed 0.0s [Image #1: Figure 2 - waterfall-style flowchart of implement ationsteps] working Figure 2. Implementation steps to develop a large computer program for delivery to a customer. 绿导师原谅你了证 ~/Projects/readspace 个3.5k ±2.2k R65k CH95.3% $0.004 0.7%/1.0M (auto) royce.md77-106/77910% deepseek-fla
+
+199
+00:55:15,000 --> 00:55:20,000
+successive development phases for this scheme. The ordering of steps is based on the following concept: that as each step Took 2.4s 仙|-107老师 progresses and the design is further detailed, there is an iteration with the preceding and succeeding steps but rarely with the more remote steps in the sequence. The virtue of all Thinking.. of this is that as the design proceeds the change process is scoped down to manageable limits. At any point in the design process after the requirements analysis is completed there read/tmp/royce.txt:40-499 existsa firmand closeup,movingbaseline to which to return in the event of unforeseen design difficulties. what we have is aneffective faliback position that tends to maximizethe Thinking... extent of early work that is salvageable and preserved. EYETEM /tmp/royce.txt OPTRARE (3o earlierlines,ctrl+oto expand) Caption:Figure 10,Summary NALYSIE DESIGN Command exited with code 1 CODING Took 0.os TESTING OPERATIONS working [Image #1: Figure 2  waterfall-style flowchart of implement 绿导师原谅你了BB ation steps] ~/Projects/readspace royce.md74-103/7799% 个9.6k →2.5k R79k CH58.2% $0.006 1.4%/1.0M (auto) deepseek-fla
+
+200
+00:55:20,000 --> 00:55:25,000
+successive development phases for this scheme. The ordering of steps is based on the following concept: that as each step Command exitedwith code1 仙-107老师 progresses and the design is further detailed, there is an iteration with the preceding and succeeding steps but rarely Took 0.1s with the more remote steps in the sequence. The virtue of all of this is that as the design proceeds the change process is scoped down to manageable limits. At any point in the design process after the requirements analysis is completed there $cd/home/jyy/Projects/readspace66/tmp/rsvenv/bin/python existsa firmand closeup,movingbaseline to which to return scripts/read-ingarticle/7oo1/royce.md3; in the event of unforeseen design difficulties. what we have /tmp/rsvenv/bin/pythonscripts/read-img is aneffective fallback position that tends to maximizethe article/70e1/royce.md4(timeout120s) extent of early work that is salvageable and preserved. error:[Errno 2] No such fileor directory:'magick' error:[Errno 2] No such file or directory:'magick' REOUIREONTS PYITEM OFTWAR Command exited withcode1 Took0.6s DESIGN Thinking... CODNG 读完了：article/7oe1/royce.md—winstonw.Royce,Managing TESTING theDevelopmentofLargeSoftwareSystems（197o.后被称为 CPERATIONS working [Image #1: Figure 2 - waterfall-style flowchart of implement 绿导师原谅你了山 ation steps] ~/Projects/readspace royce.md74-103/7799% 个10k+3.0k R107k CH98.3%$0.0071.4%/1.0M(auto) deepseek-fla
+
+201
+00:55:25,000 --> 00:55:45,000
+iteration with the preceding and succeeding steps but rarely Took0.6s with the more remote steps in the sequence. The virtue of all 仙-107老师 of this is that as the design proceeds the change process is scoped down to manageable limits. At any point in the design Thinking.. process after the requirements analysis is completed there exists a firm and closeup, moving baseline to which to return 读完了：article/7oo1/royce.md—winstonw.Royce，Managing in the event of unforeseen design difficulties. what we have theDevelopmentofLargeSoftwareSystems（197o,后被称为"瀑 is an effective fallback position that tends to maximize the 布模型“的原始出处，也是被误读最严重的一篇）。 extent of early work that is salvageable and preserved. 顺带修了工具链：.venv是从macoS带过来的坏软链接 （/opt/homebrew/...），所以scripts/read-md起不来。我在 SYSTEM AONT /tmp/rsvenv里装了beautifulsoup4+markdown-it-py+ htmlSlib，用它跑通了read-md（read-img还缺magick，未修）。 EORTMENT 论文框架（文本版） ANALYSIS PHOCRAN DESION [SYSTEMREQUIREMENTS] COOING [SOFTWAREREQUIREMENTS] [PRELIMINARY PROGRAM DESIGN] TESTING （Step1：设计先行） [ANALYSIS] [PROGRAM DESIGN] [Image #i: Figure 2 -waterfall-style flowchart of implement 大回环 (Fig.4: ation steps] 测试失败被追回溯） Figure 2. Implementation steps to develop a large computer (Step 3: program for delivery to a customer. 先做一个小号的） 绿导师原谅你了BiB [CODING] royce.md77-106/77910%
+
+202
+00:55:45,000 --> 00:55:55,000
+iteration with the preceding and succeeding steps but rarely with the more remote steps in the sequence. The virtue of all 问题的原点很朴素：一个程序小到能被建它的人自己用，两步就够了 of this is that as the design proceeds the change process is 仙丨-107老师 一分析、编码（F1.1）。但“大系统“不行，于是人们自然会加阶段 scoped down to manageable limits. At any point in the design ，得到Fig.2那条漂亮的单向阶梯。Royce承认这条线是对的，然 process after the requirements analysis is completed there 后立刻指出它risky，invitesfailure。 exists a firm and closeup,moving baseline to which to return in the event of unforeseen design difficulties. what we have 为什么危险？因为测试是整条链上第一个"物理"事件：时序、存储 is aneffective fallback position that tends to maximize the extent of early work that is salvageable and preserved. 理里可解的偏微分方程一你分析不准。一旦不满足外部约束，不是改 一行八进制补丁能救的，而是要动需求层次的重大重设计，于是回到 原点，100%超期/超支（Fig.4）。注意他反复强调：分析与编码其 SYSTEM 实“好管“（轨道力学做完可能就几行串行算术），真正吃掉风险预算 的是测试。 BOFTHRE 关键跳跃：既然风险最终在测试处爆炸，而爆炸的代价由回溯距离决 ANALYES 定，那么所有补款的本质就是同一件事一把发现间题“的时间点提前 ，把“回溯距离“压短。五条建议部是从这一条推出来的，而非澳数的 ROCRAM DESION 最佳实践： DOOING 1.设计先行：让programdesigner在requirements之后、 analysis之前就分配存储/时序/数据流。批评者说这是“真空里 设计会错"一Royce承认，但"missesthepoint”：错在早期只是 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 上的巧思：让设计师在分析阶段“抢“资源，逼分析员亲身感受约 束的代价，而不是事后被告知。 [Image #1: Figure 2 - waterfall-style flowchart of implement 2.文档：早期阶段documentation=specification=design，三 ationsteps 位一体，所以“文档没写出来就等于设计还不存在"。他给了个很 Figure 2. Implementation steps to develop a large computer 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500 program for delivery to a customer. 页。理由全是“下游可替代性“：有文档，测试时不必找原作者的 绿导师原谅你了BiiBi 脑子，运维可以交给运维人员，改版可以不做推例重来。 royce.md77-106/77910% 3.做两遍：不确定性的本质是humanjudgment，而人对工期/成本
+
+203
+00:55:55,000 --> 00:56:00,000
+successive development phases' for this scheme. The ordering of steps is based on the following concept: that as'each step 问题的原点很朴素：一个程序小到能被建它的人自已用，两步就够了 progresses and the design is further detailed, there is an 仙1-107老师 一分析、编码（Fi9.1）。但"大系统"不行，于是人们自然会加阶段 iteration with the preceding and succeeding steps but rarely ，得到Fig.2那条漂亮的单向阶梯。Royce承认这条线是对的，然 with the more remote steps in the sequence. The virtue of all 后立刻指出它risky，invitesfailure。 of this is that as the design proceeds the change process is scoped down to manageable limits. At any point in the design 为什么危险？因为测试是整条链上第一个"物理"事件：时序、存储 process after the requirements analysis is completed there exists a firm and closeup,moving baseline to which to return 理里可解的偏微分方程一你分析不准。一旦不满足外部约束，不是改 in the event of unforeseen design difficulties. what we have 一行八进制补丁能款的，而是要动需求层次的重大重设计，于是回到 is an effective faltbackposition that tends to maximizethe 原点，100%超期/超支（Fig.4）。注意他反复强调：分析与编码其 extent of early.work that is salvageable and preserved. 实“好管”（轨道力学做完可能就几行串行算术），真正吃撑风险预算 的是测试。 OURMNTS 关键跳联：既然风险最终在测试处爆炸，而爆炸的代价由回溯距离决 定，那么所有补款的本质就是同一件事一把“发现间题“的时间点提前 ，把“国溯距离“压短。五条建议部是从这一条推出来的，而非澳数的 最佳实践： 1.设计先行：让programdesigner在requirements之后、 DESIGN analysis之前就分配存储/时序/数据流。批评者说这是“真空里 设计会错"一Royce承认，但"missesthepoint"：错在早期只是 CODING 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 上的巧思让设计师在分析阶段“抢“资源，逼分析员亲身感受约 TESTING 束的代价，而不是事后被告知。 2.文档：早期阶段documentation=specification=design，三 OPERATIONS 位一体，所以“文档没写出来就等于设计还不存在。他给了个很 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500 [Image #1: Figure 2 - waterfall-style flowchart of implement 页。理由全是“下游可替代性”：有文档，测试时不必找原作者的 ation steps] 绿导师原谅你了iB 子，运维可以交给运维人员，改版可以不做推例重来。 royce.md74-103/7799% 3.做两遍：不确定性的本质是humanjudgment，而人对工期/成本
+
+204
+00:56:00,000 --> 00:56:10,000
+coding, and all drive up the development costs. Customer personnel typically would rather not pay for them,and 问题的原点很朴素：一个程序小到能被建它的人自己用，两步就够了 development personnel would rather not implement them. The 仙-107老师 一分析、编码（Fig.1)。但"大系统不行，于是人们自然会加阶段 prime function of management is to sell these concepts to 得到Fig.2那条漂亮的单向阶梯。Royce承认这条线是对的，然 both groups and then enforce compliance on the part of 后立刻指出它risky，invitesfailure。 development personnel. 为什么危险？因为测试是整条链上第一个“物理“事件：时序、存储 理里可解的偏微分方程一你分析不准。一旦不满足外部约束，不是改 一行八进制补丁能款的，而是要动需求层次的重大重设计，于是回到 ANALYSIS 原点，100%超期/超支（F1g.4）。注意他反复强调：分析与编码其 实“好管”（轨道力学做完可能就几行串行算术），真正吃撑风险预算 的是测试。 CODING 关键跌联：既然风险最终在测试处爆炸，而爆炸的代价由回溯距离决 定，那么所有补款的本质就是同一件事一把“发现间题“的时间点提前 ，把“国溯距离“压短。五条建议都是从这一条推出来的，而非澳数的 Figure 1, Implementation steps to deliver a small computer program for interaal operatoms, 最佳实践： [Image #1: Figure1 flowchart -ANALYSIS box with arrow poin 1.设计先行：让programdesigner在requirements之后、 ting down to CODING box] analysis之前就分配存储/时序/数据流。批评者说这是真空里 Figure 1.Implementation steps to deliver a small computer 设计会错"一Royce承认，但"missesthepoint"：错在早期只是 program for internal operations. 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 上的巧思：让设计师在分析阶段“抢“资源，逼分析员亲身感受约 Figure summary: Simple two-step flow diagram. A rectangular 束的代价，而不是事后被告知。 box labeled "ANALYSIs" (upper left) has a thick curved arrow 2.文档：早期阶段documentation=specification=design，三 leading down and to the right into a second rectangular box 位一体，所以“文槛没写出来就等于设计还不存在。他给了个很 labeled "coDING(lower right), showing that a small computer 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500 program for internal operations is produced by a single 页。理由全是“下游可替代性“：有文档，测试时不必找原作者的 analysis step followed by a single coding step. 绿导师原谅你了Bii 髓子，运维可以交给运维人员，改版可以不做推倒重来。 royce.md32-61/7794% 3.做两遍：不确定性的本质是humanjudgment，而人对工期/成本
+
+205
+00:56:10,000 --> 00:56:20,000
+scoped down to manageable limits. At any point in the design process after the requirements analysis is completed there 问题的原点很朴素：一个程序小到能被建它的人自已用，两步就够了 exists a firmand closeup,moving baseline to which to return 仙丨-107老师 一分析、编码（Fi.1）。但“大系统"不行，于是人们自然会加阶段 in the event of unforeseen design difficulties, what we have ，得到Fig.2那条漂亮的单向阶梯。Royce承认这条线是对的，然 is an effective fallback position that tends to maximize the 后立刻指出它risky，invitesfailure。 extent of early work that is salvageable and preserved. 为什么危险？因为测试是整条链上第一个"物理"事件：时序、存储 、I/O传输在这里才从被分析“变成"被经历"。这些现象不像数学物 SYSTEM 理里可解的偏微分方程一你分析不准。一旦不满足外部约束，不是改 一行八进制补丁能款的，而是要动需求层次的重大重设计，于是回到 SOFPWARE EOUIRIMENT 原点，100%超期/超支（F1g.4）。注意他反复强调：分析与编码其 实“好管“（轨道力学做完可能就几行串行算术），真正吃掉风险预算 ANALYES 的是测试。 PRORAM DERON 关键跳联：既然风险最终在测试处爆炸，而爆炸的代价由回溯距离决 定，那么所有补款的本质就是同一件事一把“发现间题“的时间点提前 0OOING ，把“回溯距离“压短。五条建议都是从这一条推出来的，而非澳数的 最佳实践： TESTING 1，设计先行：让programdesigner在requirements之后、 OFERATION analysis之前就分配存储/时序/数据流。批评者说这是“真空里 设计会错"一Royce承认，但"missesthepoint”：错在早期只是 [Image #1: Figure 2 -waterfall-style flowchart of implement 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 ationsteps] 上的巧思让设计师在分析阶段“抢“资源，逼分析员亲身感受约 Figure 2.Implementation steps to develop a large computer 束的代价，而不是事后被告知。 program for delivery to a customer. 2.文档：早期阶段documentation=specification=design，三 位一体，所以“文槛没写出来就等于设计还不存在”。他给了个很 I believe in this concept, but the implementation described 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500 above is risky and invites failure.The problem is 页。理由全是“下游可替代性“：有文档，测试时不必找原作者的 illustrated in Figure 4.The testing phase which occurs at 绿导师原谅你了Bi 脑子，运维可以交给运维人员，改版可以不做推例重来。 royce.md80-109/77910% 3.做两遍：不确定性的本质是humanjudgment，而人对工期/成本
+
+206
+00:56:20,000 --> 00:57:45,000
+scoped down to manageable limits. At any point in the design process after the requirements analysis is completed there exists a firm and closeup,moving baseline to which to return 仙-107老师 MorningPaper 风格的重新推导 in the event of unforeseen design difficulties. what we have is an effective fallback position that tends to maximize the 问题的原点很朴素：一个程序小到能被建它的人自己用，两步就够了 extent of early work that is salvageable and preserved. 一分析、编码（Fig.1）。但"大系统"不行，于是人们自然会加阶段 ，得到Fig.2那条漂亮的单向阶梯。Royce承认这条线是对的，然 后立刻指出它risky，invitesfailure SYITEM 为什么危险？因为测试是整条链上第一个物理“事件：时序、存储 SOFTARE EOUIRMENTT 、I/O传输在这里才从“被分析“变成"被经历"。这些现象不像数学物 理里可解的偏微分方程一你分析不准。一旦不满足外部约束，不是改 ANALYSIS 一行八进制补丁能款的，而是要动需求层次的重大重设计，于是回到 原点，100%超期/超支（Fig.4）。注意他反复强调：分析与编码其 PEOCRAM DESION 实“好管（轨道力学做完可能就几行串行算术），真正吃撑风险预算 的是测试。 COOING 关键跳联：既然风险最终在测试处爆炸，而爆炸的代价由回距离决 TESTING 定，那么所有补款的本质就是同一件事一把“发现问题“的时间点提前 ，把“回溯距高“压短。五条建议都是从这一条推出来的，而非淡数的 PERATION 最佳实践： [Image #1: Figure 2 -waterfall-style flowchart of implement 1.设计先行：让programdesigner在requirements之后、 ationsteps] analysis之前就分配存储/时序/数据流。批评者说这是“真空里 Figure 2.Implementation steps to develop a large computer 设计会错"一Royce承认，但"missesthepoint"：错在早期只是 program for delivery to a customer. 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 上的巧思：让设计师在分析阶段“抢“资源，逼分析员亲身感受约 I believe in this concept, but the implementation described 束的代价，而不是事后被告知。 above is risky and invites failure. The problem is 2，文档：单期阶段documentation=specification=design，三 绿导师原谅你了训 illustrated in Figure 4. The testing phase which occurs at 位一体，所以“文档没写出来就等于设计还不存在"。他给了个很 royce.md80-109/77910% 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500
+
+207
+00:57:45,000 --> 00:57:50,000
+with no feedback loops. YITEM 仙-107老师 MorningPaper风格的重新推导 问题的原点很朴素：一个程序小到能被建它的人自己用，两步就够了 一分析、编码（Fig.1）。但"大系统"不行，于是人们自然会加阶段 得到Fig.2那条漂亮的单向阶梯。Royce承认这条线是对的，然 后立刻指出它risky.invitesfailure 为什么危险？因为测试是整条链上第一个物理“事件：时序、存储 、I/O传输在这里才从“被分析“变成“被经历"。这些现象不像数学物 理里可解的偏微分方程一你分析不准。一旦不满足外部约束，不是改 一行八进制补丁能救的，而是要动需求层次的重大重设计，于是回到 原点，100%超期/超支（Fig.4）。注意他反复强调：分析与编码其 ERATION 实“好管”（轨道力学做完可能就几行串行算术），真正吃撑风险预算 的是测试。 [Image #1:Staircase diagram of software development phases with small feedback loops only between successive steps] 关键跳跃：既然风险最终在测试处爆炸，而爆炸的代价由回溯距离决 Figure summary: A cascade (staircase) diagram in which seven 定，那么所有补款的本质就是同一件事一把“发现间题“的时间点提前 boxed phases descend from upper-left to lower-right - SYSTEM ，把“回溯距离“压短。五条建议都是从这一条推出来的，而非淡数的 REQUIREMENTS→SOFTWAREREQUIREMENTS→ANALYSIS→PROGRAM 最佳实践： DESIGN→CODING→TESTING→OPERATIONS.Curved arrowS Feed each phase into:the next, with small feedback arrows looping 1.设计先行：让programdesigner在requirements之后、 back only between adjacent (successive)phases, illustrating analysis之前就分配存储/时序/数据流。批评者说这是“真空里 设计会错"一Royce承认，但"missesthepoint"：错在早期只是 steps. 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 上的巧思：让设计师在分析阶段“抢“资源，逼分析员亲身感受约 Figure 3.Hopefully, the iterative interaction between the 束的代价，而不是事后被告知。 various phases is confined to successive steps. 2，文档：早期阶段documentation=specification=design，三 绿导师原谅你了训 位一体，所以"文档没写出来就等于设计还不存在"。他给了个很 royce.md152-181/77920% 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500
+
+208
+00:57:50,000 --> 00:57:55,000
+Figure summary: The figure shows a strictly sequential, one-directional waterfall chain: seven boxes labeled SYSTEM 仙-107老师 MorningPaper风格的重新推导 REQUIREMENTS→SOFTWAREREQUIREMENTS→ANALYSIS→PROGRAM DESIGN → CODING → TESTING → OPERATIONS, each connected to the 问题的原点很朴素：一个程序小到能被建它的人自已用，两步就够了 next by a single forward arrow cascading diagonally downward, 一分析、编码（Fig.1）。但"大系统"不行，于是人们自然会加阶段 with no feedback loops. 得到Fig.2那条漂亮的单向阶梯。Royce承认这条线是对的，然 后立刻指出它risky.invitesfailure ITEM 为什么危险？因为测试是整条链上第一个物理“事件：时序、存储 、I/O传输在这里才从“被分析“变成"被经历"。这些现象不像数学物 理里可解的偏微分方程一你分析不准。一旦不满足外部约束，不是改 一行八进制补丁能款的，而是要动需求层次的重大重设计，于是回到 原点，100%超期/超支（Fig.4）。注意他反复强调：分析与编码其 实"好管”（轨道力学做完可能就几行串行算术），真正吃掉风险预算 的是测试。 关键跳跃：既然风险最终在测试处爆炸，而爆炸的代价由回溯距离决 定，那么所有补款的本质就是同一件事一把“发现问题“的时间点提前 ，把“回溯距高“压短。五条建议都是从这一条推出来的，而非澳数的 最佳实践： [Image #1:Staircase diagram of software development phases 1.设计先行：让programdesigner在requirements之后、 with small feedback loops only between successive steps] analysis之前就分配存储/时序/数据流。批评者说这是“真空里 Figure summary: A cascade (staircase) diagram in which seven 设计会错"一Royce承认，但missesthepoint"：错在早期只是 boxed phases descend from upper-left to lower-right - SYSTEM 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 REQUIREMENTS→SOFTWAREREQUIREMENTS→ANALYSIS→PROGRAM 上的巧思：让设计师在分析阶段“抢“资源，逼分析员亲身感受约 DESIGN →CODING →TESTING →OPERATIONS. Curved arrOwS feed 束的代价，而不是事后被告知。 each phase into the next, with small feedback arrows looping 2，文档：早期阶段documentation=specification=design，三 绿导师原谅你了B训 back onlybetween adjacent(successive)phases,illustrating 位一体，所以"文档没写出来就等于设计还不存在"。他给了个很 royce.md146-175/77919% 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500
+
+209
+00:57:55,000 --> 00:58:00,000
+DESIGN →CODING →TESTING →OPERATIONS. Curved arrowS feed each phase into the next, with small feedback arrows looping back only between adjacent(successive)phases,illustrating 仙/-107老师 MorningPaper风格的重新推导 that iterative interaction is ideally confined to successive steps. 问题的原点很朴素：一个程序小到能被建它的人自已用，两步就够了 一分析、编码（Fig.1）。但"大系统不行，于是人们自然会加阶段 Figure 3. Hopefully, the iterative interaction between the 得到Fig.2那条漂亮的单向阶梯。Royce承认这条线是对的，然 various phases is confined to successive steps. 后立刻指出它risky.invitesfailure 为什么危险？因为测试是整条链上第一个物理“事件：时序、存储 、I/O传输在这里才从“被分析“变成“被经历"。这些现象不像数学物 理里可解的偏微分方程一你分析不准。一旦不满足外部约束，不是改 一行八进制补丁能款的，而是要动需求层次的重大重设计，于是回到 原点，100%超期/超支（Fig.4）。注意他反复强调：分析与编码其 实“好管”（轨道力学做完可能就几行串行算术），真正吃撑风险预算 的是测试。 关键跳跃：既然风险最终在测试处爆炸，而爆炸的代价由回溯距离决 定，那么所有补款的本质就是同一件事一把“发现问题“的时间点提前 ，把“回溯距离“压短。五条建议都是从这一条推出来的，而非淡数的 最佳实践： 1.设计先行：让programdesigner在requirements之后、 [Image #2: Staircase phase diagram with a large feedback loo analysis之前就分配存储/时序/数据流。批评者说这是“真空里 设计会错"一Royce承认，但"missesthepoint"：错在早期只是 Figure summary: The same seven-phase cascade (SYSTEM 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 REQUIREMENTS→SOFTWAREREQUIREMENTS→ANALYSIS→PROGRAM 上的巧思：让设计师在分析阶段“抢“资源，逼分析员亲身感受约 DESIGN→CODING→TESTING →OPERATIONS),but with an 束的代价，而不是事后被告知。 additional large feedback line running from TESTING back up 2，文档：早期阶段documentation=specification=design，三 绿导师原谅你了B训i toPROGRAM DESIGN and to SOFTWARE REQUIREMENTS. This 位一体，所以"文档没写出来就等于设计还不存在"。他给了个很 royce.md173-202/77922% 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500
+
+210
+00:58:00,000 --> 00:58:10,000
+operating procedures. 3. write an overview document that is understandable, 仙/-107老师 MorningPaper风格的重新推导 informative and current. Each and every worker must have an elemental understanding of the system. At least one 间题的原点很朴素：一个程序小到能被建它的人自己用，两步就够了 person must have a deep understanding of the system 一分析、编码（Fig.1）。但"大系统"不行，于是人们自然会加阶段 which comes partially from having had to write an 得到Fig.2那条漂亮的单向阶梯。Royce承认这条线是对的，然 overview document. 后立刻指出它risky.invitesfailure 为什么危险？因为测试是整条链上第一个物理“事件：时序、存储 、I/O传输在这里才从“被分析“变成“被经历"。这些现象不像数学物 理里可解的偏微分方程一你分析不准。一旦不满足外部约束，不是改 一行八进制补丁能款的，而是要动需求层次的重大重设计，于是回到 原点，100%超期/超支（Fig.4）。注意他反复强调：分析与编码其 DESICN OCUMEN 实"好管”（轨道力学做完可能就几行串行算术），真正吃撑风险预算 WRERAS 的是测试。 DESN DATABASE 关键跳跃：既然风险最终在测试处爆炸，而爆炸的代价由回渊距离决 PROCESSORS ALLOCATE 定，那么所有补款的本质就是同一件事一把“发现问题“的时间点提前 BROUTINE STORAGE PROCEDURES ，把“回溯距高“压短。五条建议都是从这一条推出来的，而非澳数的 最佳实践： ALLOCATE EXECUTION TMES 1.设计先行：让programdesigner在requirements之后、 analysis之前就分配存储/时序/数据流。批评者说这是“真空里 设计会错"一Royce承认，但missesthepoint"：错在早期只是 [Image #1: Preliminary program design flow diagram] 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 上的巧思：让设计师在分析阶段“抢“资源，逼分析员亲身感受约 Figure summary:Flow diagramfor Step1.Acentral box 束的代价，而不是事后被告知。 2，文档：单期阶段documentation=specification=design，三 绿导师原谅你了iii five circleS:"DOCUMENTSYSTEMOVERVIEW","DESIGN DATA BASE 位一体，所以"文档没写出来就等于设计还不存在"。他给了个很 royce.md251-280/77933% 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500
+
+211
+00:58:10,000 --> 00:58:25,000
+operating procedures. ，得到Fig.2那条漂亮的单向阶梯。Royce承认这条线是对的，然 后立刻指出它risky.invitesfailure。 仙/-107老师 3. write an overview document that is understandable, informative and current. Each and every worker must have 为什么危险？因为测试是整条链上第一个“物理“事件：时序、存储 an elemental understanding of the system. At least one person must have a deep understanding of the system 理里可解的偏微分方程一你分析不准。一旦不满足外部约束，不是改 which comes partially from having had to write an 一行八进制补丁能款的而是要动需求层次的重大重设计，于是回到 overview document. 原点，100%超期/超支（F1g.4）。注意他反复强调：分析与编码其 实“好管（轨道力学做完可能就几行串行算术），真正吃撑风险预算 的是测试。 关键跳跃：既然风险最终在测试处爆炸，而爆炸的代价由回渊距高决 定，那么所有补款的本质就是同一件事一把“发现问题“的时间点提前 ，把“回溯距离“压短。五条建议都是从这一条推出来的，而非凑数的 DESICN OCUMEN 最佳实践： 1.设计先行：让programdesigner在requirements之后， DESRN DATABASE analysis之前就分配存储/时序/数据流。批评者说这是“真空里 AND PROCESSORS ALLOCATE 设计会错"一Royce承认，但"missesthepoint"：错在早期只是 BROUTINE PROCEDURES 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 上的巧思：让设计师在分析阶段“抢“资源，逼分析员亲身感受约 ALLOCATE 束的代价，而不是事后被告知。 DXEOUTION TMES 2，文档：早期阶段documentationspecification=design，三 位一体，所以“文档没写出来就等于设计还不存在。他给了个很 [Image #1: Preliminary program design flow diagram] 页。理由全是“下游可替代性“：有文档，测试时不必找原作者的 子，运维可以交给运维人员，改版可以不做推重来。 Figure summary:Flow diagram for Step1.A central box 3，做两通：不确定性的本质是humanjudgment，而人对工期/成本 labeled"PRELIMINARYPROGRAMDESIGN" fans out via arrowS to 的估计"invariablyandseriouslyoptimistic"。所以先做一个 绿导师原谅你了 five circleS:"DOCUMENTSYSTEMOVERVIEW","DESIGN DATA BASE 缩小版全流程（30个月的项目里放10个月的pilot），把判断 royce.md251-280/77933% 性争议变成可实验的假设。
+
+212
+00:58:25,000 --> 00:58:30,000
+operating procedures. 的是测试。 3. write an overview document that is understandable, 仙-107老师 关键跳联：既然风险最终在测试处爆炸，而爆炸的代价由回溯距离决 informative and current. Each and every worker must have 定，那么所有补款的本质就是同一件事一把“发现间题“的时间点提前 an elemental understanding of the system. At least one ，把“回溯距离“压短。五条建议都是从这一条推出来的，而非澳数的 person must have a deep understanding of the system 最佳实践： which comes partially from having had to write an overview document. 1.设计先行：让programdesigner在requirements之后、 analysis之前就分配存储/时序/数据流。批评者说这是“真空里 设计会错"一Royce承认，但"missesthepoint"：错在早期只是 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 上的巧思：让设计师在分析阶段“抢“资源，逼分析员亲身感受约 束的代价，而不是事后被告知。 2.文档：早期阶段documentation=specification=design，三 OESICN OCUMEN 位一体，所以“文档没写出来就等于设计还不存在"。他给了个很 WREAS OVERVIIW 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500 页。理由全是"下游可替代性"：有文格，测试时不必找原作者的 DESN DATABASE 脑子，运维可以交给运维人员，改版可以不做推倒重来。 AND PROCESSORS ALLOCATE 3，做两通：不确定性的本质是humanjudgment，而人对工期/成本 EROUTINE PROCEDURES 的估计"invariablyandseriouslyoptimistic"。所以先做一个 缩小版全流程（30个月的项目里放10个月的pilot），把判断 ALLOCATE 性争议变成可实验的假设。 XEOUTION TMES 4，测试是最大资源消耗者，也是最晚、备份最少的一环：所以视觉 走查（让计算机找委负号太贵）、每条逻辑路径至少数值验证一 次、用独立的productassurance团队一他还反过来用这一点做 [Image #1: Preliminary program design flow diagram] 判据：“只有原作者能测“是文档不合格的确诊信号。 5．客户：需求定义的"共识"其实高度可歧义，所以要设 Figure summary:Flow diagram for Step 1.A central box PSR/CSR/FSAR让客户反复书面承诺，而不是交付时第一次见面。 labeled"PRELIMINARY PROGRAMDESIGN"fanS out via arrowS to 绿导师原谅你了Bi fivecircleS:"DOCUMENTSYSTEMOVERVIEW","DESIGNDATABASE royce.md251-280/77933% 条都多花钱一如果简单的办法够用，这笔钱就不该花：但他九年的经
+
+213
+00:58:30,000 --> 00:58:35,000
+的是测试。 关键跳联：既然风险最终在测试处爆炸，而爆炸的代价由回溯距离决 仙-107老师 定，那么所有补敦的本质就是同一件事一把“发现间题“的时间点提前 ，把“回溯距离“压短。五条建议都是从这一条推出来的，而非澳数的 最佳实践： [Imoge #i: Flowchart showing a preliminarv pltot progra des 1.设计先行：让programdesigner在requirements之后、 rgo proceeding throughanalysis,program design,coding.test) analysis之前就分配存储/时序/数据流。批评者说这是“真空里 Figure 7.5tep 3: Attempt to do the job twice -:the firstthrou 设计会错"一Royce承认，但"missesthepoint"：错在早期只是 result provides an early simulation of the final product.ons, 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 with feedback loops from usage back to earlier stages] 上的巧思；让设计师在分析阶段“抢“资源，逼分析员亲身感受约 Figure summary: The diagram illustrates "doing the job 束的代价，而不是事后被告知。 twice."A small pilot effort (eft side)runs the entire 2.文档：早期阶段documentation=specification=design，三 development cycle in miniature -preliminary program design, 位一体，所以"文档没写出来就等于设计还不存在。他给了个很 then cascading preliminary design, analysis, program design, 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500 coding, testing, and usage-acting as an early simulation of 页。理由全是"下游可替代性”：有文格，测试时不必找原作者的 the final product. Its results feed directly into the 脑子，运维可以交给运维人员，改版可以不做推倒重来。 full-scale mainline development (right side), which proceeds 5，做两通：不确定性的本质是humanjudgment，而人对工期/成本 through analysis,program design,coding,testing,and 的估计"invariablyandseriouslyoptimistic"。所以先做一个 operations, with feedback arrows from the pilot's usage stage 缩小版全流程（30个月的项目里放10个月的pilot），把判断 looping back into the mainline analysis and program design 性争议变成可实验的假设。 stages. 4.测试是最大资源消耗者，也是最晚、备份最少的一环：所以视觉 走查（让计算机找丢负号太贵）、每条逻辑路径至少数值验证一 STEP 4:PLAN,CONTROL AND MONITOR TESTING 次、用独立的productassurance团队一他还反过来用这一点做 判据：“只有原作者能测“是文档不合格的确诊信号。 without question the biggest user of project resources, 5.客户：需求定义的"共识"其实高度可歧义，所以要设 whether it be manpower, computer time, or management PSR/CSR/FSAR让客户反复书面承诺，而不是交付时第一次见面。 judgment, is the test phase.It is the phase of greatest risk 绿导师原谅你了Biii in terms of dollars and schedule. It occurs at the latest 结论：把一条”单向阶梯“变成“早期反馈的选代螺旋”，代价是每一 条都多花钱一如果简单的办法够用，这笔钱就不该花：但他九年的经
+
+214
+00:58:35,000 --> 00:58:40,000
+judgment.with the simulation he can at least perform 的是测试。 experimental tests of some key hypotheses and scope down what 仙1-107老师 关键跳联：既然风险最终在测试处爆炸，而爆炸的代价由回溯距离决 program design (as in the estimation of takeoff gross weight, 定，那么所有补款的本质就是同一件事一把“发现间题“的时间点提前 costs to complete, or the daily double) is invariably and ，把“回溯距离“压短。五条建议都是从这一条推出来的，而非澳数的 seriously optimistic. 最佳实践： 1.设计先行：让programdesigner在requirements之后、 analysis之前就分配存储/时序/数据流。批评者说这是真空里 设计会错"一Royce承认，但"missesthepoint”：错在早期只是 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 上的巧思；让设计师在分析阶段“抢“资源，逼分析员亲身感受约 束的代价，而不是事后被告知。 2.文档：早期阶段documentation=specification=design，三 位一体，所以"文档没写出来就等于设计还不存在"。他给了个很 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500 页。理由全是“下游可替代性“：有文格，测试时不必找原作者的 脑子，运维可以交给运维人员，改版可以不做推倒重来。 3，做两通：不确定性的本质是humanjudgment，而人对工期/成本 的估计"invariablyand seriouslyoptimistic"。所以先做一个 缩小版全流程（30个月的项目里放10个月的pilot），把判断 性争议变成可实验的假设。 4.测试是最大资源消耗者，也是最晚、备份最少的一环：所以视觉 [Image #1: Flowchart showing a preliminary pilot program des 走查（让计算机找委负号太贵）、每条逻辑路径至少数值验证一 ign proceeding through analysis, program design, coding, testi 次、用独立的productassurance团队一他还反过来用这一点做 Figure 7. Step 3: Attempt to do the job twice -the firstthrou 判据：“只有原作者能测"是文档不合格的确诊信号。 result provides an early simulation of the final product.ons, 5.客户：需求定义的"共识"其实高度可歧义，所以要设 withfeedback loops from usageback to earlier stages] PSR/CSR/FSAR让客户反复书面承诺，而不是交付时第一次见面。 Figure summary: The diagram illustrates "doing the job twice.'A small pilot effort (left side) runs the entire 绿导师原谅你了B royce.md476-505/77963% 条都多花钱一如果简单的办法够用，这笔钱就不该花：但他九年的经
+
+215
+00:58:40,000 --> 00:59:05,000
+的是测试。 仙-107老师 关键跳联：既然风险最终在测试处爆炸，而爆炸的代价由回溯距离决 定，那么所有补款的本质就是同一件事一把“发现间题“的时间点提前 ，把“回漏距离“压短。五条建议部是从这一条推出来的，而非澳数的 最佳实践： 1.设计先行：让programdesigner在requirements之后、 analys1s之前就分配存储/时序/数据流。批评者说这是“真空里 设计会错"一Royce承认，但"missesthepoint"：错在早期只是 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 上的巧思；让设计师在分析阶段“抢“资源，逼分析员亲身感受约 束的代价，而不是事后被告知。 2.文档：早期阶段documentation=specification=design，三 位一体，所以“文档没写出来就等于设计还不存在”。他给了个很 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500 页。理由全是“下游可替代性”：有文格，测试时不必找原作者的 [Image #1: Flowchart showing a preliminary pilot program des 脑子，运维可以交给运维人员，改版可以不做推例重来。 ign proceeding through analysis, program design, coding, testi 3，做两遍：不确定性的本质是humanjudgment，而人对工期/成本 Figure 7.Step 3:Attempt to do the job twice-the firstthrou 的估计"invariablyand seriouslyoptimistic"。所以先做一个 result provides an early simulation of the final product.ons, 缩小版全流程（30个月的项目里放10个月的pilot），把判断 with feedback loopsfromusage back to earlier stages] 性争议变成可实验的假设。 Figure summary: The diagram illustrates "doing the job 4，测试是最大资源消耗者，也是最晚、备份最少的一环：所以视觉 twice."A small pilot effort (left side) runs the entire 走查（让计算机找丢负号太责）、每条逻辑路径至少数值验证一 次、用独立的productassurance团队一他还反过来用这一点做 then cascading preliminary design, analysis, program design, 判据：“只有原作者能测“是文档不合格的确诊信号。 coding, testing, and usage - acting as an early simulation of 5.客户：需求定义的"共识"其实高度可歧义，所以要设 the final product. Its results feed directly into the PSR/CSR/FSAR让客户反复书面承诺，而不是交付时第一次见面。 full-scale mainline development (right side), which proceeds 绿导师原谅你了Bi through analysis,program design, coding, testing, and 结论：把一条“单向阶梯“变成“带早期反馈的选代爆旋”，代价是每一 royce.md482-511/77964% 条都多花钱一如果简单的办法够用，这笔钱就不该花：但他九年的经
+
+216
+00:59:05,000 --> 00:59:10,000
+的是测试。 仙-107老师 关键跳联：既然风险最终在测试处爆炸，而爆炸的代价由回溯距离决 定，那么所有补款的本质就是同一件事一把“发现间题“的时间点提前 ，把“回漏距离“压短。五条建议部是从这一条推出来的，而非澳数的 最佳实践： 1.设计先行：让programdesigner在requirements之后、 analysis之前就分配存储/时序/数据流。批评者说这是"真空里 设计会错"一Royce承认，但"missesthepoint"：错在早期只是 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 上的巧患；让设计师在分析阶段“抢“资源，逼分析员亲身感受约 束的代价，而不是事后被告知。 2.文档：早期阶段documentation=specification=design，三 位一体，所以"文档没写出来就等于设计还不存在"。他给了个很 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500 页。理由全是“下游可替代性"：有文档，测试时不必找原作者的 脑子，运维可以交给运维人员，改版可以不做推例重来。 [Image #1: Figure 8 Step 4: Plan, control, and monitor com 3，做两遍：不确定性的本质是humanjudgment，而人对工期/成本 puterprogramtesting(flowdiagram)) 的估计"invariablyandseriouslyoptimistic"。所以先做一个 Figure 8. Step 4: Plan, control, and monitor computer program 缩小版全流程（30个月的项目里放10个月的pilot），把判断 testing. 性争议变成可实验的假设。 4，测试是最大资源消耗者，也是最晚、备份最少的一环：所以视觉 Figure summary: A flow diagram showing the testing step of 走查（让计算机找丢负号太贵）、每条逻辑路径至少数值验证一 the software process. A chain of unlabeled rectangular steps 次、用独立的productassurance团队一他还反过来用这一点做 feeds into a box labeled "PROGRAM DESIGN," which connects to 判据：“只有原作者能测“是文档不合格的确诊信号。 a box labeled"TESTING,"whose output continues to a 5.客户：需求定义的"共识"其实高度可歧义，所以要设 subsequent unlabeled step. Seven annotation ellipses surround PSR/CSR/FSAR让客户反复书面承诺，而不是交付时第一次见面。 the flow, each tied to the testing activity with arrows: 绿导师原谅你了！ 结论：把一条“单向阶梯“变成“带早期反馈的选代螺旋“，代价是每一 royce.md605-634/77980% 条都多花钱一如果简单的办法够用，这笔钱就不该花：但他九年的经
+
+217
+00:59:10,000 --> 00:59:15,000
+requirement updates throughout the development cycle. 的是测试。 Figure 10. Summary 仙/-107老师 关键跳联：既然风险最终在测试处爆炸，而爆炸的代价由回溯距离决 定，那么所有补款的本质就是同一件事一把“发现问题“的时间点提前 ，把“回漏距离“压短。五条建议部是从这一条推出来的，而非澳数的 最佳实践： 1.设计先行：让programdesigner在requirements之后、 analysis之前就分配存储/时序/数据流。批评者说这是“真空里 设计会错"一Royce承认，但"missesthepoint"：错在早期只是 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 上的巧思；让设计师在分析阶段“抢“资源，逼分析员亲身感受约 束的代价，而不是事后被告知。 2.文格：早期阶段documentation=specification=design，三 位一体，所以"文档没写出来就等于设计还不存在"。他给了个很 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500 页。理由全是"下游可替代性“：有文档，测试时不必找原作者的 脑子，运维可以交给运维人员，改版可以不做推倒重来。 3，做两遍：不确定性的本质是humanjudgment，而人对工期/成本 的估计"invariablyandseriouslyoptimistic"。所以先做一个 [Image #1: Summary flowchart of the software development pro 缩小版全流程（30个月的项目里放10个月的pilot），把判断 cess -a large central iterative loop surrounded by review ova 性争议变成可实验的假设。 Figure summary: This is the closing summary figure of thegh No 4.测试是最大资源消耗者，也是最晚、备份最少的一环：所以视觉 paper. It presents the author's full recommended softwareshed 走查（让计算机找丢负号太贵）、每条逻辑路径至少数值验证一 development process as one integrated diagram: a large 次、用独立的productassurance团队一他还反过来用这一点做 iterative development loop in the center (preliminary design 判据：“只有原作者能测"是文档不合格的确诊信号。 5.客户：需求定义的"共识"其实高度可歧义，所以要设 PSR/CSR/FSAR让客户反复书面承诺，而不是交付时第一次见面。 feedback arrows looping back from every stage to earlier stages.Around the loop sit four oval milestones-System 绿导师原谅你了bilii royce.md697-726/77992% 条都多花钱一如果简单的办法够用，这笔钱就不该花：但他九年的经
+
+218
+00:59:15,000 --> 00:59:20,000
+emphasizing that the customer participates continuously via 的是测试。 requirement updates throughout the development cycle. 关键跳联：既然风险最终在测试处爆炸，而爆炸的代价由回溯距离决 山-107老师 Figure 10. Summary 定，那么所有补款的本质就是同一件事一把“发现间题“的时间点提前 ，把“回溯距离“压短。五条建议部是从这一条推出来的，而非澳数的 最佳实践： 1.设计先行：让programdesigner在requirements之后、 analysis之前就分配存储/时序/数据流。批评者说这是“真空里 设计会错"一Royce承认，但"missesthepoint"：错在早期只是 重做设计，错在晚期就是100%超支。他还顺手给了一个组织学 上的巧思；让设计师在分析阶段“抢“资源，逼分析员亲身感受约 束的代价，而不是事后被告知。 2.文档：早期阶段documentation=specification=design，三 位一体，所以“文档没写出来就等于设计还不存在"。他给了个很 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500 页。理由全是“下游可替代性"：有文格，测试时不必找原作者的 脑子，运维可以交给运维人员，改版可以不做推例重来。 3.做两遍：不确定性的本质是humanjudgment，而人对工期/成本 的估计"invariablyandseriouslyoptimistic"。所以先做一个 缩小版全流程（30个月的项目里放10个月的pilot），把判断 [Image #i:Summaryflowchart of the softwaredevelopment pro 性争议变成可实验的假设。 cess -a large central iterative loop surrounded by review ova 4，测试是最大资源消耗者，也是最晚、备份最少的一环：所以视觉 Figure summary: This is the closing summary figure of thegh No 走查（让计算机找委负号太贵）、每条逻辑路径至少数值验证一 paper. It presents the author's full recomended softwareshed 次、用独立的productassurance团队一他还反过来用这一点做 development process as one integrated diagram: a large 判据：“只有原作者能测"是文档不合格的确诊信号。 iterative development loop in the center (preliminary design 5.客户：需求定义的"共识"其实高度可歧义，所以要设 analysis →program design →coding →testing →operations, PSR/CSR/FSAR让客户反复书面承诺，而不是交付时第一次见面。 driven by a spiral of "critical software reviews") with feedback arrows looping back from every stage to earlier 绿导师原谅你了训i royce.md696-725/77992% 条都多花钱一如果简单的办法够用，这笔钱就不该花：但他九年的经
+
+219
+00:59:20,000 --> 01:00:05,000
+Royce与瀑布模型 仙-107老师 如何按时、不超预算地交付大型软件？ WinstonRoyce:Managingthedevelopmentof largesoftwaresystems 这篇论文画出了后来被称为“瀑布模型”的经典阶段图 1970年的背景：航天器任务规划、指令与飞行后分析，时间和存储都有硬约束。 原文在这张图之后就指出：这样的实施方式风险很高，容易失败。 “瀑布假设” 希望迭代只发生在相邻阶段之间 实际测试中暴露的问题，却会一路回溯到设计与需求 绿导师原谅你了，训 7. /
+
+220
+01:00:05,000 --> 01:02:10,000
+AI时代的一手信息 仙-107老师 我的AI阅读助手：royce.md 每个人都可以阅读一手信息，直接代入历史背景 理解产生的原因，复原学科逻辑 谁来决定知识怎样压缩？ 过去：查证知识网络非常费时，需要教科书“有损压缩 现在：自己建立无损知识网络，按需压缩 你说101计划是不是 例如：只留下那张瀑布图，就丢掉了作者接下来要解决的返工问题。 绿导师原谅你了训
+
+221
+01:02:10,000 --> 01:02:15,000
+101计对平台 Huorpag Ceer Courses Ceer Practice Prejects v Cerr Trstbooks Carr Faculry: 仙丨-107老师 Pilot Program forUndergraduate Education andTeaching Reform Developa Batchof Foundation Courses CompileaBatch.ofHigh-QualityTextbooks Cultivate a Batch of Excellent Teachers ShapeaBatchofNewEraTalents View Meet Improving University Ed.. The Workshop on Core C... The Inaugural Meeting of.. The School of Computer. This article is conpled from the 1 From .Juty 10 to 11. 2025, the W On the atermgon of June 28th. nvited report delvened by Turi. orikshop on Core Curriculun C... the inaugural meeting otf the JA. eform and develogment requir.. To thoroughly implement the r 2025-08-07 2025-07-19 2025-07-08 2025-05-27 绿导师原谅你了证 *Project 101 = Core Courses
+
+222
+01:02:15,000 --> 01:02:20,000
+101计划平台 92 仙丨-107老师 教材规划 绿导师原谅你了山
+
+223
+01:02:20,000 --> 01:02:25,000
+仙丨-107老师 非黑机理成专实院（京体化教材） SRN: S8N:- nedadion s Canpatr - Operidrg Syse IS8N: edichoe s baubane Sys Intodsot  Antoa irte ISON) 绿导师原谅件
+
+224
+01:02:25,000 --> 01:02:30,000
+##软件工程的智蔻 仙丨-107老师 图到Pre-LLM时代，如果现在接到了一个开发任务 肯定不能立即安排码农干活（虽然最终产物是他们生产的） 如何减少intent-spec-implgap带来的影响？ [[生成一个图：每个人都有自己对需求（intent)的理解，最终一定会得 到一个不一致的产品。］ winston Royce: [Managing_the_development_of_ large_software systems(https://dl.acm.org/doi/10.5555/41765.41801) 一这个论文里最初提出了湛布模型 我的AI阅读助手：[royce.md]（royce.md） 一在AI时代，每个人都可以阅读**一手信息** 直接带入历史时代胃景，去理解产生的原因，复原学科逻辑 一过去：查证知识网络非常费时需要教科书“*有损压缩*” 现在：自己建立无损知识网络，**按需压缩*（你说[101 过划J(https://ww.proj101.cn/）是不是 >如何按时、不超预算地交付大型软件？ 》如果大项目用“漫布假设”，希望望选代只发生在相邻阶段之间，* 实际测试中暴露的间题会一路回溯到设计与需求* 成本进度可能翻倍。病根（全文最锋利的观累)：testing是 的地方，而这些量本质上不可精确分析。若此时不满足约束→ 大改设计→推翻需求基线→一切重来。 p5/Lect/index.md 95,52-39 绿导师原谅你# 44%
+
+225
+01:02:30,000 --> 01:03:00,000
+AI时代的一手信息 仙丨-107老师 我的AI阅读助手：royce.md 每个人都可以阅读一手信息，直接代入历史背景 理解产生的原因，复原学科逻辑 谁来决定知识怎样压缩？ 过去：查证知识网络非常费时，需要教科书“有损压缩 现在：自己建立无损知识网络，按需压缩 你说101计划是不是 例如：只留下那张瀑布图，就丢掉了作者接下来要解决的返工问题。 绿导师原谅你了
+
+226
+01:03:00,000 --> 01:03:05,000
+emphasizing that the customer participates continuously via requirement updates throughout the development cycle. 1-107老师 MorningPaper风格的重新推导 Figure 10. Summary 问题的原点很朴素：一个程序小到能被建它的人自己用，两步就够了 一分析、编码（Fg.1）。但大系统“不行，于是人们自然会加阶段 ，得到Fig.2累条漂亮的单向阶梯，Royce承认这条线是对的，然 后立刻指出它risky，invitesfailure 为什么危险？因为测试是整条链上第一个“物理“事件：时序、存储 、I/O传输在这里才从“板分析“变成“披经历“，这些现象不像数学物 理里可解的偏微分方程一你分析不准，一旦不满足外部约束，不是改 一行八进制补丁能款的，而是要动需求层次的重大重设计，于是回到 原点，100%超期/超支（Fig.4)。注意他反复强调：分析与编码其 实“好管”（轨道力学做凭可能就几行串行算术），真正吃掉风险预算 的是测试。 关键跳跃：既然风险最终在测试处爆炸，而爆炸的代价由回渊距离决 定，服么所有补款的本质就是同一件事一把“发现间题“的时间点提前 ，把“国溯距离“压短。五条建议都是从这一条推出来的，而非澳数的 最佳实践： [Image #i:Summaryflowchart of the softwaredevelopment pro cess - a large central iterative loop surrounded by review ova 1.设计先行：让programdesigner在requirements之后， Figure summary: This is the closing summary figure of thegh No analysis之胸就分配存储/时序/数据流。批浮者说这是“真空里 paper. It presents the author's full recomended softwareshed 设计会错"一Royce承认，但"missesthepoint"：错在早期只是 development process as one integrated diagram: a large 重做设计，增在晚期就是100%超支。他还顺手给了一个组织学 iterative development loop in the center (preliminary design 上的巧思；让设计师在分析阶段“抢“资源，通分析员亲身感受约 →analysis →program design→coding→testing→operations, 束的代价，而不是事后被告知。 driven by a spiral of "critical software reviews")with 2.文档：早期阶段documentation=specification=design，三 feedback arrows looping back from every stage to earlier 位一体，所以“文偿没写出来就等于设计还不存在”。他给了个很 royce.md696-725/77992% 工程化的换算：5M美元硬件=30页规格：5M美元软件=1500
+
+227
+01:03:05,000 --> 01:03:20,000
+emphasizing that the customer participates continuously via PSR/CSR/FSAR让客户反复书面承诺，而不是交付时第一次见面。 requirement updates throughout the development cycle. 山1-107老师 结论：把一条"单向阶梯“变成“带早期反馈的送代螺旋"，代价是每一 Figure 10. Summary 条都多花钱一如果简单的办法够用，这笔钱就不该花：但他九年的经 验是简单办法在大项目上从未成功过，而事后挽回的花费远超这五步 的钱。 一个值得注意的被误读点：今天教科书里的"waterfall=不许图头 "，其实更接近Fig.2（基至OCR对Fig.3的图注也把它误描述成 "strictlysequential，no feedback loops"）。而Royce的原意 恰恰相反一Fig.3说选代“理想上限于相邻步骤”，Fig.4立刻指出实 际上从不会如此，后面的五步和Fig.10的大回环、CSR反复选代才 是他的主张。所以“瀑布“这口锅，一半来自后来Boehm等人的曲解 一半来自他Fig.2西得太好看。 想继续聊的话，可以挑：五条建议里哪条在今天的语境下已经失效（ 比如"每5M美元1500页规格"）、为什么“设计先行“在现代敏捷里 以另一种形式回来了，或者Fig.4那个回溯效应是否可以量化成一 条“返工成本随发现时间指数上升“的曲线。 Recap：先把坏撑掉的，venv绕过去（临时venv装 [Image#1:Summaryflowchart of the softwaredevelopmentpro bs4/markdown-it-py/html5lib)跑通read-md，再按reader cess -a large central iterative loop surrounded by review ova Skill走：文本框架图→用“风险最终在测试处爆炸、所以一切补 Figure summary: This is the closing summary figure of thegh No 数都是提前发现+压短回测“这条主线重推Royce的五步建议，并 paper. It presents the author's full recommended softwareshed 顺手指出了他与后世“漫布“标签的名实之所。 development process as one integrated diagram: a large iterative development loop in the center (preliminary design →analysis→program design→coding→testing→operations, drivenby a spiral of"critical software reviews")with feedback arrows looping back from every stage to earlier 绿导师原惊你了 ~/Projects/readspace 10k 4.5k R121k CH99.0% $0.009 1.6%/1.0M (auto) royce.md696-725/77992% deepseek-fla
+
+228
+01:03:20,000 --> 01:03:25,000
+emphasizing that the customer participates continuously via requirement updates throughout the development cycle. 绪论：把一条单向阶梯“变成“带早期反馈的选代螺旋”，代价是每一 山1-107老师 条都多花钱一如果简单的办法够用，这笔钱就不该花：但他九年的经 Figure 10.Summary 验是简单办法在大项目上从未成功过，而事后挽回的花费远超这五步 的钱。 一个值得注意的被误读点：今天教科书里的"waterfall=不许回头 "，其实更接近Fig.2（基至OCR对Fig.3的图注也把它误描述成 "strictlysequential，no feedbackloops"）。而Royce的原意 际上从不会如此，后面的五步和Fig.10的大回环、CSR反复选代才 是他的主张。所以“瀑布“这口锅，一半来自后来Boehm等人的曲解 一半来自他Fig.2画得太好看。 想继续聊的话，可以挑：五条建议里条在今天的语境下已经失效（ 比如"每5M美元1500页规格"）、为什么“设计先行“在现代敏捷里 以另一种形式回来了，或者Fig.4那个回溯效应是否可以量化成一 条“返工成本随发现时间指数上升“的曲线。 Recap：先把坏掉的venv绕过去（临时venv装 bs4/markdown-it-py/html5tib)跑通read-md，再按reader [Image#1:Summaryflowchart of the softwaredevelopment pro SKl走：文本框架图→用“风险最终在测试处爆炸、所以一切补 cess -a large central iterative loop surrounded by review ova 数都是提前发现+压短回溯“这条主线重推Royce的五步建议。并 Figure summary: This is the closing summary figure of thegh No 顺手指出了他与后世“漫布“标签的名实之辨。 paper. It presents the author's full recommended softwareshed development process as one integrated diagram: a large iterative development loop in the center (preliminary design 你能解释一下，这个瀑布模型在软件工程里到底是为什么、怎么误读 →analysis→program design→coding→testing→operations, drivenby a spiral of "critical software reviews")with 绿导师原谅你了！ feedback arrows looping back from every stage to earlier -/Projects/readspace 个10k 4.5k R121k CH99.0% $0.009 1.6%/1.0M (auto) royce.md696-725/77992% deepseek-fla
+
+229
+01:03:25,000 --> 01:03:35,000
+emphasizing that the customer participates continuously via 一个值得注意的被误读点：今天教科书里的"waterfall=不许回头 requirement updates throughout the development cycle. ，其实更接近Fig.2（基至OCR对Fig.3的图注也把它误描述成 山-107老师 "strictlysequential，no feedbackloops"）。而Royce的原意 Figure 10. Summary 际上从不会如此，后面的五步和Fig.10的大回环、CSR反复送代才 是他的主张。所以“瀑布"这口锅，一半来自后来Boehm等人的曲解 一半来自他Fig.2画得太好看。 想继续聊的话，可以挑：五条建议里哪条在今天的语境下已经失效（ 比如"每5M美元1500页规格“）、为什么“设计先行“在现代敏捷里 以另一种形式回来了，或者Fig.4那个回溯效应是否可以量化成一 条“返工成本随发现时间指数上升"的曲线。 Recap：先把坏掉的.venv绕过去（临时venv装 bs4/markdown-it-py/html5lib)跑通read-md，再按reader Skill走：文本框架图→用“风险最终在测试处爆炸、所以一切补 款都是提前发现+压短回“这条主线重推Royce的五步建议，并 顺手指出了他与后世“瀑布“标签的名实之解。 你能解释一下，这个湿布模型在软件工程里到底是为什么、怎么误读 [Image #1:Summaryflowchart of the softwaredevelopment pro cess -a large central iterative loop surroundedby review ova Figure summary: This is the closing summary figure of thegh No paper. It presents the author's full recommended softwareshed Thinking. development process as one integrated diagram: a large iterative development loop in the center (preliminary design Working →analysis →program design → coding→testing →operations, driven by a spiral of "critical software reviews")with feedback arrows looping back from every stage to earlier 绿导师原谅你了健： ~/Projects/readspace 个10k 4.5k R121k CH99.0% $0.009 1.6%/1.0M (auto) royce.md696-725/77992% deepseek-fla
+
+230
+01:03:35,000 --> 01:03:40,000
+emphasizing that the customer participates continuously via skill走：文本框架图→用“风险最终在测试处爆炸、所以一切补 requirement updates throughout the development cycle. 效都是提前发现+压短回溯“这条主线重推Royce的五步建议，并 1-107老师 顺手指出了他与后世“湛布“标签的名实之所。 Figure 10. Summary 你能解释一下，这个渴布模型在软件工程里到是为什么、怎么误读 Thinking.. $ cd /home/jyy/Projects/readspace S grep -ic "waterfall" /tmp/royce.txt;grep-in"cascade\/cascad"/tmp/royce.txtI head;grep -c"Page"article/70o1/royce.md (11 earlier lines,ctrl+o to expand) 458:simplestair-step cascade(system requirements→ softwarerequirements 48o:Simplewaterfallcascade(upperright):SYSTEM REQUIREMENTS→SOFTWARE [Image#1:Summaryflowchart of the softwaredevelopment pro 11 cess -a large central iterative loop surrounded by review ova Figure summary: This is the closing summary figure of thegh No Took o.os paper. It presents the author's full recommended softwareshed development process as one integrated diagram: a large iterative development loop in the center (preliminary design " working >analysis→program design→coding→ testing→operations, driven by a spiral of "critical software reviews")with feedback arrows looping back from every stage to earlier 绿导师原惊你了 ~/Projects/readspace 个11k 6.9k R137k CH94.2% $0.012 1.8%/1.0M (auto) royce.md696-725/77992% deepseekfla
+
+231
+01:03:40,000 --> 01:03:45,000
+emphasizing that the customer participates continuously via Thinking... requirement updates throughout the development cycle. 仙丨-107老师 Figure 10. Summary $ cd /home/jyy/Projects/readspace $ grep-ic"waterfall" /tmp/royce.txt;grep-in"cascade\/cascad"/tmp/royce.txt1 (11 earlierlines,ctrl+o to expand) 458:simple stair-step cascade(system requirements→ software requirements 4so:Simple waterfall cascade (upper right): SYSTEM REQUIREMENTS→SOFTWARE 11 Tooko.os Thinking.. 好问题一这其实是软件工程史上的一个“教科书级误读“，而且误读链 条可以一层层拆开看。我先说事实，再说为什么会这样。 [Image#1:Summaryflowchart of the softwaredevelopment pro cess -a large central iterative loop surrounded by review ova 、事实核对（可验证） Figure summary: This is the closing summary figure of thegh No paper. It presents the author's fuil recommended softwareshed 我刚才OCR出的原文全文里rep过， development process as one integrated diagram: a large iterative development loop in the center (preliminary design : working + analysis →program design → coding → testing → operations, drivenby a spiral of "critical software reviews")with 绿导师原谅你刷 feedback arrows looping back from every stage to earlier ~/Projects/readspace 个11k ±6.9k R137k CH94.2% $0.012 1.8%/1.0M (auto) royce.md696-725/77992% deepseekfla
+
+232
+01:03:45,000 --> 01:03:50,000
+emphasizing that the customer participates continuously via Fig.3 更乐谨充的单尚价相他面它，是为了接着说它 requirement updates throughout the development cycle. risky and imvites faiture) 仙丨-107老师 Figure 10. Summary Fig.3 送代“理想上只发生在相邻步骤之间“一注意，这条 本身就容易被读成“别回头” Fig.4 紧接着打脸：实际上从不会如此，测试失败会一路 回溯到需求层，代价是100%超期 五个 设计先行、文档、做两遍、测试管理、客户参与 Step Fig.10 一张带大回环+PSR/CSR/FSAR反复评审的送代螺 旋图 所以"漯布=Royce的模型“是把论文的靶子当成了论文的结论。 二、怎么误读的：四条传导链 1.抽图不读文。论文信息密度极不均匀：Fig.2是最大最醒目的一 [Image#1:Summaryflowchart of the softwaredevelopmentpro 张，标题（Managing·，，》像宣言，前两页都在描述朴素流程。只 cess -a large central iterative loop surrounded by review ova 翻图和前两页，得列的就是“湿布”。这篇论文是天然可被断章取 Figure summary: This is the closing summary figure of thegh No 义的。 paper. It presents the author's full recommended softwareshed 2.二层引用。真正把"waterfall→Royce197o"钉死的是 development process as one integrated diagram: a large Boehm:1976年 IEEEToC 上的 Software Engineering和 1988 iterative development loop in the center (preliminary design 年的螺旋模型论文Fig·1都画了课布并标注“（Royce + analysis → program design → coding → testing → operations, 1970）"一Boehm是在批评它，但教科书写到这一步时，往往把批 drivenby a spiral of "critical software reviews")with 评切掉、把图和人名留下。于是引用链变或了Royce→Boehm→ feedback arrows looping back from every stage to earlier 绿导师原谅你了 Sommervilte/Pressman→全世界考卷，中间没人国原文， royce.md696-725/77992% 术语反过来客义对象，"waterfall”是批评者造的股义标签，先
+
+233
+01:03:50,000 --> 01:04:30,000
+emphasizing that the customer participates continuously via Sommerville/Pressman→全世界考卷，中间没人回原文。 requirement updates throughout the development cycle. 3.术语反过来定义对象。“waterfall”是批评者造的义标签，先 山丨-107老师 有贬义，后被回满挂到Royce头上。这和“BigBang"是Hoyle Figure 10. Summary 为挖苦而造、结果成了宇宙学正式名称完全一样。名字一旦流行 ，就自带一套“线性、不可回头“的语义，再没人去对原文。 4最有茶伤力的一层：制度化和果购。Royce那6份Document交 付物（需求/初步设计/接口/最终设计/测试计划/操作手册）太好 用了一美国国防部的DOD-STD-2167、MIL-STD-2167A把它变成了 SRR/PDR/CDR这类强制评审关卡。他的“文档里程碑被完整继承 他的“选代螺旋被完整丢奔。合同和固定价采购天然喜欢“先冻 结需求再施工“：管理层愿意相信渴布，Royce自己就是TRW的 管理者，他提醒的正是管理者的这种乐观（"invariablyand seriously optimistic") 三、为什么这个误读活得这么久 一敦学价值：漯布好画、好骨、好出题，可以作为第一个“模型“讲。 完美的稻草人：螺旋、RUP、XP、Scrum、DevOpS每一代新方法都 需要一个“旧世界“来反衬。渴布是这个史上最好用的反派一它作为 稻草人的功能价值，超过了它作为方法的实用价值。这也是它至今 不死的原因：没人真用它，但人人都需要它。 [Image #1:Summaryflowchart of the softwaredevelopment pro 一它并不纯属虚构：Fig.3那句“选代只限相邻步骤确实给误读留了 cess -a large central iterative loop surrounded by review ova 合法入口。所以不是有人凭空捏造，而是选择性阅读一只引Fig.3 Figure summary: This is the closing summary figure of thegh No 、不引Fig.4和Fig.10。 paper. It presents the author's full recommended softwareshed development process as one integrated diagram: a large 四、顺带一提 iterative development loop in the center (preliminary design →analysis→program design→coding→testing→operations, Larman 6 Basili 的 Iterative andIncrementalDevelopment:A driven by a spiral of "critical software reviews")with BriefHistory（IEEEComputer，2oo3）系统地做了这个考据，并指 绿导师原谅你了 feedback arrows looping back from every stage to earlier 出送代式实践早在1950年代就存在：Royce严格说属于选代派的早 royce.md696-725/77992% 期声音之一（"doittwice”就是原型/试点），而不是选代的敌人
+
+234
+01:04:30,000 --> 01:04:35,000
+emphasizing that the customer participates continuously via ，他的“选代螺旋被完整丢弃。合同和固定价采购天然喜欢“先冻 requirement updates throughout the development cycle. 结需求再施工”：管理层愿意相信漫布，RoyCe自己就是TRW的 1-107老师 管理者，他提醒的正是管理者的这种乐观（"invariablyand Figure 10. Summary seriously optimistic")。 三、为什么这个误读活得这么久 一教学价值：瀑布好画、好背、好出题，可以作为第一个“模型“讲。 完美的稻草人：爆旋、RUP、XP、Scrum、DevOps每一代新方法都 需要一个“旧世界“来反衬。瀑布是这个史上最好用的反派一它作为 稽草人的功能价值，超过了它作为方法的实用价值。这也是它至今 不死的原因：没人真用它，但人人都需要它。 一它并不纯属虚构：Fig.3那句“选代只限相邻步骤“确实给误读留了 合法入口。所以不是有人凭空捏造，而是选择性阅读一只引Fig.3 、不引Fig.4和Fig.10。 四、顺带一提 Larman  Basili 的 Iterative and Incremental Development:A BriefHistory（IEEEComputer，2oo3）系统地做了这个考据，并指 出选代式实践早在1950年代就存在：Royce严格说属于选代派的早 [Image #1:Summaryflowchart of the softwaredevelopment pro 期声音之一（doittwice”就是原型/试点），而不是选代的敌人 cess -a large central iterative loop surrounded by review ova 。有点黑色魔默的是，他的儿子WalkerRoyce后来在Rational做 Figure summary: This is the closing summary figure of thegh No RUP（选代式过程），成了替父亲“翻案“的一方。 paper. It presents the author's full recommended softwareshed development process as one integrated diagram: a large 真正的敦训：Royce的中心思想不是"阶段要按顺序排"，而是“风险 iterative development loop inthe center (preliminary design 最终在测试那里爆炸，而爆炸的代价由回溯距离决定：所以过程的设 →analysis →program design →coding→testing→operations, 计目标就是尽早发现间题、尽量缩短国”。这条判据今天依然成立 driven by a spiral of "critical software reviews")with 一敏捷只是换了缩短回路的手段（短选代、持续集成、可运行软件 绿导师原谅你了 feedback arrows looping back from every stage to earlier ），并没有推翻这条判据。把他的话简化为“渴布坏、敏捷好，是同 royce.md696-725/77992% 一场误读的当代续集。
+
+235
+01:04:35,000 --> 01:04:40,000
+AI时代的一手信息 -107老师 我的AI阅读助手：royce.md 每个人都可以阅读一手信息，直接代入历史背景 理解产生的原因，复原学科逻辑 谁来决定知识怎样压缩？ 过去：查证知识网络非常费时，需要教科书“有损压缩 现在：自己建立无损知识网络，按需压缩 你说101计划是不是 例如：只留下那张瀑布图，就丢掉了作者接下来要解决的返工问题。 绿导师原谅你了 3 / I
+
+236
+01:04:40,000 --> 01:04:45,000
+Testing：第一次“被经历" 仙丨-107老师 全文最锋利的观察 Testing是timing/storage/I/o第一次“被经历"，而非"被分析"的地方 ：Royce的观察：这些系统行为难以在实际运行前精确分析 如果实际运行不满足约束，局部修补代码往往不够 代价沿着依赖一路向上 不满足约束一大改设计→推翻需求基线→一切重来 成本、进度可能翻倍 绿导师原谅价
+
+237
+01:04:45,000 --> 01:05:00,000
+DoIt Twice 山1-107老师 用今天的MVP理解Royce的PilotModel MinimumViableProduct：先做一遍，从中学习，再完善产品 Royce的doittwice：先用pilotmodel经历关键问题 用敏捷开发理解"反复做Pilot" 不必把pilot单独隔成一个大阶段，而是把试做、反馈、修正反复快速做 共同点：让关键假设尽早遇到证据：敏捷原则将频繁交付、合作与调整变成持续过程。 绿导师原源
+
+238
+01:05:00,000 --> 01:05:20,000
+emphasizing that the customer participates continuously via 不死的原因：没人真用它，但人人都需要它。 requirement updates throughout the development cycle. 一它并不纯属虚构：Fig.3那句“送代只限相邻步骤“确实给误读留了 1-107老师 合法入口。所以不是有人凭空捏造，而是选择性阅读一只引Fig.3 Figure 10. Summary 、不引Fig.4和Fig.10。 四、顺带一提 Larman § Basili 的 Iterative and Incremental Development:A BriefHistory（IEEEComputer，2oo3）系统地做了这个考据，并指 出送代式实践早在1950年代就存在：RoyCe严格说属于选代派的早 期声音之一（"doittwice”就是原型/试点），而不是选代的敌人 。有点黑色留默的是，他的儿子walkerRoyce后来在Rational做 RUP（送代式过程），成了替父亲“翻案“的一方。 真正的敏训：Royce的中心思想不是"阶段要按顺序排"，而是“风险 最终在测试那里爆炸，而爆炸的代价由回溯距高决定：所以过程的设 计目标就是尽早发现间题、尽量缩短回溯"。这条判据今天依然成立 一敏捷只是换了缩短回路的手段（短选代、持续集成、可运行软件 ），并没有推翻这条判据。把他的话筒化为“渴布坏、敏捷好”，是同 一场误读的当代续集。 [Image#1:Summaryflowchart of the softwaredevelopment pro Recap：用grep证明原文正文根本没有"waterfall”一词，再拆 cess -a large central iterative loop surroundedby review ova 出误读的四条传导链（抽图不读文→Boehm的二层引用被费断→ Figure summary: This is the closing summary figure of thegh No 批洋者造的般义标签围化→国防部标准只继承文档里程碑、丢撑 paper. It presents the author's full recommended softwareshed 选代螺旋），并解释了它作为“最好用的猪草人“为何长盛不衰。 development process as one integrated diagram: a large iterative development loop in the center (preliminary design →analysis →program design→coding→testing→operations, driven by a spiral of "critical software reviews")with feedback arrows looping back from every stage to earlier ~/Projects/readspace 个11k 8.8k R155k CH99.0% $0.015 2.0%/1.0M (auto) royce.md696-725/77992% deepseekfla
+
+239
+01:05:20,000 --> 01:05:30,000
+emphasizing that the customer participates continuously via requirement updates throughout the development cycle. Larman  Basili的 Iterativeand Incremental Development:A 山1-107老师 BriefHistory（IEEEComputer，2003）系统地做了这个考据，并指 Figure 10.Summary 出送代式实践早在1950年代就存在：Royce严格说属于选代派的早 期声音之一（"doittwice"就是原型/试点），而不是送代的敌人 。有点黑色留默的是，他的儿子walkerRoyce后来在Rational做 RUP（送代式过程），成了替父亲“翻案"的一方。 真正的教训：Royce的中心思想不是“阶段要按顺序排"，而是“风险 最终在测试那里爆炸，而爆炸的代价由回溯距高决定：所以过程的设 计目标就是尽旱发现问题、尽量缩短回溯”。这条判据今天依然成立 一敏捷只是换了缩短回路的手段（短选代、持续集成、可运行软件 ），并没有推翻这条判据。把他的话简化为“瀑布坏、敏捷好，是同 一场误读的当代续集。 Recap：用grep证明原文正文根本没有“waterfall"一词，再拆 出误读的四条传导链（抽图不读文→Boehm的二层引用被载断→ 批浮者造的义标签围化→国防部标准只继承文稳里程碑、丢掉 送代螺旋，并解释了它作为“最好用的税草人为何长盛不衰。 [Image#1:Summaryflowchart of the softwaredevelopment pro 那如果我们用TDD去理解这个工作，如何用这个工作来解释TDD？ cess -a large centraliterative loop surroundedby review ova Figure summary: This is the closing summary figure of thegh No paper. It presents the author's full recommended softwareshed Thinking.. development process as one integrated diagram: a large iterative development loop in the center (preliminary design working →analysis→program design→coding→testing→operations, drivenby a spiral of "critical software reviews")with feedback arrows looping back from every stage to earlier 绿导师原谅你了 ~/Projects/readspace 个11k ±8.8k R155k CH99.0% $0.015 2.0%/1.0M (auto) royce.md696-725/77992% deepseek-fla
+
+240
+01:05:30,000 --> 01:05:35,000
+emphasizing that the customer participates continuously via 最终在测试那里爆炸，而爆炸的代价由回溯距高决定：所以过的设 requirement updates throughout the development cycle. 计目标就是尽早发现问间题、尽量缩短回”。这条判据今天依然成立 山1-107老师 一敦捷只是换了缩超回路的手段（短送代，持续集成、可运行款件 Figure 10. Summary [Recap：期grep证明原文正文银本没育“waterfall一调，再拆 出提满的四条传导递抽图不请文Boe的二层引用费界意→ 那如果我们用TDD去理解这个工作，如何用这个工作来解操TDO？ Thinkiug.. 把Royce当坐标系，TDD可以香或同一条判据在另一个时间尺度上 的重写，我们先固定判据，再恶条映射量后说TDD施界的拍方， 光围尾Rayke纳刻报 [Image#i:Summaryflowchart ofthe softwaredevelopment pro cess -a large central iterative loop surroundedby review ova Figure summary: This is the closing summary figure of thegh No paper. It presents the author's full recommended softwareshed development process as one integrated diagram: a large iterative development loop in the center (preliminary design working + analysis → program design → coding → testing → operations, driven by a spiral of "critical software reviews")with feedback arrows looping back from every stage to earlier 绿导师原谅你了山 ~/Projects/readspace 个11k ±8.8k R155k CH99.0% $0.015 2.0%/1.0M (auto) royce.md696-725/77992% deepseek-fla
+
+241
+01:05:35,000 --> 01:05:40,000
+emphasizing that the customer participates continuously via 那如果我们用TDD去理解这个工作，如何用这个工作来解释TDD？ requirement updates throughout the development cycle. 仙丨-107老师 Figure 10. Summary Thinking.. 把Royce当坐标系，TDD可以看成同一条判据在另一个时间尺度上 的重写。我们先围定判据，再逐条映射，最后说TDD越界的地方。 一、先固定Royce 的判据 他整篇论文只讲了一件事： 缺陷被发现的时间→返工的距高→代价。测试是第一个“物理“事 件，所以那里爆炸最责。过程没计的目标，就是把这个代价积分压 到最小。 五条建议全是这条判据的实例。TDD不是新原理，是把这条判据的回 边长度从月"压到"秒”。 二、遥条映射 [Image#i:Summaryflowchart of the softwaredevelopment pro Royce cess -a large central iterative loop surrounded by review ova TDD里的对应物 Figure summary: This is the closing summary figure of thegh No paper. It presents the author's full recommended softwareshed Step1设计先行（"design Red阶段。写测试就是先定接口 development process as one integrated diagram: a large at the risk of being 、契约、数据形状、调用方式。 iterative development loop in the center (preliminary design wrong") TDD常被说是设计方法一正因为 + analysis → program design → coding → testing → operations, 这一步就是Royce的 driven by a spiral of "critical software reviews")with preliminary program design. 绿导师原谅你了中 feedback arrows looping back from every stage to earlier 只是粒度从"全系统"降到一个函 royce.md696-725/77992%
+
+242
+01:05:40,000 --> 01:06:10,000
+emphasizing that the customer participates continuously via Thinking... requirement updates throughout the development cycle. 1-107老师 把Royce当坐标系，TDD可以看成同一条判据在另一个时间尺度上 Figure 10. Summary 的重写。我们先围定判据，再逐条映射，最后说TDD越界的地方。 一、先固定Royce的判据 他整篇论文只讲了一件事： 缺陷被发现的时间返工的距离→代价。测试是第一个“物理“事 件，所以那里爆炸最贵。过程没计的目标，就是把这个代价积分压 到最小。 五条建议全是这条判据的实例。TDD不是新原理，是把这条判据的回 边长度从“月压到“秒。 二、遥条映射 Royce TDD里的对应物 [Image #i:Summaryflowchart of the softwaredevelopment pro Step 1设计先行（"design Red阶段。写测试就是先定接口 cess -a large central iterative loop surrounded by review ova at the risk of being 、契约、数据形状、调用方式。 Figure summary: This is the closing summary figure of thegh No wrong") TDD常被说是设计方法一正因为 paper. It presents the author's full recommended softwareshed 这一步就是Royce的 development process as one integrated diagram: a large preliminary program design, iterative development loop in the center (preliminary design 只是粒度从“全系统"降到“一个函 + analysis →program design → coding → testing → operations, driven by a spiral of "critical software reviews") with feedback arrows looping back from every stage to earlier Step2文档（doc=spec 可执行测试即规格。Royce的 royce.md696-725/77992% =design三位一体） 1500页规格，在TDD里被压成
+
+243
+01:06:10,000 --> 01:06:25,000
+emphasizing that the customer participates continuously via 缺陷被发现的时间→返工的距高→代价。测试是第一个“物理“事 requirement updates throughout the development cycle. 件，所以那里爆炸最贵。过程没计的目标，就是把这个代价积分压 山丨-107老师 到最小。 Figure 10. Summary 五条建议全是这条判据的实例。TDD不是新原理，是把这条判据的回 边长度从“月“压到“秒”。 二、现条映射 Royce TDD里的对应物 Step1设计洗行（"design Red阶段。写测试就是先定接口 at the risk of being 、契约、数据形状、调用方式。 wrong") TDD常被说是设计方法一正因为 这一步就是Royce的 preliminary program design. 只是粒度从"全系统"降到"一个函 Step 2文档(doc=spec 可执行测试即规格。Royce的 [Image #1:Summaryflowchart of the softwaredevelopment pro =design三位一体) 1500页规格，在TDD里被压成 cess -a largecentral iterative loop surroundedby review ova "code+tests"。他的三条价值 Figure summary: This is the closing summary figure of thegh No （测试期定位缺陷/运维可移交 paper. It presents the author's full recommended softwareshed /改版可重构）逐条对上TDD的 development process as one integrated diagram: a large 三个收益 iterative development loop in the center (preliminary design →analysis →program design→coding→testing→operations, Step 3 do it twice GreenRefactor，以及spike后 drivenby a spiral of "critical software reviews")with 扔掉的探路实现。他把“做两遍” 绿导师原谅你了代 feedback arrows looping back from every stage to earlier 放在pilotmodel级别：TDD把 royce.md696-725/77992% 它做成每个面数的日常
+
+244
+01:06:25,000 --> 01:06:30,000
+emphasizing that the customer participates continuously via Step5客户参与 requirement updates throughout the development cycle. 每个选代末的可运行软件+验收 (PSR/CSR/FSAR) 山-107老师 测试，即ATDD/BDD。同样的意思 Figure 10. Summary ：把承诺频率提高、粒度变细 最有说服力的一对是经济账。Royce的Fig.4就是一条随发现时间 指数上升的变更成本曲线，他用100%超期“给它标价。XP阵营的全 部主张一"在XP下变更成本曲线是平的"一正是对这条曲线的正面攻 击。所以TDD和Royce的关系不是“新对旧"，面是对同一条曲线的 两种对策：Royce用文档、评审、原型把曲线的拐点往左推：TDD用 自动化测试把整条曲线压平。他画出了问题，TDD声称解掉了它。 三、TDD真正修正了Royce的地方 只有一处，但是关键的一处。Royce明确写过： "Do not use the computer to detect this kind of thing tooexpensive.1（丢负号、跳错地址这类，靠人眼走查最划算） TDD的全部赌注就是这条成本假设失效了：自动化执行的边际成本趋 [Image #1:Summaryflowchart of the softwaredevelopment pro 零，于是Royce分给“人眼“和”独立测试组“的活，被移到机器上， cess -a large central iterative loop surrounded by review ova Figure summary: This is the closing summary figure of thegh No 走查、逻辑路径覆盖）在TDD里被合并成同一条流水线。 paper. It presents the author's full recommended softwareshed development process as one integrated diagram: a large 还有一个Royce没有的巧思，值得单独指出来：Red阶段是对”传感 iterative development loop in the center (preliminary design *analysis→program design→coding→testing→operations, 盖率诉求：而"先写、先看它失败"多了一层意义一一个从来没失败过 driven by a spiral of "critical software reviews")with 的测试什么都不能证明（它可能只是恒真式）。red-first是让测试 绿导师原谅你了 feedback arrows looping back from every stageto earlier 先自证它有能力失败，即先校准传感器再去测量。这是Royce的 royce.md696-725/77992% "authenticcheck"里那个authentic被真正兑现了。
+
+245
+01:06:30,000 --> 01:06:35,000
+emphasizing that the customer participates continuously via 独立验证=CI+codereview。 requirement updates throughout the development cycle. 但见下一节，这里出现了实质分 1-107老师 Figure 10. Summary Step5客户参与 每个选代末的可运行软件+验收 (PSR/CSR/FSAR) 测试，即ATDD/BDD。同样的意思 ：把承诺频率提高、粒度变细 最有说服力的一对是经济账。Royce的Fig.4就是一条随发现时间 指数上升的变更成本曲线，他用“100%短期"给它标价。XP阵营的全 部主张一"在P下变更成本曲线是平的“一正是对这条曲线的正面攻 击。所以TDD和RoyCe的关系不是"新对旧"，面是对同一条曲线的 两种对策：Royce用文格、评审、原型把曲线的拐点往左推：TDD用 自动化测试把整条曲线压平。他画出了问题，TDD声称解掉了它。 三、TDD真正修正了Royce的地方 只有一处，但是关键的一处。Royce明确写过： "Do not use the computer to detect this kind of thing [Image #1:Summaryflowchart of the softwaredevelopment pro tooexpensive.*（丢负号、就错地增址这类，靠人眼走查景划算） cess -a large centraliterative loop surroundedby review ova Figure summary: This is the closing summary figure of thegh No TDD的全部赌注就是这条成本假设失效了；自动化执行的边际成本趋 paper. It presents the author's full recommended softwareshed 零，于是Royce分给“人眼“和“独立测试组“的活，被移到机器上， development process as one integrated diagram: a large iterative development loop in the center (preliminary design 走查、逻辑路径盖）在TDD里被合并成同一条流水线。 →analysis→program design→coding→testing→operations, driven by a spiral of "critical software reviews)with 还有一个Royce没有的巧思，值得单独指出来：Red阶段是对”传感 feedback arrows looping back from every stage to earlier 绿导师原谅你 器本身“的标定。Royce说“每条逻辑路径用数值验证一次"，这是程 royce.md696-725/77992% 盖率诉求：面“先写、先看它失败”多了一层意义一一个从来没失败过
+
+246
+01:06:35,000 --> 01:06:50,000
+DoItTwice 山-107老师 用今天的MVP理解Royce的PilotModel MinimumViableProduct：先做一遍，从中学习，再完善产品 Royce的doittwice：先用pilotmodel经历关键问题 用敏捷开发理解"反复做Pilot" 不必把pilot单独隔成一个大阶段，而是把试做、反馈、修正反复快速做 共同点：让关键假设尽早遇到证据：敏捷原则将频繁交付、合作与调整变成持续过程。 绿导师原谅价 3 /
+
+247
+01:06:50,000 --> 01:06:55,000
+AI时代的一手信息 山1-107老师 我的AI阅读助手：royce.md 每个人都可以阅读一手信息，直接代入历史背景 理解产生的原因，复原学科逻辑 谁来决定知识怎样压缩？ 过去：查证知识网络非常费时，需要教科书“有损压缩” 现在：自己建立无损知识网络，按需压缩 你说101计划是不是 例如：只留下那张瀑布图，就丢掉了作者接下来要解决的返工问题。
+
+248
+01:06:55,000 --> 01:07:00,000
+Testing：第一次“被经历" -107老师 全文最锋利的观察 Testing是timing/storage/I/o第一次"被经历"，而非"被分析"的地方 Royce的观察：这些系统行为难以在实际运行前精确分析 ，如果实际运行不满足约束，局部修补代码往往不够 代价沿着依赖一路向上 不满足约束→大改设计→推翻需求基线→一切重来 成本、进度可能翻倍 例如：正确算出结果，却赶不上控制周期：算法正确，也无法挽救系统设计。 绿导师原谅价
+
+249
+01:07:00,000 --> 01:07:05,000
+AI时代的一手信息 1-107老师 我的AI阅读助手：royce.md 每个人都可以阅读一手信息，直接代入历史背景 理解产生的原因，复原学科逻辑 谁来决定知识怎样压缩？ 过去：查证知识网络非常费时，需要教科书“有损压缩 现在：自己建立无损知识网络，按需压缩 你说101计划是不是 例如：只留下那张瀑布图，就丢掉了作者接下来要解决的返工问题。 绿导师原谅你
+
+250
+01:07:05,000 --> 01:07:30,000
+Testing：第一次“被经历" 山1-107老师 全文最锋利的观察 Testing是timing/storage/I/o第一次"被经历"，而非"被分析"的地方 ：Royce的观察：这些系统行为难以在实际运行前精确分析 如果实际运行不满足约束，局部修补代码往往不够 代价沿着依赖一路向上 不满足约束→大改设计→推翻需求基线一一切重来 成本、进度可能翻倍 例如：正确算出结果，却赶不上控制周期：算法正确，也无法挽救系统设计。 绿导师原谅价
+
+251
+01:07:30,000 --> 01:07:40,000
+DoItTwice 山1-107老师 用今天的MVP理解Royce的PilotModel MinimumViableProduct：先做一遍，从中学习，再完善产品 Royce的doittwice：先用pilotmodel经历关键问题 Pilot重点验证技术与运行风险：MVP更关注用最小投入验证用户与业务假设。 用敏捷开发理解“反复做Pilot" ，不必把pilot单独隔成一个大阶段，而是把试做、反馈、修正反复快速做 共同点：让关键假设尽早遇到证据：敏捷原则将频繁交付、合作与调整变成持续过程。 5 /
+
+252
+01:07:40,000 --> 01:09:05,000
+DoIt Twice 1-107老师 用今天的MVP理解Royce的PilotModel MinimumViableProduct：先做一遍，从中学习，再完善产品 Royce的doittwice：先用pilotmodel经历关键问题 用敏捷开发理解"反复做Pilot" 不必把pilot单独隔成一个大阶段，而是把试做、反馈、修正反复快速做 5 / I
+
+253
+01:09:05,000 --> 01:09:20,000
+DoItTwice 山-107老师 用今天的MVP理解Royce的PilotModel MinimumViableProduct：先做一遍，从中学习，再完善产品 Royce的doittwice：先用pilotmodel经历关键问题 Pilot重点验证技术与运行风险：MVP更关注用最小投入验证用户与业务假设。 用敏捷开发理解"反复做Pilot" 不必把pilot单独隔成一个大阶段，而是把试做、反馈、修正反复快速做 共同点：让关键假设尽早遇到证据：敏捷原则将频繁交付、命作与调整变成持续过程。 绿导师原源 5 / 1
+
+254
+01:09:20,000 --> 01:09:25,000
+paper. It presents the author's full recommended software 独立验证=CI+codereview。 development process as one integrated diagram: a large 但见下一节，这里出现了实质分 iterative development loop inthe center(preliminary design -107老师 driven by a spiral of "critical software reviews") with Step5客户参与 每个选代末的可运行软件+验收 feedback arrows looping back from every stage to earlier (PSR/CSR/FSAR) 测试，即ATDD/BDD。同样的意思 stages.Around the loop sit four oval milestones -System ：把承诺频事提高、粒度变细 Requirements Generation, PSR (Preliminary Software Review), CSR (Critical Software Review),and FSAR (Final Software Acceptance Review)-and six document deliverables (Document 最有说服力的一对是经济账。Royce的Fig.4就是一条随发现时间 No.1 Software Requirements; No. 2 Preliminary Design (Spec); 指数上升的变更成本曲线，他用100%期“给它标价。XP阵营的全 No.3 Interface Design (Spec); No.4 Final Design (Spec)- 部主张一"在XP下变更成本曲线是平的“一正是对这条曲线的正面攻 shown twice, once at the end of the left-hand staircase and 击。所以TDD和Royce的关系不是"新对旧"，面是对同一条曲线的 once at the bottom of the loop; No. 5 Test Plan (Spec); No. 6 两种对策：Royce用文格、评审、原型把曲线的拐点往左推：TDD用 Operating Instructions).At the upper right, a simple 自动化测试把整条曲线压平。他画出了间题，TDD声称解掉了它。 stair-step cascade (system requirements → software 三、TDD真正修正了Royce的地方 operations) recalls the naive waterfall, which the dashed diagonal line cuts off. A dashed box lists the paper's five 只有一处，但是关键的一处。Royce明确写过： summary recommendations: (1)complete program design before analysis and coding begins,(2)documentation must be current "Do not use the computer to detect this kind of thing and complete,(3)do the job twice if possible,(4)testing tooexpensive.（丢负号、跳错地址这类，靠人眼走查最划算） must be planned, controlled and monitored,(5) involve the customer. TDD的全部赌注就是这条成本假设失效了：自动化执行的边际成本趋 零，于是Royce分给“人眼“和“独立测试组“的活，被移到机器上， Verbatim text withinthe figure 走查、逻辑路径覆盖）在TDD里被合并成同一条流水线。 Dashed summary box (upper right): 还有一个Royce没有的巧思，值得单独指出来：Red阶段是对”传感 1.COMPLETE PROGRAM DESIGN BEFORE ANALYSIS AND CODING BEGINS 绿导师原谅件 器本身“的标定。Royce说“每条逻辑路径用数值验证一次"，这是覆 royce.md720-749/77995% 盖率诉求：而先写、先看它失败"多了一层意义一一个从来没失败过
+
+255
+01:09:25,000 --> 01:09:30,000
+judgment.with the simulation he can at least perform 独立验证=CI+codereview。 但见下一节，这里出现了实质分 山丨-107老师 program design (as in the estimation of takeoff gross weight, costs to complete, or the daily double) is invariably and Step5客户参与 每个选代末的可运行软件+验收 seriously optimistic. (PSR/CSR/FSAR) 测试，即ATDD/BDD。同样的意思 ：把承诺频事提高、粒度变细 最有说服力的一对是经济账。Royce的Fig.4就是一条随发现时间 指数上升的变更成本曲线，他用100%超期“给它标价。XP阵营的全 部主张一"在XP下变更成本曲线是平的“一正是对这条曲线的正面攻 击。所以TDD和Royce的关系不是"新对旧，面是对同一条曲线的 两种对策：Royce用文档、评审、原型把曲线的拐点往左推：TDD用 自动化测试把整条曲线压平。他画出了间题，TDD声称解掉了它。 三、TDD真正修正了Royce的地方 只有一处，但是关键的一处。Royce明确写过： "Do not use the computer to detect this kind of thing - tooexpensive.”（丢负号、跳错地址这类，靠人眼走查最划算） [Image #1: Flowchart showing a preliminary pilot program des TDD的全部赌注就是这条成本假设失效了：自动化执行的边际成本趋 ign proceeding through analysis,program design,coding,testi 零，于是Royce分给“人眼“和“独立测试组“的活，被移到机器上， Figure 7. Step 3: Attempt to do the job twice -the firstthrou result provides an early simulation of the final product.ons, 走查、逻辑路径覆盖）在TDD里被合并成同一条流水线。 with feedback loops fromusage back to earlier stages] Figuresunmary:The diagram illustrates"doing the job 还有一个Royce没有的巧思，值得单独指出来：Red阶段是对”传感 绿导师原谅你了中 twice."A smallpilot effort (left side) runs the entire 器本身“的标定。Royce说“每条逻辑路径用数值验证一次”，这是覆 royce.md476-505/77963% 盖率诉求：而“先写、先看它失败"多了一层意义一一个从来没失败过
+
+256
+01:09:30,000 --> 01:09:40,000
+4。他的“做两遍“是宏观的。在函数上重构两遍整个系统做两遍 judgment.with thesimulationhe canat leastperform 系统性错误的代价不会因为单元测试而降低。ROyce提这个 experimental tests of some key hypotheses and scope down what 仙丨-107老师 针对的正是"人对工期和成本的估计invariablyandseriously remains for human judgment, which in the area of computer optimistic"一那个偏差发生在项目尺度，不是函数尺度。 program design (as in the estimation of takeoff gross weight, costs to complete, or the daily double) is invariably and 五、收束 seriously optimistic. 用ROyCe解释TDD，最好的说法是：TDD是他那条判据的极值形式 一把圆溯距离压到一次diff那么长，把“文档即设计“兑现成可执行 的形式，把"每条逻辑路径验证一次“变成提交前的硬门槛。而Royce 反过来给TDD判了它的适用域：控制回路越短越好，但回路只能控 制它能观测到的东西。单元测试看不见的那些风险，仍然需要用他 1970年的老办法处理一提前设计、小规模做一遍、让人和客户在早 期就下承诺。 有意思的对称是：RoyCe被误读成"漯布"，TDD常被误读成"测试"。 两者都是把“以缩短反馈回路为目的的过程设计“缩成了一个工具名。 这大概是同一类认知偏差， Recap：把Royce的“缺陷发现时间返工代价“判据当坐标系，逐 条映时TDD的red/green/refactor到他的五个Step，指出TDD 唯一实质修正是推翻了他“用计算机查错太费“的成本假设，并补上 Red-first作为“传感器自校准“这一Royce来言明的巧思：最后 用ROyCe的“不可解析风险“给TDD划出盲区一它只缩短了局部回 [Image #1: Flowchart showing a preliminary pilot program des 边，架构与系统性风险仍需提前设计。 ign proceeding through analysis, program design, coding, testi Figure 7.Step 3:Attempt to do the job twice-thefirstthrou result provides an early simulation of the final product.ons, with feedback loops fromusage backto earlier stages] 绿导师原谅你了 Figure summary:The diagram illustrates "doing the job ~/Projects/readspace royce.md475-504/77963% 个12k 12k R175k CH98.8% $0.020 2.4%/1.0M. (auto) deepseekfLas
+
+257
+01:09:40,000 --> 01:09:45,000
+simulation the project manager is at the mercy of human 。系统性错误的代价不会因为单元测试而降低。Royce提这个， judgment.with the simulation he can at least perform 针对的正是"人对工期和成本的估计invariablyandseriously experimental tests of some key hypotheses and scope dowm what 仙1-107老师 optimistic"一那个偏差发生在项目尺度，不是函数尺度。 remains for human judgment,which in the area of computer program design (as in the estimation of takeoff gross weight, 五、收束 costs to complete, or the daily double) is invariably and seriously optimistic. 用ROyCe解释TDD，最好的说法是：TDD是他那条判据的极值形式 一把回渊距离压到一次diff那么长，把“文档即设计“兑现成可执行 的形式，把"每条辑路径验证一次“变成提交前的硬门槛。而Royce 反过来给TDD判了它的适用域：控制回路越短越好，但回路只能控 制它能观测到的东西。单元测试看不见的那些风险，仍然需要用他 1970年的老办法处理一提前设计、小规模做一遍、让人和客户在早 期就下承诺。 有意思的对称是：ROyCe被误读成“激布”，TDD常被误读成“测试“。 这大概是同一类认知偏差。 Recap：把Royce的"缺陷发现时间返工代价"判据当坐标系，逐 条映射TDD的red/green/refactor到他的五个Step，指出TDD 唯一实质修正是推需了他“用汁算机查错太贵“的成本假设，并补上 Red-first作为“传感器自校准“这一Royce未言明的巧思；最后 边，架构与系统性风险仍需提前设计。 [Image #1:Flowchart showing a preliminary pilot program des ign proceeding through analysis, program design, coding, testi Figure 7. Step 3: Attempt to do the job twice -the firstthrou 我把royce的模型，理解成一种datadependency：然后修改是有代价 result provides an early simulation of the final product.ons, 的，zh with feedbackloopsfromusage backto earlier stages] 5. ± 6. Z, 7  d. 绿导师原谅你了BB Figure summary:The diagram illustrates "doing the job ~/Projects/readspace 个12k12kR175k CH98.8%$o.0202.4%/1.0M(auto) royce.md475-504/77963% deepseek-flas
+
+258
+01:09:45,000 --> 01:09:50,000
+用ROyCe解释TDD，最好的说法是：TDD是他那条判据的极值形式 judgment.with the simulation he can at least perform 一把回溯距离压到一次diff那么长，把“文档即设计“兑现成可执行 experimental tests of some key hypotheses and scope dowm what 仙丨-107老师 的形式，把"每条逻辑路径验证一次“变成提交前的硬门槛。而Royce remains for human judgment,which in the area of computer 反过来给TDD判了它的适用城：控制回路越短越好，但回路只能控 program design (as in the estimation of takeoff gross weight, 制它能观测到的东西。单元测试看不见的那些风险，仍然需要用他 costs to complete, or the daily double) is invariably and 1970年的老办法处理一提前设计、小规模做一遍、让人和客户在早 seriously optimistic. 期就下承诺。 有意思的对称是：ROyCe被误读成“漫布”，TDD常被误读成“测试"。 这大概是同一类认知偏差。 条映射TDD的red/green/refactor到他的五个Step，指出TDD 唯一实质修正是推翻了他“用计算机查错太责“的成本假设，并补上 Red-first作为“传感器自校准“这一Royce来言明的巧思：最后 边，架构与系统性风险仍需提前设计。 我把royce的模型，理解成一种datadependency，然后修改是有代价 的，这样可以吗？ [Image #1: Flowchart showing a preliminary pilot program des Thinking.. ign proceeding through analysis, program design, coding, testi Figure 7. Step 3: Attempt to do the job twice -the firstthrou " working result provides an early simulation of the final product.ons, with feedback loops fromusagebackto earlier stages] 绿导师原谅你了i Figure summary: The diagram illustrates "doing the job ~/Projects/readspace 个12k ±12k R175k CH98.8% $0.020 2.4%/1.0M (auto) royce.md475-504/77963% deepseek-fLas
+
+259
+01:09:50,000 --> 01:11:40,000
+瀑布模型就是Data DependencyGraph 仙-107老师 需求分析→系统设计→系统实现→测试验证→交付维护 不做需求（intent/spec），设计就会漂移 设计（spec）错了，实现就会漂移 没有实现(impl)，谁会想去测试？ 当然，交付之后还得有人擦屁股 TDD：拿Testcase当需求与设计 后来大家才反应过来：可以先写testcase 写下预期行为只需要需求：验证实现是否满足预期，才需要实现。 绿导师原谅你了训 4 / I
+
+260
+01:11:40,000 --> 01:11:45,000
+simulation the project manager is at the mercy of human 2文档 让下游消费者不需要生产者上下文就能验证→缩 judgment.with thesimulationhe canat leastperform 短重新验证锥：等价于把实现细节藏在稳定接口后 experimental tests of some key hypotheses and scope down what 仙1-107老师 remains for human judgment,which in the area of computer 3做两遍 program design (as in the estimation of takeoff gross weight, 用一个价代理子树替换掉一个不确定子树 costs to complete, or the daily double) is invariably and seriously optimistic. 4测试管 把验证工作从“单点知识”（原作者）并行化出去 5客户参 在图中插入一个外部Ioracle作为中速检查点，面 不是终端节点 顺带说，“文档让下游不用回间上游“这一步，后来被Parnas1972 的信息隐戴重新发明了一遍；以“什么会一起变化“来划模块边界，本 质就是最小化期望的重建推。再往后就是changeimpactanalysis 和buildsystem（Bazel/Nix那套：内容导址+依赖DAG+增量 重建+earlycutoff）。你的理解已经站在那条线上了， 二、要打的三个补丁 补丁1：这张图是被设计出来的，不是给定的。在编择器里依赖关 系是程序的既定事实：在软件里，依赖结构本身就是产领。所以更准 确的说法不是datadependency.而是decisiondependency（设计 [Image #1: Flowchart showing a preliminary pilot program des 决策之间的依赖）。你要排序的是决策：把“难撒销“的决策前置或后 ign proceeding through analysis, program design, coding, testi 置，看的是它的回滚雄有多大。这也是设计结构矩阵（DSM）那支文 Figure 7. Step 3: Attempt to do the job twice -the firstthrou 献干的事一在矩阵重标出反馈边，然后排序以最小化反馈标记。 result provides an early simulation of the final product.ons, Royce的“送代只限相邻“就是“排序到没有远距离反馈“这个目标，而 with feedback loops fromusage back to earlier stages] Fig.4说明有些反馈是不可约的。 绿导师原谅你了训 Figure summary:The diagram illustrates "doing thejob 补丁2：存在图中无法推出的外部oracle。 royce.md475-504/77963% 纯依赖模型有个致命隐
+
+261
+01:11:45,000 --> 01:12:10,000
+simulation the project manager is at the mercy of human 边，架构与系统性风险仍需提前设计。 judgment.with thesimulationhe canat leastperform 仙丨-107老师 experimental tests of some key hypotheses and scope down what remains for human judgment,which in the area of computer 我把royce的模型，理解成一种datadependency，然后修改是有代价 program design (as in the estimation of takeoff gross weight, 的，这样可以吗？ costs to complete, or the daily double) is invariably and seriously optimistic. Thinking.. 可以，而且这不是类比上的小聪明一这基本就是软件工程后来真正采 用的形式化方式。但有三个地方这个框架会骗你，需要打补丁。 、它对在哪（而且可以推到很强） 如果按编译器的数据依赖读： 一Fig.2=直线型数据流，每个阶段消费上一个的产物。调度长度= 关键路径工期。 Royce说的"选代只限相邻步象"=依赖的局部性假设（就像loop nest里依赖在tile内部） Fig.4=长程依赖（Long-rangedependence）：测试通过一条不 受约束的通道依赖需求层。他在Fig.3里赌依赖是局部的，Fig.4 告诉他不是一而长程依赖没法靠“把送代限制在相邻步骤“tile摔 [Image #1: Flowchart showing a preliminary pilot program des 返工代价=依赖传播锥（coneofinfluence）的大小。100%超 ign proceeding through analysis, program design, coding, testi 期=一条长回边触发的全流水线flush。 Figure 7. Step 3: Attempt to do the job twice -the firstthrou result provides an early simulation of the final product.ons, 再进一步，把“修改有代价“当成第一性原理，Royce的整个论证就变 with feedbackloopsfromusage backto earlier stages] 成一个期望代价最小化问题，而且他是刻划意这么权衡的：Step1里 绿导师原谅你了诚Bi Figure summary:The diagram illustrates"doing the job 那句"批评是对的，butitmissesthepoint"一批评者优化的是出 royce.md475-504/77963% 错的概率（设计在真空里做会做错），他优化的是出错时的代价（那
+
+262
+01:12:10,000 --> 01:12:15,000
+simulation the project manager is at the mercy of human judgment.with thesimulationhe canat leastperform Fig.2=直线型数据流，每个阶段消费上一个的产物。调度长度 experimental tests of some key hypotheses and scope down what 关键路径=工期。 仙1-107老师 remains for human judgment,which in the area of computer Royce说的"选代只限相邻步骤"=依赖的局部性假设（就像loop program design (as in the estimation of takeoff gross weight, nest里依赖在tile内部） costs to complete,or the daily double)is invariably and Fig.4=长程依赖（Long-rangedependence）：测试通过一条不 seriously optimistic. 受约束的通道依赖需求层。他在Fig.3里赌依赖是局部的，Fig.4 告诉他不是一而长程依赖没法靠“把选代限制在相邻步骤“tile掉 返工代价=依赖传播锥（coneofinfLuence）的大小。100%超 期=一条长回边触发的全流水线flush。 再进一步，把“修改有代价“当成第一性原理，Royce的整个论证就变 成一个期望代价最小化问题，而且他是划意这么权衡的：Step1里 那句"批评是对的，butitmissesthepoint一批评者优化的是出 错的概率（设计在真空里做会做错），他优化的是出错时的代价（那 时候改还便宜）。这个取含只有在你有一个代价模型时才成立。所以 你的读法抓住了他论文真正的骨架。 由此还能自然导出他那五步全是对依赖图的图变换： Step 在依赖图上的动作 [Image #1:Flowchart showing a preliminary pilot program des 1设计先 把“资源/时序可行性检查“这个节点前移，切断 ign proceeding through analysis, program design, coding, testi Fig.4那条最贵的长回边 Figure 7. Step 3: Attempt to do the job twice -the firstthrou result provides an early simulation of the final product.ons, 2文福 让下游消费者不需要生产者上下文就能验证→缩 with feedback loopsfromusage back to earlier stages] 矩重新验证锥：等价于把实现细节戴在稳定接口后 Figure summary:The diagram illustrates "doing the job 绿导师原谅你了BiBl royce.md475-504/77963%
+
+263
+01:12:15,000 --> 01:12:20,000
+simulation the project manager is at the mercy of human 3.它会让你以为"做两遍“是允余重算。不是一pilotmodel的价值 judgment.with thesimulationhe canat leastperform 不是把同样的计算做两次，而是改变图的形状（消掉“到底哪个约 experimental tests of some key hypotheses and scope down what 仙/-107老师 束会bind"的不确定性）。它是果样，不是重算。 remains for human judgment,which in the area of computer program design (as in the estimation of takeoff gross weight, 四、用你的框架重讲TDD，一包话 costs to complete, or the daily double) is invariably and seriouslyoptimistic. 你既然不能删掉那条长程回边，剩下的唯一杠杆就是降低它的延迟。 于是做推测执行：提前猜测验证结果，用一次编辑就能回滚。 -漂布=分支在流水线末端才发现误预测，代价是flush整个项目 TDD=把验证推测到写实现的间一分钟执行，误预测的代价是一次 diff。 这个类比比“文格即规格“更精确地解释了TDD为什么有效：它没有 减少依赖，只压缩了依赖的传播延迟。而它也和Royce的原始判据 完全同构一既然回溯代价正比于距高，那就把距离缩到零。 Recap：把Royce次成依赖图+修改代价是第一性原理级的正确 读法（Fig.3是依费局部性假没、Fig.4是长程依额，五步建议部 是图变换），但要补三个补丁：图是被设计出来的（decision dependency/DSM)，存在图内推不出的外部 oracle（validationverification），代价系数由接口与文档 质量决定而非拓扑：由此TDD可重述为“不删长程依赖，只把它改 [Image #1: Flowchart showing a preliminary pilot program des 造成延迟为一次diff的推测执行”。 ign proceeding through analysis, program design, coding, testi Figure 7. Step 3: Attempt to do the job twice -the firstthrou result provides an early simulation of the final product.ons, with feedback loops fromusage back to earlier stages] 绿导师原谅你了诚 Figure summary:The diagram illustrates "doing the job -/Projects/readspace 个13k →17k R198k. CH94.8% $o.025 2.8%/1.0M (auto) royce.md475-504/77963% deepseek-flas
+
+264
+01:12:20,000 --> 01:13:25,000
+瀑布模型就是DataDependencyGraph 仙/-107老师 需求分析→系统设计→系统实现→测试验证→交付维护 不做需求（intent/spec)，设计就会漂移 设计（spec）错了，实现就会漂移 没有实现（impl)，谁会想去测试？ 当然，交付之后还得有人擦屁股 TDD：拿Testcase当需求与设计 后来大家才反应过来：可以先写testcase 产物之间有依赖，不等于所有阶段只能完整地做一遍。 绿导师原谅你了诚
+
+265
+01:13:25,000 --> 01:14:20,000
+用DataDependency理解开发过程 仙/-107老师 MVP与敏捷：让反馈更早回来 依赖不变，反馈变早 需求 设计 实现 测试 瀑布 交付 晚验证，长返工 假设 最小实现 验证 MVP/Pilot 修订需求/设计 先验证高风险假设 送代1 选代2 敏捷 需求 实现 验证 需求 实现 验证 小批量，短反馈 绿导师原谅你了训 比较的不只是阶段顺序，还有：多晚才得到反馈，得到反馈时已经做了多少依赖它的工作。
+
+266
+01:14:20,000 --> 01:14:35,000
+阅读“开天辟地”的经典 仙1-107老师 即便今天已经过时，通常仍然信息量巨大 在今天的背景下，反而非常容易理解 带着今天的经验，回到当年的问题 ，读Royce时，可以追问：哪条建议来自当年的硬件约束，哪条来自多人协作，“哪条来自“必须运行以后才知 绿导师原谅你了训
+
+267
+01:14:35,000 --> 01:14:40,000
+阅读“开天辟地”的经典 仙|-107老师 即便今天已经过时，通常仍然信息量巨大 经典记录了一个领域最初遇到的问题， 以及怎样找到出路 在今天的背景下，反而非常容易理解 带着今天的经验，回到当年的问题 绿导师原谅你
+
+268
+01:14:40,000 --> 01:14:45,000
+阅读“开天辟地”的经典 仙1-107老师 即便今天已经过时，通常仍然信息量巨大 经典记录了一个领域最初遇到的问题 以及怎样找到出路。 在今天的背景下，反而非常容易理解 带着今天的经验，回到当年的问题 读Royce时，可以追问：哪条建议来自当年的硬件约束，哪条来自多人协作，哪条来自“必须运行以后才知 绿导师原谅你了训
+
+269
+01:14:45,000 --> 01:14:55,000
+阅读“开天辟地”的经典 仙-107老师 即便今天已经过时，通常仍然信息量巨大 在今天的背景下，反而非常容易理解 带着今天的经验，回到当年的问题 绿导师原谅你了证
+
+270
+01:14:55,000 --> 01:15:05,000
+阅读“开天辟地”的经典 仙1-107老师 即便今天已经过时，通常仍然信息量巨大 在今天的背景下，反而非常容易理解 带着今天的经验，回到当年的问题 读Royce时，可以追问：哪条建议来自当年的硬件约束，哪条来自多人协作，哪条来自“必须运行以后才知 绿导师原谅你了小证
+
+271
+01:15:05,000 --> 01:15:10,000
+软件工程的方法和工具 仙|-107老师 软件工程：为每个阶段都创建*方法学*和*工具* 尽可能减少返工概率 在没有LLM这种“万能编译器”的时代，不同阶段需要不同的 “语言” 一需求分析：文档、用例、界面原型→“我们到底想要什么” 系统设计：实体关系、状态迁移、模快和接口→ “系统怎样组织起来” -代码实现（ComputerScience大部分课程集中在这里，算是 buttom-up的学习方法了） 在这里诞生了非常多有智慧的方法和工具 [[你可以列举一些，后面我会讲Eiffel和UML的例子，避开这两个]] [Applying"design_by_contract"](https://ieeexplore.ieee.org/ document/161279)byBertrandMeyer'sEiffel [[介绍一下契约编程]] 上古语法： eiffel function(args)is -Comment require Precondition do Routine 绿导师原谅你了BiB p5/Lect/index.md 130,55-39 67%
+
+272
+01:15:10,000 --> 01:23:10,000
+软件工程的方法和工具 To exit full screen,press and hold 仙丨-107老师 为每个阶段创建方法学和工具 软件工程：为每个阶段都创建方法学和工具，尽可能减少返工概率。 不同阶段，不同的“语言” 在没有LLM这种“万能编译器”的时代，不同阶段需要不同的“语言”： 需求分析：文档、用例、界面原型→“我们到底想要什么 系统设计：实体关系、状态迁移、模块和接口→“系统怎样组织起来” 。代码实现 ComputerScience大部分课程集中在这里，算是bottom-up的学习方法了 在这里诞生了非常多有智慧的方法和工具。 绿导师原谅你了 1/5
+
+273
+01:23:10,000 --> 01:23:20,000
+方法和工具的智慧 仙1-107老师 需求与测试：把规则变得可检查 。例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 Chetist 维护：改一句需求，会牵动什么？ 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了邮Bi
+
+274
+01:23:20,000 --> 01:23:35,000
+方法和工具的智慧 仙-107老师 需求与测试：把规则变得可检查 决策表 把条件组合与预期结果对应起来，暴露遗漏和矛盾。ISTQB54.2.3 就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 Lhetist 维护：改一句需求，会牵动什么？ 需求追踪矩阵：维护需求、设计与测试之间的关联，用于检查覆盖情况和分析变更影响。NASA 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了训 S/ t
+
+275
+01:23:35,000 --> 01:23:40,000
+方法和工具的智慧 山丨-107老师 需求与测试：把规则变得可检查 暴露遗漏和矛盾。ISTQB54.2.3 就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 维护：改一句需求，会牵动什么？ 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了训
+
+276
+01:23:40,000 --> 01:23:55,000
+方法和工具的智慧 仙1-107老师 需求与测试：把规则变得可检查 暴露遗漏和矛盾。ISTQB54.2.3 。就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 维护：改一句需求，会牵动什么？ 需求追踪矩阵：维护需求、设计与测试之间的关联，用于检查覆盖情况和分析变更影响。NASA 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了诚b证
+
+277
+01:23:55,000 --> 01:24:00,000
+方法和工具的智慧 仙/-107老师 需求与测试：把规则变得可检查 决策表：把条件组合与预期结果对应起来， 暴露遗漏和矛盾。ISTQB54.2.3 。就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 ckectGst 维护：改一句需求，会牵动什么？ 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了！训
+
+278
+01:24:00,000 --> 01:24:05,000
+方法和工具的智慧 仙1-107老师 需求与测试：把规则变得可检查 决策表：把条件组合与预期结果对应起来， 暴露遗漏和矛盾。ISTQB54.2.3 口就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ LectCist 维护：改一句需求，会牵动什么？ 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了训 7 / 5
+
+279
+01:24:05,000 --> 01:24:10,000
+方法和工具的智慧 仙/-107老师 需求与测试：把规则变得可检查 暴露遗漏和矛盾。ISTQB54.2.3 就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 基于性质的测试：QuickCheck让人描述性质，由工具生成输入，寻找反例。 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 维护：改一句需求，会牵动什么？ 例：“允许退课改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了B证i
+
+280
+01:24:10,000 --> 01:24:20,000
+方法和工具的智慧 仙丨-107老师 需求与测试：把规则变得可检查 决策表：把条件组合与预期结果对应起来， 暴露遗漏和矛盾。ISTQB54.2.3 就例：学生优惠遇到满减，究竟能叠加，还是只能选一个？ hectGist 维护：改一句需求，会牵动什么？ 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了山 7. / 5
+
+281
+01:24:20,000 --> 01:24:25,000
+方法和工具的智慧 仙1-107老师 需求与测试：把规则变得可检查 决策表：把条件组合与预期结果对应起来， 暴露遗漏和矛盾。ISTQB54.2.3 口就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 维护：改一句需求，会牵动什么？ 需求追踪矩阵：维护需求、设计与测试之间的关联，用于检查覆盖情况和分析变更影响。NASA 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了B训i 7 / 5
+
+282
+01:24:25,000 --> 01:24:30,000
+方法和工具的智慧 仙丨-107老师 需求与测试：把规则变得可检查 Pan 暴露遗漏和矛盾。ISTQB54.2.3 。就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 维护：改一句需求，会牵动什么？ 例：“允许退课改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了训 s / t
+
+283
+01:24:30,000 --> 01:24:35,000
+方法和工具的智慧 仙|-107老师 需求与测试：把规则变得可检查 就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 维护：改一句需求，会牵动什么？ 。例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了调 s / t
+
+284
+01:24:35,000 --> 01:24:40,000
+方法和工具的智慧 仙-107老师 需求与测试：把规则变得可检查 暴露遗漏和矛盾。ISTQBS4.2.3 。就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 维护：改一句需求，会牵动什么？ 需求追踪矩阵：维护需求、设计与测试之间的关联，用于检查覆盖情况和分析变更影响。NASA 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了训i 7. / 5
+
+285
+01:24:40,000 --> 01:24:45,000
+方法和工具的智慧 仙丨-107老师 需求与测试：把规则变得可检查 暴露遗漏和矛盾。ISTQB54.2.3 口例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ chect(is 维护：改一句需求，会牵动什么？ 。例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了BiB让 7. / 5
+
+286
+01:24:45,000 --> 01:25:00,000
+方法和工具的智慧 仙-107老师 需求与测试：把规则变得可检查 暴露遗漏和矛盾。ISTQB54.2.3 。就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 hectst 维护：改一句需求，会牵动什么？ 。例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了BiB 7. / 5
+
+287
+01:25:00,000 --> 01:25:05,000
+方法和工具的智慧 仙1-107老师 需求与测试：把规则变得可检查 例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ heckis 维护：改一句需求，会牵动什么？ 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了训 7 / 5
+
+288
+01:25:05,000 --> 01:25:20,000
+方法和工具的智慧 仙1-107老师 需求与测试：把规则变得可检查 决策表：把条件组合与预期结果对应起来， 暴露遗漏和矛盾。ISTQBS4.2.3 就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 维护：改一句需求，会牵动什么？ 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了训
+
+289
+01:25:20,000 --> 01:25:30,000
+方法和工具的智慧 仙1-107老师 需求与测试：把规则变得可检查 暴露遗漏和矛盾。ISTQB54.2.3 。就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 维护：改一句需求，会牵动什么？ 需求追踪矩阵：维护需求、设计与测试之间的关联，用于检查覆盖情况和分析变更影响。NASA 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了B训i / t
+
+290
+01:25:30,000 --> 01:25:35,000
+方法和工具的智慧 仙1-107老师 需求与测试：把规则变得可检查 决策表：把条件组合与预期结果对应起来， 暴露遗漏和矛盾。ISTQB54.2.3 就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 维护：改一句需求，会牵动什么？ 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了 s / t
+
+291
+01:25:35,000 --> 01:25:55,000
+方法和工具的智慧 仙1-107老师 需求与测试：把规则变得可检查 决策表：把条件组合与预期结果对应起来， 暴露遗漏和矛盾。ISTQB54.2.3 。就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 维护：改一句需求，会牵动什么？ 需求追踪矩阵：维护需求、设计与测试之间的关联，用于检查覆盖情况和分析变更影响。NASA 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了B训部
+
+292
+01:25:55,000 --> 01:26:05,000
+方法和工具的智慧 山丨-107老师 需求与测试：把规则变得可检查 。例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 维护：改一句需求，会牵动什么？ P例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了 7. / 5
+
+293
+01:26:05,000 --> 01:26:15,000
+方法和工具的智慧 仙1-107老师 需求与测试：把规则变得可检查 暴露遗漏和矛盾。ISTQB54.2.3 。就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 维护：改一句需求，会牵动什么？ 需求追踪矩阵：维护需求、设计与测试之间的关联，用于检查覆盖情况和分析变更影响。NASA 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 7 / 5
+
+294
+01:26:15,000 --> 01:26:50,000
+方法和工具的智慧 仙丨-107老师 需求与测试：把规则变得可检查 决策表：把条件组合与预期结果对应起来， 暴露遗漏和矛盾。ISTQB54.2.3 。就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 维护：改一句需求，会牵动什么？ KEAONE. 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了证 7. / 5
+
+295
+01:26:50,000 --> 01:27:10,000
+方法和工具的智慧 仙1-107老师 需求与测试：把规则变得可检查 暴露遗漏和矛盾。ISTQB54.2.3 。就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 维护：改一句需求，会牵动什么？ 1sic/.. ms 需求追踪矩阵：维护需求、设计与测试之间的关联，用于检查覆盖情况和分析变更影响。NASA KEAOME.M 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了山B让
+
+296
+01:27:10,000 --> 01:27:25,000
+方法和工具的智慧 仙1-107老师 需求与测试：把规则变得可检查 决策表：把条件组合与预期结果对应起来， 暴露遗漏和矛盾。ISTQB54.2.3 口就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 维护：改一句需求，会牵动什么？ KEAOME.M 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了训 2. / 5
+
+297
+01:27:25,000 --> 01:27:30,000
+方法和工具的智慧 仙/-107老师 需求与测试：把规则变得可检查 暴露遗漏和矛盾。ISTQB54.2.3 。就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 维护：改一句需求，会牵动什么？ 需求追踪矩阵：维护需求、设计与测试之间的关联，用于检查覆盖情况和分析变更影响。NASA KEAOME.M 例：“允许退课改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了B山
+
+298
+01:27:30,000 --> 01:27:35,000
+方法和工具的智慧 仙丨-107老师 需求与测试：把规则变得可检查 暴露遗漏和矛盾。ISTQB54.2.3 。就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 维护：改一句需求，会牵动什么？ KEMOME.W 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了山 2. / 5
+
+299
+01:27:35,000 --> 01:27:40,000
+3．它会让你以为"做两遍“是允余重算。不是一pilotmodel的价值 不是把同样的计算做两次，而是改变图的形状（消掉“到底哪个约 仙1-107老师 束会bind"的不确定性）。它是果样，不是重算。 四、用你的框架重讲TDD，一句话 你既然不能制掉那条长程回边，剩下的唯一杠杆就是降低它的延迟。 于是做推测执行：提前猜测验证结果，用一次编辑就能回滚。 漫布=分支在流水线末增才发现误预测，代价是flush整个项目 TDD=把验证推测到写实现的同一分钟执行，误预测的代价是一次 diff。 这个类比比“文格即规格“更精确地解释了TDD为什么有效：它没有 [Image #1: Flowchart showing a preliminary pilot program des 减少依赖，只压缩了依赖的传播延迟。而它也和Royce的原始判据 ign proceeding through analysis,program design,coding,testi 完全同构一既然回溯代价正比于距离，那就把距离缩到零。 Figure 7. Step 3: Attempt to do the job twice -the firstthrou result provides an early simulation of the final product.ons, Recap：把Royce读成依赖图+修改代价是第一性原理级的正确 with feedback loops from usage back to earlier stages] 读法（Fig.3是依额局部性假设、Fig.4是长程依额，五步建议部 Figure summary: The diagram illustrates"doing the job 是图变换），但要补三个补丁：图是被设计出来的（decision twice."A small pilot effort (left side)runs the entire dependency/DSM，存在图内推不出的外部 development cycle in miniature -preliminary program design, oracle（validationverification)，代价系数由接口与文档 then cascading preliminary design, analysis, program design, KEAOME.. 质量决定而非拓扑：由此TDD可重述为“不删长程依费，只把它改 coding, testing, and usage-acting as an early simulation of 造成延迟为一次diff的推测执行“。 the final product. Its results feed directly into the full-scale mainline development (right side), which proceeds through analysis,program design,coding,testing,and operations, with feedback arrows from the pilot's usage stage 绿导师原谅你了证 looping back into the mainline analysis and program design -/Projects/readspace 个13k±17kR198k CH94.8%$0.0252.8%/1.0M (auto) royce.md484-513/77964% deepseekfLas
+
+300
+01:27:40,000 --> 01:27:45,000
+方法和工具的智慧 仙/-107老师 需求与测试：把规则变得可检查 例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 维护：改一句需求，会牵动什么？ KEAOME.d 绿导师原谅你了训 7 /
+
+301
+01:27:45,000 --> 01:27:50,000
+方法和工具的智慧 仙/-107老师 需求与测试：把规则变得可检查 决策表：把条件组合与预期结果对应起来， 暴露遗漏和矛盾。ISTQB54.2.3 就例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 基于性质的测试：QuickCheck让人描述性质，由工具生成输入，寻找反例。 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 维护：改一句需求，会牵动什么？ KEMONE.W 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了训
+
+302
+01:27:50,000 --> 01:27:55,000
+方法和工具的智慧 仙|-107老师 需求与测试：把规则变得可检查 口例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序”，返回空数组也能过关。 维护：改一句需求，会牵动什么？ 15c/ .. KEADME.W 。例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了 2. / 5
+
+303
+01:27:55,000 --> 01:28:00,000
+方法和工具的智慧 仙/-107老师 需求与测试：把规则变得可检查 决策表：把条件组合与预期结果对应起来， 暴露遗漏和矛盾。ISTQB54.2.3 。例：学生优惠遇到满减，究竞能叠加，还是只能选一个？ 例：排序结果既要有序，也要保留所有元素及其出现次数：只检查“有序，返回空数组也能过关。 sp 维护：改一句需求，会牵动什么？ KEAOME.Wd 例：“允许退课”改成“开课后一周内允许退课”，哪些设计和测试需要重新检查？ 绿导师原谅你了小证 5/t
+
+304
+01:28:00,000 --> 01:28:05,000
+契约编程：DesignbyContract 仙一-107老师 Applying"designbycontract"byBertrandMeyer'sEiffel 调用者与实现者，各自负责什么？ ，像人类合作中的契约一样，接口写清双方的义务与权利。Eiffel官方介绍 后置条件：在前置条件成立时，实现者保证正常返回后的结果。 ds 例：不允许透支的账户取款 正常返回后：balance=balanceold一amount：balanceold是调用前的余额。 KEAOME.M 这个设计也迫使我们做业务选择：如果“余额不足”是正常结果，就应把“返回失败、余额不变写进接口约 绿导师原谅你了训
+
+305
+01:28:05,000 --> 01:28:10,000
+契约编程：DesignbyContract 仙丨-107老师 Applying"designbycontract"byBertrandMeyer's Eiffel 调用者与实现者，各自负责什么？ Fah 像人类合作中的契约一样，接口写清双方的义务与权利。Eiffel官方介绍 后置条件：在前置条件成立时，实现者保证正常返回后的结果。 sp 例：不允许透支的账户取款 调用withdraw(amount）前：O<amount<balance。 正常返回后：balance=balanceold-amount：balanceold是调用前的余额。 KEADME.M 绿导师原谅你了B训 3 / 5
+
+306
+01:28:10,000 --> 01:28:25,000
+契约编程：DesignbyContract 仙1-107老师 Applying“designbycontract"byBertrandMeyer'sEiffel 调用者与实现者，各自负责什么？ ran 像人类合作中的契约一样，接口写清双方的义务与权利。Eiffel官方介绍 例：不允许透支的账户取款 正常返回后：balance=balanceold-amount：balanceold是调用前的余额。 KEAOME.M 这个设计也追使我们做业务选择：如果“余额不足”是正常结果，就应把“返回失败、余额不变写进接口约 绿导师原谅你了训 3 / 5
+
+307
+01:28:25,000 --> 01:28:30,000
+契约编程：DesignbyContract 仙丨-107老师 Applying"design by contract"by Bertrand Meyer's Eiffel 调用者与实现者，各自负责什么？ 像人类合作中的契约一样，接口写清双方的义务与权利。Eifel官方介绍 前置条件：调用者保证，调用前满足使用条件。 sp 例：不允许透支的账户取款 15Ic/.. KEADME.M 类不变量：balance≥0，在对象对外可用时成立：各公开操作都须维护它。 绿导师原谅你了训 3 / 5
+
+308
+01:28:30,000 --> 01:29:20,000
+把契约写进语言 仙丨-107老师 上古语法：Eiffel function(args)is --Comment require Precondition do Routine ensure Postcondition 1s/.. end 契约既是接口文档，也能在开启断言检查时检验本次执行。Eiffel文档 KEAOME.Md 今天依然活跃的方向 今天依旧是个不算太小众的领城：Dafny，Verus，... Dafny内置规约与静态验证器：Verus为Rust子集提供静态验证。 绿导师原谅你了证 。它们进一步尝试证明：在给定假设下，实现满足写出的规约。
+
+309
+01:29:20,000 --> 01:29:25,000
+契约编程：DesignbyContract 仙/-107老师 Applying"design by contract"byBertrand Meyer's Eiffel 调用者与实现者，各自负责什么？ 像人类合作中的契约一样，接口写清双方的义务与权利。Eiffel官方介绍 前置条件：调用者保证，调用前满足使用条件。 后置条件：在前置条件成立时，实现者保证正常返回后的结果。 例：不允许透支的账户取款 正常返回后：balance=balanceold-amount：balanceold是调用前的余额。 KEMOME.Wg 这个设计也追使我们做业务选择：如果“余额不足”是正常结果，就应把“返回失败、余额不变写进接口约 绿导师原谅你了B训 3 / 5
+
+310
+01:29:25,000 --> 01:29:30,000
+契约编程：DesignbyContract 仙丨-107老师 Applying"designbycontract"byBertrandMeyer'sEiffel 调用者与实现者，各自负责什么？ 像人类合作中的契约一样，接口写清双方的义务与权利。Eiffel官方介绍 后置条件：在前置条件成立时，实现者保证正常返回后的结果。 sp 例：不允许透支的账户取款 调用withdraw(amount）前：O<amount<balance。 +正常返回后：balance=balanceold-amount：balanceold是调用前的余额。 KEAOME.M 类不变量：balance≥0，在对象对外可用时成立：各公开操作都须维护它。 这个设计也追使我们做业务选择：如果“余额不足”是正常结果，就应把“返回失败、余额不变”写进接口约 绿导师原谅你了丽p证 3 / 5
+
+311
+01:29:30,000 --> 01:29:40,000
+契约编程：DesignbyContract 仙/-107老师 Applying"design by contract"by Bertrand Meyer's Eiffel 调用者与实现者，各自负责什么？ 像人类合作中的契约一样，接口写清双方的义务与权利。Eiffel官方介绍 前置条件：调用者保证，调用前满足使用条件。 后置条件：在前置条件成立时，实现者保证正常返回后的结果。 dos 例：不允许透支的账户取款 正常返回后：balance=balanceold-amount：balanceold是调用前的余额。 KEAOME.W 这个设计也追使我们做业务选择：如果“余额不足”是正常结果，就应把“返回失败、余额不变写进接口约 绿导师原谅你了山B 3/5
+
+312
+01:29:40,000 --> 01:29:45,000
+契约编程：DesignbyContract 仙-107老师 Applying"designbycontract"byBertrandMeyer'sEiffel 调用者与实现者，各自负责什么？ 像人类合作中的契约一样，接口写清双方的义务与权利。Eiffel官方介绍 后置条件：在前置条件成立时，实现者保证正常返回后的结果。 docs 例：不允许透支的账户取款 1sic/.. m 调用withdraw(amount）前：O<amount<balance。 KEAOME.W 类不变量：balance≥0，在对象对外可用时成立：各公开操作都须维护它。 这个设计也迫追使我们做业务选择：如果“余额不足”是正常结果，就应把“返回失败、余额不变写进接口约 绿导师原谅你了训 3 / 5
+
+313
+01:29:45,000 --> 01:29:55,000
+契约编程：DesignbyContract 仙1-107老师 Applying"designbycontract"byBertrandMeyer'sEiffel 调用者与实现者，各自负责什么？ 像人类合作中的契约一样，接口写清双方的义务与权利。Eiffel官方介绍 前置条件：调用者保证，调用前满足使用条件。 后置条件：在前置条件成立时，实现者保证正常返回后的结果。 例：不允许透支的账户取款 1sic( .. KEAOME.M 正常返回后：balance=balanceold一amount：balanceold是调用前的余额。 就这个设计也追使我们做业务选择：如果“余额不足”是正常结果，就应把“返回失败、余额不变”写进接口约 绿导师原谅你了训i 3/ 5
+
+314
+01:29:55,000 --> 01:32:25,000
+把契约写进语言 仙丨-107老师 上古语法：Eiffel function(args)is -- Coment require Precondition do Routine ensure sp Postcondition 15ic/ .. pua 契约既是接口文档，也能在开启断言检查时检验本次执行。Eiffel文格 KEAOME.M 今天依然活跃的方向 今天依旧是个不算太小众的领域：Dafny,Verus，... 绿导师原谅你了山 它们进一步尝试证明：在给定假设下，实现满足写出的规约。 4/5
+
+315
+01:32:25,000 --> 01:35:50,000
+UnifiedModelingLanguage(UML) 仙丨-107老师 能否有一种中间语言，统一整个面向对象世界？ 人类的发展：自然语言（直接连接大脑latentspace）→数学语言（全世界自然对齐） 历史说明 在没有代码时，尽量减少语义漂移 sp 通过定义模型元素和（半形式化）语义，最大程度减少在没有代码时的语义漂移。 151c(.. 东西可能死了（LLM时代谁还用UML？），但设计时候的firstprinciples一直指导我们。 KEAOME.M 绿导师原谅你了训B 1/ 3
+
+316
+01:35:50,000 --> 01:35:55,000
+More comments on reading 仙丨-107老师 领域里“开天辟地” 的经典，即便今天已经过时，但通常都是信息量巨大的 而且在今天的背景下非常容易理解 #软件工程的方法和工具 软件工程：为每个阶段部创建*方法学*和*工具** 尽可能减少返工斯率 -在没有LLM这种“万能编译器”的时代，不同阶段需要不同的 “语言” 一需求分析：文档、用例、界面原型→“我们到底想要什么” 系统设计：实体关系、状态迁移、模块和接口→ “系统怎样组织起来” -代码实现（ComputerScience大部分课程集中在这里算是 sp buttom-up的学习方法了） Isc/.. 在这里诞生了非常多有智慧的方法和工具 [[你可以列举一些，后面我会讲Eiffel和UML的例子，避开这两个]] KEAOME.Wd [Applying"design_by_contract"](https://ieeexplore.ieee.org/ document/161279)byBertrandMeyer'sEiffel [[介绍一下契约编程]] 上古语法： 绿导师原谅你了 p5/Lect/index.md 132,45-31 64%
+
+317
+01:35:55,000 --> 01:36:00,000
+东西可能死了（LLM时代谁还用UML？）但设计时候的first principles一直指导我们 仙/-107老师 ##阅读UMLSpec 上大学的时候学过，感觉没学懂。（怀疑老师可能也不太懂。） 一依稀有一些模糊的印象 PhD时候也读了一些papers Kimi送了￥699的套餐，直接让AI备课，花去18%五小时额度 (~¥5.3) [](drop-school.webp) >796页规范从头到尾只在反复回答一个问题：* 哪些意图必须显式钉死，哪些可以留白* 它的全部设计都是对这个问题的回答。 sp "用语言的方法解决intent-spec-implgap” 如果你是从不“朝令夕改”的deterministic people，其实你不需要用UML 一（因为你的行为总是可重复） 但如果和别人（或者下一时刻的自己）对齐的时候，UML的 KEAOME.Md “语义对齐”就很重要了 [[后面全是AI生成的了。你先点评一下，发表你自已对UML 的理解和观点，配一个图刀 、图*模型：语义只有一个家，其余都是投影 绿导师原谅你了B p5/Lect/index.md 175,58-43 87%
+
+318
+01:36:00,000 --> 01:36:05,000
+阅读UMLSpec 仙丨-107老师 上大学的时候学过，感觉没学懂 （怀疑老师可能也不太懂。） 依稀有一些模糊的印象 PhD时候也读了一些papers oKimi送了￥699的套餐，直接让AI备课，，花去18%五小时额度（～￥5.3) 没有 token KEMOME.Md 的CS学生 应该 立即退学 绿导师原谅你了 1 /11
+
+319
+01:36:05,000 --> 01:36:20,000
+eza--git--group-directories-first --iconssauto 3.它会让你以为"做两遍"是余重算。不是一pilotmodel的价值 article areview AGENTS.md magazine 不是把同样的计算做两次，而是改变图的形状（消掉“到底哪个约 arxiv morning-paper scripts CLAUDE.md 仙1-107老师 束会bind"的不确定性）。它是果样，不是重算。 build reader spec 四、用你的框架重讲TDD，一句话 你既然不能删掉那条长程回边，剩下的唯一杠杆就是降低它的延迟。 于是做推测执行：提前猜测验证结果，用一次编辑就能回滚。 漂布=分支在流水线末增才发现误预测，代价是flush整个项目 TDD=把验证推测到写实现的同一分钟执行，误预测的代价是一次 diff. 这个类比比“文格即规格“更精确地解释了TDD为什么有效：它没有 减少依赖，只压缩了依赖的传播延迟。而它也和Royce的原始判据 先全同构一既然回溯代价正比于距高，那就把距离熔到。 Recap：把Royce读成依赖图+修改代价是第一性原理级的正确 读法（Fig.3是依费局部性假没、Fig.4是长程依额，五步建议部 是图变换），但要补三个补丁：图是被没计出来的（decision dependency/DSM)，存在图内推不出的外部 oracle（validation#verification)，代价系数由接口与文档 KEMOME.M 质量决定而非拓扑：由此TDD可重述为“不删长程依费，只把它改 造成延为一次diff的推测执行”。 绿导师原谅你了证 ~/Projects/readspace 个13k 17k R198k CH94.8% $0.025 2.8%/1.0M (auto) deepseek-fLas
+
+320
+01:36:20,000 --> 01:36:30,000
+An OMG@ Unified Modeling Language Publication 3．它会让你以为"做两遍"是允余重算。不是一pilotmodel的价值 不是把同样的计算做两次，而是改变图的形状（消掉“到底哪个约 仙-107老师 束会bind"的不确定性）。它是果样，不是重算。 四、用你的框架重讲TDD，一句话 你既然不能删掉那条长程回边，剩下的唯一杠杆就是降低它的延迟。 于是做推测执行：提前猜测验证结果，用一次编辑就能回滚。 -漂布=分支在流水线末增才发现误预测，代价是flush整个项目 TDD=把验证推测到写实现的同一分钟执行，误预测的代价是一次 OBJECT MANAGEMENT GROUP diff. 这个类比比“文格即规格“更精确地解释了TDD为什么有效：它没有 [OMG Logo -"OMG OBJECT MANAGEMENT GROUP" logo, teaU striped 减少依赖，只压缩了依赖的传播延迟。而它也和Royce的原始判据 lettering) 完全同构一既然回溯代价正比于距离，那就把距离缩到零。 Figure summary: OMG (object Management Group) logo - the letters"oMG"in teal striped block capitals with a Recap：把Royce读成依费图+修改代价是第一性原理级的正确 registered-trademark symbol, above the words"oBJECT 读法（Fig.3是依额局部性假设、Fig.4是长程依额，五步建议部 MANAGEMENT GROUP." 是图变换），但要补三个补丁：图是被设计出来的（decision dependency/DsM)、存在图内推不出的外部 oracle（validationverification)，代价系数由接口与文档 KEAOME.M 质量决定而非拓扑：由此TDD可重述为“不删长程依赖，只把它改 造成延为一次diff的推测执行”。 UNIFIED 绿导师原谅你了i ~/Projects/readspace 个13k ±17kR198k CH94.8%$0.025 2.8%/1.0M.(auto) UML-2.5.1.md1-30/597670% deepseek-flas
+
+321
+01:36:30,000 --> 01:36:35,000
+34 3．它会让你以为"做两遍"是允余重算。不是一pilotmodel的价值 不是把同样的计算做两次，而是改变图的形状（消掉“到底哪个约 7.5.5 仙1-107老师 束会bind"的不确定性）。它是果样，不是重算。 Examples. 四、用你的框架重讲TDD，一句话 你既然不能删掉那条长程回边，剩下的唯一杠杆就是降低它的延迟。 7.6 于是做推测执行：提前猜测验证结果，用一次编辑就能回滚。 Constraints. -漂布=分支在流水线末端才发现误预测，代价是flush整个项目 .35 TDD=把验证推测到写实现的同一分钟执行，误预测的代价是一次 7.6.1 diff. Summary 这个类比比“文档即规格“更精确地解释了TDD为什么有效：它没有 .35 减少依赖，只压缩了依赖的传播延迟。面它也和Royce的原始判据 完全同构一既然回溯代价正比于距离，那就把距离缩到零。 7.6.2Abstract Syntax. Recap：把Royce读成依赖图+修改代价是第一性原理级的正确 读法（Fig.3是依额局部性假设、Fig.4是长程依额，五步建议部 36 是图变换），但要补三个补丁：图是被设计出来的（decision dependency/DSM)，存在图内推不出的外部 7.6.3 oracle（validation#verification)，代价系数由接口与文档 Semantics. KEAOME. 质量决定而非拓扑：由此TDD可重述为“不删长程依赖，只把它改 造成延为一次diff的推测执行”。 .36 7.6.4 Notation. 绿导师原谅你了训 ~/Projects/readspace 个13k ±17kR198kCH94.8%$0.0252.8%/1.0M (auto) UML-2.5.1.md 301-330/59767 0% deepseekflas
+
+322
+01:36:35,000 --> 01:36:55,000
+阅读UMLSpec 仙丨-107老师 上大学的时候学过，感觉没学懂 （怀疑老师可能也不太懂。） 依稀有一些模糊的印象 oPhD时候也读了一些papers Kimi送了￥699的套餐，直接让AI备课，I花去18%五小时额度（～￥5.3) sop Kim 没有 token KEAOME. 的CS学生 应该 立即退学 绿导师原谅你了 1 /.11
+
+323
+01:36:55,000 --> 01:37:05,000
+里的代价不是纯重算：文档质量决定了一个变化是局部重算，还是 article review AGENTS.md magazine "junk the entire framework,even for relatively modest arxiv morning-paper CLAUDE.md scripts 仙丨-107老师 changes"。拓扑只给出可达集合，接口稳定性决定这次重算要付多少 build reader spec 钱。你的框架如果不区分这两者，会漏掉Royce一半的论点一他花 ./scripts/read-tui spec/UML-2.5.1.md 整整一节讲文档，讲的就是这个系数。 三、这个框架会误导你的地方 1，“最小化耦合“不是终点。耦合是功能的来源，你不能删边，只能 把边改道到稳定接口上。把“降低耦合”当成唯一目标，会得到一 堆什么都没做的模块。 2，有些修改不是重算，是重新该判。合同、验收、客户信任是不可 逆提交（irreversiblecommit）：它们不能在图上“重新求值"， 只能重新协商。Step5的那些评审里程碑之所以重要，正是固为 它们把不变量钉死在了合同层。 3，它会让你以为"做两遍“是允余重算。不是一pilotmodel的价值 不是把同样的计算做两次，而是改变图的形状（消掉“到底哪个约 束会bind"的不确定性）。它是采样，不是重算。 dos 四、用你的框架重讲TDD，一句话 你既然不能删掉那条长程回边，剩下的唯一杠杆就是降低它的延迟。 于是做推测执行：提前猜测验证结果，用一次编辑就能回滚。 KEAOME.M 漂布=分支在流水线末端才发现误预测，代价是flush整个项目 TDD=把验证推测到写实现的同一分钟执行，误预测的代价是一次 diff. 绿导师原谅你了BB证 这个类比比“文档即规格“更精确地解释了TDD为什么有效：它没有 减少依赖，只压缩了依赖的传播延迟。.而它也和Royce的原始判据
+
+324
+01:37:05,000 --> 01:38:50,000
+阅读UMLSpec 仙/-107老师 上大学的时候学过，感觉没学懂 （怀疑老师可能也不太懂。） 依稀有一些模糊的印象 PhD时候也读了一些papers Kimi送了?699的套餐，直接让AI备课，花去18%五小时额度（～￥5.3) Kim 没有 token KEAOME.M 的CS学生 应该 立即退学 绿导师原谅你 1 /11
+
+325
+01:38:50,000 --> 01:38:55,000
+15.8.32A_opperBoaed_objecto0e [Association]438 里的代价不是纯重算：文档质量决定了一个变化是局部重算，还是 "junk the entire framework,even for relatively modest 15.8.33A_varrable_3ctlvitv5copo[Associat1oo] $38 仙丨-107老师 changes"。拓扑只给出可达集合，接口稳定性决定这次重算要付多少 钱。你的框架如果不区分这两者，会漏掉Royce一半的论点一他花 15.8.34 A_weight_actiuityEdge[Association] 整整一节讲文档，讲的就是这个系数。 Table of Contests (cChapter in.-Actions) 三、这个框架会误导你的地方 15.A, tlqn5 1，“最小化耦合“不是终点。耦合是功能的来源，你不能删边，只能 把边改道到稳定接口上。把“降低耦合当成唯一目标，会得到一 441 堆什么都没做的模块。 2，有些修改不是重算，是重新淡判。合同、验收、客户信任是不可 15.1 Summary KEMOME.M 逆提交（irreversiblecommit）：它们不能在图上重新求值"， 只能重新协商。Step5的那些评审里程碑之所以重要，正是因为 461 它们把不变量打死在了合同层。 3，它会让你以为"做两遍"是完余重算。不是一pilotmodel的价值 16.2Actions 不是把同样的计算做两次，而是改变图的形状（消掉“到底哪个约 束会bind"的不确定性）。它是采样，不是重算。 四、用你的框架重讲TDD，一句话 16.2.1 Sotutary 你既然不能删掉那条长程回边，剩下的唯一杠杆就是降低它的延迟。 于是做推测执行：提前猜测验证结果，用一次编辑就能回滚。 16.2.2 Ahstract. Syntox 漂布=分支在流水线末端才发现误预测，代价是flush整个项目 442 TDD=把验证推测到写实现的间一分钟执行，误预测的代价是一次 diff. 16.2.3 Semantics 绿导师原谅你了BiBi 这个类比比“文档即规格“更精确地解释了TDD为什么有效：它没有 1651-1680/59767 2% UML-2.5.1.md 减少依赖，只压缩了依赖的传播延迟。而它也和Royce的原始判据
+
+326
+01:38:55,000 --> 01:39:15,000
+阅读UMLSpec 仙1-107老师 上大学的时候学过，感觉没学懂 （怀疑老师可能也不太懂。） 依稀有一些模糊的印象 KEMOE.mdl oPhD时候也读了一些papers 0Kimi送了￥699的套餐，直接让AI备课，花去18%五小时额度（～￥5.3） Kim 没有 token 的CS学生 应该 立即退学 绿导师原谅你了证 1 (.11
+
+327
+01:39:15,000 --> 01:39:50,000
+哪些意图必须显式钉死，哪些可以留白 仙1-107老师 用语言的方法解决Intent-Spec-ImplGap 796页规范从头到尾只在反复回答一个问题：哪些意图必须显式钉死，哪些可以留白。它的全部设计都 是对这个问题的回答。 KEMOME.Md 和别人，或者下一时刻的自己对齐 如果你是从不“朝令夕改”的deterministicpeople，其实你不需要用UML Feah 因为你的行为总是可重复 但如果要和别人，或者下一时刻的自已对齐，UML的“语义对齐”就很重要了 稳定性解决自己会不会变：显式表达解决别人能不能知道。 绿导师原谅你了诚 2 /11
+
+328
+01:39:50,000 --> 01:39:55,000
+一、图模型 山-107老师 语义只有一个家，其余都是投影 dos 图、文本、表格是底层模型的不同视图：一张图可以省略很多东西 图上没画多重性，不得据此推断模型的多重性 KEMOME.M ，多视图各自演化，就会漂移：让意义收敛到共同的语义基座 凡需跨工具、跨时间存活的意图，必须落成显式数据 UML规范自身：所附机器可读XMI定义与正文冲突时，以机器可读定义为准。@（UML2.5.1，S2） 连图的布局也有模型：UMLDI让图的呈现信息能够交换 只交付截图，就失去了稳定的模型元素身份：改了一处，也难以知道哪些视图受影响。 绿导师原谅你了山 5 / 11
+
+329
+01:39:55,000 --> 01:40:00,000
+顺序也必须有语义边界 仙丨-107老师 从“并发是默认”理解欠规约 模型要陈述哪些顺序必须成立：不能把纸面位置当作全部执行顺序 具体到交互图，seq是弱序：保留各操作数内部顺序，也保留同一生命线上跨操作数的先后。 KEMOME.M 不同生命线上的事件，可以在不违反已有约束的前提下交错。 少画一条依赖，多留下哪些执行？ 短信服务的通知写在上面，仓库服务的备货写在下面，不足以要求“通知结束后才能备货”。 “并发默认”是提醒我们检查隐含顺序：不同UML行为构造仍有各自的规则。 绿导师原谅你了小山 3 / 11:
+

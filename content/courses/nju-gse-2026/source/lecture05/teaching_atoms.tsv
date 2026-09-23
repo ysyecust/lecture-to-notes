@@ -1,0 +1,48 @@
+atom	status	evidence
+Typesafe AI 的 Jev：System I 实时决策、prefill only 猜测、100/50 毫秒决策打开的赛道	ok	§1.1 + fig_01
+AI 进化时间线（1956 → 97 深蓝 → 2012 AlexNet → 2016 → 2017 → 2020 GPT-3 → 2022.11 ChatGPT → 2024 Sora → R1）	ok	§1.2 + fig_02
+Noam Brown：90%/10%、Taste 是短板、reward hacking、可验证 vs 不可验证与形式化 gap	ok	§1.3 + fig_03 + knowledgebox
+The Bitter Lesson 与 OpenAI All in RSI；数据分布工程三问与 DoReMi	ok	§2.1 + fig_04
+两种 Scaling Law：更多数据 vs 更多领域；人与模型学习顺序相反；新领域所需数据更少（猜测）	ok	§2.2 + knowledgebox
+数据分布工程飞轮五步与可训练领域（空间变换/系统架构/主动实验及其验证方式）	ok	§2.3 + fig_05 + fig_06
+对学术界 peer review 体系与“斩杀线”的判断（标注为讲者推断）	ok	§2.4 + warningbox
+intent/spec/impl 三层与版本管理回顾	ok	§3.1 + fig_07
+今天的答案：MVP 的理由（做少错少、AI 生成原型便宜、暴露 intent/spec 问题）	ok	§3.2 + fig_08
+Office Assistant 演示：屏蔽自带软件、GLM-5.3、5 小时额度	ok	§3.3 + fig_09
+设备抽象 scan/print 接口让设计与实现解耦	ok	§3.3 importantbox
+Agent 梳理的两台设备驱动通路（usblp/lpN vs libusb/SANE，udev 0666）	ok	表 tab:devices + fig_10
+可验收结果与闭环调参（热转印浓度、第 15 次尝试、摄像头可替代人）	ok	§3.4 + fig_11
+label-print 工具：60x30 mm、--density 18、Floyd-Steinberg vs Otsu	ok	lstlisting + fig_12
+软件公司消亡判断：驱动成本、豆包手机把 APP 抽象为接口、下一个实验与电子墨水屏逆向	ok	§3.5 + knowledgebox
+1960s 昂贵的码农与硬件、流程图与机器代码	ok	§4.1 + fig_14
+把客户需求翻译成软件：码农缺软技能、客户不懂计算机、1000 万美元合同、Dijkstra 1957 登记职业	ok	§4.2 + knowledgebox
+1968 Boys' Life 明日学校：愿景与汇编之间的 gap	ok	§4.3 + fig_15
+课件由 AI Copilot 生成，[[ ]] 为给 AI 的指令	ok	§4.3 + fig_16
+软件工程与其他工程的区别：需求高度定制化；选课系统的例外规则	ok	§4.4 + fig_17 + importantbox
+Software Crisis：进度、成本、质量一起失控	ok	§5.1 + fig_18
+Go To Statement Considered Harmful：暴论的真实关切与 Linux goto 清理惯用法	ok	§5.2 + lstlisting + warningbox
+The Humble Programmer：OJ 程序不会危机，机器越强 intent 越多；nicely factored solutions；保守力量	ok	§5.3
+1968 NATO Garmisch 会议、刻意挑衅的名称、“危机”也有争议	ok	§6.1 + fig_19
+Apollo 与 Hamilton：1201/1202 警报、优先级与恢复机制、Forget It、Lauren bug	ok	§6.2 + fig_20 + fig_21
+the never-going-to-happen can happen 与防御性编程、OJ 默认题目正确的隐藏假设	ok	§6.2 importantbox
+IEEE 定义：系统化、有纪律、可量化；checklist 取代个人英雄主义	ok	§6.3 + fig_22
+pre-LLM：leader 必须划分任务；同一 intent 三种理解	ok	§7.1 + fig_23
+Royce 1970 论文背景与“瀑布假设”	ok	§7.2 + fig_24
+Royce Figure 1（两步 = OJ 程序）与 Figure 2（七阶段）	ok	§7.3 + fig_25 + fig_26
+测试是第一个物理事件；文档无强约束；代价沿依赖向上	ok	§7.4 + fig_30
+Do It Twice / preliminary pilot program 与 MVP、敏捷的异同；Figure 10	ok	§7.5 + fig_31 + fig_28
+瀑布模型被误读：原文是批判瀑布的	ok	§7.5 warningbox
+AI 阅读助手与知识压缩：教科书有损压缩 vs 按需压缩；101 计划判断	ok	§8.1–8.2 + fig_27
+读经典的方法：带着今天的经验回到当年的问题	ok	§8.3 + fig_34
+瀑布模型就是数据依赖图：每阶段是程序、返工代价、OJ 例子	ok	§9.1 + fig_32 + importantbox
+BFS vs DFS：瀑布、MVP/Pilot、敏捷三种反馈路径	ok	§9.2 + fig_33 + 表 tab:flows
+TDD：拿 testcase 当需求与设计；Royce 建议与 TDD 映射（1500 页规格、月→秒）	ok	§9.3 + fig_29 + 表 tab:royce-tdd
+为每个阶段创建方法与工具：checklist 的作用、bad smell 与 GPT-6 代码	ok	§10.1 + fig_35
+不同阶段不同语言；文档的缺点；checklist 是中间语言；形式化程度沿阶段递增	ok	§10.2 + warningbox
+决策表、QuickCheck、需求追踪矩阵及其例子	ok	§10.3 + fig_36 + 表 tab:methods
+traceability 与文件系统视角（板书）；2500 并发 DeepSeek 与管理 mindset	ok	§10.4 + fig_37
+Design by Contract：前置/后置条件、类不变量、取款例子	ok	§11.1 + 公式 (1)–(4) + fig_38
+Eiffel require/do/ensure；Dafny、Verus；30 年预言与 10–15 年修正	ok	§11.2 + lstlisting + fig_39 + importantbox
+UML：语义对齐、latent space 与数学语言、类图与顺序图、UML 已死	ok	§11.3 + fig_40 + warningbox
+让 AI 读 UML 规范：SubAgent 每人 50 页、¥699 套餐、18% 五小时额度约 ¥5.3、学习成本不平等	ok	§11.4 + fig_41
+796 页规范回答哪些意图必须钉死；和下一时刻的自己对齐；图≠模型	ok	§11.5 + fig_42 + fig_43
