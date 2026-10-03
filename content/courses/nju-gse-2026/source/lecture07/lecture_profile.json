@@ -1,0 +1,10 @@
+{
+  "mode": "technical-slide",
+  "audience": "具备基础编程知识的初次阅读者",
+  "central_question": "需求不断变化时，架构怎样通过抽象、组合和显式依赖控制复杂性？",
+  "reader_outcome": "能区分本质与附带复杂性，评估架构的变化边界，并解释 MVC、响应式界面与事件溯源怎样处理状态与依赖",
+  "visual_teaching_atoms": 38,
+  "formula_teaching_atoms": 3,
+  "vision": "yes",
+  "source_notes": "Slides and live code/model demonstrations carry the argument; no usable caption track. Local ASR cross-checked with slides. OCR detection falsely classified slide text as hardsubs."
+}

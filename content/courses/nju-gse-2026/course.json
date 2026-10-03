@@ -419,6 +419,71 @@
           "figures/fig_40_cqrs.jpg": "23add68331794bb283a26be35c450e29868ef8a5955787f98fdfe922fc5ed38d"
         }
       }
+    },
+    {
+      "file": "nju_gse_2026_07_requirements_architecture_2_zh.pdf",
+      "title": "第 7 讲：需求和架构（二）",
+      "order": 7,
+      "expected_pages": 41,
+      "duration_minutes": 100,
+      "instructor": "蒋炎岩",
+      "source_url": "https://www.bilibili.com/video/BV1JGap6LE74/",
+      "source_label": "B站",
+      "meta": "蒋炎岩 · 100min · 41页",
+      "web_source": {
+        "tex": "source/lecture07/notes.tex",
+        "sha256": "eae3e5a7b9a18509da2ffd70196f6df3c33df64fc0328947adab79dff5873804",
+        "pdf_sha256": "b9c438ff9555895a4de5ce04fcf72872eba35a29ef6d743ba817d004f0206f17",
+        "expected": {
+          "chapters": 10,
+          "figures": 38,
+          "images": 38,
+          "callouts": 17,
+          "tables": 3,
+          "math": 16,
+          "time_tokens": 76
+        },
+        "resources": {
+          "figures/fig_01_intent_spec_impl.jpg": "ec95af9b354973b60471005efce99bf9580cabd0946caf8e6b2bfc0891ce5e35",
+          "figures/fig_02_architecture_everywhere.jpg": "ea6c5f1404dd045bc4e3c50be34318a891140e1c4f0a0f58bf7cb8634c6e65a5",
+          "figures/fig_03_essential_accidental.jpg": "038434b518164dfdca10f5bd020ed45880898892303a61b18a4ccb4c9dd6ce3f",
+          "figures/fig_04_requirements_uncertainty.jpg": "be3c337c82f14007f643709c10eaae1511b9364af9371f321f563440daa7fa44",
+          "figures/fig_05_architecture_boundaries.jpg": "a66c5c62c656a137dc06baef65d154b6d784f2d164c63c820760266233256c4e",
+          "figures/fig_06_small_head.jpg": "b4788f61bfa2c5b1de74e86d03b359bc3f0171668b2d6a08fb14f3c868783267",
+          "figures/fig_07_mental_aids.jpg": "974541e7ada31200968796a70baa7244d80c78ab09051ca1fdf46e603ff77bd6",
+          "figures/fig_08_hierarchical_coroutine.jpg": "4051cd363496f1d0ad5aedb363716f91c7ca8d5f46d016201bdb2dd9af2342f0",
+          "figures/fig_09_concept_hierarchy.jpg": "11551b454fbbb53623d9db156ff7eb640b03943443761bdfcaaa5fc48b52488d",
+          "figures/fig_10_steele_naming.jpg": "edf2bda1311dcc1666a8796f7d0a04c5df5407a7c4cfd5c19f76f21da7f3ac2b",
+          "figures/fig_11_design_taste.jpg": "8d4514e30a17484e26c3164512d578bf25ba7effaa413800fc6d9e52f943f749",
+          "figures/fig_12_unix_philosophy.jpg": "4c393212ab6149acfbbf4cbc6bb52acf3c15c29c7bb9632b4de38ea07fd06a7e",
+          "figures/fig_13_posix_contract.jpg": "e7e515cd8edfac377dcad2ba703237bf1cac90cd9adec6ab8098eddf18a8ff77",
+          "figures/fig_14_unix_composition.jpg": "285dc5f3e3ca1383e8036e2fc890c37a766b2ac645ced046bd677c4b9a91989e",
+          "figures/fig_15_file_picker.jpg": "5c53e2aaf96cef6a2ddb8d5a560e99c703e892fa2e05beccd3c743f8123e1bda",
+          "figures/fig_16_relational_model.jpg": "18e51c57176dab35f9867de2252f180abf4eb2b0689edb203f1311ba1d368cd4",
+          "figures/fig_17_library_relationships.jpg": "59cdaedb6ea57a61d7588854c65c511b0ed5e0c2be7ebb0e870d6d90f7827dcb",
+          "figures/fig_18_tcp_ip_layers.jpg": "a8742d658ab7e6fc42e87a231a038c5870c256b521f1a6d4a7bc7fabb13d68f5",
+          "figures/fig_19_internet_evolution.jpg": "860a58d8b5b9907c9b4658c859349823fd329ffd20a2784eab92d5dfad88efd1",
+          "figures/fig_20_systems_waves.jpg": "91800ac44d92fc3b9c23033ca19b652e436b4759e833f8ae05fbe6d83c162d74",
+          "figures/fig_21_page_transaction.jpg": "f31b56804328af683e0fa017357c8013bf5bdaa3ea13d9b146b4ac6dff9b6b39",
+          "figures/fig_22_java_templates.jpg": "66d7c3844f2e51132dbc81f08eaa6f86f8133f38158f422aa009846438e81d7e",
+          "figures/fig_23_jsp_syntax.jpg": "9d9d8d00838350ca61b301f46c7b5257a38ed0b9a87efe0a7bbbded897c34247",
+          "figures/fig_24_mvc_roles.jpg": "7b383eec0cf0e0c8da4090b8b5ddb88d2390a383eb5a553263dfc61a025bd0b0",
+          "figures/fig_25_mvc_enrollment.jpg": "61551e310d00d130912545fa0204cb7aebaf1ec85ea4dcc540574cd4696e5e54",
+          "figures/fig_26_view_state.jpg": "8a94c1cdacadb4407babfd8808e68b6ddb95750f6086c9e636c41353e1869832",
+          "figures/fig_27_react_snapshot.jpg": "42c65583f2fa0545f9e24a2381b4258ae32fcc68f5d7ab60b195f62085ecb733",
+          "figures/fig_28_vue_binding.jpg": "859a064094c342d023d5f255c14c3cc2cb075747f6e4f040126ef91b9f7d71a7",
+          "figures/fig_29_vue_react_comparison.jpg": "16a5431f1b823d9682a843b544c9ac5c73768d71a5ea94ae78ca88f9e4aae644",
+          "figures/fig_30_long_workflow.jpg": "84a696b90397292328e41f0fa0b671e6e76cb807c940ee3f5a814f4c0a7d126e",
+          "figures/fig_31_ledger_compiler.jpg": "52038ab17bbc076e939e3960158b6f004116703184974b27be400b32c424f26f",
+          "figures/fig_32_ledger_rules.jpg": "376384456068e166ecfcda2cb7affc3a467f0869f983e2b133497df7aa09cc88",
+          "figures/fig_33_ledger_results.jpg": "618099c2582b81ecc585f25e693fed52ea43fa895a6eddeaec449c27563986fc",
+          "figures/fig_34_past_present_future.jpg": "ce1f9433ae1e36f94f0a074d58ae131440cb791860d0701a65c41a4167e68e3b",
+          "figures/fig_35_event_sourcing.jpg": "15ca62cb5bf4d70939b5ad9c11d003a492b933a52795765d03e40d8fdcc55578",
+          "figures/fig_36_education_dependencies.jpg": "e3a80075044205eb3d27f345386794035099a22a44be2894edfdbafa6f399ce2",
+          "figures/fig_37_sql_dependency_critique.jpg": "6244be70613eb6b0bd64b23456468af26d5cbbdea261b045552d3d0603ec5f42",
+          "figures/fig_38_computation_correctness.jpg": "0e63caaf79d075d12f3233552caa3f80b71b412add409c3f08d90abe5f8892c9"
+        }
+      }
     }
   ]
 }

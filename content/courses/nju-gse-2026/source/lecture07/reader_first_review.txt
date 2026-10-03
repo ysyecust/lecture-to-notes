@@ -1,0 +1,7 @@
+Structure: prerequisite concepts precede case mechanisms; each of 10 sections answers a reader question and ends in 本章小结.
+Argument: paragraphs explain mechanism/evidence/boundary; source numbers are placed next to the interpretation.
+Source voice: lecturer judgments, hypothetical cases and note synthesis remain attributed; no claims of verified accounting compliance.
+Terminology: Chinese meanings precede terms; stable usage for essential/accidental complexity, derived state and event sourcing.
+Flow: transcript fillers and repeated oral transitions removed.
+Evidence: all 38 figures inspected at panel resolution and aligned to subtitles; 32 audited numerical claims. OCR terminal/UI noise retained separately, excluded with rationale.
+Rendered reading: opening, chapter entries and conclusions, captions, final synthesis checked in rendered_notes.txt; all 41 pages visually reviewed including final revisions.

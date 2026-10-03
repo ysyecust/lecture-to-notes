@@ -1,0 +1,17 @@
+start	end	evidence
+0:00	14:16	sec:complexity
+14:16	21:50	sec:abstraction 有限注意力、AI带读
+21:50	27:00	sec:abstraction 对象协程
+27:00	34:00	sec:abstraction 动态规划、概念层次、原文核对
+34:00	40:00	sec:growth 命名与生长语言
+40:00	49:20	sec:growth 扩展、组合、设计判断
+49:20	55:00	sec:unix
+55:00	59:00	sec:systems 关系模型
+59:00	64:20	sec:systems Internet、抽象层
+64:20	70:50	sec:mvc 页面事务与模板
+70:50	74:40	sec:mvc、sec:ui MVC与ViewState
+74:40	79:00	sec:ui React、Vue、派生状态
+79:00	84:40	sec:ledger 长流程和复式记账
+84:40	90:00	sec:ledger 编译器动作、代码及报表
+90:00	94:00	sec:events 时间分离、成绩变化依赖
+94:00	99:41	sec:events、sec:summary 推演、版本、SQL批评与边界

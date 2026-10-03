@@ -1,0 +1,53 @@
+atom	status	evidence
+意图、规约和实现中的开放选择	ok	图1 figures/fig_01_intent_spec_impl.jpg 视频00:00:22
+从十行程序到教务系统的架构	ok	图2 figures/fig_02_architecture_everywhere.jpg 视频00:01:07
+本质复杂性与附带复杂性	ok	图3 figures/fig_03_essential_accidental.jpg 视频00:03:37
+需求澄清与约束维护的代价	ok	图4 figures/fig_04_requirements_uncertainty.jpg 视频00:06:07
+分解复杂性并限制实现组合	ok	图5 figures/fig_05_architecture_boundaries.jpg 视频00:11:37
+有限注意力与程序层次	ok	图6 figures/fig_06_small_head.jpg 视频00:14:37
+枚举归纳抽象与珍珠项链	ok	图7 figures/fig_07_mental_aids.jpg 视频00:21:07
+对象抽象与协程控制流解耦	ok	图8 figures/fig_08_hierarchical_coroutine.jpg 视频00:24:37
+TWLIST到MINISIM再到车间模型	ok	图9 figures/fig_09_concept_hierarchy.jpg 视频00:33:37
+命名、语言与Steele的设计工作	ok	图10 figures/fig_10_steele_naming.jpg 视频00:34:37
+从经典中建立可组合设计的判断	ok	图11 figures/fig_11_design_taste.jpg 视频00:48:07
+UNIX用文本接口连接程序与人	ok	图12 figures/fig_12_unix_philosophy.jpg 视频00:49:37
+通道退出状态与数据格式的公共约定	ok	图13 figures/fig_13_posix_contract.jpg 视频00:51:37
+jq fzf xdotool组合出新的用途	ok	图14 figures/fig_14_unix_composition.jpg 视频00:52:37
+课堂演示可组合的文件选择菜单	ok	图15 figures/fig_15_file_picker.jpg 视频00:54:07
+逻辑关系与物理表示的分离	ok	图16 figures/fig_16_relational_model.jpg 视频00:56:07
+读者图书借阅关系与存储布局	ok	图17 figures/fig_17_library_relationships.jpg 视频00:58:07
+手机到数据中心的分层传输	ok	图18 figures/fig_18_tcp_ip_layers.jpg 视频00:59:07
+网络基础与应用的独立演化	ok	图19 figures/fig_19_internet_evolution.jpg 视频01:02:37
+通用系统的抽象层与技术浪潮	ok	图20 figures/fig_20_systems_waves.jpg 视频01:04:07
+页面事务模式与规则重复	ok	图21 figures/fig_21_page_transaction.jpg 视频01:05:37
+HTML模板与服务端代码的关系	ok	图22 figures/fig_22_java_templates.jpg 视频01:07:07
+JSP脚本表达式与标签的展示机制	ok	图23 figures/fig_23_jsp_syntax.jpg 视频01:10:07
+MVC中的业务规则展示和输入职责	ok	图24 figures/fig_24_mvc_roles.jpg 视频01:12:37
+一次选课请求经过MVC的路径	ok	图25 figures/fig_25_mvc_enrollment.jpg 视频01:13:07
+界面状态独立于业务持久化	ok	图26 figures/fig_26_view_state.jpg 视频01:14:07
+React用状态快照描述界面	ok	图27 figures/fig_27_react_snapshot.jpg 视频01:15:37
+Vue声明状态与输入的绑定	ok	图28 figures/fig_28_vue_binding.jpg 视频01:17:37
+课程筛选框的两种更新模型	ok	图29 figures/fig_29_vue_react_comparison.jpg 视频01:18:37
+MVC不能消除长流程的领域复杂性	ok	图30 figures/fig_30_long_workflow.jpg 视频01:20:07
+原始凭证到受约束记账动作	ok	图31 figures/fig_31_ledger_compiler.jpg 视频01:24:37
+记账动作共同影响多个报表项目	ok	图32 figures/fig_32_ledger_rules.jpg 视频01:27:07
+75元费用与22.07元收入的报表结果	ok	图33 figures/fig_33_ledger_results.jpg 视频01:29:37
+当前状态揉合过去现在与未来	ok	图34 figures/fig_34_past_present_future.jpg 视频01:31:37
+事件事实计算视图和预期的分离	ok	图35 figures/fig_35_event_sourcing.jpg 视频01:34:07
+成绩课程学分毕业结论的依赖	ok	图36 figures/fig_36_education_dependencies.jpg 视频01:36:37
+讲者对跨层计算依赖的批评	ok	图37 figures/fig_37_sql_dependency_critique.jpg 视频01:38:07
+保存事实并重算可检查的派生状态	ok	图38 figures/fig_38_computation_correctness.jpg 视频01:39:37
+登录选择引出注册与找回密码需求	ok	sec:complexity 06:00--10:30
+文件系统与数据库事务的取舍	ok	sec:complexity 03:50--05:10
+MVP深度验证与广度决策比较	ok	sec:complexity 08:16--10:30
+动态规划状态意义和转移可观察性	ok	sec:abstraction 27:05--30:35
+hold activate simulate离散事件抽象	ok	sec:abstraction 30:40--31:20
+AI带读回到原文页码与机制证据	ok	sec:abstraction 16:30--19:30、24:40--34:00
+极简语言表达成本与qsort参数关系	ok	sec:growth 38:25--41:40
+原语扩展与组合机制	ok	sec:growth 42:20--46:40
+模板与提示词表达的类比	ok	sec:mvc 67:20--68:55
+工资确认费用与付款分离	ok	sec:ledger 84:40--89:10
+模型编译动作仍需人工审查	ok	sec:ledger 87:00--89:40、93:00--93:25
+规则版本和外部输入的历史复现	ok	sec:events 97:00--97:55
+重放隔离付款副作用	ok	sec:events 课件最后一页
+未来情境推演依赖额外假设	ok	sec:events 94:35--95:40
