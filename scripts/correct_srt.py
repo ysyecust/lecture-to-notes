@@ -39,6 +39,8 @@ def parse_srt(content: str) -> list[dict]:
                     "text": "\n".join(lines[2:]),
                 }
             )
+        elif block.strip():
+            raise ValueError("incomplete SRT block: expected index, timestamp, and text")
     return entries
 
 
@@ -81,7 +83,12 @@ def main():
     glossary = json.loads(Path(args.glossary).read_text(encoding="utf-8"))
 
     content = inp.read_text(encoding="utf-8")
-    entries = parse_srt(content)
+    try:
+        entries = parse_srt(content)
+    except ValueError as error:
+        p.error(str(error))
+    if not entries:
+        p.error("no subtitle entries found in input SRT; output was not written")
 
     total = 0
     for e in entries:
