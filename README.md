@@ -189,3 +189,13 @@ python3 scripts/clean_artifacts.py <workdir> --drop-tex   # 连同 notes.tex 与
 
 - 感谢 [Stefan0219/llm-note-generator](https://github.com/Stefan0219/llm-note-generator) 与 [wdkns/wdkns-skills](https://github.com/wdkns/wdkns-skills) 提供的早期思路启发。
 - 本项目采用 [GPL-3.0](LICENSE) 许可证。
+
+## Star History
+
+<a href="https://www.star-history.com/#ysyecust/lecture-to-notes&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=ysyecust/lecture-to-notes&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=ysyecust/lecture-to-notes&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=ysyecust/lecture-to-notes&type=Date" width="100%" />
+  </picture>
+</a>
