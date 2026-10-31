@@ -129,6 +129,18 @@ npm run test:e2e                  # Playwright 桌面与移动端阅读流程测
 PYTHONPATH=. python3 -m unittest discover -s tests -v
 ```
 
+### 3. 清理工作目录（可选）
+
+完成生成后，可使用 `scripts/clean_artifacts.py` 按白名单清理抽帧、字幕、日志等中间产物，仅保留成品（`*.pdf`、`*.md`、被引用的配图及默认保留的 `notes.tex` 与 `figures/`）：
+
+```bash
+python3 scripts/clean_artifacts.py                        # 扫描 content/courses，仅报告不删除
+python3 scripts/clean_artifacts.py <workdir> --dry-run    # 查看指定工作目录的待清理清单
+python3 scripts/clean_artifacts.py <workdir>              # 直接清理指定工作目录
+python3 scripts/clean_artifacts.py <workdir> --only-md    # 仅保留 *.md 与 assets/
+python3 scripts/clean_artifacts.py <workdir> --drop-tex   # 连同 notes.tex 与 figures/ 一并清理
+```
+
 版本发布流程见 [docs/releasing.md](docs/releasing.md)。
 
 ## 仓库结构
@@ -159,6 +171,7 @@ PYTHONPATH=. python3 -m unittest discover -s tests -v
 │   ├── verify_figures.py       # 配图时间戳 × 字幕 × 画面三方核对
 │   ├── extract_claims.py       # 字幕/OCR 数值提取与讲义核对
 │   ├── verify_notes.py         # 交付门禁（篇幅密度、产物完整性、编译日志、图注同页）
+│   ├── clean_artifacts.py      # 工作目录中间产物白名单清理工具
 │   ├── web_notes.py            # notes.tex → 网页正文转换与哈希/计数校验
 │   ├── build_site.py           # 静态站点构建（配合 site_catalog.py 与 pdf_inspector.py）
 │   └── install_skill.sh        # 安装 Skill 到本地 Agent 目录

@@ -963,6 +963,10 @@ high density counts do not compensate for transcript-like, repetitive, or inflat
 - [ ] X/Twitter SRT health result and 10% / 50% / 90% semantic samples (if X captions were used)
 - [ ] Absolute paths of PDF and workdir listed for the user
 
+## 清理工作目录
+
+交付后可用仓库里的 `clean_artifacts.py`（与其余 helper 同一目录；按本 skill 的约定写成绝对路径）先看清单，再加 `--apply` 真删：保留 `notes.pdf`、`notes.tex`、`figures/`、Markdown 及其引用的图片（`notes.tex` 是网页正文与重编译的源，默认就留；只有显式加 `--drop-tex` 才删），其余中间产物按白名单删除。
+
 ## Assets
 
 - `/ABSOLUTE/PATH/TO/lecture-to-notes/assets/notes-template.tex`: LaTeX template
