@@ -21,11 +21,28 @@ test('searches the catalog and opens a course', async ({page, request}, testInfo
 
   await page.goto('/index.html');
   await expect(page.getByRole('heading', {name: '课程资料', exact: true})).toBeVisible();
+  await expect(page.locator('.course-group-header')).toHaveCount(2);
+  await page.screenshot({
+    path: `${REVIEW_DIR}/${testInfo.project.name}-home.png`,
+    fullPage: true,
+  });
+
+  await page.locator('.filter-chip[data-filter="university"]').click();
+  await expect(page.locator('.course-card')).toHaveCount(
+    data.courses.filter(candidate => candidate.featured).length,
+  );
+  await page.locator('.filter-chip[data-filter="all"]').click();
+
   await page.getByRole('searchbox').fill('Tokenization');
   await expect(page.getByText('找到 1 门匹配课程')).toBeVisible();
+  await expect(page.locator('#search-lectures .search-lecture-row')).toHaveCount(1);
   await page.getByRole('link', {name: `查看讲义：${course.title}`}).click();
   await expect(page.getByRole('heading', {name: course.title, level: 2})).toBeFocused();
   await expect(page.getByRole('heading', {name: lecture.title})).toBeVisible();
+  await expect(page.locator('.course-bundles-callout')).toBeVisible();
+  await page.getByLabel('筛选本课讲次').fill('Tokenization');
+  await expect(page.locator('#course-detail .item-row:visible')).toHaveCount(1);
+  await page.getByLabel('筛选本课讲次').fill('');
 
   await page.screenshot({
     path: `${REVIEW_DIR}/${testInfo.project.name}-course.png`,

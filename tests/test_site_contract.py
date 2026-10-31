@@ -21,6 +21,8 @@ class SiteContractTests(unittest.TestCase):
             'class="skip-link"',
             '<nav class="nav-shell"',
             'label for="course-search"',
+            'id="course-filters"',
+            'id="search-lectures"',
             'id="course-grid"',
             'id="course-detail"',
             'id="empty-state"',

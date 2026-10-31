@@ -82,7 +82,7 @@ scripts/install_skill.sh --all      # 以上三处同时安装
 
 ## 课程资料库与在线阅读
 
-[在线课程库](https://blog.simona.plus/lecture-to-notes/)收录了多门公开课的中文讲义与论文解读（包括 Stanford CS336、CMU 15-418/618《并行计算机架构与编程》、CMU 11-768 AI Agents、南京大学《生成式软件工程》与《操作系统》等，当前共 10 门课程、105 份讲义、3,600 页）。
+[在线课程库](https://blog.simona.plus/lecture-to-notes/)收录了多门公开课的中文讲义与论文解读（包括 Stanford CS336、CMU 15-418/618《并行计算机架构与编程》、CMU 11-768 AI Agents、南京大学《生成式软件工程》与《操作系统》等，当前共 9 门课程与专题、101 讲、2,451 页正课讲义）。
 
 <img src="docs/assets/readme/reading.webp" alt="课程资料首页、桌面端网页阅读、手机端网页阅读" width="100%">
 

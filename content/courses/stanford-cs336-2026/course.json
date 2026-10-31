@@ -1,16 +1,14 @@
 {
   "id": "stanford-cs336-2026",
-  "title": "Stanford CS336: Language Modeling from Scratch",
-  "institution": "Stanford University",
-  "term": "Spring 2026",
+  "title": "从零构建语言模型（CS336: Language Modeling from Scratch）",
+  "institution": "斯坦福大学",
+  "term": "2026 春季学期（CS336）",
   "description": "Stanford CS336 Spring 2026 全 18 讲中文精讲笔记，结合课程视频、官方讲义或代码、逐图时间证据与可复现公式。",
   "tags": [
-    "language modeling",
-    "transformers",
-    "systems",
-    "training",
-    "evaluation",
-    "multimodality"
+    "语言模型",
+    "Transformer",
+    "训练系统",
+    "推理与对齐"
   ],
   "source_url": "https://cs336.stanford.edu/",
   "playlist_url": "https://www.youtube.com/playlist?list=PLoROMvodv4rMqXOcazWaTUHhq-yembLCV",

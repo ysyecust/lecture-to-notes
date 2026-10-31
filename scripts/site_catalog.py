@@ -117,6 +117,8 @@ def inspect_course(
     course_source = _https_or_empty(
         str(manifest.get("source_url", "")), "course source_url"
     )
+    lecture_records = [item for item in records if item["kind"] != "bundle"] or records
+    bundle_records = [item for item in records if item["kind"] == "bundle"]
     course = {
         "id": course_id,
         "title": str(manifest["title"]),
@@ -128,7 +130,9 @@ def inspect_course(
         "featured": bool(manifest.get("featured", False)),
         "item_ids": [str(item["id"]) for item in records],
         "item_count": len(records),
-        "page_count": sum(int(item["pages"]) for item in records),
+        "lecture_count": len(lecture_records),
+        "bundle_count": len(bundle_records),
+        "page_count": sum(int(item["pages"]) for item in lecture_records),
     }
     return course, records
 
@@ -172,6 +176,8 @@ def inspect_inbox(
         "featured": False,
         "item_ids": [str(item["id"]) for item in records],
         "item_count": len(records),
+        "lecture_count": len(records),
+        "bundle_count": 0,
         "page_count": sum(int(item["pages"]) for item in records),
     }
     return course, records
@@ -268,6 +274,7 @@ def build_catalog(
     courses.sort(
         key=lambda course: (
             not bool(course["featured"]),
+            -int(course["item_count"]),
             str(course["title"]).casefold(),
         )
     )
@@ -287,13 +294,14 @@ def build_catalog(
             f"warning: source PDFs total {pdf_bytes} bytes; repository split review required",
             file=sys.stderr,
         )
+    non_bundle_items = [item for item in items if item["kind"] != "bundle"] or items
     catalog: dict[str, object] = {
         "schema_version": 1,
         "generated_at": generated_at,
         "stats": {
-            "lecture_count": len(items),
+            "lecture_count": len(non_bundle_items),
             "paper_count": len(papers),
-            "page_count": sum(int(item["pages"]) for item in items),
+            "page_count": sum(int(item["pages"]) for item in non_bundle_items),
             "course_count": len(courses),
             "pdf_bytes": pdf_bytes,
         },

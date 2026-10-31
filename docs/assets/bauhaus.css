@@ -59,28 +59,69 @@
 .bauhaus-page .search-field:focus-within { outline: 2px solid var(--bauhaus-blue); outline-offset: 3px; }
 .bauhaus-page .course-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .bauhaus-page .course-card, .bauhaus-page .course-card.featured { position: relative; min-height: 340px; grid-column: auto; display: flex; flex-direction: column; border: 1px solid var(--bauhaus-black); transition: none; --course-accent: var(--bauhaus-blue); }
-.bauhaus-page .course-card:nth-child(3n + 2) { --course-accent: var(--bauhaus-red); }
-.bauhaus-page .course-card:nth-child(3n) { --course-accent: var(--bauhaus-yellow); }
+.bauhaus-page .course-card:nth-of-type(3n + 2) { --course-accent: var(--bauhaus-red); }
+.bauhaus-page .course-card:nth-of-type(3n) { --course-accent: var(--bauhaus-yellow); }
 .bauhaus-page .course-card:hover { transform: none; box-shadow: none; }
 .bauhaus-page .course-card:focus-within { outline: 2px solid var(--bauhaus-blue); outline-offset: 3px; }
 .bauhaus-page .course-spine { flex-direction: row; align-items: center; min-height: 45px; padding: 10px 22px; background: var(--course-accent); color: white; border-bottom: 1px solid var(--bauhaus-black); }
-.bauhaus-page .course-card:nth-child(3n) .course-spine { color: var(--bauhaus-black); }
+.bauhaus-page .course-card:nth-of-type(3n) .course-spine { color: var(--bauhaus-black); }
 .bauhaus-page .spine-code { writing-mode: horizontal-tb; transform: none; font-size: 10px; letter-spacing: .02em; }
 .bauhaus-page .spine-mark { font-size: 13px; }
 .bauhaus-page .course-card-body { flex: 1; padding: 24px; }
 .bauhaus-page .course-overline { color: var(--muted-ink); font-size: 10px; font-weight: 500; letter-spacing: 0; text-transform: none; margin-bottom: 12px; }
 .bauhaus-page .course-card h3 { font-size: 23px; line-height: 1.3; letter-spacing: -.7px; }
-.bauhaus-page .course-description { font-size: 12px; line-height: 1.8; margin: 15px 0 23px; }
-.bauhaus-page .course-metrics { font-size: 11px; gap: 20px; }
+.bauhaus-page .course-description { font-size: 12px; line-height: 1.8; margin: 15px 0 16px; }
+.bauhaus-page .course-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+.bauhaus-page .course-tag { padding: 2px 8px; border: 1px solid var(--grid-line); background: #eeece4; color: var(--bauhaus-black); font-size: 10px; font-weight: 600; line-height: 1.5; }
+.bauhaus-page .course-metrics { display: flex; flex-wrap: wrap; align-items: center; font-size: 11px; gap: 10px 16px; }
 .bauhaus-page .metric strong { font-size: 15px; }
+.bauhaus-page .course-badge, .bauhaus-page .item-badge { display: inline-flex; align-items: center; padding: 2px 8px; font-size: 10px; font-weight: 700; line-height: 1.4; border: 1px solid var(--bauhaus-black); }
+.bauhaus-page .web-badge { background: var(--bauhaus-yellow); color: var(--bauhaus-black); }
+.bauhaus-page .bundle-badge { background: #e9e6dc; color: var(--bauhaus-black); }
 .bauhaus-page .lecture-ticks { margin: 18px 0; gap: 3px; }
 .bauhaus-page .lecture-tick { width: 9px; height: 4px; background: var(--course-accent); border: 0; }
 .bauhaus-page .lecture-tick.bundle { width: 20px; background: var(--bauhaus-black); }
 .bauhaus-page .course-link { display: flex; justify-content: space-between; align-self: stretch; border-top: 1px solid var(--grid-line); padding-top: 15px; color: var(--bauhaus-black); font-size: 12px; }
 .bauhaus-page .course-link:hover { color: var(--bauhaus-blue); }
 .bauhaus-page .course-link::after { content: "↗"; font-size: 19px; line-height: 1; }
-.bauhaus-page .course-detail { box-shadow: none; }
+.bauhaus-page .course-filters { display: flex; flex-wrap: wrap; gap: 10px; margin: -6px 0 26px; }
+.bauhaus-page .filter-chip { padding: 8px 16px; border: 1px solid var(--bauhaus-black); background: var(--paper-white); color: var(--bauhaus-black); font-size: 12px; font-weight: 650; cursor: pointer; }
+.bauhaus-page .filter-chip:hover { border-color: var(--bauhaus-blue); color: var(--bauhaus-blue); }
+.bauhaus-page .filter-chip.active { background: var(--bauhaus-black); color: var(--paper-white); }
+.bauhaus-page .course-group-header { grid-column: 1 / -1; display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 18px 0 8px; border-top: 2px solid var(--bauhaus-black); margin-top: 12px; }
+.bauhaus-page .course-group-header:first-child { margin-top: 0; }
+.bauhaus-page .course-group-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
+.bauhaus-page .course-group-title h3 { margin: 0; font-size: 20px; font-weight: 750; letter-spacing: -.5px; }
+.bauhaus-page .course-group-title p { margin: 0; color: var(--muted-ink); font-size: 12px; }
+.bauhaus-page .course-group-count { font-size: 11px; font-weight: 700; color: var(--muted-ink); white-space: nowrap; }
+.bauhaus-page .search-lectures { margin-bottom: 28px; border: 1px solid var(--bauhaus-black); border-top: 5px solid var(--bauhaus-blue); background: var(--paper-white); padding: 18px 24px; }
+.bauhaus-page .search-lectures-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--grid-line); }
+.bauhaus-page .search-lectures-title { margin: 0; font-size: 14px; font-weight: 750; }
+.bauhaus-page .search-lectures-hint { font-size: 11px; color: var(--muted-ink); }
+.bauhaus-page .search-lecture-row { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--grid-line); }
+.bauhaus-page .search-lecture-row:last-child { border-bottom: 0; padding-bottom: 2px; }
+.bauhaus-page .search-lecture-order { font-size: 12px; font-weight: 750; color: var(--bauhaus-blue); }
+.bauhaus-page .search-lecture-header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 4px; }
+.bauhaus-page .search-lecture-course { font-size: 11px; font-weight: 650; color: var(--muted-ink); }
+.bauhaus-page .search-lecture-title { margin: 0 0 3px; font-size: 15px; font-weight: 700; line-height: 1.35; }
+.bauhaus-page .search-lecture-meta { margin: 0; font-size: 11px; color: var(--muted-ink); }
+.bauhaus-page .search-lecture-link { min-height: 36px; padding: 8px 14px; font-size: 11px; text-transform: none; background: var(--bauhaus-yellow); border-color: var(--bauhaus-black); }
+.bauhaus-page .course-detail { box-shadow: none; border: 1px solid var(--bauhaus-black); border-top: 5px solid var(--bauhaus-black); }
 .bauhaus-page .course-detail-heading h2 { line-height: 1.25; letter-spacing: -.03em; }
+.bauhaus-page .course-detail-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: 18px; }
+.bauhaus-page .detail-summary-pill { display: inline-flex; align-items: center; padding: 4px 10px; border: 1px solid var(--bauhaus-black); background: #eeece4; font-size: 11px; font-weight: 700; }
+.bauhaus-page .detail-summary-pill.web-badge { background: var(--bauhaus-yellow); }
+.bauhaus-page .detail-source-link { font-size: 12px; font-weight: 650; color: var(--bauhaus-blue); text-decoration: none; border-bottom: 1px solid currentColor; }
+.bauhaus-page .course-bundles-callout { margin-top: 22px; padding: 16px 20px; border: 1px solid var(--bauhaus-black); border-left: 5px solid var(--bauhaus-red); background: #f3efe4; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; }
+.bauhaus-page .course-bundles-label { margin: 0; font-size: 12px; font-weight: 700; }
+.bauhaus-page .course-bundles-links { display: flex; flex-wrap: wrap; gap: 10px; }
+.bauhaus-page .bundle-quick-link { min-height: 38px; padding: 8px 14px; font-size: 12px; text-transform: none; background: var(--paper-white); border-color: var(--bauhaus-black); }
+.bauhaus-page .bundle-quick-link:hover { background: var(--bauhaus-yellow); }
+.bauhaus-page .detail-filter-bar { margin-top: 22px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 18px; border-top: 1px solid var(--grid-line); }
+.bauhaus-page .detail-filter-input { flex: 1 1 280px; padding: 9px 14px; border: 1px solid var(--bauhaus-black); background: var(--bauhaus-paper); font-size: 12px; color: var(--bauhaus-black); }
+.bauhaus-page .detail-filter-input:focus { outline: 2px solid var(--bauhaus-blue); outline-offset: 2px; }
+.bauhaus-page .detail-filter-count { font-size: 11px; font-weight: 650; color: var(--muted-ink); }
+.bauhaus-page .item-meta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
 .bauhaus-page .papers-section { border-top: 2px solid var(--bauhaus-black); }
 .papers-page .papers-section { border-top: 0; min-height: 65vh; }
 .papers-page .section-heading h1 { font-size: clamp(36px, 5vw, 56px); line-height: 1.2; letter-spacing: -.03em; }
@@ -338,6 +379,13 @@
   .bauhaus-page .course-grid, .bauhaus-page .paper-grid { grid-template-columns: 1fr; }
   .bauhaus-page .course-card, .bauhaus-page .course-card.featured { min-height: 315px; }
   .bauhaus-page .course-card h3 { font-size: 24px; }
+  .bauhaus-page .course-filters { gap: 8px; margin-bottom: 20px; }
+  .bauhaus-page .filter-chip { flex: 1 1 calc(50% - 8px); text-align: center; padding: 8px 10px; font-size: 11px; }
+  .bauhaus-page .search-lectures { padding: 14px 16px; }
+  .bauhaus-page .search-lecture-row { grid-template-columns: 1fr; gap: 8px; }
+  .bauhaus-page .search-lecture-link { justify-self: start; }
+  .bauhaus-page .course-bundles-callout { padding: 14px 16px; }
+  .bauhaus-page .bundle-quick-link { width: 100%; justify-content: flex-start; white-space: normal; text-align: left; }
   .bauhaus-page .paper-card { min-height: 155px; }
   .bauhaus-page .site-footer { align-items: flex-start; gap: 0; }
 }

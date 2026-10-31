@@ -68,11 +68,18 @@
         <label for="course-search">搜索课程、讲次或主题</label>
         <div class="search-field">
           <span aria-hidden="true">⌕</span>
-          <input id="course-search" type="search" autocomplete="off" placeholder="例如 Tokenization、并发、FlashAttention">
+          <input id="course-search" type="search" autocomplete="off" placeholder="例如 Tokenization、并发、FlashAttention、缓存一致性">
           <kbd>/</kbd>
         </div>
         <p id="library-status" role="status" aria-live="polite"></p>
       </div>
+      <div id="course-filters" class="course-filters" role="toolbar" aria-label="课程分类筛选">
+        <button type="button" class="filter-chip active" data-filter="all" aria-pressed="true">全部课程</button>
+        <button type="button" class="filter-chip" data-filter="university" aria-pressed="false">高校系统课程</button>
+        <button type="button" class="filter-chip" data-filter="collection" aria-pressed="false">专题与分享</button>
+        <button type="button" class="filter-chip" data-filter="web" aria-pressed="false">支持网页精读</button>
+      </div>
+      <section id="search-lectures" class="search-lectures" aria-label="匹配讲次" hidden></section>
       <div id="course-grid" class="course-grid" aria-label="课程列表"></div>
       <section id="course-detail" class="course-detail" aria-labelledby="course-detail-title" hidden></section>
       <div id="empty-state" class="empty-state" hidden>

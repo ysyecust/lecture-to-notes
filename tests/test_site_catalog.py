@@ -89,10 +89,44 @@ class SiteCatalogTests(unittest.TestCase):
                 set(catalog["stats"]),
             )
             self.assertEqual("course-a", catalog["courses"][0]["id"])
+            self.assertEqual(1, catalog["courses"][0]["lecture_count"])
+            self.assertEqual(0, catalog["courses"][0]["bundle_count"])
             self.assertEqual("Trusted title", catalog["items"][0]["title"])
             self.assertEqual("Legacy Name", catalog["items"][0]["detected_title"])
             self.assertEqual("community-contributions", catalog["courses"][1]["id"])
             self.assertTrue((output / "pdfs/legacy-name.pdf").is_file())
+
+    def test_bundles_do_not_double_count_course_or_global_pages(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            content, docs = self.source_tree(root)
+            course_dir = content / "courses/course-a"
+            write_pdf(course_dir / "bundle.pdf")
+            manifest = json.loads((course_dir / "course.json").read_text(encoding="utf-8"))
+            manifest["items"].append(
+                {
+                    "file": "bundle.pdf",
+                    "title": "Complete Bundle",
+                    "order": 2,
+                    "expected_pages": 1,
+                    "bundle": True,
+                }
+            )
+            (course_dir / "course.json").write_text(json.dumps(manifest), encoding="utf-8")
+            catalog = build_catalog(
+                content,
+                root / "output",
+                "2026-07-16T00:00:00Z",
+                docs_root=docs,
+                inspector=fake_inspector,
+            )
+            course_a = catalog["courses"][0]
+            self.assertEqual(2, course_a["item_count"])
+            self.assertEqual(1, course_a["lecture_count"])
+            self.assertEqual(1, course_a["bundle_count"])
+            self.assertEqual(1, course_a["page_count"])
+            self.assertEqual(2, catalog["stats"]["lecture_count"])
+            self.assertEqual(2, catalog["stats"]["page_count"])
 
     def test_rejects_page_count_mismatch(self):
         with tempfile.TemporaryDirectory() as directory:

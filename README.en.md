@@ -82,7 +82,7 @@ Trigger in Claude Code or Codex with `/lecture-to-notes <URL>`, or paste a YouTu
 
 ## Course library and online reading
 
-The [course site](https://blog.simona.plus/lecture-to-notes/) hosts Chinese lecture notes and paper analyses across multiple open courses (including Stanford CS336, CMU 15-418/618 *Parallel Computer Architecture and Programming*, CMU 11-768 *AI Agents*, and Nanjing University *Generative Software Engineering* and *Operating Systems* — currently 10 courses, 105 lecture items, and 3,600 pages).
+The [course site](https://blog.simona.plus/lecture-to-notes/) hosts Chinese lecture notes and paper analyses across multiple open courses (including Stanford CS336, CMU 15-418/618 *Parallel Computer Architecture and Programming*, CMU 11-768 *AI Agents*, and Nanjing University *Generative Software Engineering* and *Operating Systems* — currently 9 courses and collections, 101 lectures, and 2,451 lecture pages).
 
 <img src="docs/assets/readme/reading.webp" alt="Course library home, desktop web reading, phone web reading" width="100%">
 
