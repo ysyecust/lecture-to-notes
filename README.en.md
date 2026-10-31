@@ -82,7 +82,7 @@ Trigger in Claude Code or Codex with `/lecture-to-notes <URL>`, or paste a YouTu
 
 ## Course library and online reading
 
-The [course site](https://blog.simona.plus/lecture-to-notes/) hosts Chinese lecture notes and paper analyses across multiple open courses (including Stanford CS336, Nanjing University *Generative Software Engineering* and *Operating Systems*, and CMU 11-768 *AI Agents*).
+The [course site](https://blog.simona.plus/lecture-to-notes/) hosts Chinese lecture notes and paper analyses across multiple open courses (including Stanford CS336, CMU 15-418/618 *Parallel Computer Architecture and Programming*, CMU 11-768 *AI Agents*, and Nanjing University *Generative Software Engineering* and *Operating Systems* — currently 10 courses, 105 lecture items, and 3,600 pages).
 
 <img src="docs/assets/readme/reading.webp" alt="Course library home, desktop web reading, phone web reading" width="100%">
 
@@ -129,6 +129,18 @@ npm run test:e2e                  # Playwright desktop and mobile reading tests
 PYTHONPATH=. python3 -m unittest discover -s tests -v
 ```
 
+### 3. Clean up workspace artifacts (optional)
+
+After generating notes, `scripts/clean_artifacts.py` removes intermediate frames, subtitle tracks, and logs by whitelist while keeping deliverables (`*.pdf`, `*.md`, referenced images, plus `notes.tex` and `figures/` by default):
+
+```bash
+python3 scripts/clean_artifacts.py                        # scan content/courses (report only)
+python3 scripts/clean_artifacts.py <workdir> --dry-run    # preview cleanup list for <workdir>
+python3 scripts/clean_artifacts.py <workdir>              # clean <workdir>
+python3 scripts/clean_artifacts.py <workdir> --only-md    # keep only *.md and assets/
+python3 scripts/clean_artifacts.py <workdir> --drop-tex   # also remove notes.tex and figures/
+```
+
 Release workflow details are in [docs/releasing.md](docs/releasing.md) (Chinese).
 
 ## Repository layout
@@ -159,6 +171,7 @@ Release workflow details are in [docs/releasing.md](docs/releasing.md) (Chinese)
 │   ├── verify_figures.py       # three-way figure check (timestamp × subtitle × frame)
 │   ├── extract_claims.py       # numerical-claim extraction and verification
 │   ├── verify_notes.py         # one-shot delivery gate (density, artifacts, compile log, footnotes)
+│   ├── clean_artifacts.py      # whitelist-based workspace artifact cleanup
 │   ├── web_notes.py            # notes.tex → checked web article conversion
 │   ├── build_site.py           # static site builder (with site_catalog.py and pdf_inspector.py)
 │   └── install_skill.sh        # installs skill into local agent directories

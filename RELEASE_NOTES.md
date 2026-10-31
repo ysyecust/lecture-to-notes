@@ -1,5 +1,13 @@
 # Release notes
 
+## v1.2.0 — 2026-10-31 — CMU 15-418/618 course, NJU GSE Lectures 5–10, technical talks, and Markdown delivery gate
+
+- **CMU 15-418/618 Parallel Computer Architecture and Programming (Spring 2018)**: Published all 27 lectures plus a 475-page unified compendium (`content/courses/cmu-15-418-2018/`, contributed by `@fengchen321` in `#41`–`#43`), covering modern multicore & SIMD/GPU architecture, parallel programming abstractions, cache coherence, memory consistency, interconnection networks, lock-free synchronization, transactional memory, and domain-specific parallel systems.
+- **NJU GSE 2026 Lectures 5–10**: Added Lectures 5–10 (`content/courses/nju-gse-2026/`, `#35`–`#37`, `347a836`, `b1c6f52`) in both PDF and verified web-article (`web_source`) formats, extending the *Generative Software Engineering* course from repository management through specification, verification, DeepSeek Harness, and software evolution.
+- **Technical Talks (`content/courses/technical-talks/`)**: Added Jascha Sohl-Dickstein's *Advice for a Young Investigator in the Anthropocene* (`ab20f0e`, 30 pages, 19 figures) and Lauren Tan's *How to Trust Your Coding Agents — `control-glass`, `pstack`, `Benny`, and `Dune`* (`0ecd21a`, 33 pages, 20 figures) in both PDF and verified web-article formats. The course library now spans **10 courses, 105 lecture items, 3,600 pages, 9 paper analyses, and 16 verified dual-format web articles**.
+- **Markdown workflow delivery gate & workspace cleanup (`#40`, contributed by `@vo1dLee3`)**: Added `verify_notes_md.py` for `lecture-to-md` (enforcing evidence tables, numerical-claim synchronization, uncropped-frame verification, and speaker-attribution checks) and `scripts/clean_artifacts.py` for whitelist-based workspace artifact cleanup.
+- **Pipeline reliability & documentation**: Downsampled review frames (`frames/*.jpg`) to `1280px` JPEG and batched multimodal image reads (`<= 6` frames per turn) to prevent session timeouts on high-resolution recordings (`cf65376`, closes `#39`); added an empty-SRT guard in `correct_srt.py` and streamlined `README.md`, `README.en.md`, and `docs/contribute.html` (`ef2199b`).
+
 ## v1.1.0 — 2026-09-16 — Online web reading documentation and NJU GSE Lecture 4
 
 - Added NJU GSE 2026 Lecture 4 (软件仓库管理（二）) in both PDF and verified web-article formats.
