@@ -677,6 +677,75 @@
           "figures/fig_44_distill_myself_rsi.png": "da6d944dc80a07267b546375465689dc33c8a5222c071f6440a83973d37beb7e"
         }
       }
+    },
+    {
+      "file": "nju_gse_2026_11_software_quality_assurance_1_zh.pdf",
+      "title": "第 11 讲：软件质量保障（一）",
+      "order": 11,
+      "expected_pages": 54,
+      "duration_minutes": 97,
+      "instructor": "蒋炎岩",
+      "source_url": "https://www.bilibili.com/video/BV1ej4g6xESc/",
+      "source_label": "B站",
+      "meta": "蒋炎岩 · Fault/Error/Failure、可测试性架构、DiffTest 与 Fuzzing · 97min · 54页",
+      "web_source": {
+        "tex": "source/lecture11/notes.tex",
+        "sha256": "c62e3632c312fcb2ddbdc6367f47568380a6497034238666f6c41ad6e01d0a2b",
+        "pdf_sha256": "ed188816548dcace7fda227116e1696049e9424a13809e1869e7fee4f8e45b7a",
+        "expected": {
+          "chapters": 11,
+          "figures": 42,
+          "images": 42,
+          "callouts": 14,
+          "tables": 2,
+          "math": 261,
+          "time_tokens": 84
+        },
+        "resources": {
+          "figures/fig_01_review_carrier_evolution.png": "e11a67598a0516de38a10525e39c28315a7f59a121d65dff2568fa8ce58d394c",
+          "figures/fig_02_rebase_ironies_of_automation.png": "ae4e6351d8eb42c4c426a27a7c9ec8ba692a9d85ab29c7a84669ac7da869776a",
+          "figures/fig_03_git_history_terminal.png": "41ff41927d121a71788b81ca6cd8f966f22e04cb329eb8de077a614930715d49",
+          "figures/fig_04_programmer_hallucination_bench.png": "a85a2310d8b5d249286719e9b905c2cc46a170a4506d456fdf8116aae7f2b700",
+          "figures/fig_05_github_thefuck_typo.png": "c087929a45b9dac04e8d8a6c37fad86fb6882d483f65d7277e5d17742ae0f893",
+          "figures/fig_06_nested_loop_typo_slide.png": "6772fd5b45aec6bfb275316ccaf2c8dab3b5466ea7043f7aa93bbbbeec3e700d",
+          "figures/fig_07_board_nested_loop_ub.png": "a31ed74e2533e1af172b0224944fbbfef4286396089781e5681e36a1331ee469",
+          "figures/fig_08_fault_error_failure_slide.png": "3fc5ac38618cfc7b9a2ad00fb54b93b75191acbcdc25064a0185749c6bd5a55c",
+          "figures/fig_09_board_fault_error_failure.png": "458b5782c9032e98f10a17f0a1e6f76bbc685081b389d8caf4f8b64f262b4a03",
+          "figures/fig_10_ariane_501_disaster.png": "7d3e099d7a42dfe7cb141bc837e1e9be64434bb48e7c5dd5c601d8e518d01faf",
+          "figures/fig_11_qa_basic_methods_slide.png": "5ec2c887338ded8e19943c29d3228248477bf066807ab508e2517f65a9d2e925",
+          "figures/fig_12_board_state_space_qa.png": "cb0299f0035ce515e65e8d07f573b4361ffb76f037ccbe54a03bacf6a59a178a",
+          "figures/fig_13_board_pointer_malloc_spec.png": "7569bbce86a22b1b7e8a2efcf9a64a9155bbfda60a76a1384dbe6332b5471bc4",
+          "figures/fig_14_testing_env_package_lock.png": "0c2c6a8be712417e8347e5dedad435c2b7caa496d163975c048a53234a4195d6",
+          "figures/fig_15_board_environment_inputs.png": "a0d9b442471b409e6a4bced2d214329bc5d8c81d6016752cebfd652af97e4393",
+          "figures/fig_16_nondeterministic_runs_chess.png": "ae5b6782fc9fe7c08147849b37b0ba988819e0ba7a16d886c9caced66edb9f35",
+          "figures/fig_17_concurrency_bug_video.png": "ed67f5dadee6a7777e152c4f98c29d1e8c938081ca0c3ab955326c47f7d08478",
+          "figures/fig_18_program_correctness_dijkstra.png": "95988f4c31fcfc9d2921570d04d37553d4b0ac2138cef316194948e5f580f7ed",
+          "figures/fig_19_testing_effectiveness_swe_agent.png": "a2782d366adc5ee6e1d3f4d4557bbaeb7a00c0acb0d97aee295cb5b20f11098d",
+          "figures/fig_20_board_spec_sampling_loop.png": "33601293736cb59ed64da6dc32bb476175518958890894d5a336f504005e0386",
+          "figures/fig_21_swe_agent_aci_architecture.png": "ac94461c74103bcb611a90642c2c009f75f5de58088d3f69b943d080827fa74f",
+          "figures/fig_22_swe_agent_benchmark_results.png": "5a865c6eebede5249f997003b1bb31b4fbf61e65c2b385157980e72787469cb6",
+          "figures/fig_23_four_testing_levels_mars.png": "c065a2b6b72c8036cc46b25f8483987449e434acef16ec02700f9757260a4275",
+          "figures/fig_24_blackbox_testing_design.png": "d7b641828d8d86407de0794590d12d858b53e011ac39040c56637246d9b6c20a",
+          "figures/fig_25_whitebox_coverage_oracle.png": "ac1f6c93d40e778879c20877809dcfc76c686c0cd319669aeaed24dafe81ea0e",
+          "figures/fig_26_qa_engineer_bar_comic.png": "0bdd2b9151faeda0235f56a01e102addbfae83f1c0c10934e3157a595346616a",
+          "figures/fig_27_test_pyramid_ci_regression.png": "d6b9f3a9960d7f3482969cd9279a58cfae11eca350408a9dc9e534e3d473b1c7",
+          "figures/fig_28_lecture_notes_testing_summary.png": "74facd62acc8210780864fc9229026150baf3db5b197b1029c4a22d882bbecc9",
+          "figures/fig_29_real_world_vibe_coding_era.png": "92671970a1f754452d41add349213d3bfe448259e1248ddd0a2f46f84f200254",
+          "figures/fig_30_csthree_live_demo_map.png": "1bbe890c67b4b5b286d91562db17f672751b4c5ed769ef8aaa3b8e41632dcbf1",
+          "figures/fig_31_csthree_project_metrics.png": "9a5951ce8fd518b24c5e2f5e57b098f56f8630e4a231c73ce7fb986a13b23a37",
+          "figures/fig_32_csthree_fps_gameplay.png": "a3b456940707ca6c773ec8ed880d68bf64425b6be4bf93010c393e00ddc14647",
+          "figures/fig_33_long_horizon_task_slide.png": "c837ec24da15be4058e81506d48fc1cbabe1b8d53f5adfaba2c22ffc7dff541d",
+          "figures/fig_34_agent_trajectory_http_413.png": "a83b7a0400d68ac13fec6fcd1839555e7a2f171c11c7f1167d152174046d362e",
+          "figures/fig_35_modular_game_entities.png": "80c67f09ecb7c6a536acd6c269dadd886963dadde3289a14ce2a3922f3c63da4",
+          "figures/fig_36_architecture_determines_quality.png": "183f2e7c96fe454678ef78a09965f7c4fa97a2cbbd685d7cdea489c3836c9a5a",
+          "figures/fig_37_controllable_dependencies_idioms.png": "9632c29d05f590d9b847188cbf1e1f9495c093d3b63f8ee4fa42392fccca6289",
+          "figures/fig_38_differential_testing_nemu.png": "90f25dc1a6873ce4f81d176456079f295416602c0f9417174cbb01bd2fd98680",
+          "figures/fig_39_difftest_first_divergence.png": "35199ab42e157d90d16656f4151fe9d6f07dfc554de2569766375265ca4a8baa",
+          "figures/fig_40_xiangshan_difftest_mstatus.png": "be417fc4fc9ceefd249d6d1ef12816da92332803e9733206c90648da81fa26ca",
+          "figures/fig_41_fuzz_testing_afl_genetic.png": "5da79c8614b82b1adc08ea27956db44253016691ec224531832a622e8b30e61e",
+          "figures/fig_42_san_mehat_sdcard_robot.png": "1de74c28de3a4b59c7157d8cc065d5dbf78e83b227ff64bc8de0b02022641b0a"
+        }
+      }
     }
   ]
 }
