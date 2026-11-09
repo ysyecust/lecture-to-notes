@@ -12,7 +12,7 @@ PDF.js 由 `package.json` 锁定版本并随站点本地打包，不依赖公共
 
 - **南京大学《生成式软件工程》**（`content/courses/nju-gse-2026/`）：`source/notes.tex`（第 1 讲）及 `source/lecture02/notes.tex` 至 `source/lecture11/notes.tex`（第 2–11 讲）。
 - **CMU 11-768 AI Agents**（`content/courses/cmu-ai-agents/`）：`source/lecture01/notes.tex` 至 `source/lecture04/notes.tex`（第 1–4 讲）。
-- **技术与研究分享**（`content/courses/technical-talks/`）：`source/jascha_anthropocene_investigator/notes.tex` 与 `source/lauren_tan_trust_coding_agents/notes.tex`。
+- **技术与研究分享**（`content/courses/technical-talks/`）：`source/jascha_anthropocene_investigator/notes.tex`、`source/lauren_tan_trust_coding_agents/notes.tex` 与 `source/muli_higgs_realtime_duplex/notes.tex`。
 
 源文件、对应 PDF 和引用图片的 SHA-256 固定在课程 manifest 的 `web_source` 中。修改其中任何内容后，必须复核并更新 profile，不能通过自动刷新哈希绕过内容审阅。
 

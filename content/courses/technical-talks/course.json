@@ -116,6 +116,61 @@
           "figures/fig_20_dune_enforcement_layers.png": "c486c5517ebe46dfb3f43d24bdff8ba8b80ae4fe1ff0be10d27030baf58e4811"
         }
       }
+    },
+    {
+      "file": "muli_higgs_realtime_duplex_zh.pdf",
+      "title": "从一问一答到全双工：Higgs Realtime Duplex 多模态交互模型背后的技术",
+      "order": 4,
+      "expected_pages": 38,
+      "duration_minutes": 43,
+      "instructor": "李沐 (Boson AI)",
+      "source_url": "https://www.bilibili.com/video/BV1LB4a6DEWL/",
+      "source_label": "B站",
+      "meta": "李沐 · 43min · 38页",
+      "web_source": {
+        "tex": "source/muli_higgs_realtime_duplex/notes.tex",
+        "sha256": "e45b3b5b7b6c6d2cb98846da7692b7f28c163c588dbd1ca4c6bd4f738a09573d",
+        "pdf_sha256": "4d68b7b27c09d1591fc111d7b1324a6ea5b3a64fcfe618d6b2037f4a8936d756",
+        "expected": {
+          "chapters": 9,
+          "figures": 28,
+          "images": 28,
+          "callouts": 7,
+          "tables": 1,
+          "math": 191,
+          "time_tokens": 56
+        },
+        "resources": {
+          "figures/fig_01_title_slide.png": "500d0a9d9c444fba3b8900e8e6b22f85efe3ec6c8f95631f98d8ca4a26a951f1",
+          "figures/fig_02_demo_team_meeting.png": "749bf0c030345d68c646dd182ea3f79f55712ec5fe9c2373918ab6d9547104a3",
+          "figures/fig_03_demo_drive_thru.png": "e717b6b17c57ea4167d0d3d229bbf61a74458b15b1f0ea6816171662f4e00093",
+          "figures/fig_04_demo_english_tutor.png": "1505f4c10d361e8f2363db5441ef6eab7db924457a894c6237a96e8d0fc00411",
+          "figures/fig_05_good_model_human_like.png": "6e69a2dcfcc93fff2928ae4743311a6e247d9b8cc695955bed2245eb82c9d26a",
+          "figures/fig_06_good_model_smart.png": "409bb60ac6e5d908f8e04dd3a2ac8dcdbae94beca899c00a33a140092c0a1737",
+          "figures/fig_07_good_model_venn_three.png": "cbef9c3f10c6b161d319aec924bba389b2c2fb101a538d5efa3c73dcfc5d5f45",
+          "figures/fig_08_cascaded_pipeline_arch.png": "21e17c47cf5e4c1e03f84107d48be4a110b65fa8f691dbd51acd93a48bb9a21f",
+          "figures/fig_09_semantic_vad_upgrade.png": "3d92a2d70ae0770d92fa8d11379e02611e630393b43778d9f3a04e679cb293b6",
+          "figures/fig_10_modular_independent_upgrade.png": "1c384040d75bb9e0f4574e16b904b9653e99fa11dc40e8fc730d79adfa0388a2",
+          "figures/fig_11_cascaded_latency_stack.png": "ba42b78ca9f803c6ffef032bed594a3a26a93eecf047ffd0bd6c3405f019ad79",
+          "figures/fig_12_text_narrow_pipe_bottleneck.png": "794503c62e6b6ee014d85eddc57fc9453745638a50b099ad92700b761d2bfdd3",
+          "figures/fig_13_inside_asr_and_tts.png": "88add657f3529f8228c3fc992d7868871f3521fa7259b30fc40c867325d07da0",
+          "figures/fig_14_merge_three_decoders.png": "443cf3346f60b54a745fc207b25e65818c646c471d23cbf7480b14fc80111827",
+          "figures/fig_15_unified_multimodal_llm.png": "75241a828ded50aeaa9d655dcae11d724b7aee6bd334dcccb8bf61d26e5fc47e",
+          "figures/fig_16_end_to_end_audio_video.png": "097afdd81d813067bf5c2faf4dda0a92cc49d399cc65054858351604fcf66ed6",
+          "figures/fig_17_three_unsolved_problems.png": "270f268b71892cd6372676a730298fa1445eeeab0571adb184bd246427185012",
+          "figures/fig_18_single_to_multi_thread.png": "bd1097564bf981ee4bdbcecbb3ea7bd27c1fbc71c15d10d9ebce44e818bc7649",
+          "figures/fig_19_full_duplex_160ms_timeline.png": "8b539fe15652ca14412acafab615ee7313513a6200f135155992f746a5afc3f6",
+          "figures/fig_20_eight_steps_zoom_in.png": "b050fe71135b037b9b81a1aa56f68ec766ded889131beb4996bf560f1f444ead",
+          "figures/fig_21_think_call_tools_delegate.png": "86ddad0e36f9aa47425cac6779491c714b265c53247fa8cf0e91dd0a793fe505",
+          "figures/fig_22_tight_token_budget.png": "56a56ddae2b995179d80266f6fbfc0a37086ec530f5c19e2a3739b274c36379d",
+          "figures/fig_23_zero_shot_voice_face_decoders.png": "6bfc1c6f602cf9ecead64ad2715c1d84dda22574d85d089cd733f45648b328fa",
+          "figures/fig_24_model_45b_moe_2t_midtrain.png": "b2b48cdd557cca669df7df7150370a5720c00c421ee48aa5ea5371ce695cf198",
+          "figures/fig_25_posttrain_grpo_mopd_rsi.png": "3cff175fe3aa61cb623143225e1c93896c6726714303ead4470c7ba4bb1ab1a3",
+          "figures/fig_26_benchmark_comparison_table.png": "eef0c80b75bab48cf819176263f5de354999ffa16f32f75f3791e0318db6ab11",
+          "figures/fig_27_summary_three_pillars.png": "806608a53ffc233c31765fcf752d87ffbd0ef5be820f056d90c1bebde69cfdbb",
+          "figures/fig_28_closing_api_waitlist.png": "a785b28fc458db138e8d5488eb60f76eb87b51e587c84e2664d9b828a4f12ef6"
+        }
+      }
     }
   ]
 }
