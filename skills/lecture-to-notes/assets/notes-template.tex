@@ -21,11 +21,13 @@
 \usepackage{amsmath, amssymb}
 \usepackage{graphicx}
 \usepackage[margin=2.5cm]{geometry}
+\emergencystretch=3em
 \usepackage[most]{tcolorbox}
 \usepackage{etoolbox}
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage{subcaption}
 \usepackage{float}
 \usepackage{tikz}
@@ -37,18 +39,23 @@
 % ===== Highlight boxes =====
 \newtcolorbox{knowledgebox}[1]{
     enhanced, colback=blue!5!white, colframe=blue!75!black, colbacktitle=blue!75!black,
-    coltitle=white, fonttitle=\bfseries, title=#1, attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    coltitle=white, fonttitle=\bfseries, title={#1}, attach boxed title to top left={yshift=-2mm, xshift=2mm},
     boxrule=1pt, sharp corners
 }
 
 \newtcolorbox{importantbox}[1]{
     enhanced, colback=yellow!10!white, colframe=yellow!80!black, colbacktitle=yellow!80!black,
-    coltitle=black, fonttitle=\bfseries, title=#1, sharp corners
+    coltitle=black, fonttitle=\bfseries, title={#1}, sharp corners
 }
 
 \newtcolorbox{warningbox}[1]{
     enhanced, colback=red!5!white, colframe=red!75!black, colbacktitle=red!75!black,
-    coltitle=white, fonttitle=\bfseries, title=#1, sharp corners
+    coltitle=white, fonttitle=\bfseries, title={#1}, sharp corners
+}
+
+\newtcolorbox{practicebox}[1]{
+    enhanced, colback=black!3!white, colframe=black!75, colbacktitle=black!75,
+    coltitle=white, fonttitle=\bfseries, title={#1}, sharp corners
 }
 
 % ===== Code listings =====

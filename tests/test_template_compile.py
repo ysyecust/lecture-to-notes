@@ -16,9 +16,12 @@ TEMPLATE = ROOT / "skills/lecture-to-notes/assets/notes-template.tex"
 
 SMOKE_BODY = r"""\section{测试}
 温度 1150\,\degC，厚度 20--50\,\um，节点 14\,\nm，晶格 5.43\,\angstrom；公式 $T=1150\degC$。
-\begin{importantbox}{核心概念}
+\begin{importantbox}{核心概念, k=1}
 每张配图下方以脚注标注其在原视频中的画面时间区间。
 \end{importantbox}
+\begin{practicebox}{工程实践, step=2}
+支持逗号与等号标题。
+\end{practicebox}
 \begin{figure}[H]\centering\rule{3cm}{1cm}\caption{示意\vtag}\end{figure}
 \srcnote{03:57--04:02}
 \subsection{本章小结}

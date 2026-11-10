@@ -53,7 +53,12 @@ audio, model_name, language, out_srt, prompt = sys.argv[1:6]
 from faster_whisper import WhisperModel
 model = WhisperModel(model_name, device="auto", compute_type="auto")
 segments, info = model.transcribe(
-    audio, language=language or None, initial_prompt=prompt or None, vad_filter=True)
+    audio,
+    language=language or None,
+    initial_prompt=prompt or None,
+    vad_filter=True,
+    condition_on_previous_text=False,
+)
 def stamp(t):
     h = int(t // 3600); m = int(t % 3600 // 60); s = t % 60
     return f"{h:02d}:{m:02d}:{int(s):02d},{int(round((s - int(s)) * 1000)):03d}"
@@ -159,13 +164,16 @@ def build_command(
     language: str,
     model: str,
     initial_prompt: str = "",
+    condition_on_previous_text: bool = False,
 ) -> list[str]:
     """Assemble the backend argv. Every backend writes `<workdir>/<audio stem>.srt`."""
     audio_s = str(audio)
+    cond_flag = "True" if condition_on_previous_text else "False"
     if backend == "mlx":
         cmd = prefix + [
             audio_s, "--model", model, "--output-dir", str(workdir),
             "--output-format", "srt", "--verbose", "True",
+            "--condition-on-previous-text", cond_flag,
         ]
         if language:
             cmd += ["--language", language]
@@ -179,6 +187,7 @@ def build_command(
         cmd = prefix + [
             audio_s, "--model", model, "--output_format", "srt",
             "--output_dir", str(workdir), "--fp16", "False", "--verbose", "True",
+            "--condition_on_previous_text", cond_flag,
         ]
         if language:
             cmd += ["--language", language]
@@ -229,6 +238,8 @@ def run_with_budget(
             break
         time.sleep(poll_seconds)
     thread.join(timeout=5)
+    if proc.stdout is not None:
+        proc.stdout.close()
     if killed:
         proc.wait()
         return 3, 0
@@ -243,6 +254,8 @@ def main(argv=None) -> int:
     parser.add_argument("--backend", default="auto", choices=["auto", "mlx", "faster", "openai"])
     parser.add_argument("--model", default=None, help="backend-specific model name (default per backend)")
     parser.add_argument("--initial-prompt", default=None, help="text file with domain terms")
+    parser.add_argument("--condition-on-previous-text", action="store_true",
+                        help="enable conditioning on previous text (disabled by default to prevent repetition loops)")
     parser.add_argument("--budget-minutes", type=float, default=10.0,
                         help="abort if no segment appears within this many minutes (default 10)")
     parser.add_argument("--out", default="audio.srt", help="final SRT name inside workdir")
@@ -262,7 +275,10 @@ def main(argv=None) -> int:
     model = args.model or default_model(backend)
     prompt = Path(args.initial_prompt).read_text(encoding="utf-8").strip() if args.initial_prompt else ""
     prefix = available[backend] or []
-    cmd = build_command(backend, prefix, audio, workdir, args.language, model, prompt)
+    cmd = build_command(
+        backend, prefix, audio, workdir, args.language, model, prompt,
+        condition_on_previous_text=args.condition_on_previous_text,
+    )
     env = dict(os.environ)
     overrides = resolve_cache_env(workdir, env)
     env.update(overrides)

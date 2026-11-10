@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.web_notes import ConversionError, build_web_notes, convert, digest, prepare_tex, safe_file, video_time_url
+from scripts.web_notes import ConversionError, build_web_notes, convert, digest, image_size, prepare_tex, safe_file, video_time_url
 
 import importlib.util
 
@@ -108,6 +108,39 @@ class WebNotesTests(unittest.TestCase):
             document=BeautifulSoup((root/'out/article.html').read_text(),'html.parser')
             caption=document.select_one('figure figcaption').get_text()
             self.assertEqual([image['alt'] for image in document.select('figure img')],[caption,caption])
+
+    def test_image_size_reads_png_jpeg_and_webp_headers(self):
+        if importlib.util.find_spec('PIL') is None:
+            self.skipTest('Pillow required')
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            img = Image.new('RGB', (345, 210), (20, 40, 60))
+            for name, kwargs in (('a.png', {}), ('b.jpg', {'quality': 85}), ('c.webp', {'quality': 80}), ('d.webp', {'lossless': True})):
+                path = root / name
+                img.save(path, **kwargs)
+                self.assertEqual(image_size(path), (345, 210), name)
+
+    @unittest.skipUnless(READY, 'Pandoc required')
+    def test_equation_labels_and_eqref_convert_cleanly(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            text = r'''\documentclass{article}
+\begin{document}
+\section{公式引用}
+\begin{equation}\label{eq:loss}
+L = x^2 + y^2
+\end{equation}
+如式 \eqref{eq:loss} 所示。
+\end{document}'''
+            source = root / 'notes.tex'
+            source.write_text(text)
+            spec = {'expected': {'chapters': 1, 'figures': 0, 'images': 0, 'callouts': 0, 'tables': 0, 'math': 1, 'time_tokens': 0}, 'resources': {}}
+            item = {'id': 'eq', 'title': '测试', 'sha256': 'pdf', 'source_url': ''}
+            result = convert(source, root, root / 'out', spec, item)
+            html = (root / 'out/article.html').read_text()
+            self.assertEqual(result['status'], 'passed')
+            self.assertIn('如式 (1) 所示', html)
 
     def test_failed_conversion_does_not_publish_html_or_reuse_old_output(self):
         with tempfile.TemporaryDirectory() as d:

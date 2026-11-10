@@ -23,6 +23,7 @@ Checks:
 Usage:
     python3 verify_notes.py [--workdir .] [--tex notes.tex] [--log notes.log]
         [--pdf notes.pdf | --pdf-text rendered.txt] [--overfull-pt 10] [--skip-pdf]
+        [--check-web]
 """
 from __future__ import annotations
 
@@ -347,6 +348,7 @@ def figure_blocks(tex: str) -> list[dict]:
             "file": match.group(1),
             "caption": cap.group(1).strip() if cap else "",
             "key": caption_key(cap.group(1)) if cap else "",
+            "long_key": caption_key(cap.group(1), 18) if cap else "",
             "time": re.sub(r"\s+", "", time.group(1)) if time else "",
             "line": tex.count("\n", 0, match.start()) + 1,
         })
@@ -388,15 +390,48 @@ def figure_gate(workdir: Path, tex: str, pages: list[str] | None, report: Report
         if not b["time"] or not b["key"]:
             continue
         time_key = normalize_page(b["time"])
-        cap_pages = {i for i, p in enumerate(pages) if b["key"] in p}
+        long_key = b.get("long_key") or ""
+        cap_pages = {i for i, p in enumerate(pages) if long_key and len(long_key) > len(b["key"]) and long_key in p}
+        if not cap_pages:
+            cap_pages = {i for i, p in enumerate(pages) if b["key"] in p}
         time_pages = {i for i, p in enumerate(pages) if time_key in p}
         if cap_pages and time_pages and not (cap_pages & time_pages):
             split += 1
-            print(f"  SPLIT {b['file']}: caption on page {sorted(cap_pages)[0] + 1}, footnote on page {sorted(time_pages)[0] + 1}")
+            first_time_page = min(time_pages)
+            prior_caps = [p for p in cap_pages if p <= first_time_page]
+            best_cap_page = max(prior_caps) if prior_caps else min(cap_pages)
+            print(f"  SPLIT {b['file']}: caption on page {best_cap_page + 1}, footnote on page {first_time_page + 1}")
         elif not time_pages:
             split += 1
             print(f"  NOFOOT {b['file']}: footnote '{b['time']}' not found in rendered text")
     report.emit("PASS" if split == 0 else "FAIL", "figure footnotes on the same page as captions" if split == 0 else f"{split} figures whose footnote is not on the caption page")
+
+
+def web_gate(workdir: Path, tex_path: Path, report: Report) -> None:
+    if not tex_path.exists():
+        report.emit("FAIL", "web conversion check (notes.tex missing)")
+        return
+    import importlib.util
+    import tempfile
+    script_dir = str(Path(__file__).resolve().parent)
+    if script_dir not in sys.path:
+        sys.path.insert(0, script_dir)
+    import web_notes
+    try:
+        web_notes.prepare_tex(tex_path.read_text(encoding="utf-8"))
+        if shutil.which("pandoc") and importlib.util.find_spec("bs4") is not None:
+            with tempfile.TemporaryDirectory() as tmp:
+                web_notes.convert(
+                    tex_path,
+                    workdir,
+                    Path(tmp),
+                    {},
+                    {"id": "check", "title": "check", "source_url": "", "sha256": "check"},
+                    review=True,
+                )
+        report.emit("PASS", "web conversion preflight")
+    except Exception as error:
+        report.emit("FAIL", f"web conversion preflight: {error}")
 
 
 # ---------------------------------------------------------------- main
@@ -410,6 +445,7 @@ def main(argv=None) -> int:
     parser.add_argument("--overfull-pt", type=float, default=10.0)
     parser.add_argument("--skip-pdf", action="store_true")
     parser.add_argument("--skip-log", action="store_true")
+    parser.add_argument("--check-web", action="store_true", help="verify TeX also passes web_notes conversion")
     args = parser.parse_args(argv)
 
     workdir = Path(args.workdir).resolve()
@@ -424,6 +460,8 @@ def main(argv=None) -> int:
         tex = tex_path.read_text(encoding="utf-8")
         pages = None if args.skip_pdf else pdf_pages(workdir / args.pdf, Path(args.pdf_text) if args.pdf_text else None)
         figure_gate(workdir, tex, pages, report)
+    if args.check_web:
+        web_gate(workdir, tex_path, report)
     print("OVERALL", "PASS" if report.ok else "FAIL")
     return 0 if report.ok else 1
 

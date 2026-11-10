@@ -57,11 +57,13 @@ class CommandBuildingTests(unittest.TestCase):
         self.assertEqual(cmd[cmd.index("--output-format") + 1], "srt")
         self.assertEqual(cmd[cmd.index("--output-dir") + 1], "/w")
         self.assertEqual(cmd[cmd.index("--verbose") + 1], "True")
+        self.assertEqual(cmd[cmd.index("--condition-on-previous-text") + 1], "False")
         self.assertEqual(cmd[cmd.index("--initial-prompt") + 1], "术语")
 
     def test_openai_command_disables_fp16_and_uses_underscore_flags(self):
         cmd = transcribe.build_command("openai", ["whisper"], self.audio, self.workdir, "zh", "small")
         self.assertEqual(cmd[cmd.index("--fp16") + 1], "False")
+        self.assertEqual(cmd[cmd.index("--condition_on_previous_text") + 1], "False")
         self.assertEqual(cmd[cmd.index("--output_format") + 1], "srt")
         self.assertNotIn("--initial_prompt", cmd)
 

@@ -10,6 +10,7 @@ import hashlib
 import json
 import re
 import shutil
+import struct
 import subprocess
 import tempfile
 from pathlib import Path
@@ -28,6 +29,53 @@ class ConversionError(ValueError):
 
 def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def image_size(path: Path) -> tuple[int, int] | None:
+    """Fast pure-Python header reader for PNG, JPEG, and WebP dimensions."""
+    try:
+        with path.open("rb") as handle:
+            head = handle.read(30)
+            if head.startswith(b"\x89PNG\r\n\x1a\n") and len(head) >= 24:
+                return struct.unpack(">II", head[16:24])
+            if head.startswith(b"RIFF") and len(head) >= 30 and head[8:12] == b"WEBP":
+                chunk = head[12:16]
+                if chunk == b"VP8 " and len(head) >= 30:
+                    w, h = struct.unpack("<HH", head[26:30])
+                    return w & 0x3FFF, h & 0x3FFF
+                if chunk == b"VP8L" and len(head) >= 25:
+                    bits = struct.unpack("<I", head[21:25])[0]
+                    return (bits & 0x3FFF) + 1, ((bits >> 14) & 0x3FFF) + 1
+                if chunk == b"VP8X" and len(head) >= 30:
+                    w = int.from_bytes(head[24:27], "little") + 1
+                    h = int.from_bytes(head[27:30], "little") + 1
+                    return w, h
+            if not head.startswith(b"\xff\xd8"):
+                return None
+            handle.seek(2)
+            while True:
+                if handle.read(1) != b"\xff":
+                    return None
+                marker = handle.read(1)
+                while marker == b"\xff":
+                    marker = handle.read(1)
+                if not marker:
+                    return None
+                code = marker[0]
+                if code == 0x01 or 0xD0 <= code <= 0xD8:
+                    continue
+                length = handle.read(2)
+                if len(length) < 2:
+                    return None
+                if 0xC0 <= code <= 0xCF and code not in (0xC4, 0xC8, 0xCC):
+                    frame = handle.read(5)
+                    if len(frame) < 5:
+                        return None
+                    height, width = struct.unpack(">HH", frame[1:5])
+                    return width, height
+                handle.seek(struct.unpack(">H", length)[0] - 2, 1)
+    except OSError:
+        return None
 
 
 def safe_file(root: Path, name: str) -> Path:
@@ -90,6 +138,26 @@ def prepare_tex(source: str):
     # Cover and print-only TOC remain available in the original PDF. Never discard
     # ordinary article content in order to make a conversion pass.
     body = re.sub(r"\\begin\{titlepage\}.*?\\end\{titlepage\}", "", body, flags=re.S)
+    if r"\eqref{" in body:
+        eq_labels: dict[str, str] = {}
+        eq_Pattern = re.compile(r"(\\begin\{(equation|align|gather)\})(.*?)(\\end\{\2\})", flags=re.S)
+        def _number_eq(match: re.Match[str]) -> str:
+            open_tag, _, inner, close_tag = match.groups()
+            found = re.findall(r"\\label\{([^}]+)\}", inner)
+            if not found:
+                return match.group(0)
+            num = str(len(eq_labels) + 1)
+            for name in found:
+                eq_labels[name.strip()] = num
+            cleaned = re.sub(r"\\label\{[^}]+\}", "", inner).rstrip()
+            return f"{open_tag}{cleaned}\\qquad \\text{{({num})}}\n{close_tag}"
+        body = eq_Pattern.sub(_number_eq, body)
+        if eq_labels:
+            body = re.sub(
+                r"\\eqref\{([^}]+)\}",
+                lambda m: f"({eq_labels[m.group(1).strip()]})" if m.group(1).strip() in eq_labels else m.group(0),
+                body,
+            )
     notes, boxes = {}, {}
     srcnote_template = None
     definition = re.search(r"\\newcommand\{\\srcnote\}\[1\]", preamble)
@@ -227,7 +295,11 @@ def convert(source: Path, source_root: Path, output: Path, spec: dict, item: dic
         if asset.suffix.lower() not in (".png", ".jpg", ".jpeg", ".webp"):
             raise ConversionError("unsupported image format")
         dest = output / target; dest.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(asset, dest)
-        size = subprocess.check_output(["identify", "-ping", "-format", "%w %h", str(asset)], text=True, timeout=15).split()
+        dims = image_size(asset)
+        if dims is not None:
+            size = [str(dims[0]), str(dims[1])]
+        else:
+            size = subprocess.check_output(["identify", "-ping", "-format", "%w %h", str(asset)], text=True, timeout=15).split()
         image["width"], image["height"] = size[0], size[1]
         image["src"] = target; image["loading"] = "lazy"; image.attrs.pop("style", None)
         image["alt"] = image.find_parent("figure").figcaption.get_text() if image.find_parent("figure") else "讲义插图"

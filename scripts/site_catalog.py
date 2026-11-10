@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import concurrent.futures
 import json
+import os
 import shutil
 import sys
 from collections.abc import Callable
@@ -99,12 +101,26 @@ def inspect_course(
 ) -> tuple[dict[str, object], list[dict[str, object]]]:
     manifest = load_course_manifest(directory / "course.json")
     course_id = str(manifest["id"])
-    records: list[dict[str, object]] = []
+    validated_items: list[tuple[dict[str, object], Path]] = []
     for raw_item in manifest["items"]:
         if not isinstance(raw_item, dict):
             raise CatalogError(f"course {course_id} contains a non-object item")
         source_pdf = _safe_pdf(directory, raw_item.get("file"))
-        inspected = inspector(source_pdf, thumbnail_dir)
+        validated_items.append((raw_item, source_pdf))
+
+    if inspector is inspect_pdf and len(validated_items) > 1:
+        workers = min(8, os.cpu_count() or 4, len(validated_items))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
+            inspected_list = list(
+                pool.map(lambda pair: inspector(pair[1], thumbnail_dir), validated_items)
+            )
+    else:
+        inspected_list = [
+            inspector(source_pdf, thumbnail_dir) for _, source_pdf in validated_items
+        ]
+
+    records: list[dict[str, object]] = []
+    for (raw_item, source_pdf), inspected in zip(validated_items, inspected_list):
         shutil.copy2(source_pdf, pdf_output_dir / source_pdf.name)
         records.append(_item_record(course_id, raw_item, inspected, source_pdf))
     records.sort(

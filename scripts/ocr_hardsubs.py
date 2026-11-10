@@ -303,6 +303,11 @@ def build_glossary(
             if tag != "replace":
                 continue
             wrong, right = w_key[i1:i2], o_key[j1:j2]
+            if 0 < len(wrong) <= max_len < len(right):
+                if i2 == len(w_key) and j2 == len(o_key):
+                    right = right[:len(wrong)]
+                elif i1 == 0 and j1 == 0:
+                    right = right[-len(wrong):]
             if not (0 < len(wrong) <= max_len and 0 < len(right) <= max_len):
                 continue
             if not (CJK.search(wrong) or CJK.search(right)):

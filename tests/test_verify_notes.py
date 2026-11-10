@@ -96,6 +96,27 @@ class VerifyNotesTests(unittest.TestCase):
         self.assertEqual(code, 1)
         self.assertIn("SPLIT figures/02_cz.jpg", out)
 
+    def test_split_footnote_reports_figure_page_even_if_toc_repeats_short_prefix(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workdir = make_workdir(tmp, split_footnote=True)
+            toc_page = "目录 直拉法示意 ...... 3"
+            page1 = "电弧炉熔炼示意：主反应与副反应 1 视频画面时间区间：03:57–04:02。"
+            page3 = "直拉法示意 2"
+            page4 = "视频画面时间区间：06:29–06:34。"
+            (workdir / "rendered.txt").write_text("\f".join([toc_page, page1, page3, page4]), encoding="utf-8")
+            code, out = run(workdir)
+        self.assertEqual(code, 1)
+        self.assertIn("SPLIT figures/02_cz.jpg: caption on page 3, footnote on page 4", out)
+
+    def test_check_web_rejects_unpaired_or_forbidden_tex(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workdir = make_workdir(tmp)
+            bad = (workdir / "notes.tex").read_text(encoding="utf-8").replace(r"\section{问题二}", r"\input{/etc/passwd}\section{问题二}")
+            (workdir / "notes.tex").write_text(bad, encoding="utf-8")
+            code, out = run(workdir, "--check-web")
+        self.assertEqual(code, 1)
+        self.assertIn("FAIL web conversion preflight", out)
+
     def test_missing_figure_file_is_reported(self):
         with tempfile.TemporaryDirectory() as tmp:
             code, out = run(make_workdir(tmp, drop_figure=True))
