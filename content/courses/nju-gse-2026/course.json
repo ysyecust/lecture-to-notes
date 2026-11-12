@@ -746,6 +746,74 @@
           "figures/fig_42_san_mehat_sdcard_robot.png": "1de74c28de3a4b59c7157d8cc065d5dbf78e83b227ff64bc8de0b02022641b0a"
         }
       }
+    },
+    {
+      "file": "nju_gse_2026_12_software_quality_assurance_2_zh.pdf",
+      "title": "第 12 讲：软件质量保障（二）",
+      "order": 12,
+      "expected_pages": 53,
+      "duration_minutes": 95,
+      "instructor": "蒋炎岩",
+      "source_url": "https://www.bilibili.com/video/BV1LaW36WErp/",
+      "source_label": "B站",
+      "meta": "蒋炎岩 · 形式化方法、Hoare 逻辑、循环不变式、模型检查、TLA+/KLEE/CompCert/seL4、Proof Assistant、Curry-Howard 同构与 Proof-Carrying Code",
+      "web_source": {
+        "tex": "source/lecture12/notes.tex",
+        "sha256": "96c2c487d82bcbab6fb78e9442e5a56dda25edd4860d1a5d0e21b34fc98dc546",
+        "pdf_sha256": "3243919776d9fd343feb2c5ecbd1e3ed526db44b66b3a3958819018d693d12b4",
+        "expected": {
+          "chapters": 11,
+          "figures": 41,
+          "images": 41,
+          "callouts": 14,
+          "tables": 3,
+          "math": 549,
+          "time_tokens": 82
+        },
+        "resources": {
+          "figures/fig01_review_spec_impl_gap.jpg": "a7e917f77f7f8b8c58523c1f45aabedfcd46fb99d9a75fe54a224e75fc57c6e1",
+          "figures/fig03_board_state_transition_test.jpg": "e0767fb3a0bc3c00b474e014915b8b0ebebe0c356345226d141f96b42fa72c6a",
+          "figures/fig02_testing_hierarchy_naive.jpg": "90693b11c038e52155e12dd3b807416b55c27b744b5c3adfd7592db1f349c714",
+          "figures/fig04_testing_md_ssot_table.jpg": "2be90964a8fc42a11ae4a7f2e410fe1939de0616e621884b15a1097440b3fc6b",
+          "figures/fig05_board_testing_registry_table.jpg": "2af2fe2e48f8d6adec1e0c268a720bd110b8979fb8ebf78f62b00f9eaf8ddbd9",
+          "figures/fig06_single_source_of_truth.jpg": "356a96e28c85372f5fb774a7786379f29349c9fa3b1ebbb893e3ce30ff94d797",
+          "figures/fig07_formal_methods_history_mccarthy_turing.jpg": "36ee3b0144414c4eda69098d8a91db292d5c456bde43886b25cb3c2fc3b3dfee",
+          "figures/fig08_board_program_proof_formula.jpg": "8be03cfb8366e3930b7887599c7dbe6764c7172ec197fc19b02123a0999774a2",
+          "figures/fig09_formal_methods_floyd_hoare.jpg": "d0177d02d20b4a6a64d854224ab6b62544343d54e9d823b1f9ed1ff027b71f4c",
+          "figures/fig10_hoare_1969_paper_text.jpg": "f9e7244f92b575ff2b4da47610a59204ac2762a47b2f44848156d939b9c66967",
+          "figures/fig11_hoare_1969_modular_arithmetic_table.jpg": "e938ed1eafa2189127e848fc73f0dd552fdc615e8ceff32918acdd882509c8fc",
+          "figures/fig12_hoare_triple_slide.jpg": "fdd4eab1a4ebf3b456c87216246ae880bb9680f3130e0c684ad5cfb144383b26",
+          "figures/fig13_loop_invariant_slide.jpg": "fff8329109fa40eee3836d363239f1052de9c588221535b2528220d168771b58",
+          "figures/fig14_board_loop_invariant_assert.jpg": "f235a9d15936027def441b4f7aa54dbd4bf6e2ef66a1f03cea4216d4921eac42",
+          "figures/fig15_boyer_moore_majority_vote.jpg": "521689cfb0258f16e794f527c2fd47eadb12a9dfe4dca13e4ebf2f23bf16f199",
+          "figures/fig16_everything_is_state_machine.jpg": "11178c503859907480f5f81aea55620a48b120b226b20f1c8aa42b090513c806",
+          "figures/fig17_board_reachable_set_closure.jpg": "b7fa30e3cd0a3bc54d38e08ef4df67869ca0a6387d091b092b76b2641307516c",
+          "figures/fig18_prove_by_brute_force_tsum.jpg": "0207b5022850a16ecbac0e4b81788a6b1c2bbf59293d926a200bdd4a9e883201",
+          "figures/fig19_symbolic_model_checking_bdd.jpg": "201f819e4f24396acbf0a7e7874adfaebd1912e9bc24d929b59cbbbcf7894255",
+          "figures/fig20_bmc_cegar_ic3_slide.jpg": "fec446eaf674e865627d1753b4659b4e960f781ba2a6931d3a22ed53112e5cac",
+          "figures/fig21_vim_slide_prompt_source.jpg": "20805e3101fd555235daee8d9dd437ebf1faff4973281c40f7a507c0438c6e52",
+          "figures/fig22_tlaplus_2pc_refinement.jpg": "00eb1de056083e192c6b039a7f8f94760e18494c2a2350d2dd422fa1131cfd05",
+          "figures/fig23_board_refinement_mapping.jpg": "562605cedd63d543da5b058b794d37550f1c2befa1eba3eb1fdd6e86f4d65678",
+          "figures/fig24_terminal_agent_dmesg_diagnosis.jpg": "fd2ff031d7d38de625c60fea09635590f97af02cc0bcbdcc2147b42ca1fa3b02",
+          "figures/fig25_klee_symbolic_execution.jpg": "f33e2483794e5f1d8aeaeb71d7133da16e9a44fc2fcfb59e817b8093779bbd8f",
+          "figures/fig26_compcert_and_sel4.jpg": "ef5bf88675eb96c93aa7daa853ae931e37fe6521b94ba518a853b08d5e252531",
+          "figures/fig27_proof_assistant_feedback.jpg": "c1dea439e824c7822d53fe833b66726e5142b013df227a9679388bf9f833eef2",
+          "figures/fig28_proof_assistant_workbench.jpg": "5a914cbd771913e05e0827c9a79fa360b8dae26542649cdb7f2cf7117f4c9ea5",
+          "figures/fig29_tactic_exists_forall.jpg": "367cb5ad3043c9c63cdf1bddec9d085f177b08e773131fe610985b8b73cfc0e2",
+          "figures/fig30_tactic_induction_implication.jpg": "851d466e73c8f15812e9053112d6e76c078ebc99624992ec423af104b088bb68",
+          "figures/fig31_curry_howard_correspondence.jpg": "0e7be68a171ecb7f546e60f73312ef90d0b8240ceb3df917261404388a38af60",
+          "figures/fig32_proof_construction_choose_intro.jpg": "0ade391bb02d2208d04f14a32f2922f1962f283aff220476125a2aeec9567754",
+          "figures/fig33_induction_as_recursive_program.jpg": "c4879c764d55c2396c78b6c54b46dd65cd1e0f18295372646083fcfe8f5a7f7e",
+          "figures/fig34_why_not_learn_proof_assistant.jpg": "78354085ae35fd98f794f9ae5abc9777446dcaaa402bb929c816c9674088f5bf",
+          "figures/fig35_phd_conjecture_ghost_story.jpg": "a8d491eef67e203ffb4b0cc6d6133892a4093efe4d8079a9d0b7b63dbc58d2a6",
+          "figures/fig36_cs_training_and_proof_tax.jpg": "b3d47d167e56e1b914156cf000b82470c8d26221b49f863d0ef641deb573e407",
+          "figures/fig37_formalization_executable_testable.jpg": "ce8b83ff548b09e50022e263e317508224cc1672ce5ef9e7c568540e27b42665",
+          "figures/fig38_proof_carrying_code.jpg": "e7d8bfb1720a4f665c7b0bdaa6b4c9862dcdf0a6677dec1ef4f9aa732f3c3ad5",
+          "figures/fig39_no_silver_bullet_formalization.jpg": "d304ece6d2f365aa7cd18dd10524c8d46117044b253f8f139da3a8622fcbea75",
+          "figures/fig40_autoformalization_hard_cases.jpg": "a40fc97df228057298d1410da219e2b8d09ec8238491611831379db3fb1e49f7",
+          "figures/fig41_system2_rationality_hypothesis.jpg": "295e596dc70b4cc18545966692fda80f242c59a1ee5c298bc03f0f47674861fe"
+        }
+      }
     }
   ]
 }
