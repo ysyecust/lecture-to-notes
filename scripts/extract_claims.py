@@ -102,7 +102,7 @@ def parse_tsv(text: str) -> list[dict]:
 def flatten_tex(tex: str) -> str:
     """Strip LaTeX spacing, math delimiters, and unit macros so numbers compare as text."""
     body = tex.split(r"\begin{document}", 1)[1] if r"\begin{document}" in tex else tex
-    body = re.sub(r"%[^\n]*", "", body)
+    body = re.sub(r"(?<!\\)%[^\n]*", "", body)
     body = re.sub(r"\\(?:,|;|!|quad|qquad|thinspace)", "", body)
     body = re.sub(r"\\(?:mathrm|text|textbf|textit|emph|mathbf|si|SI|num)\{([^{}]*)\}", r"\1", body)
     body = re.sub(r"\\(?:degC|celsius)", "℃", body)

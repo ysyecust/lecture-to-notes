@@ -814,6 +814,73 @@
           "figures/fig41_system2_rationality_hypothesis.jpg": "295e596dc70b4cc18545966692fda80f242c59a1ee5c298bc03f0f47674861fe"
         }
       }
+    },
+    {
+      "file": "nju_gse_2026_13_software_analysis_tools_zh.pdf",
+      "title": "第 13 讲：软件分析工具",
+      "order": 13,
+      "expected_pages": 49,
+      "duration_minutes": 92,
+      "instructor": "蒋炎岩",
+      "source_url": "https://www.bilibili.com/video/BV1wysu6hEkz/",
+      "source_label": "B站",
+      "meta": "蒋炎岩 · 人类与 AI 的 RSI、Rice 定理、静态/动态/模型分析工具取舍、软件自然性、非形式化验证与 Mechanism is King",
+      "web_source": {
+        "tex": "source/lecture13/notes.tex",
+        "sha256": "85799a12b84498a3788be9b302275ae06186c2ac6ec73a9d6bb4254adbc726c7",
+        "pdf_sha256": "1dbc6e1e5e77cf0f2c3e94b849cd2081b80b65ece84c8a9cac8ca9f731b38916",
+        "expected": {
+          "chapters": 11,
+          "figures": 40,
+          "images": 40,
+          "callouts": 12,
+          "tables": 4,
+          "math": 199,
+          "time_tokens": 80
+        },
+        "resources": {
+          "figures/fig01_review_software_projection.jpg": "b55b534d3e0be289eaa44e0a39be62635138a94ede9fd37be58f9d28c84b6abf",
+          "figures/fig02_board_intent_spec_impl_triangle.jpg": "263bc8af7bb217571d92f6f4a02ac982ad0d32adaa9fec61cecf994b3b13941d",
+          "figures/fig03_sei_cert_c_floating_point.jpg": "1655e4f76335ef44c0758037a9567adc5b663829b1c8b926be036a8b9c5e5d7a",
+          "figures/fig04_sei_cert_c_str09_char.jpg": "8bca7f20531a92260cab77d397f421ff886ce7674c3ff2b8b69d1867b4584b78",
+          "figures/fig05_tools_and_human_rsi.jpg": "b515aaa32b0ef1b083f275aebc82f7df946eb73f74eeacc8cba3fc325eb23f7a",
+          "figures/fig06_ai_tool_creation_latm.jpg": "fc567babf06860ce87bd17f0d7b80e43b51b11efbae581bec072b6c915be5989",
+          "figures/fig07_traditional_mechanical_tools.jpg": "1c787698a8a46e8349055731070dbaa98b5941184956eabfab8f802ed8688c77",
+          "figures/fig08_codeql_llm_interface_notes.jpg": "406f3acf58c44bf74f03cfe76bb62cc70bc924a21bee8f0f2f33a40468494666",
+          "figures/fig09_codeql_ast_cfg_schema_table.jpg": "78b07ffde79a938eded34659fd17bd23ee37fbea71b755cf8f0c22c9d12c1518",
+          "figures/fig10_program_as_mathematical_object.jpg": "e2e5f865cff60ba97701633605a10462489d687bb891b0f35a081a07db07ca3f",
+          "figures/fig11_board_state_transition_graph.jpg": "7919bcc80ca3abf08a20a182a5e7dd16b6a0ba5e1d50709058d48ce320ceac55",
+          "figures/fig12_software_testing_oracle_flow.jpg": "5ab4cfe3221631ef2085be902366806069866fc4ddd8f9b2a3ee0ab6169fb604",
+          "figures/fig13_board_input_space_sampling.jpg": "2789bae3c407be7230bddf5fd9820737e2737c8e54752cd2839c03ecd45decab",
+          "figures/fig14_abstract_interpretation_interval.jpg": "0b79e7010b4a62e14d1e671d5b5938e6443ed1f8c30070bfeb9d3d9a5ae32232",
+          "figures/fig15_board_concrete_vs_abstract_tree.jpg": "28d8024e1d1b727a1dda244ede96dc349cee71c744a1bef050667d4d448008bb",
+          "figures/fig16_program_verification_obligations.jpg": "5d21930b9d07fbad86f1d4aa432cc27dc97900c76cb25fd37ff68daa1c60b6bd",
+          "figures/fig17_rices_theorem_fermat.jpg": "e4dc54230cce4fb099e3c90f6fe5e15c380b5f4e646bf136d412ab88452c94ec",
+          "figures/fig18_board_undecidability_set_boundary.jpg": "81cdda2b3baa1e31d6ed829b745c94a09bbdeb714238a425f262e5520b9223cc",
+          "figures/fig19_static_analysis_tradeoff_table.jpg": "34ba09b5af0dc5247fd3b45562e657c5bda5dd39c54cb43936d0f2cfaccb0b07",
+          "figures/fig20_holy_trinity_js_type_meme.jpg": "20881cad6041bc614ebcc343d7566d896a31be88acbc585c7ba9b8b2f52c1c4c",
+          "figures/fig21_linter_8020_categories_notes.jpg": "eeb2d193193df8016ac965cd54130df0efae40314aa47e255c901de4efc0dc02",
+          "figures/fig22_dynamic_execution_tradeoff_table.jpg": "6fb3161126bcd8d1d306d3d71fdfc19079ee6311a2f0fd596c04f6b73ef34b5e",
+          "figures/fig23_model_verification_tradeoff_table.jpg": "f527576cb0c993e1b79e210d243f0b5d6634b7457502709b48b2e8e00acf5b49",
+          "figures/fig25_pass_vs_fail_static_table.jpg": "9adae68c62342e5d640eeccc1ede44f0d88dfa206dc18865d139db8e73ab7f06",
+          "figures/fig26_pass_vs_fail_verification_table.jpg": "eac0e7ffe36b5f8544369090e2bbb2def89713a13dc5c34ff7649de2fd309e88",
+          "figures/fig24_confidence_and_formatting_signal.jpg": "a0c50f0de6f4cc671715282a69cdf973edf82cbef07121298bac5840103f658e",
+          "figures/fig27_program_as_probability_sample.jpg": "e139479cf2b5e1c25366536e14c1e907aa4a30b2da8859859573bf3f6d95d252",
+          "figures/fig28_two_worlds_anonymized_code.jpg": "e6ed73343563d855cedb8c73c6202c77910063e4d513f70e4b5d3df191e0f366",
+          "figures/fig29_names_restored_mango_tv.jpg": "5c8c794c888307903fca041983369ce9ea2ebfc464c05a2689a931e57eb5ac6b",
+          "figures/fig30_informal_verification_alignment.jpg": "2937e9c47b71a438a0359b67c93d2f179cbb6bd2dbf7e30f534465a856ded862",
+          "figures/fig31_board_formal_informal_bridge.jpg": "0a1b111c222fdc51bf1dc850f095c690bb3643e49927057e98463852b06862d3",
+          "figures/fig32_mechanism_is_king_jim_gray.jpg": "74199229fd1f4d61408539b0208f31db04dfaa1e26deacfb38fcd02d088f030e",
+          "figures/fig33_log_mining_sosp09_informal_semantics.jpg": "3167dd85ed4e5699f6357acac034f49d6a421c80bd8fd6e28e837ced85f8e841",
+          "figures/fig34_sosp09_xu_console_logs_paper.jpg": "62a7b744f8edecbbeb873394355d3e034d744d9c96c5b82457219f00b710b754",
+          "figures/fig35_board_execution_log_trajectory.jpg": "2842c96290ea32585d0eb7237c9be9137e31e367285332eca8f18772820bb144",
+          "figures/fig36_human_sense_views_ddd_nodoc.jpg": "b74202df45e2fd49ceeb674afc7fab13da14d56e55c2bc7329b9e1f8f7c05e3e",
+          "figures/fig37_ddd_live_demo_and_paper.jpg": "7653e522dd35d6c0edfc97e86df390ff5c441ec33c8f58c3b1bbb8981795b432",
+          "figures/fig38_ddd_paper_architecture_diagram.jpg": "ca297541890ed92564627d324775deae90773ea2be3bc19ce2e6f3786dad9a87",
+          "figures/fig39_future_three_circles_venn.jpg": "4d3e7224b6e523f0d55212731ea66d2789e77573c2ace6b076d99fb8b63a112e",
+          "figures/fig40_open_problem_architecture_mud.jpg": "8df4fa85892156ce859c4e47b0b6ad5a67c9bca499ef695ae332ab29410dd3c3"
+        }
+      }
     }
   ]
 }
