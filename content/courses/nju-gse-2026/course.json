@@ -881,6 +881,73 @@
           "figures/fig40_open_problem_architecture_mud.jpg": "8df4fa85892156ce859c4e47b0b6ad5a67c9bca499ef695ae332ab29410dd3c3"
         }
       }
+    },
+    {
+      "file": "nju_gse_2026_14_software_release_and_operations_zh.pdf",
+      "title": "第 14 讲：软件发布与运维",
+      "order": 14,
+      "expected_pages": 46,
+      "duration_minutes": 91,
+      "instructor": "蒋炎岩",
+      "source_url": "https://www.bilibili.com/video/BV1pu1FzKEgk/",
+      "source_label": "B站",
+      "meta": "蒋炎岩 · VP!=VNP 与 Lab3 蒸馏、Windows 3.0a/Codex 196 发布矩阵、HTTPS 信任链、零停机数据库迁移/Event Sourcing、Nginx aio threads 调优与 Google SRE 灰度发布",
+      "web_source": {
+        "tex": "source/lecture14/notes.tex",
+        "sha256": "38cc68736e70842edec844b3cb47c5a4e040f56c0a1d19fd611f5edec146d0cb",
+        "pdf_sha256": "365f21305405935ebe0d417cbfb811059e2475b7d156d57cfe850efad24c6a43",
+        "expected": {
+          "chapters": 11,
+          "figures": 40,
+          "images": 40,
+          "callouts": 14,
+          "tables": 1,
+          "math": 129,
+          "time_tokens": 80
+        },
+        "resources": {
+          "figures/fig01_review_vp_vnp_anthropic.jpg": "fdc6421dd08badff4b6e5a5912f17ac6c27ae6a370e5f09dde3769381ba7b6c3",
+          "figures/fig02_determinant_vs_permanent_leibniz.jpg": "f2bc53d66b5c21def6524869ee113481827df06b8e75bea83dbe18746bded689",
+          "figures/fig03_board_bipartite_perfect_matching.jpg": "6a23ff5ad8ea81c0201387e006dbe48f65ff0624051ec2b982b11c7be956c714",
+          "figures/fig04_euler_1737_zeta_function.jpg": "59bd35fbaba096b81435cc527a3aeee767d6826e1972d9be0d478ccdb373a738",
+          "figures/fig05_euler_infinite_series_paper.jpg": "2f1b9e11b6bedf60098ee4622e914bd4514dd9b26398a56b19125f92ae436f45",
+          "figures/fig06_levent_alpoge_prompt_master.jpg": "3536ac367bbb10178913b566c2ace91f98105686ee558b3c5350bacc57f16ea1",
+          "figures/fig07_abracadabra_magic_spell_meme.jpg": "d6a6b45a045c133d03198d2f7472b5d261031ee374618b7aa0609779a96a8a64",
+          "figures/fig08_galois_era_llm_group_theory.jpg": "1cb3b1b1de20bf8585a338eb35d255ade42d93cb527a8133a22d854c93d22350",
+          "figures/fig09_new_tools_methods_perspectives.jpg": "f76101e1db3121dbc286b292396849e2dfb455a258764f754967aabb10063bae",
+          "figures/fig10_lab2_prompt_distillation_spec.jpg": "bfbfd481a73f9d8dc28f5f3f8182e7299e6b95f17b9819602b6208976290e89d",
+          "figures/fig12_board_prompt_utility_curve.jpg": "e93ae10685acb4bdf6ccb1b1477300a9a154e3eb2ec23ceb4a4b7b59aae8fd01",
+          "figures/fig11_sha256_wordcloud_119_gates.jpg": "6f4397bbb51c3a267e2c658eaa511687e45a07b6683b4ff9eb7576d5515935fb",
+          "figures/fig13_lecture14_outline_source_md.jpg": "cf6dbfb1f3eb8ac068b08367046c9499faa48e741e5800bd4deab9957846b16d",
+          "figures/fig14_software_release_csgo_demo.jpg": "7113f60144e2de975a8e3f94f4835e214fdaab9c2540d1c71052a3fe10d39d54",
+          "figures/fig15_historical_game_distribution_doom.jpg": "8508dc5869ff0236f3d31bb1fc837c2cedc1afd84ff6bdd68ba98d82b70af96c",
+          "figures/fig16_windows_30a_15_floppies.jpg": "fd398aed354ca6736a6f236c4c85ac2c645a653a8cea535ea698de269b1a9956",
+          "figures/fig17_pc_fragmentation_matrix.jpg": "c7aae28a96825574fffa79e66193d354f330fa2799646927be6ba60f4f954ec6",
+          "figures/fig18_codex_196_release_assets.jpg": "be52604f511eff36a87d13666c6b254b04920286fae42133ccfbb093cf026708",
+          "figures/fig19_owner_new_requirements_mobile.jpg": "8702354e2af0199e7a4ec6a0e5178115afe99ec1c1634309b9902143e0880dcb",
+          "figures/fig20_csgo_web_container_demo.jpg": "ce871adcec4114aa1dd690405290a67dee6cdee34d9ccd8c90ea0c57afa51611",
+          "figures/fig21_deploy_service_localhost_meme.jpg": "7e43cab0273b8af8412e57679bc3aa43f427782948c203f9881dbb43dfb281ad",
+          "figures/fig24_gpt_store_serverless_vision.jpg": "5a3a4e9d569cf446f5b635e58a387a8a5c25cefff9128fb22db4116b8b1cd1f2",
+          "figures/fig22_agent_nginx_fcgiwrap_setup.jpg": "6ed791c039495613a5e726473c176bcb7a826f5cb89e88109cc8b6400280fe39",
+          "figures/fig23_debian_status_page_browser.jpg": "e76c9c822fa2773cf22050a256eb0f50be527ce4fd0f651f92e6aca503d15576",
+          "figures/fig25_nginx_access_log_public_traffic.jpg": "02031d5ad3d81c19137eaad9fcc627593b031b0de9f411bdd736d0de8331afb5",
+          "figures/fig26_online_endless_details_ssl.jpg": "95b5b6cfcf52be5a3c01511609bfa402274270a67c2385eeaf513a1ab7db2fd3",
+          "figures/fig27_nginx_deny_all_self_signed_cert.jpg": "9e5be7a2123a2edc42bc48f0574b76ed503c25518dd05c5180bb96b8838a7eb1",
+          "figures/fig28_chrome_cert_privacy_warning.jpg": "449640cb43dee31697280926c25ea8ff322626545720f1e7dcc19da826e1b1e1",
+          "figures/fig29_cert_trust_chain_curl_fix.jpg": "a3d2f4eed9dc7a6551f96a7fb11d958bc13a8d9f7705bef76bfd291b5aa0c284",
+          "figures/fig30_master_power_beyond_self.jpg": "46b4a83b65c29c716a35ba021bf69f1249fd33fff35c367974af3929c6be18aa",
+          "figures/fig31_ops_nightmare_nju_suzhou.jpg": "bf4378970b9962e2e919b5d288fc3324e8fb3cefd8c8c48ec51e16e6e48413b3",
+          "figures/fig32_12306_maintenance_window.jpg": "d51e85375e8df81b31ae3a2fb0dd926e5fbb06b53b770a4ef98ebb4463fa4072",
+          "figures/fig33_24x7_zero_downtime_schema_migration.jpg": "a7df21d36418e8732581be2db4f36610fd1707b01c90f1c696c5e1d922ea06c1",
+          "figures/fig34_event_sourcing_dual_projection.jpg": "5dd20229e76bdfda070b366e1cbe2a6a2a2fccd7830deacfb39d46d88bb4c2f4",
+          "figures/fig35_board_event_sourcing_replay.jpg": "915db11ee1ffd31340924165de06cf8770031f872d69f77dd95e9bf0b53dd62f",
+          "figures/fig36_system_crash_after_switch_ops.jpg": "a2ff92b41206ba7faf3417f5d1ebdd4b2ff100819781368cbb4beade833a28a6",
+          "figures/fig37_nginx_tuning_aio_worker_tls.jpg": "af98000e41ea0a4e8ec6919d5685dabbdf52524574af726a97eaa4f4835aafcb",
+          "figures/fig38_nginx_gzip_brotli_tradeoff.jpg": "01e647ea5326775dc2e6435cc125cc95c4fc395cd33c863f1048cfb2998d6f06",
+          "figures/fig39_nginx_benchmark_aio_and_amazon_timeout.jpg": "3333b06b9d3cd76ce8670c7308896c4f0bd8cd57050d5b33a9b59ed08783a0f1",
+          "figures/fig40_google_sre_on_call.jpg": "4cbcd63f186692daf43dc1fc775af99f7b879125612235412697aa68b8b64055"
+        }
+      }
     }
   ]
 }
